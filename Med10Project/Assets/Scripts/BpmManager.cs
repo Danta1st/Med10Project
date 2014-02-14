@@ -8,7 +8,7 @@ public class BpmManager : MonoBehaviour
 	private double bpm = 120.0f;
 	private double waitTime;
 	private double tempTime = 0;
-	private bool isBeating = true;
+	private bool isBeating = false;
 	private int beatCounter = 0;
 	#endregion
 	
@@ -50,12 +50,23 @@ public class BpmManager : MonoBehaviour
 	public void StartBeats()
 	{
 		isBeating = true;
+		tempTime = AudioSettings.dspTime;
 	}
 
 	public void StopBeats()
 	{
 		isBeating = false;
 		beatCounter = 0;
+	}
+
+	public void ToggleBeats()
+	{
+		isBeating = !isBeating;
+
+		if(isBeating == true)
+		{
+			tempTime = AudioSettings.dspTime;
+		}
 	}
 	#endregion
 
