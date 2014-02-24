@@ -8,6 +8,7 @@ public class ObjectHandler : MonoBehaviour
 	private BpmManager bManager;
 	private GestureManager gManager;
 	private SpawnManager sManager;
+	private GA_Submitter gaSubmitter;
 	#endregion
 	
 	void Awake()
@@ -23,6 +24,8 @@ public class ObjectHandler : MonoBehaviour
 		sManager = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();
 		if(sManager == null)
 			Debug.LogError("No SpawnManager was found in the scene.");
+		
+		gaSubmitter = GameObject.Find("GA_Submitter").GetComponent<GA_Submitter>();
 	}
 	
 	void Start ()
@@ -40,6 +43,7 @@ public class ObjectHandler : MonoBehaviour
 		{
 			if(hitInfo.collider == gameObject.collider)
 			{
+				gaSubmitter.Succes(transform);
 				sManager.AllowSpawning();
 				gManager.OnTap -= DestroySelf;
 				Destroy(gameObject);
