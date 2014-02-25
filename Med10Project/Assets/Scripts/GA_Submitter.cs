@@ -28,6 +28,11 @@ public class GA_Submitter : MonoBehaviour {
 		GA.API.Design.NewEvent("Complete:"+ID+":Position", _transform.position);
 		GA.API.Design.NewEvent("Complete:"+ID+":Angle", (float) angle);
 		GA.API.Design.NewEvent("Complete:"+ID+":Distance", distance);
+
+		GA.API.Design.NewEvent("Complete:Time:"+ID, Time.timeSinceLevelLoad);
+		GA.API.Design.NewEvent("Complete:Angle:"+ID, angle);
+		GA.API.Design.NewEvent("Complete:Distance:"+ID, distance);
+		GA.API.Design.NewEvent("Complete:Position:"+ID, _transform.position);
 		GA_Queue.ForceSubmit();
 	}	
 }
