@@ -14,6 +14,8 @@ public class SpawnManager : MonoBehaviour
 	private GA_Submitter gaSubmitter;
 
 	private bool isOccupied = false;
+
+	private int objectCounter = 0;
 	#endregion
 	
 	void Awake()
@@ -59,8 +61,14 @@ public class SpawnManager : MonoBehaviour
 			Vector3 position = gameObject.transform.up * distance;
 			//Rotate Back
 			transform.Rotate(0, 0, angle);
+			//Update Counter
+			objectCounter++;
 			//Instantiate Object
-			Instantiate(spawnObject, position, rotation);
+			GameObject go = (GameObject) Instantiate(spawnObject, position, rotation);
+			//Set Object angle
+			go.GetComponent<ObjectHandler>().SetAngle((int) angle);
+			go.GetComponent<ObjectHandler>().setID(objectCounter);
+			go.GetComponent<ObjectHandler>().setDistance(distance);
 			//Set occupied
 			isOccupied = true;
 		}

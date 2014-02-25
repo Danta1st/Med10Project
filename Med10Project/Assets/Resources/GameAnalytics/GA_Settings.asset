@@ -11,9 +11,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d0c0342116464e26abb476a494c827a, type: 3}
   m_Name: GA_Settings
   m_EditorClassIdentifier: 
-  TotalMessagesSubmitted: 61
+  TotalMessagesSubmitted: 74
   TotalMessagesFailed: 0
-  DesignMessagesSubmitted: 61
+  DesignMessagesSubmitted: 74
   DesignMessagesFailed: 0
   QualityMessagesSubmitted: 0
   QualityMessagesFailed: 0
@@ -37,12 +37,12 @@ MonoBehaviour:
   AllowRoaming: 1
   ArchiveData: 1
   NewSessionOnResume: 1
-  AutoSubmitUserInfo: 0
+  AutoSubmitUserInfo: 1
   HeatmapGridSize: {x: 1, y: 1, z: 1}
-  CustomUserID: 0
+  CustomUserID: 1
   SubmitInterval: 10
   InternetConnectivity: 1
-  CurrentInspectorState: 0
+  CurrentInspectorState: 4
   ClosedHints: 
   DisplayHints: 0
   DisplayHintsScrollState: {x: 0, y: 0}

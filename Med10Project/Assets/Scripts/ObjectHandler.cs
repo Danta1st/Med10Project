@@ -27,6 +27,25 @@ public class ObjectHandler : MonoBehaviour
 		
 		gaSubmitter = GameObject.Find("GA_Submitter").GetComponent<GA_Submitter>();
 	}
+
+	private int angle;
+	private int objectID;
+	private float distance;
+
+	public void SetAngle(int degrees)
+	{
+		angle = degrees;
+	}
+
+	public void setID(int ID)
+	{
+		objectID = ID;
+	}
+
+	public void setDistance(float _distance)
+	{
+		distance = _distance;
+	}
 	
 	void Start ()
 	{
@@ -43,7 +62,7 @@ public class ObjectHandler : MonoBehaviour
 		{
 			if(hitInfo.collider == gameObject.collider)
 			{
-				gaSubmitter.Succes(transform);
+				gaSubmitter.Succes(transform, angle, objectID, distance);
 				sManager.AllowSpawning();
 				gManager.OnTap -= DestroySelf;
 				Destroy(gameObject);
