@@ -48,13 +48,14 @@ public class SpawnManager : MonoBehaviour
 	{
 		if(isOccupied == false)
 		{
-			gaSubmitter.PerformTest();
+			//Get Random multiplier
+			int multiplier = Random.Range(0, 10);
 			//Get Random Angle
-			float angle = Random.Range(0.0f, 360.0f);
+			int angle = 36 * multiplier;
 			//Get Random Distance
 			float distance = Random.Range(2.0f, 9.0f);
 			//Rotate GameObject
-			transform.Rotate(0, 0, angle);
+			transform.Rotate(0, 0, (float) angle);
 			//Get Rotation
 			Quaternion rotation = transform.rotation;
 			//Get Position
@@ -65,10 +66,11 @@ public class SpawnManager : MonoBehaviour
 			objectCounter++;
 			//Instantiate Object
 			GameObject go = (GameObject) Instantiate(spawnObject, position, rotation);
-			//Set Object angle
+			//Set Object parameters
 			go.GetComponent<ObjectHandler>().SetAngle((int) angle);
-			go.GetComponent<ObjectHandler>().setID(objectCounter);
-			go.GetComponent<ObjectHandler>().setDistance(distance);
+			go.GetComponent<ObjectHandler>().SetID(objectCounter);
+			go.GetComponent<ObjectHandler>().SetDistance(distance);
+			go.GetComponent<ObjectHandler>().SetSpawnTime(Time.time);
 			//Set occupied
 			isOccupied = true;
 		}

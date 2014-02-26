@@ -31,20 +31,26 @@ public class ObjectHandler : MonoBehaviour
 	private int angle;
 	private int objectID;
 	private float distance;
+	private float spawnTime;
 
 	public void SetAngle(int degrees)
 	{
 		angle = degrees;
 	}
 
-	public void setID(int ID)
+	public void SetID(int ID)
 	{
 		objectID = ID;
 	}
 
-	public void setDistance(float _distance)
+	public void SetDistance(float _distance)
 	{
 		distance = _distance;
+	}
+
+	public void SetSpawnTime(float time)
+	{
+		spawnTime = time;
 	}
 	
 	void Start ()
@@ -62,7 +68,13 @@ public class ObjectHandler : MonoBehaviour
 		{
 			if(hitInfo.collider == gameObject.collider)
 			{
-				gaSubmitter.Succes(transform, angle, objectID, distance);
+				//Submit Data
+				gaSubmitter.Angle(objectID, angle);
+				gaSubmitter.Distance(objectID, distance);
+				gaSubmitter.CompletionTime(objectID, Time.time - spawnTime);
+				gaSubmitter.Position(objectID, transform.position);
+				gaSubmitter.ForceSubmit();
+
 				sManager.AllowSpawning();
 				gManager.OnTap -= DestroySelf;
 				Destroy(gameObject);
