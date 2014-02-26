@@ -18,11 +18,13 @@ public class GA_Submitter : MonoBehaviour {
 
 	private void BeginTracing()
 	{
+		//Check for userID and sessionID in playerPrefs
 		if(PlayerPrefs.HasKey(userID))
 			sessionID = PlayerPrefs.GetInt(userID) +1;
-		else
-			PlayerPrefs.SetInt(userID, sessionID);
-		
+
+		//Update userID and sessionID in playerPrefs
+		PlayerPrefs.SetInt(userID, sessionID);
+		//Set userID in GameAnalytics
 		GA.SettingsGA.SetCustomUserID(userID);
 	}
 
