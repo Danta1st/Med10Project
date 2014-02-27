@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class GA_Submitter : MonoBehaviour {
@@ -14,6 +14,14 @@ public class GA_Submitter : MonoBehaviour {
 		{
 			BeginTracing();
 		}
+	}
+
+	public void SetUserID(string newUserID){
+		userID = newUserID;
+	}
+
+	public string GetUserID(){
+		return userID;
 	}
 
 	private void BeginTracing()
@@ -63,7 +71,7 @@ public class GA_Submitter : MonoBehaviour {
 		}
 	}
 
-	public void CompletionTime(int ID, float time)
+	public void ReactionTime(int ID, float time)
 	{
 		if(SendData == true)
 		{
