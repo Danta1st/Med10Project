@@ -68,93 +68,90 @@ public class XmlData : MonoBehaviour
 	{
 		CheckSessionID ();
 		//Create new session
-				elmSession = xmlDoc.CreateElement ("session");
-				elmSession.SetAttribute ("id", _currentSessionID.ToString ());
-				elmRoot.AppendChild (elmSession);
-				xmlDoc.Save (filepath);
-		}
-	
-		private void CheckSessionID ()
+		elmSession = xmlDoc.CreateElement ("session");
+		elmSession.SetAttribute ("id", _currentSessionID.ToString ());
+		elmRoot.AppendChild (elmSession);
+		xmlDoc.Save (filepath);
+	}
+
+	private void CheckSessionID ()
+	{
+		_currentSessionID = PlayerPrefs.GetInt (_userID);
+	}
+
+	public void WriteTargetDataToXml ()
+	{
+		//Write all info to current session in current XML file for one specific target
+		if (File.Exists (filepath)) 
 		{
-				_currentSessionID = PlayerPrefs.GetInt (_userID);
+			elmTargetInstance = xmlDoc.CreateElement ("targetinstance");
+			elmTargetInstance.SetAttribute ("id", _currentTargetID.ToString ());
+			_currentTargetID++;
+			elmSession.AppendChild (elmTargetInstance);
+				
+			XmlElement elmPassed = xmlDoc.CreateElement ("passed");
+			elmPassed.InnerText = _hasPassed.ToString ();
+			elmTargetInstance.AppendChild (elmPassed);
 
-				//Check which session this is for this specific XML file, by checking amount of previous sessions
-				/*if (File.Exists (filepath)) {
-						XmlNodeList sessionList = xmlDoc.GetElementsByTagName ("session");
-						_currentSessionID = sessionList.Count;
-				}*/
-		}
+			if (_hasPassed) 
+			{
+				XmlElement elmReactionTime = xmlDoc.CreateElement ("reactiontime");
+				elmReactionTime.InnerText = _currentReactionTime.ToString ();
+				elmTargetInstance.AppendChild (elmReactionTime);
+			}
 
-		public void WriteTargetDataToXml ()
-		{
-				//Write all info to current session in current XML file for one specific target
-				if (File.Exists (filepath)) {
-						elmTargetInstance = xmlDoc.CreateElement ("targetinstance");
-						elmTargetInstance.SetAttribute ("id", _currentTargetID.ToString ());
-						_currentTargetID++;
-						elmSession.AppendChild (elmTargetInstance);
+			XmlElement elmAngle = xmlDoc.CreateElement ("angle");
+			elmAngle.InnerText = _currentAngle.ToString ();
+			elmTargetInstance.AppendChild (elmAngle);
 
-						XmlElement elmPassed = xmlDoc.CreateElement ("passed");
-						elmPassed.InnerText = _hasPassed.ToString ();
-						elmTargetInstance.AppendChild (elmPassed);
+			XmlElement elmDistance = xmlDoc.CreateElement ("distance");
+			elmDistance.InnerText = _currentDistance.ToString ();
+			elmTargetInstance.AppendChild (elmDistance);
 
-						if (_hasPassed) {
-								XmlElement elmReactionTime = xmlDoc.CreateElement ("reactiontime");
-								elmReactionTime.InnerText = _currentReactionTime.ToString ();
-								elmTargetInstance.AppendChild (elmReactionTime)
-						}
-			
-						XmlElement elmAngle = xmlDoc.CreateElement ("angle");
-						elmAngle.InnerText = _currentAngle.ToString ();
-						elmTargetInstance.AppendChild (elmAngle);
+						
+			XmlElement elmPosition = xmlDoc.CreateElement ("position");
+			elmTargetInstance.AppendChild (elmPosition);
+						
+			XmlElement elmXPosition = xmlDoc.CreateElement ("x");
+			elmXPosition.InnerText = _currentXPosition.ToString ();
+			elmPosition.AppendChild (elmXPosition);
 
-						XmlElement elmDistance = xmlDoc.CreateElement ("distance");
-						elmDistance.InnerText = _currentDistance.ToString ();
-						elmTargetInstance.AppendChild (elmDistance);
+			XmlElement elmYPosition = xmlDoc.CreateElement ("y");
+			elmYPosition.InnerText = _currentYPosition.ToString ();
+			elmPosition.AppendChild (elmYPosition);
 
-						XmlElement elmPosition = xmlDoc.CreateElement ("position");
-						elmTargetInstance.AppendChild (elmPosition);
-
-						XmlElement elmXPosition = xmlDoc.CreateElement ("x");
-						elmXPosition.InnerText = _currentXPosition.ToString ();
-						elmPosition.AppendChild (elmXPosition);
-
-						XmlElement elmYPosition = xmlDoc.CreateElement ("y");
-						elmYPosition.InnerText = _currentYPosition.ToString ();
-						elmPosition.AppendChild (elmYPosition);
-
-						XmlElement elmZPosition = xmlDoc.CreateElement ("z");
-						elmZPosition.InnerText = _currentZPosition.ToString ();
-						elmPosition.AppendChild (elmZPosition);
+			XmlElement elmZPosition = xmlDoc.CreateElement ("z");
+			elmZPosition.InnerText = _currentZPosition.ToString ();
+			elmPosition.AppendChild (elmZPosition);
 			
 			xmlDoc.Save (filepath);
 		}
 	}
 	
 	public void SetPassed (bool passed)
-		{
-				_hasPassed = passed;
-		}
+	{
+		_hasPassed = passed;
+	}
 
-		public void SetReactionTime (float time)
-		{
-				_currentReactionTime = time;
-		}
+	public void SetReactionTime (float time)
+	{
+		_currentReactionTime = time;
+	}
+
+	public void SetAngle (int angle)
+	{
+		_currentAngle = angle;
+	}
 	
-		public void SetAngle (int angle)
-		{
-				_currentAngle = angle;
-		}
+	public void SetDistance (float distance)
+	{
+		_currentDistance = distance;
+	}
 	
-		public void SetDistance (float distance)
-		{
-				_currentDistance = distance;
-		}
-	
-		public void SetPosition (Vector3 position)
-		{
-				_currentXPosition = position.x;
-				_currentYPosition = position.y;
-				_currentZPosition = position.z;
-		}
+	public void SetPosition (Vector3 position)
+	{
+		_currentXPosition = position.x;
+		_currentYPosition = position.y;
+		_currentZPosition = position.z;
+	}
 }
