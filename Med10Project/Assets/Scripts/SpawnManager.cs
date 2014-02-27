@@ -11,8 +11,11 @@ public class SpawnManager : MonoBehaviour
 	#region Privates
 	private BpmManager bManager;
 	private GestureManager gManager;
+	private GA_Submitter gaSubmitter;
 
 	private bool isOccupied = false;
+
+	private int objectCounter = 0;
 	#endregion
 	
 	void Awake()
@@ -24,10 +27,15 @@ public class SpawnManager : MonoBehaviour
 		gManager = Camera.main.GetComponent<GestureManager>();
 		if(gManager == null)
 			Debug.LogError("No GestureManager was found on the main camera.");
+
+		gaSubmitter = GameObject.Find("GA_Submitter").GetComponent<GA_Submitter>();
+		if(gaSubmitter == null)
+			Debug.LogError("No GA_Submitter was found in the scene");
 	}
 	
 	void Start ()
 	{
+		//TODO: Remove on delivery
 		gManager.OnSwipeRight += SpawnObjectRandom;
 	}
 	
@@ -41,20 +49,29 @@ public class SpawnManager : MonoBehaviour
 	{
 		if(isOccupied == false)
 		{
+			//Get Random multiplier
+			int multiplier = Random.Range(0, 35);
 			//Get Random Angle
-			float angle = Random.Range(0.0f, 360.0f);
+			int angle = 10 * multiplier;
 			//Get Random Distance
 			float distance = Random.Range(2.0f, 9.0f);
 			//Rotate GameObject
-			transform.Rotate(0, 0, angle);
+			transform.Rotate(0, 0, (float) angle);
 			//Get Rotation
 			Quaternion rotation = transform.rotation;
 			//Get Position
 			Vector3 position = gameObject.transform.up * distance;
 			//Rotate Back
 			transform.Rotate(0, 0, angle);
+			//Update Counter
+			objectCounter++;
 			//Instantiate Object
-			Instantiate(spawnObject, position, rotation);
+			GameObject go = (GameObject) Instantiate(spawnObject, position, rotation);
+			//Set Object parameters
+			go.GetComponent<ObjectHandler>().SetAngle((int) angle);
+			go.GetComponent<ObjectHandler>().SetID(objectCounter);
+			go.GetComponent<ObjectHandler>().SetDistance(distance);
+			go.GetComponent<ObjectHandler>().SetSpawnTime(Time.time);
 			//Set occupied
 			isOccupied = true;
 		}

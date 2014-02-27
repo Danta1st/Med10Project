@@ -11,9 +11,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d0c0342116464e26abb476a494c827a, type: 3}
   m_Name: GA_Settings
   m_EditorClassIdentifier: 
-  TotalMessagesSubmitted: 0
+  TotalMessagesSubmitted: 74
   TotalMessagesFailed: 0
-  DesignMessagesSubmitted: 0
+  DesignMessagesSubmitted: 74
   DesignMessagesFailed: 0
   QualityMessagesSubmitted: 0
   QualityMessagesFailed: 0
@@ -25,9 +25,9 @@ MonoBehaviour:
   UserMessagesFailed: 0
   CustomArea: 
   TrackTarget: {fileID: 0}
-  GameKey: 
-  SecretKey: 
-  ApiKey: 
+  GameKey: 26f3a1968e80bc6859d60e0d2d6ddd78
+  SecretKey: b8a1eae50dd80eec0dc429c82e3fd5e3df5a197a
+  ApiKey: c440e77ca75b3aee31afcf8592a788acf31cee16
   Build: 0.1
   DebugMode: 1
   DebugAddEvent: 0
@@ -39,12 +39,12 @@ MonoBehaviour:
   NewSessionOnResume: 1
   AutoSubmitUserInfo: 1
   HeatmapGridSize: {x: 1, y: 1, z: 1}
-  CustomUserID: 0
+  CustomUserID: 1
   SubmitInterval: 10
-  InternetConnectivity: 0
-  CurrentInspectorState: 0
+  InternetConnectivity: 1
+  CurrentInspectorState: 4
   ClosedHints: 
   DisplayHints: 0
   DisplayHintsScrollState: {x: 0, y: 0}
-  Logo: {fileID: 0}
-  UpdateIcon: {fileID: 0}
+  Logo: {fileID: 2800000, guid: 00ab0042267904964b8686dec9230a6c, type: 3}
+  UpdateIcon: {fileID: 2800000, guid: 810bbb19deed24f3cb7b854f9bafde26, type: 3}

@@ -1,0 +1,203 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Danny>
+  <session id="0">
+    <targetinstance id="0">
+      <passed>False</passed>
+      <angle>216</angle>
+      <distance>5.592501</distance>
+      <position>
+        <x>3.287189</x>
+        <y>-4.524428</y>
+        <z>0</z>
+      </position>
+      <reactiontime>0.5924807</reactiontime>
+    </targetinstance>
+    <targetinstance id="1">
+      <passed>False</passed>
+      <angle>36</angle>
+      <distance>3.674701</distance>
+      <position>
+        <x>-3.494849</x>
+        <y>-1.135545</y>
+        <z>0</z>
+      </position>
+      <reactiontime>0.546566</reactiontime>
+    </targetinstance>
+    <targetinstance id="2">
+      <passed>False</passed>
+      <angle>144</angle>
+      <distance>2.888773</distance>
+      <position>
+        <x>2.747387</x>
+        <y>0.8926791</y>
+        <z>0</z>
+      </position>
+      <reactiontime>0.7102575</reactiontime>
+    </targetinstance>
+    <targetinstance id="3">
+      <passed>False</passed>
+      <angle>252</angle>
+      <distance>3.536824</distance>
+      <position>
+        <x>2.078894</x>
+        <y>2.86135</y>
+        <z>0</z>
+      </position>
+      <reactiontime>2.373614</reactiontime>
+    </targetinstance>
+    <targetinstance id="4">
+      <passed>False</passed>
+      <angle>0</angle>
+      <distance>7.275644</distance>
+      <position>
+        <x>4.276515</x>
+        <y>-5.886122</y>
+        <z>0</z>
+      </position>
+      <reactiontime>1.009888</reactiontime>
+    </targetinstance>
+    <targetinstance id="5">
+      <passed>False</passed>
+      <angle>144</angle>
+      <distance>6.040103</distance>
+      <position>
+        <x>1.934492E-06</x>
+        <y>6.040103</y>
+        <z>0</z>
+      </position>
+      <reactiontime>0.8281002</reactiontime>
+    </targetinstance>
+  </session>
+  <session id="0">
+    <targetinstance id="0">
+      <passed>False</passed>
+      <angle>36</angle>
+      <distance>8.58338</distance>
+      <position>
+        <x>-5.045185</x>
+        <y>6.9441</y>
+        <z>0</z>
+      </position>
+      <reactiontime>1.088775</reactiontime>
+    </targetinstance>
+    <targetinstance id="1">
+      <passed>False</passed>
+      <angle>216</angle>
+      <distance>7.308905</distance>
+      <position>
+        <x>6.951181</x>
+        <y>2.258575</y>
+        <z>0</z>
+      </position>
+      <reactiontime>1.098561</reactiontime>
+    </targetinstance>
+    <targetinstance id="2">
+      <passed>False</passed>
+      <angle>72</angle>
+      <distance>5.82832</distance>
+      <position>
+        <x>3.425799</x>
+        <y>-4.715212</y>
+        <z>0</z>
+      </position>
+      <reactiontime>0.9035406</reactiontime>
+    </targetinstance>
+  </session>
+  <session id="0">
+    <targetinstance id="0">
+      <passed>False</passed>
+      <angle>324</angle>
+      <distance>3.126554</distance>
+      <position>
+        <x>1.837743</x>
+        <y>2.529435</y>
+        <z>0</z>
+      </position>
+      <reactiontime>1.001825</reactiontime>
+    </targetinstance>
+    <targetinstance id="1">
+      <passed>False</passed>
+      <angle>180</angle>
+      <distance>6.246603</distance>
+      <position>
+        <x>-5.940873</x>
+        <y>-1.930305</y>
+        <z>0</z>
+      </position>
+      <reactiontime>0.7505636</reactiontime>
+    </targetinstance>
+  </session>
+  <session id="0" />
+  <session id="0">
+    <targetinstance id="0">
+      <passed>False</passed>
+      <angle>100</angle>
+      <distance>8.645516</distance>
+      <position>
+        <x>-8.514172</x>
+        <y>-1.501278</y>
+        <z>0</z>
+      </position>
+      <reactiontime>0.7413628</reactiontime>
+    </targetinstance>
+    <targetinstance id="1">
+      <passed>False</passed>
+      <angle>140</angle>
+      <distance>3.101415</distance>
+      <position>
+        <x>1.060747</x>
+        <y>2.914377</y>
+        <z>0</z>
+      </position>
+      <reactiontime>0.6739674</reactiontime>
+    </targetinstance>
+    <targetinstance id="2">
+      <passed>False</passed>
+      <angle>90</angle>
+      <distance>7.719544</distance>
+      <position>
+        <x>3.859772</x>
+        <y>-6.685323</y>
+        <z>0</z>
+      </position>
+      <reactiontime>0.8087597</reactiontime>
+    </targetinstance>
+    <targetinstance id="3">
+      <passed>False</passed>
+      <angle>250</angle>
+      <distance>2.427032</distance>
+      <position>
+        <x>0.4214495</x>
+        <y>-2.39016</y>
+        <z>0</z>
+      </position>
+      <reactiontime>1.78601</reactiontime>
+    </targetinstance>
+  </session>
+  <session id="0">
+    <targetinstance id="0">
+      <passed>False</passed>
+      <angle>260</angle>
+      <distance>8.401025</distance>
+      <position>
+        <x>8.273395</x>
+        <y>-1.458822</y>
+        <z>0</z>
+      </position>
+      <reactiontime>1.263686</reactiontime>
+    </targetinstance>
+  </session>
+  <session id="1">
+    <targetinstance id="0">
+      <passed>False</passed>
+      <angle>30</angle>
+      <distance>6.0758</distance>
+      <position>
+        <x>-3.0379</x>
+        <y>5.261797</y>
+        <z>0</z>
+      </position>
+      <reactiontime>0.6571169</reactiontime>
+    </targetinstance>
+  </session>
+</Danny>
