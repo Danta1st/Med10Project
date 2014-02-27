@@ -412,9 +412,9 @@ GameObject:
   - 4: {fileID: 387336503}
   - 33: {fileID: 387336502}
   - 23: {fileID: 387336501}
-  - 58: {fileID: 387336500}
   - 114: {fileID: 387336499}
   - 82: {fileID: 387336504}
+  - 135: {fileID: 387336500}
   m_Layer: 0
   m_Name: Center
   m_TagString: Untagged
@@ -434,17 +434,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   countDownToSpawn: 3
---- !u!58 &387336500
-CircleCollider2D:
+  state: 0
+--- !u!135 &387336500
+SphereCollider:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 387336498}
-  m_Enabled: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Radius: .5
-  m_Center: {x: 0, y: 0}
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: .500000119
+  m_Center: {x: 5.96046448e-08, y: 0, z: -8.94069672e-08}
 --- !u!23 &387336501
 Renderer:
   m_ObjectHideFlags: 0
@@ -2495,7 +2497,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2064122894}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -.340917617, y: -.530316293, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
