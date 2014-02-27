@@ -3,16 +3,30 @@ using System.Collections;
 
 public class ObjectHandler : MonoBehaviour 
 {
+	#region Editor Publics
+	[SerializeField] private int Lifetime = 5;
+	[SerializeField] private AudioClip BeatClip;
+	#endregion
+
 
 	#region Privates
 	private BpmManager bManager;
 	private GestureManager gManager;
 	private SpawnManager sManager;
 	private GA_Submitter gaSubmitter;
+
+	//Object Information - Passed from spawner
+	private int angle;
+	private int objectID;
+	private float distance;
+	private float spawnTime;
+
+	private int lifeCounter;
 	#endregion
 	
 	void Awake()
 	{
+		//Get references
 		bManager = GameObject.Find("BpmManager").GetComponent<BpmManager>();
 		if(bManager == null)
 			Debug.LogError("No BpmManager was found in the scene.");
@@ -26,12 +40,11 @@ public class ObjectHandler : MonoBehaviour
 			Debug.LogError("No SpawnManager was found in the scene.");
 		
 		gaSubmitter = GameObject.Find("GA_Submitter").GetComponent<GA_Submitter>();
+
+		//Initiliase
+		lifeCounter = Lifetime;
 	}
 
-	private int angle;
-	private int objectID;
-	private float distance;
-	private float spawnTime;
 
 	public void SetAngle(int degrees)
 	{
@@ -56,11 +69,12 @@ public class ObjectHandler : MonoBehaviour
 	void Start ()
 	{
 		audio.Play();
-		gManager.OnTap += DestroySelf;
+		gManager.OnTap += Hit;
+		bManager.OnBeat8th3 += DecreaseLifetime;
 	}
 	
 	#region Class Methods	
-	private void DestroySelf(Vector2 screenPos)
+	private void Hit(Vector2 screenPos)
 	{
 		Ray ray = Camera.main.ScreenPointToRay(new Vector3(screenPos.x, screenPos.y, 0));
 		RaycastHit hitInfo;
@@ -74,12 +88,66 @@ public class ObjectHandler : MonoBehaviour
 				gaSubmitter.CompletionTime(objectID, Time.time - spawnTime);
 				gaSubmitter.PositionSucces(objectID, transform.position);
 				gaSubmitter.ForceSubmit();
-
+				
+				Unsubscribe();
 				sManager.AllowSpawning();
-				gManager.OnTap -= DestroySelf;
 				Destroy(gameObject);
 			}
 		}
+	}
+
+	private void Miss()
+	{
+		//Submit Data
+		gaSubmitter.Angle(objectID, angle);
+		gaSubmitter.Distance(objectID, distance);
+		gaSubmitter.CompletionTime(objectID, Time.time - spawnTime);
+		gaSubmitter.PositionFailed(objectID, transform.position);
+		gaSubmitter.ForceSubmit();
+
+		Unsubscribe();
+		sManager.AllowSpawning();
+		Destroy(gameObject);
+	}
+
+	private void Unsubscribe()
+	{
+		gManager.OnTap -= Hit;
+		bManager.OnBeat8th3 -= DecreaseLifetime;
+	}
+
+	private void DecreaseLifetime()
+	{
+		if(lifeCounter <= 0)
+		{
+			Miss();
+		}
+		else
+		{
+			lifeCounter--;
+			PlayBeat();
+			PunchObject();
+		}
+	}
+
+	private void PunchObject()
+	{
+		iTween.PunchScale(gameObject, new Vector3(0.2f, 0.2f, 0.2f), 0.5f);
+	}
+
+	private void PlayBeat()
+	{
+		audio.PlayOneShot(BeatClip);
+	}
+
+	private void PlaySucces()
+	{
+
+	}
+
+	private void PlayMiss()
+	{
+
 	}
 	#endregion
 }

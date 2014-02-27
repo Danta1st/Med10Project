@@ -35,6 +35,7 @@ public class SpawnManager : MonoBehaviour
 	
 	void Start ()
 	{
+		//TODO: Remove on delivery
 		gManager.OnSwipeRight += SpawnObjectRandom;
 	}
 	
@@ -49,9 +50,9 @@ public class SpawnManager : MonoBehaviour
 		if(isOccupied == false)
 		{
 			//Get Random multiplier
-			int multiplier = Random.Range(0, 10);
+			int multiplier = Random.Range(0, 35);
 			//Get Random Angle
-			int angle = 36 * multiplier;
+			int angle = 10 * multiplier;
 			//Get Random Distance
 			float distance = Random.Range(2.0f, 9.0f);
 			//Rotate GameObject
