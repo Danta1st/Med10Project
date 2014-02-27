@@ -14,7 +14,8 @@ public class Center : MonoBehaviour
 
 	private int SpawnCount = 0;
 
-	private enum colors {green, yellow, red};
+	private enum State {green, yellow, red};
+	private State state;
 	#endregion
 
 	void Awake()
@@ -37,35 +38,69 @@ public class Center : MonoBehaviour
 		//TODO: Change to "start game" or something similar
 		gManager.OnSwipeUp += bManager.ToggleBeats;
 
+		gManager.OnTap += TapCenter;
+
 		bManager.OnBeat4th1 += PunchCenter;
 		bManager.OnBeat4th3 += PunchCenter;
-		bManager.OnBeat4th4 += sManager.SpawnObjectRandom;
+
+		ChangeState(State.green);
+		//bManager.OnBeat4th4 += sManager.SpawnObjectRandom;
 	}
 
 	#region Class Methods
 	private void PunchCenter()
 	{
 		audio.Play();
+		IncreaseSpawnCount();
 		iTween.PunchScale(gameObject, new Vector3(0.2f, 0.2f, 0.2f), 0.5f);
 	}
 
 	private void IncreaseSpawnCount()
 	{
+		if(state == State.yellow)
+		{
+			if(SpawnCount >= countDownToSpawn)
+			{
+				ChangeState(State.red);
+				sManager.SpawnObjectRandom();
+				SpawnCount = 0;
+			}
+			else
+				SpawnCount++;
+		}
+	}
 
+	private void TapCenter(Vector2 screenPos)
+	{
+		if(state == State.green)
+		{
+			Ray ray = Camera.main.ScreenPointToRay(new Vector3(screenPos.x, screenPos.y, 0));
+			RaycastHit hitInfo;
+			if(Physics.Raycast(ray, out hitInfo))
+			{
+				if(hitInfo.collider == gameObject.collider)
+				{
+					ChangeState(State.yellow);
+				}
+			}
+		}
 	}
 
 	//TODO: Fix proper color mechanism for polish, texture?
-	private void ChangeState(colors color)
+	public void ChangeState(State plate)
 	{
-		switch (color)
+		switch (plate)
 		{
-		case colors.green:
+		case State.green:
+			state = State.green;
 			gameObject.renderer.material.color = Color.green;
 			break;
-		case colors.yellow:
+		case State.yellow:
+			state = State.yellow;
 			gameObject.renderer.material.color = Color.yellow;
 			break;
-		case colors.red:
+		case State.red:
+			state = State.red;
 			gameObject.renderer.material.color = Color.red;
 			break;
 		default:
