@@ -16,6 +16,14 @@ public class GA_Submitter : MonoBehaviour {
 		}
 	}
 
+	public void SetUserID(string newUserID){
+		userID = newUserID;
+	}
+
+	public string GetUserID(){
+		return userID;
+	}
+
 	private void BeginTracing()
 	{
 		//Check for userID and sessionID in playerPrefs

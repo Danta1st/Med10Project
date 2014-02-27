@@ -25,21 +25,45 @@ public class XmlData : MonoBehaviour
 	private XmlElement elmSession;
 	private XmlElement elmSessionID;
 
+	private string _userID;
+
+	private GA_Submitter GA_SubmitterScript;
 
 	void Start()
 	{
-		//Writes session ID information to the XML on startup - should probably do this OnUserLogIn
-		filepath = Application.dataPath + @"/Data/Lars.xml";
+		GA_SubmitterScript = GameObject.Find("GA_Submitter").GetComponent<GA_Submitter>();
 
-		xmlDoc = new XmlDocument();
-		xmlDoc.Load(filepath);
+		_userID = GA_SubmitterScript.GetUserID();
+		Debug.Log(_userID);
+
+		filepath = Application.dataPath + @"/Data/" + _userID + ".xml";
+
+		if(File.Exists (filepath))
+		{
+			xmlDoc = new XmlDocument();
+			xmlDoc.Load(filepath);
+			elmRoot = xmlDoc.DocumentElement;
+
+			Debug.Log("file exists");
+		}
+		else
+		{
+			xmlDoc = new XmlDocument();
+
+			XmlNode docNode = xmlDoc.CreateXmlDeclaration("1.0", "UTF-8", null);
+			xmlDoc.AppendChild(docNode);
 		
-		elmRoot = xmlDoc.DocumentElement;
+			elmRoot = xmlDoc.CreateElement(_userID);
+			xmlDoc.AppendChild(elmRoot);
+
+			Debug.Log("file created");
+		}
 
 		CheckSessionIDinXML();
 		elmSession = xmlDoc.CreateElement("session");
 		elmSession.SetAttribute("id", _currentSessionID.ToString());
 		elmRoot.AppendChild(elmSession);
+		xmlDoc.Save(filepath);
 	}
 
 	void Update()
