@@ -9,6 +9,7 @@ public class ObjectHandler : MonoBehaviour
 	private GestureManager gManager;
 	private SpawnManager sManager;
 	private GA_Submitter gaSubmitter;
+	private XmlData xmlLogger;
 	#endregion
 	
 	void Awake()
@@ -26,6 +27,7 @@ public class ObjectHandler : MonoBehaviour
 			Debug.LogError("No SpawnManager was found in the scene.");
 		
 		gaSubmitter = GameObject.Find("GA_Submitter").GetComponent<GA_Submitter>();
+		xmlLogger = GameObject.Find("XMLlogger").GetComponent<XmlData>();
 	}
 
 	private int angle;
@@ -68,12 +70,20 @@ public class ObjectHandler : MonoBehaviour
 		{
 			if(hitInfo.collider == gameObject.collider)
 			{
-				//Submit Data
+				//Submit Data to GA
 				gaSubmitter.Angle(objectID, angle);
 				gaSubmitter.Distance(objectID, distance);
-				gaSubmitter.CompletionTime(objectID, Time.time - spawnTime);
+				gaSubmitter.ReactionTime(objectID, Time.time - spawnTime);
 				gaSubmitter.Position(objectID, transform.position);
 				gaSubmitter.ForceSubmit();
+
+				//Log Data to XML writer
+				//xmlData.SetPassed(?);
+				xmlLogger.SetAngle(angle);
+				xmlLogger.SetDistance(distance);
+				xmlLogger.SetReactionTime(Time.time - spawnTime);
+				xmlLogger.SetPosition(transform.position);
+				xmlLogger.WriteTargetDataToXml();
 
 				sManager.AllowSpawning();
 				gManager.OnTap -= DestroySelf;

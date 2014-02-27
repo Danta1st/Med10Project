@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class GA_Submitter : MonoBehaviour {
@@ -87,7 +87,7 @@ public class GA_Submitter : MonoBehaviour {
 		}
 	}
 
-	public void CompletionTime(int ID, float time)
+	public void ReactionTime(int ID, float time)
 	{
 		if(SendData == true)
 		{
