@@ -72,7 +72,7 @@ public class ObjectHandler : MonoBehaviour
 				gaSubmitter.Angle(objectID, angle);
 				gaSubmitter.Distance(objectID, distance);
 				gaSubmitter.CompletionTime(objectID, Time.time - spawnTime);
-				gaSubmitter.Position(objectID, transform.position);
+				gaSubmitter.PositionSucces(objectID, transform.position);
 				gaSubmitter.ForceSubmit();
 
 				sManager.AllowSpawning();

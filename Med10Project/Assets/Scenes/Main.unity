@@ -286,93 +286,111 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Data:
-  - position: {x: 3, y: 0, z: 0}
-    count: 3
+  - position: {x: 6, y: 1, z: 0}
+    count: 2
     density: 1
-  - position: {x: 1, y: 1, z: 0}
-    count: 2
-    density: .666666687
-  - position: {x: 6, y: -2, z: 0}
-    count: 2
-    density: .666666687
-  - position: {x: 6, y: 3, z: 0}
+  - position: {x: 2, y: 7, z: 0}
     count: 1
-    density: .333333343
-  - position: {x: -8, y: 1, z: 0}
+    density: .5
+  - position: {x: 1, y: -4, z: 0}
     count: 1
-    density: .333333343
+    density: .5
+  - position: {x: -6, y: -2, z: 0}
+    count: 1
+    density: .5
   - position: {x: -2, y: 1, z: 0}
     count: 1
-    density: .333333343
-  - position: {x: -2, y: -4, z: 0}
+    density: .5
+  - position: {x: 2, y: 5, z: 0}
     count: 1
-    density: .333333343
-  - position: {x: -3, y: -1, z: 0}
+    density: .5
+  - position: {x: 1, y: 6, z: 0}
     count: 1
-    density: .333333343
-  - position: {x: -4, y: 3, z: 0}
+    density: .5
+  - position: {x: -1, y: 4, z: 0}
     count: 1
-    density: .333333343
-  - position: {x: 0, y: 2, z: 0}
+    density: .5
+  - position: {x: -4, y: 0, z: 0}
     count: 1
-    density: .333333343
-  - position: {x: -3, y: 1, z: 0}
+    density: .5
+  - position: {x: -7, y: 0, z: 0}
     count: 1
-    density: .333333343
-  - position: {x: 4, y: -2, z: 0}
+    density: .5
+  - position: {x: 5, y: -2, z: 0}
     count: 1
-    density: .333333343
+    density: .5
+  - position: {x: 0, y: 3, z: 0}
+    count: 1
+    density: .5
+  - position: {x: 5, y: 0, z: 0}
+    count: 1
+    density: .5
   - position: {x: 0, y: -2, z: 0}
     count: 1
-    density: .333333343
-  - position: {x: 1, y: 2, z: 0}
+    density: .5
+  - position: {x: -5, y: 1, z: 0}
     count: 1
-    density: .333333343
+    density: .5
+  - position: {x: -3, y: 2, z: 0}
+    count: 1
+    density: .5
+  - position: {x: 0, y: -8, z: 0}
+    count: 1
+    density: .5
+  - position: {x: 4, y: 6, z: 0}
+    count: 1
+    density: .5
+  - position: {x: 7, y: 2, z: 0}
+    count: 1
+    density: .5
+  - position: {x: 7, y: 0, z: 0}
+    count: 1
+    density: .5
+  - position: {x: 0, y: 5, z: 0}
+    count: 1
+    density: .5
   - position: {x: -5, y: -1, z: 0}
     count: 1
-    density: .333333343
-  - position: {x: 3, y: -1, z: 0}
+    density: .5
+  - position: {x: -3, y: 5, z: 0}
     count: 1
-    density: .333333343
-  - position: {x: 2, y: -5, z: 0}
+    density: .5
+  - position: {x: 2, y: 3, z: 0}
     count: 1
-    density: .333333343
-  - position: {x: 5, y: -6, z: 0}
+    density: .5
+  - position: {x: 4, y: 0, z: 0}
     count: 1
-    density: .333333343
-  - position: {x: 3, y: 5, z: 0}
+    density: .5
+  - position: {x: 7, y: 4, z: 0}
     count: 1
-    density: .333333343
-  - position: {x: 1, y: -2, z: 0}
+    density: .5
+  - position: {x: -6, y: -1, z: 0}
     count: 1
-    density: .333333343
-  - position: {x: -6, y: 4, z: 0}
+    density: .5
+  - position: {x: 8, y: 1, z: 0}
     count: 1
-    density: .333333343
-  - position: {x: -2, y: 5, z: 0}
+    density: .5
+  - position: {x: 6, y: 5, z: 0}
     count: 1
-    density: .333333343
-  - position: {x: 1, y: -1, z: 0}
+    density: .5
+  - position: {x: -2, y: -5, z: 0}
     count: 1
-    density: .333333343
-  - position: {x: -5, y: -4, z: 0}
+    density: .5
+  - position: {x: -2, y: 0, z: 0}
     count: 1
-    density: .333333343
-  - position: {x: 8, y: -2, z: 0}
+    density: .5
+  - position: {x: 0, y: -5, z: 0}
     count: 1
-    density: .333333343
-  - position: {x: -2, y: 2, z: 0}
+    density: .5
+  - position: {x: -2, y: -3, z: 0}
     count: 1
-    density: .333333343
-  - position: {x: -4, y: -1, z: 0}
+    density: .5
+  - position: {x: -5, y: 0, z: 0}
     count: 1
-    density: .333333343
-  - position: {x: 8, y: 0, z: 0}
+    density: .5
+  - position: {x: 2, y: -1, z: 0}
     count: 1
-    density: .333333343
-  - position: {x: 3, y: -3, z: 0}
-    count: 1
-    density: .333333343
+    density: .5
 --- !u!4 &338507826
 Transform:
   m_ObjectHideFlags: 0
@@ -523,6 +541,112 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
+--- !u!1 &594595599
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 594595600}
+  - 33: {fileID: 594595602}
+  - 23: {fileID: 594595601}
+  m_Layer: 0
+  m_Name: GA_Billboards-0-35
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &594595600
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 594595599}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1205676762}
+--- !u!23 &594595601
+Renderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 594595599}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_LightmapIndex: 255
+  m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
+  m_Materials:
+  - {fileID: 695202481}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_UseLightProbes: 0
+  m_LightProbeAnchor: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_SortingLayerID: 0
+--- !u!33 &594595602
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 594595599}
+  m_Mesh: {fileID: 1799986844}
+--- !u!21 &695202481
+Material:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: Custom/GA_HeatMapSolid
+  m_Shader: {fileID: 4800000, guid: 584bfdd1337274d449b5792146cdfbd5, type: 3}
+  m_ShaderKeywords: []
+  m_CustomRenderQueue: -1
+  m_SavedProperties:
+    serializedVersion: 2
+    m_TexEnvs:
+      data:
+        first:
+          name: _MainTex
+        second:
+          m_Texture: {fileID: 0}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+    m_Floats:
+      data:
+        first:
+          name: _MaxRadius
+        second: 1
+      data:
+        first:
+          name: _RangeMin
+        second: 0
+      data:
+        first:
+          name: _RangeWidth
+        second: 1
+      data:
+        first:
+          name: _RangeZero
+        second: -1
+    m_Colors:
+      data:
+        first:
+          name: _Cold
+        second: {r: 1, g: .921568632, b: .0156862754, a: 1}
+      data:
+        first:
+          name: _Warm
+        second: {r: 1, g: 0, b: 0, a: 1}
+      data:
+        first:
+          name: _ColZero
+        second: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &1078414052
 GameObject:
   m_ObjectHideFlags: 0
@@ -604,12 +728,117 @@ MonoBehaviour:
   DownloadingData: 0
   BuildingHeatmap: 0
   BuildHeatmapPercentage: 0
-  _startDateTime: 2/12/2014 2:24:38 PM
-  _endDateTime: 2/26/2014 2:24:38 PM
+  _startDateTime: 2/13/2014 10:51:49 AM
+  _endDateTime: 2/27/2014 10:51:49 AM
   AvailableAreas:
   - Main
   CurrentAreaIndex: 0
   AvailableEvents:
+  - Angle
+  - Angle:0
+  - Angle:0:Danny
+  - Angle:0:Danny:1
+  - Angle:0:Danny:10
+  - Angle:0:Danny:100
+  - Angle:0:Danny:101
+  - Angle:0:Danny:102
+  - Angle:0:Danny:11
+  - Angle:0:Danny:12
+  - Angle:0:Danny:13
+  - Angle:0:Danny:14
+  - Angle:0:Danny:15
+  - Angle:0:Danny:16
+  - Angle:0:Danny:17
+  - Angle:0:Danny:18
+  - Angle:0:Danny:19
+  - Angle:0:Danny:2
+  - Angle:0:Danny:20
+  - Angle:0:Danny:21
+  - Angle:0:Danny:22
+  - Angle:0:Danny:23
+  - Angle:0:Danny:24
+  - Angle:0:Danny:25
+  - Angle:0:Danny:26
+  - Angle:0:Danny:27
+  - Angle:0:Danny:28
+  - Angle:0:Danny:29
+  - Angle:0:Danny:3
+  - Angle:0:Danny:30
+  - Angle:0:Danny:31
+  - Angle:0:Danny:32
+  - Angle:0:Danny:33
+  - Angle:0:Danny:34
+  - Angle:0:Danny:35
+  - Angle:0:Danny:36
+  - Angle:0:Danny:37
+  - Angle:0:Danny:38
+  - Angle:0:Danny:39
+  - Angle:0:Danny:4
+  - Angle:0:Danny:40
+  - Angle:0:Danny:41
+  - Angle:0:Danny:42
+  - Angle:0:Danny:43
+  - Angle:0:Danny:44
+  - Angle:0:Danny:45
+  - Angle:0:Danny:46
+  - Angle:0:Danny:47
+  - Angle:0:Danny:48
+  - Angle:0:Danny:49
+  - Angle:0:Danny:5
+  - Angle:0:Danny:50
+  - Angle:0:Danny:51
+  - Angle:0:Danny:52
+  - Angle:0:Danny:53
+  - Angle:0:Danny:54
+  - Angle:0:Danny:55
+  - Angle:0:Danny:56
+  - Angle:0:Danny:57
+  - Angle:0:Danny:58
+  - Angle:0:Danny:59
+  - Angle:0:Danny:6
+  - Angle:0:Danny:60
+  - Angle:0:Danny:61
+  - Angle:0:Danny:62
+  - Angle:0:Danny:63
+  - Angle:0:Danny:64
+  - Angle:0:Danny:65
+  - Angle:0:Danny:66
+  - Angle:0:Danny:67
+  - Angle:0:Danny:68
+  - Angle:0:Danny:69
+  - Angle:0:Danny:7
+  - Angle:0:Danny:70
+  - Angle:0:Danny:71
+  - Angle:0:Danny:72
+  - Angle:0:Danny:73
+  - Angle:0:Danny:74
+  - Angle:0:Danny:75
+  - Angle:0:Danny:76
+  - Angle:0:Danny:77
+  - Angle:0:Danny:78
+  - Angle:0:Danny:79
+  - Angle:0:Danny:8
+  - Angle:0:Danny:80
+  - Angle:0:Danny:81
+  - Angle:0:Danny:82
+  - Angle:0:Danny:83
+  - Angle:0:Danny:84
+  - Angle:0:Danny:85
+  - Angle:0:Danny:86
+  - Angle:0:Danny:87
+  - Angle:0:Danny:88
+  - Angle:0:Danny:89
+  - Angle:0:Danny:9
+  - Angle:0:Danny:90
+  - Angle:0:Danny:91
+  - Angle:0:Danny:92
+  - Angle:0:Danny:93
+  - Angle:0:Danny:94
+  - Angle:0:Danny:95
+  - Angle:0:Danny:96
+  - Angle:0:Danny:97
+  - Angle:0:Danny:98
+  - Angle:0:Danny:99
   - Complete
   - Complete:1
   - Complete:10
@@ -809,12 +1038,1162 @@ MonoBehaviour:
   - Complete:9:Position
   - Complete:9:Succes
   - Complete:9:Time
+  - Complete:Angle
+  - Complete:Angle:1
+  - Complete:Angle:10
+  - Complete:Angle:100
+  - Complete:Angle:101
+  - Complete:Angle:102
+  - Complete:Angle:11
+  - Complete:Angle:12
+  - Complete:Angle:13
+  - Complete:Angle:14
+  - Complete:Angle:15
+  - Complete:Angle:16
+  - Complete:Angle:17
+  - Complete:Angle:18
+  - Complete:Angle:19
+  - Complete:Angle:2
+  - Complete:Angle:20
+  - Complete:Angle:21
+  - Complete:Angle:22
+  - Complete:Angle:23
+  - Complete:Angle:24
+  - Complete:Angle:25
+  - Complete:Angle:26
+  - Complete:Angle:27
+  - Complete:Angle:28
+  - Complete:Angle:29
+  - Complete:Angle:3
+  - Complete:Angle:30
+  - Complete:Angle:31
+  - Complete:Angle:32
+  - Complete:Angle:33
+  - Complete:Angle:34
+  - Complete:Angle:35
+  - Complete:Angle:36
+  - Complete:Angle:37
+  - Complete:Angle:38
+  - Complete:Angle:39
+  - Complete:Angle:4
+  - Complete:Angle:40
+  - Complete:Angle:41
+  - Complete:Angle:42
+  - Complete:Angle:43
+  - Complete:Angle:44
+  - Complete:Angle:45
+  - Complete:Angle:46
+  - Complete:Angle:47
+  - Complete:Angle:48
+  - Complete:Angle:49
+  - Complete:Angle:5
+  - Complete:Angle:50
+  - Complete:Angle:51
+  - Complete:Angle:52
+  - Complete:Angle:53
+  - Complete:Angle:54
+  - Complete:Angle:55
+  - Complete:Angle:56
+  - Complete:Angle:57
+  - Complete:Angle:58
+  - Complete:Angle:59
+  - Complete:Angle:6
+  - Complete:Angle:60
+  - Complete:Angle:61
+  - Complete:Angle:62
+  - Complete:Angle:63
+  - Complete:Angle:64
+  - Complete:Angle:65
+  - Complete:Angle:66
+  - Complete:Angle:67
+  - Complete:Angle:68
+  - Complete:Angle:69
+  - Complete:Angle:7
+  - Complete:Angle:70
+  - Complete:Angle:71
+  - Complete:Angle:72
+  - Complete:Angle:73
+  - Complete:Angle:74
+  - Complete:Angle:75
+  - Complete:Angle:76
+  - Complete:Angle:77
+  - Complete:Angle:78
+  - Complete:Angle:79
+  - Complete:Angle:8
+  - Complete:Angle:80
+  - Complete:Angle:81
+  - Complete:Angle:82
+  - Complete:Angle:83
+  - Complete:Angle:84
+  - Complete:Angle:85
+  - Complete:Angle:86
+  - Complete:Angle:87
+  - Complete:Angle:88
+  - Complete:Angle:89
+  - Complete:Angle:9
+  - Complete:Angle:90
+  - Complete:Angle:91
+  - Complete:Angle:92
+  - Complete:Angle:93
+  - Complete:Angle:94
+  - Complete:Angle:95
+  - Complete:Angle:96
+  - Complete:Angle:97
+  - Complete:Angle:98
+  - Complete:Angle:99
+  - Complete:Distance
+  - Complete:Distance:1
+  - Complete:Distance:10
+  - Complete:Distance:100
+  - Complete:Distance:101
+  - Complete:Distance:102
+  - Complete:Distance:11
+  - Complete:Distance:12
+  - Complete:Distance:13
+  - Complete:Distance:14
+  - Complete:Distance:15
+  - Complete:Distance:16
+  - Complete:Distance:17
+  - Complete:Distance:18
+  - Complete:Distance:19
+  - Complete:Distance:2
+  - Complete:Distance:20
+  - Complete:Distance:21
+  - Complete:Distance:22
+  - Complete:Distance:23
+  - Complete:Distance:24
+  - Complete:Distance:25
+  - Complete:Distance:26
+  - Complete:Distance:27
+  - Complete:Distance:28
+  - Complete:Distance:29
+  - Complete:Distance:3
+  - Complete:Distance:30
+  - Complete:Distance:31
+  - Complete:Distance:32
+  - Complete:Distance:33
+  - Complete:Distance:34
+  - Complete:Distance:35
+  - Complete:Distance:36
+  - Complete:Distance:37
+  - Complete:Distance:38
+  - Complete:Distance:39
+  - Complete:Distance:4
+  - Complete:Distance:40
+  - Complete:Distance:41
+  - Complete:Distance:42
+  - Complete:Distance:43
+  - Complete:Distance:44
+  - Complete:Distance:45
+  - Complete:Distance:46
+  - Complete:Distance:47
+  - Complete:Distance:48
+  - Complete:Distance:49
+  - Complete:Distance:5
+  - Complete:Distance:50
+  - Complete:Distance:51
+  - Complete:Distance:52
+  - Complete:Distance:53
+  - Complete:Distance:54
+  - Complete:Distance:55
+  - Complete:Distance:56
+  - Complete:Distance:57
+  - Complete:Distance:58
+  - Complete:Distance:59
+  - Complete:Distance:6
+  - Complete:Distance:60
+  - Complete:Distance:61
+  - Complete:Distance:62
+  - Complete:Distance:63
+  - Complete:Distance:64
+  - Complete:Distance:65
+  - Complete:Distance:66
+  - Complete:Distance:67
+  - Complete:Distance:68
+  - Complete:Distance:69
+  - Complete:Distance:7
+  - Complete:Distance:70
+  - Complete:Distance:71
+  - Complete:Distance:72
+  - Complete:Distance:73
+  - Complete:Distance:74
+  - Complete:Distance:75
+  - Complete:Distance:76
+  - Complete:Distance:77
+  - Complete:Distance:78
+  - Complete:Distance:79
+  - Complete:Distance:8
+  - Complete:Distance:80
+  - Complete:Distance:81
+  - Complete:Distance:82
+  - Complete:Distance:83
+  - Complete:Distance:84
+  - Complete:Distance:85
+  - Complete:Distance:86
+  - Complete:Distance:87
+  - Complete:Distance:88
+  - Complete:Distance:89
+  - Complete:Distance:9
+  - Complete:Distance:90
+  - Complete:Distance:91
+  - Complete:Distance:92
+  - Complete:Distance:93
+  - Complete:Distance:94
+  - Complete:Distance:95
+  - Complete:Distance:96
+  - Complete:Distance:97
+  - Complete:Distance:98
+  - Complete:Distance:99
+  - Complete:Position
+  - Complete:Position:1
+  - Complete:Position:10
+  - Complete:Position:100
+  - Complete:Position:101
+  - Complete:Position:102
+  - Complete:Position:11
+  - Complete:Position:12
+  - Complete:Position:13
+  - Complete:Position:14
+  - Complete:Position:15
+  - Complete:Position:16
+  - Complete:Position:17
+  - Complete:Position:18
+  - Complete:Position:19
+  - Complete:Position:2
+  - Complete:Position:20
+  - Complete:Position:21
+  - Complete:Position:22
+  - Complete:Position:23
+  - Complete:Position:24
+  - Complete:Position:25
+  - Complete:Position:26
+  - Complete:Position:27
+  - Complete:Position:28
+  - Complete:Position:29
+  - Complete:Position:3
+  - Complete:Position:30
+  - Complete:Position:31
+  - Complete:Position:32
+  - Complete:Position:33
+  - Complete:Position:34
+  - Complete:Position:35
+  - Complete:Position:36
+  - Complete:Position:37
+  - Complete:Position:38
+  - Complete:Position:39
+  - Complete:Position:4
+  - Complete:Position:40
+  - Complete:Position:41
+  - Complete:Position:42
+  - Complete:Position:43
+  - Complete:Position:44
+  - Complete:Position:45
+  - Complete:Position:46
+  - Complete:Position:47
+  - Complete:Position:48
+  - Complete:Position:49
+  - Complete:Position:5
+  - Complete:Position:50
+  - Complete:Position:51
+  - Complete:Position:52
+  - Complete:Position:53
+  - Complete:Position:54
+  - Complete:Position:55
+  - Complete:Position:56
+  - Complete:Position:57
+  - Complete:Position:58
+  - Complete:Position:59
+  - Complete:Position:6
+  - Complete:Position:60
+  - Complete:Position:61
+  - Complete:Position:62
+  - Complete:Position:63
+  - Complete:Position:64
+  - Complete:Position:65
+  - Complete:Position:66
+  - Complete:Position:67
+  - Complete:Position:68
+  - Complete:Position:69
+  - Complete:Position:7
+  - Complete:Position:70
+  - Complete:Position:71
+  - Complete:Position:72
+  - Complete:Position:73
+  - Complete:Position:74
+  - Complete:Position:75
+  - Complete:Position:76
+  - Complete:Position:77
+  - Complete:Position:78
+  - Complete:Position:79
+  - Complete:Position:8
+  - Complete:Position:80
+  - Complete:Position:81
+  - Complete:Position:82
+  - Complete:Position:83
+  - Complete:Position:84
+  - Complete:Position:85
+  - Complete:Position:86
+  - Complete:Position:87
+  - Complete:Position:88
+  - Complete:Position:89
+  - Complete:Position:9
+  - Complete:Position:90
+  - Complete:Position:91
+  - Complete:Position:92
+  - Complete:Position:93
+  - Complete:Position:94
+  - Complete:Position:95
+  - Complete:Position:96
+  - Complete:Position:97
+  - Complete:Position:98
+  - Complete:Position:99
+  - Complete:Time
+  - Complete:Time:1
+  - Complete:Time:10
+  - Complete:Time:100
+  - Complete:Time:101
+  - Complete:Time:102
+  - Complete:Time:11
+  - Complete:Time:12
+  - Complete:Time:13
+  - Complete:Time:14
+  - Complete:Time:15
+  - Complete:Time:16
+  - Complete:Time:17
+  - Complete:Time:18
+  - Complete:Time:19
+  - Complete:Time:2
+  - Complete:Time:20
+  - Complete:Time:21
+  - Complete:Time:22
+  - Complete:Time:23
+  - Complete:Time:24
+  - Complete:Time:25
+  - Complete:Time:26
+  - Complete:Time:27
+  - Complete:Time:28
+  - Complete:Time:29
+  - Complete:Time:3
+  - Complete:Time:30
+  - Complete:Time:31
+  - Complete:Time:32
+  - Complete:Time:33
+  - Complete:Time:34
+  - Complete:Time:35
+  - Complete:Time:36
+  - Complete:Time:37
+  - Complete:Time:38
+  - Complete:Time:39
+  - Complete:Time:4
+  - Complete:Time:40
+  - Complete:Time:41
+  - Complete:Time:42
+  - Complete:Time:43
+  - Complete:Time:44
+  - Complete:Time:45
+  - Complete:Time:46
+  - Complete:Time:47
+  - Complete:Time:48
+  - Complete:Time:49
+  - Complete:Time:5
+  - Complete:Time:50
+  - Complete:Time:51
+  - Complete:Time:52
+  - Complete:Time:53
+  - Complete:Time:54
+  - Complete:Time:55
+  - Complete:Time:56
+  - Complete:Time:57
+  - Complete:Time:58
+  - Complete:Time:59
+  - Complete:Time:6
+  - Complete:Time:60
+  - Complete:Time:61
+  - Complete:Time:62
+  - Complete:Time:63
+  - Complete:Time:64
+  - Complete:Time:65
+  - Complete:Time:66
+  - Complete:Time:67
+  - Complete:Time:68
+  - Complete:Time:69
+  - Complete:Time:7
+  - Complete:Time:70
+  - Complete:Time:71
+  - Complete:Time:72
+  - Complete:Time:73
+  - Complete:Time:74
+  - Complete:Time:75
+  - Complete:Time:76
+  - Complete:Time:77
+  - Complete:Time:78
+  - Complete:Time:79
+  - Complete:Time:8
+  - Complete:Time:80
+  - Complete:Time:81
+  - Complete:Time:82
+  - Complete:Time:83
+  - Complete:Time:84
+  - Complete:Time:85
+  - Complete:Time:86
+  - Complete:Time:87
+  - Complete:Time:88
+  - Complete:Time:89
+  - Complete:Time:9
+  - Complete:Time:90
+  - Complete:Time:91
+  - Complete:Time:92
+  - Complete:Time:93
+  - Complete:Time:94
+  - Complete:Time:95
+  - Complete:Time:96
+  - Complete:Time:97
+  - Complete:Time:98
+  - Complete:Time:99
+  - Danny
+  - Danny:0
+  - Danny:0:Angle
+  - Danny:0:Angle:1
+  - Danny:0:Angle:10
+  - Danny:0:Angle:100
+  - Danny:0:Angle:101
+  - Danny:0:Angle:102
+  - Danny:0:Angle:11
+  - Danny:0:Angle:12
+  - Danny:0:Angle:13
+  - Danny:0:Angle:14
+  - Danny:0:Angle:15
+  - Danny:0:Angle:16
+  - Danny:0:Angle:17
+  - Danny:0:Angle:18
+  - Danny:0:Angle:19
+  - Danny:0:Angle:2
+  - Danny:0:Angle:20
+  - Danny:0:Angle:21
+  - Danny:0:Angle:22
+  - Danny:0:Angle:23
+  - Danny:0:Angle:24
+  - Danny:0:Angle:25
+  - Danny:0:Angle:26
+  - Danny:0:Angle:27
+  - Danny:0:Angle:28
+  - Danny:0:Angle:29
+  - Danny:0:Angle:3
+  - Danny:0:Angle:30
+  - Danny:0:Angle:31
+  - Danny:0:Angle:32
+  - Danny:0:Angle:33
+  - Danny:0:Angle:34
+  - Danny:0:Angle:35
+  - Danny:0:Angle:36
+  - Danny:0:Angle:37
+  - Danny:0:Angle:38
+  - Danny:0:Angle:39
+  - Danny:0:Angle:4
+  - Danny:0:Angle:40
+  - Danny:0:Angle:41
+  - Danny:0:Angle:42
+  - Danny:0:Angle:43
+  - Danny:0:Angle:44
+  - Danny:0:Angle:45
+  - Danny:0:Angle:46
+  - Danny:0:Angle:47
+  - Danny:0:Angle:48
+  - Danny:0:Angle:49
+  - Danny:0:Angle:5
+  - Danny:0:Angle:50
+  - Danny:0:Angle:51
+  - Danny:0:Angle:52
+  - Danny:0:Angle:53
+  - Danny:0:Angle:54
+  - Danny:0:Angle:55
+  - Danny:0:Angle:56
+  - Danny:0:Angle:57
+  - Danny:0:Angle:58
+  - Danny:0:Angle:59
+  - Danny:0:Angle:6
+  - Danny:0:Angle:60
+  - Danny:0:Angle:61
+  - Danny:0:Angle:62
+  - Danny:0:Angle:63
+  - Danny:0:Angle:64
+  - Danny:0:Angle:65
+  - Danny:0:Angle:66
+  - Danny:0:Angle:67
+  - Danny:0:Angle:68
+  - Danny:0:Angle:69
+  - Danny:0:Angle:7
+  - Danny:0:Angle:70
+  - Danny:0:Angle:71
+  - Danny:0:Angle:72
+  - Danny:0:Angle:73
+  - Danny:0:Angle:74
+  - Danny:0:Angle:75
+  - Danny:0:Angle:76
+  - Danny:0:Angle:77
+  - Danny:0:Angle:78
+  - Danny:0:Angle:79
+  - Danny:0:Angle:8
+  - Danny:0:Angle:80
+  - Danny:0:Angle:81
+  - Danny:0:Angle:82
+  - Danny:0:Angle:83
+  - Danny:0:Angle:84
+  - Danny:0:Angle:85
+  - Danny:0:Angle:86
+  - Danny:0:Angle:87
+  - Danny:0:Angle:88
+  - Danny:0:Angle:89
+  - Danny:0:Angle:9
+  - Danny:0:Angle:90
+  - Danny:0:Angle:91
+  - Danny:0:Angle:92
+  - Danny:0:Angle:93
+  - Danny:0:Angle:94
+  - Danny:0:Angle:95
+  - Danny:0:Angle:96
+  - Danny:0:Angle:97
+  - Danny:0:Angle:98
+  - Danny:0:Angle:99
+  - Danny:0:Distance
+  - Danny:0:Distance:1
+  - Danny:0:Distance:10
+  - Danny:0:Distance:100
+  - Danny:0:Distance:101
+  - Danny:0:Distance:102
+  - Danny:0:Distance:11
+  - Danny:0:Distance:12
+  - Danny:0:Distance:13
+  - Danny:0:Distance:14
+  - Danny:0:Distance:15
+  - Danny:0:Distance:16
+  - Danny:0:Distance:17
+  - Danny:0:Distance:18
+  - Danny:0:Distance:19
+  - Danny:0:Distance:2
+  - Danny:0:Distance:20
+  - Danny:0:Distance:21
+  - Danny:0:Distance:22
+  - Danny:0:Distance:23
+  - Danny:0:Distance:24
+  - Danny:0:Distance:25
+  - Danny:0:Distance:26
+  - Danny:0:Distance:27
+  - Danny:0:Distance:28
+  - Danny:0:Distance:29
+  - Danny:0:Distance:3
+  - Danny:0:Distance:30
+  - Danny:0:Distance:31
+  - Danny:0:Distance:32
+  - Danny:0:Distance:33
+  - Danny:0:Distance:34
+  - Danny:0:Distance:35
+  - Danny:0:Distance:36
+  - Danny:0:Distance:37
+  - Danny:0:Distance:38
+  - Danny:0:Distance:39
+  - Danny:0:Distance:4
+  - Danny:0:Distance:40
+  - Danny:0:Distance:41
+  - Danny:0:Distance:42
+  - Danny:0:Distance:43
+  - Danny:0:Distance:44
+  - Danny:0:Distance:45
+  - Danny:0:Distance:46
+  - Danny:0:Distance:47
+  - Danny:0:Distance:48
+  - Danny:0:Distance:49
+  - Danny:0:Distance:5
+  - Danny:0:Distance:50
+  - Danny:0:Distance:51
+  - Danny:0:Distance:52
+  - Danny:0:Distance:53
+  - Danny:0:Distance:54
+  - Danny:0:Distance:55
+  - Danny:0:Distance:56
+  - Danny:0:Distance:57
+  - Danny:0:Distance:58
+  - Danny:0:Distance:59
+  - Danny:0:Distance:6
+  - Danny:0:Distance:60
+  - Danny:0:Distance:61
+  - Danny:0:Distance:62
+  - Danny:0:Distance:63
+  - Danny:0:Distance:64
+  - Danny:0:Distance:65
+  - Danny:0:Distance:66
+  - Danny:0:Distance:67
+  - Danny:0:Distance:68
+  - Danny:0:Distance:69
+  - Danny:0:Distance:7
+  - Danny:0:Distance:70
+  - Danny:0:Distance:71
+  - Danny:0:Distance:72
+  - Danny:0:Distance:73
+  - Danny:0:Distance:74
+  - Danny:0:Distance:75
+  - Danny:0:Distance:76
+  - Danny:0:Distance:77
+  - Danny:0:Distance:78
+  - Danny:0:Distance:79
+  - Danny:0:Distance:8
+  - Danny:0:Distance:80
+  - Danny:0:Distance:81
+  - Danny:0:Distance:82
+  - Danny:0:Distance:83
+  - Danny:0:Distance:84
+  - Danny:0:Distance:85
+  - Danny:0:Distance:86
+  - Danny:0:Distance:87
+  - Danny:0:Distance:88
+  - Danny:0:Distance:89
+  - Danny:0:Distance:9
+  - Danny:0:Distance:90
+  - Danny:0:Distance:91
+  - Danny:0:Distance:92
+  - Danny:0:Distance:93
+  - Danny:0:Distance:94
+  - Danny:0:Distance:95
+  - Danny:0:Distance:96
+  - Danny:0:Distance:97
+  - Danny:0:Distance:98
+  - Danny:0:Distance:99
+  - Danny:0:Position
+  - Danny:0:Position:1
+  - Danny:0:Position:10
+  - Danny:0:Position:100
+  - Danny:0:Position:101
+  - Danny:0:Position:102
+  - Danny:0:Position:11
+  - Danny:0:Position:12
+  - Danny:0:Position:13
+  - Danny:0:Position:14
+  - Danny:0:Position:15
+  - Danny:0:Position:16
+  - Danny:0:Position:17
+  - Danny:0:Position:18
+  - Danny:0:Position:19
+  - Danny:0:Position:2
+  - Danny:0:Position:20
+  - Danny:0:Position:21
+  - Danny:0:Position:22
+  - Danny:0:Position:23
+  - Danny:0:Position:24
+  - Danny:0:Position:25
+  - Danny:0:Position:26
+  - Danny:0:Position:27
+  - Danny:0:Position:28
+  - Danny:0:Position:29
+  - Danny:0:Position:3
+  - Danny:0:Position:30
+  - Danny:0:Position:31
+  - Danny:0:Position:32
+  - Danny:0:Position:33
+  - Danny:0:Position:34
+  - Danny:0:Position:35
+  - Danny:0:Position:36
+  - Danny:0:Position:37
+  - Danny:0:Position:38
+  - Danny:0:Position:39
+  - Danny:0:Position:4
+  - Danny:0:Position:40
+  - Danny:0:Position:41
+  - Danny:0:Position:42
+  - Danny:0:Position:43
+  - Danny:0:Position:44
+  - Danny:0:Position:45
+  - Danny:0:Position:46
+  - Danny:0:Position:47
+  - Danny:0:Position:48
+  - Danny:0:Position:49
+  - Danny:0:Position:5
+  - Danny:0:Position:50
+  - Danny:0:Position:51
+  - Danny:0:Position:52
+  - Danny:0:Position:53
+  - Danny:0:Position:54
+  - Danny:0:Position:55
+  - Danny:0:Position:56
+  - Danny:0:Position:57
+  - Danny:0:Position:58
+  - Danny:0:Position:59
+  - Danny:0:Position:6
+  - Danny:0:Position:60
+  - Danny:0:Position:61
+  - Danny:0:Position:62
+  - Danny:0:Position:63
+  - Danny:0:Position:64
+  - Danny:0:Position:65
+  - Danny:0:Position:66
+  - Danny:0:Position:67
+  - Danny:0:Position:68
+  - Danny:0:Position:69
+  - Danny:0:Position:7
+  - Danny:0:Position:70
+  - Danny:0:Position:71
+  - Danny:0:Position:72
+  - Danny:0:Position:73
+  - Danny:0:Position:74
+  - Danny:0:Position:75
+  - Danny:0:Position:76
+  - Danny:0:Position:77
+  - Danny:0:Position:78
+  - Danny:0:Position:79
+  - Danny:0:Position:8
+  - Danny:0:Position:80
+  - Danny:0:Position:81
+  - Danny:0:Position:82
+  - Danny:0:Position:83
+  - Danny:0:Position:84
+  - Danny:0:Position:85
+  - Danny:0:Position:86
+  - Danny:0:Position:87
+  - Danny:0:Position:88
+  - Danny:0:Position:89
+  - Danny:0:Position:9
+  - Danny:0:Position:90
+  - Danny:0:Position:91
+  - Danny:0:Position:92
+  - Danny:0:Position:93
+  - Danny:0:Position:94
+  - Danny:0:Position:95
+  - Danny:0:Position:96
+  - Danny:0:Position:97
+  - Danny:0:Position:98
+  - Danny:0:Position:99
+  - Danny:0:Time
+  - Danny:0:Time:1
+  - Danny:0:Time:10
+  - Danny:0:Time:100
+  - Danny:0:Time:101
+  - Danny:0:Time:102
+  - Danny:0:Time:11
+  - Danny:0:Time:12
+  - Danny:0:Time:13
+  - Danny:0:Time:14
+  - Danny:0:Time:15
+  - Danny:0:Time:16
+  - Danny:0:Time:17
+  - Danny:0:Time:18
+  - Danny:0:Time:19
+  - Danny:0:Time:2
+  - Danny:0:Time:20
+  - Danny:0:Time:21
+  - Danny:0:Time:22
+  - Danny:0:Time:23
+  - Danny:0:Time:24
+  - Danny:0:Time:25
+  - Danny:0:Time:26
+  - Danny:0:Time:27
+  - Danny:0:Time:28
+  - Danny:0:Time:29
+  - Danny:0:Time:3
+  - Danny:0:Time:30
+  - Danny:0:Time:31
+  - Danny:0:Time:32
+  - Danny:0:Time:33
+  - Danny:0:Time:34
+  - Danny:0:Time:35
+  - Danny:0:Time:36
+  - Danny:0:Time:37
+  - Danny:0:Time:38
+  - Danny:0:Time:39
+  - Danny:0:Time:4
+  - Danny:0:Time:40
+  - Danny:0:Time:41
+  - Danny:0:Time:42
+  - Danny:0:Time:43
+  - Danny:0:Time:44
+  - Danny:0:Time:45
+  - Danny:0:Time:46
+  - Danny:0:Time:47
+  - Danny:0:Time:48
+  - Danny:0:Time:49
+  - Danny:0:Time:5
+  - Danny:0:Time:50
+  - Danny:0:Time:51
+  - Danny:0:Time:52
+  - Danny:0:Time:53
+  - Danny:0:Time:54
+  - Danny:0:Time:55
+  - Danny:0:Time:56
+  - Danny:0:Time:57
+  - Danny:0:Time:58
+  - Danny:0:Time:59
+  - Danny:0:Time:6
+  - Danny:0:Time:60
+  - Danny:0:Time:61
+  - Danny:0:Time:62
+  - Danny:0:Time:63
+  - Danny:0:Time:64
+  - Danny:0:Time:65
+  - Danny:0:Time:66
+  - Danny:0:Time:67
+  - Danny:0:Time:68
+  - Danny:0:Time:69
+  - Danny:0:Time:7
+  - Danny:0:Time:70
+  - Danny:0:Time:71
+  - Danny:0:Time:72
+  - Danny:0:Time:73
+  - Danny:0:Time:74
+  - Danny:0:Time:75
+  - Danny:0:Time:76
+  - Danny:0:Time:77
+  - Danny:0:Time:78
+  - Danny:0:Time:79
+  - Danny:0:Time:8
+  - Danny:0:Time:80
+  - Danny:0:Time:81
+  - Danny:0:Time:82
+  - Danny:0:Time:83
+  - Danny:0:Time:84
+  - Danny:0:Time:85
+  - Danny:0:Time:86
+  - Danny:0:Time:87
+  - Danny:0:Time:88
+  - Danny:0:Time:89
+  - Danny:0:Time:9
+  - Danny:0:Time:90
+  - Danny:0:Time:91
+  - Danny:0:Time:92
+  - Danny:0:Time:93
+  - Danny:0:Time:94
+  - Danny:0:Time:95
+  - Danny:0:Time:96
+  - Danny:0:Time:97
+  - Danny:0:Time:98
+  - Danny:0:Time:99
+  - Distance
+  - Distance:0
+  - Distance:0:Danny
+  - Distance:0:Danny:1
+  - Distance:0:Danny:10
+  - Distance:0:Danny:100
+  - Distance:0:Danny:101
+  - Distance:0:Danny:102
+  - Distance:0:Danny:11
+  - Distance:0:Danny:12
+  - Distance:0:Danny:13
+  - Distance:0:Danny:14
+  - Distance:0:Danny:15
+  - Distance:0:Danny:16
+  - Distance:0:Danny:17
+  - Distance:0:Danny:18
+  - Distance:0:Danny:19
+  - Distance:0:Danny:2
+  - Distance:0:Danny:20
+  - Distance:0:Danny:21
+  - Distance:0:Danny:22
+  - Distance:0:Danny:23
+  - Distance:0:Danny:24
+  - Distance:0:Danny:25
+  - Distance:0:Danny:26
+  - Distance:0:Danny:27
+  - Distance:0:Danny:28
+  - Distance:0:Danny:29
+  - Distance:0:Danny:3
+  - Distance:0:Danny:30
+  - Distance:0:Danny:31
+  - Distance:0:Danny:32
+  - Distance:0:Danny:33
+  - Distance:0:Danny:34
+  - Distance:0:Danny:35
+  - Distance:0:Danny:36
+  - Distance:0:Danny:37
+  - Distance:0:Danny:38
+  - Distance:0:Danny:39
+  - Distance:0:Danny:4
+  - Distance:0:Danny:40
+  - Distance:0:Danny:41
+  - Distance:0:Danny:42
+  - Distance:0:Danny:43
+  - Distance:0:Danny:44
+  - Distance:0:Danny:45
+  - Distance:0:Danny:46
+  - Distance:0:Danny:47
+  - Distance:0:Danny:48
+  - Distance:0:Danny:49
+  - Distance:0:Danny:5
+  - Distance:0:Danny:50
+  - Distance:0:Danny:51
+  - Distance:0:Danny:52
+  - Distance:0:Danny:53
+  - Distance:0:Danny:54
+  - Distance:0:Danny:55
+  - Distance:0:Danny:56
+  - Distance:0:Danny:57
+  - Distance:0:Danny:58
+  - Distance:0:Danny:59
+  - Distance:0:Danny:6
+  - Distance:0:Danny:60
+  - Distance:0:Danny:61
+  - Distance:0:Danny:62
+  - Distance:0:Danny:63
+  - Distance:0:Danny:64
+  - Distance:0:Danny:65
+  - Distance:0:Danny:66
+  - Distance:0:Danny:67
+  - Distance:0:Danny:68
+  - Distance:0:Danny:69
+  - Distance:0:Danny:7
+  - Distance:0:Danny:70
+  - Distance:0:Danny:71
+  - Distance:0:Danny:72
+  - Distance:0:Danny:73
+  - Distance:0:Danny:74
+  - Distance:0:Danny:75
+  - Distance:0:Danny:76
+  - Distance:0:Danny:77
+  - Distance:0:Danny:78
+  - Distance:0:Danny:79
+  - Distance:0:Danny:8
+  - Distance:0:Danny:80
+  - Distance:0:Danny:81
+  - Distance:0:Danny:82
+  - Distance:0:Danny:83
+  - Distance:0:Danny:84
+  - Distance:0:Danny:85
+  - Distance:0:Danny:86
+  - Distance:0:Danny:87
+  - Distance:0:Danny:88
+  - Distance:0:Danny:89
+  - Distance:0:Danny:9
+  - Distance:0:Danny:90
+  - Distance:0:Danny:91
+  - Distance:0:Danny:92
+  - Distance:0:Danny:93
+  - Distance:0:Danny:94
+  - Distance:0:Danny:95
+  - Distance:0:Danny:96
+  - Distance:0:Danny:97
+  - Distance:0:Danny:98
+  - Distance:0:Danny:99
+  - GA
+  - GA:AverageFPS
+  - GA:LevelStarted
+  - Position
+  - Position:0
+  - Position:0:Danny
+  - Position:0:Danny:1
+  - Position:0:Danny:10
+  - Position:0:Danny:100
+  - Position:0:Danny:101
+  - Position:0:Danny:102
+  - Position:0:Danny:11
+  - Position:0:Danny:12
+  - Position:0:Danny:13
+  - Position:0:Danny:14
+  - Position:0:Danny:15
+  - Position:0:Danny:16
+  - Position:0:Danny:17
+  - Position:0:Danny:18
+  - Position:0:Danny:19
+  - Position:0:Danny:2
+  - Position:0:Danny:20
+  - Position:0:Danny:21
+  - Position:0:Danny:22
+  - Position:0:Danny:23
+  - Position:0:Danny:24
+  - Position:0:Danny:25
+  - Position:0:Danny:26
+  - Position:0:Danny:27
+  - Position:0:Danny:28
+  - Position:0:Danny:29
+  - Position:0:Danny:3
+  - Position:0:Danny:30
+  - Position:0:Danny:31
+  - Position:0:Danny:32
+  - Position:0:Danny:33
+  - Position:0:Danny:34
+  - Position:0:Danny:35
+  - Position:0:Danny:36
+  - Position:0:Danny:37
+  - Position:0:Danny:38
+  - Position:0:Danny:39
+  - Position:0:Danny:4
+  - Position:0:Danny:40
+  - Position:0:Danny:41
+  - Position:0:Danny:42
+  - Position:0:Danny:43
+  - Position:0:Danny:44
+  - Position:0:Danny:45
+  - Position:0:Danny:46
+  - Position:0:Danny:47
+  - Position:0:Danny:48
+  - Position:0:Danny:49
+  - Position:0:Danny:5
+  - Position:0:Danny:50
+  - Position:0:Danny:51
+  - Position:0:Danny:52
+  - Position:0:Danny:53
+  - Position:0:Danny:54
+  - Position:0:Danny:55
+  - Position:0:Danny:56
+  - Position:0:Danny:57
+  - Position:0:Danny:58
+  - Position:0:Danny:59
+  - Position:0:Danny:6
+  - Position:0:Danny:60
+  - Position:0:Danny:61
+  - Position:0:Danny:62
+  - Position:0:Danny:63
+  - Position:0:Danny:64
+  - Position:0:Danny:65
+  - Position:0:Danny:66
+  - Position:0:Danny:67
+  - Position:0:Danny:68
+  - Position:0:Danny:69
+  - Position:0:Danny:7
+  - Position:0:Danny:70
+  - Position:0:Danny:71
+  - Position:0:Danny:72
+  - Position:0:Danny:73
+  - Position:0:Danny:74
+  - Position:0:Danny:75
+  - Position:0:Danny:76
+  - Position:0:Danny:77
+  - Position:0:Danny:78
+  - Position:0:Danny:79
+  - Position:0:Danny:8
+  - Position:0:Danny:80
+  - Position:0:Danny:81
+  - Position:0:Danny:82
+  - Position:0:Danny:83
+  - Position:0:Danny:84
+  - Position:0:Danny:85
+  - Position:0:Danny:86
+  - Position:0:Danny:87
+  - Position:0:Danny:88
+  - Position:0:Danny:89
+  - Position:0:Danny:9
+  - Position:0:Danny:90
+  - Position:0:Danny:91
+  - Position:0:Danny:92
+  - Position:0:Danny:93
+  - Position:0:Danny:94
+  - Position:0:Danny:95
+  - Position:0:Danny:96
+  - Position:0:Danny:97
+  - Position:0:Danny:98
+  - Position:0:Danny:99
   - Tests
   - Tests:Complete
   - Tests:Complete:Succes
   - Tests:MainTest
   - Tests:MainTest:T
-  CurrentEventFlag: 000000000001000000000001000000000001000000000001000000000001000000000001000000000001000000000001000000000001000000000001000000000100000000000001000000000001000000000001000000000001000000000001000000000001000000000001000000000001000000000001000000000001000000000100000000000001000000000001000000000001000000000001000000000100000000000100000000000100000000000100000000000100000000000100000000000100000000000000
+  - Time
+  - Time:0
+  - Time:0:Danny
+  - Time:0:Danny:1
+  - Time:0:Danny:10
+  - Time:0:Danny:100
+  - Time:0:Danny:101
+  - Time:0:Danny:102
+  - Time:0:Danny:11
+  - Time:0:Danny:12
+  - Time:0:Danny:13
+  - Time:0:Danny:14
+  - Time:0:Danny:15
+  - Time:0:Danny:16
+  - Time:0:Danny:17
+  - Time:0:Danny:18
+  - Time:0:Danny:19
+  - Time:0:Danny:2
+  - Time:0:Danny:20
+  - Time:0:Danny:21
+  - Time:0:Danny:22
+  - Time:0:Danny:23
+  - Time:0:Danny:24
+  - Time:0:Danny:25
+  - Time:0:Danny:26
+  - Time:0:Danny:27
+  - Time:0:Danny:28
+  - Time:0:Danny:29
+  - Time:0:Danny:3
+  - Time:0:Danny:30
+  - Time:0:Danny:31
+  - Time:0:Danny:32
+  - Time:0:Danny:33
+  - Time:0:Danny:34
+  - Time:0:Danny:35
+  - Time:0:Danny:36
+  - Time:0:Danny:37
+  - Time:0:Danny:38
+  - Time:0:Danny:39
+  - Time:0:Danny:4
+  - Time:0:Danny:40
+  - Time:0:Danny:41
+  - Time:0:Danny:42
+  - Time:0:Danny:43
+  - Time:0:Danny:44
+  - Time:0:Danny:45
+  - Time:0:Danny:46
+  - Time:0:Danny:47
+  - Time:0:Danny:48
+  - Time:0:Danny:49
+  - Time:0:Danny:5
+  - Time:0:Danny:50
+  - Time:0:Danny:51
+  - Time:0:Danny:52
+  - Time:0:Danny:53
+  - Time:0:Danny:54
+  - Time:0:Danny:55
+  - Time:0:Danny:56
+  - Time:0:Danny:57
+  - Time:0:Danny:58
+  - Time:0:Danny:59
+  - Time:0:Danny:6
+  - Time:0:Danny:60
+  - Time:0:Danny:61
+  - Time:0:Danny:62
+  - Time:0:Danny:63
+  - Time:0:Danny:64
+  - Time:0:Danny:65
+  - Time:0:Danny:66
+  - Time:0:Danny:67
+  - Time:0:Danny:68
+  - Time:0:Danny:69
+  - Time:0:Danny:7
+  - Time:0:Danny:70
+  - Time:0:Danny:71
+  - Time:0:Danny:72
+  - Time:0:Danny:73
+  - Time:0:Danny:74
+  - Time:0:Danny:75
+  - Time:0:Danny:76
+  - Time:0:Danny:77
+  - Time:0:Danny:78
+  - Time:0:Danny:79
+  - Time:0:Danny:8
+  - Time:0:Danny:80
+  - Time:0:Danny:81
+  - Time:0:Danny:82
+  - Time:0:Danny:83
+  - Time:0:Danny:84
+  - Time:0:Danny:85
+  - Time:0:Danny:86
+  - Time:0:Danny:87
+  - Time:0:Danny:88
+  - Time:0:Danny:89
+  - Time:0:Danny:9
+  - Time:0:Danny:90
+  - Time:0:Danny:91
+  - Time:0:Danny:92
+  - Time:0:Danny:93
+  - Time:0:Danny:94
+  - Time:0:Danny:95
+  - Time:0:Danny:96
+  - Time:0:Danny:97
+  - Time:0:Danny:98
+  - Time:0:Danny:99
+  - system
+  - system:gfx_name
+  - system:gfx_version
+  - system:os
+  - system:processor_type
+  - system:unity_wrapper
+  CurrentEventFlag: 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
   DataContainer: {fileID: 338507825}
   didInit: 1
   LoadProgress: 0
@@ -839,16 +2218,15 @@ MonoBehaviour:
   ShowValueLabels: 0
   Histogram:
     min: 1
-    max: 3
+    max: 2
     RealDataMin: 1
-    RealDataMax: 3
+    RealDataMax: 2
     Data:
     - 1
-    - .0399999991
     - 0
   HistogramScale: 0
   datafilter: {fileID: 1205676760}
-  BillBoard: {fileID: 1488572585}
+  BillBoard: {fileID: 594595599}
 --- !u!4 &1205676762
 Transform:
   m_ObjectHideFlags: 0
@@ -859,10 +2237,10 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 1488572586}
+  - {fileID: 594595600}
   - {fileID: 338507826}
   m_Father: {fileID: 0}
---- !u!43 &1382650004
+--- !u!43 &1799986844
 Mesh:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -872,13 +2250,13 @@ Mesh:
   m_SubMeshes:
   - serializedVersion: 2
     firstByte: 0
-    indexCount: 87
+    indexCount: 105
     topology: 0
     firstVertex: 0
-    vertexCount: 87
+    vertexCount: 105
     localAABB:
-      m_Center: {x: 0, y: -.5, z: 0}
-      m_Extent: {x: 8, y: 5.5, z: 0}
+      m_Center: {x: .5, y: -.5, z: 0}
+      m_Extent: {x: 7.5, y: 7.5, z: 0}
   m_Shapes:
     vertices: []
     shapes: []
@@ -892,11 +2270,11 @@ Mesh:
   m_IsReadable: 1
   m_KeepVertices: 1
   m_KeepIndices: 1
-  m_IndexBuffer: 00000200010003000500040006000800070009000b000a000c000e000d000f001100100012001400130015001700160018001a0019001b001d001c001e0020001f002100230022002400260025002700290028002a002c002b002d002f002e0030003200310033003500340036003800370039003b003a003c003e003d003f004100400042004400430045004700460048004a0049004b004d004c004e0050004f00510053005200540056005500
+  m_IndexBuffer: 00000200010003000500040006000800070009000b000a000c000e000d000f001100100012001400130015001700160018001a0019001b001d001c001e0020001f002100230022002400260025002700290028002a002c002b002d002f002e0030003200310033003500340036003800370039003b003a003c003e003d003f004100400042004400430045004700460048004a0049004b004d004c004e0050004f005100530052005400560055005700590058005a005c005b005d005f005e00600062006100630065006400660068006700
   m_Skin: []
   m_VertexData:
     m_CurrentChannels: 15
-    m_VertexCount: 87
+    m_VertexCount: 105
     m_Channels:
     - stream: 0
       offset: 0
@@ -943,8 +2321,8 @@ Mesh:
       stride: 0
       dividerOp: 0
       frequency: 0
-    m_DataSize: 3132
-    _typelessdata: 000040400000000000000000000000000000000000000000ff0000ff0000803f00000000000040400000000000000000000000000000000000000000ff0000ff010000bfd7b35d3f000040400000000000000000000000000000000000000000ff0000fffdffffbed8b35dbf0000803f0000803f00000000000000000000000000000000aa0000ff0000803f000000000000803f0000803f00000000000000000000000000000000aa0000ff010000bfd7b35d3f0000803f0000803f00000000000000000000000000000000aa0000fffdffffbed8b35dbf0000c040000000c000000000000000000000000000000000aa0000ff0000803f000000000000c040000000c000000000000000000000000000000000aa0000ff010000bfd7b35d3f0000c040000000c000000000000000000000000000000000aa0000fffdffffbed8b35dbf0000c0400000404000000000000000000000000000000000550000ff0000803f000000000000c0400000404000000000000000000000000000000000550000ff010000bfd7b35d3f0000c0400000404000000000000000000000000000000000550000fffdffffbed8b35dbf000000c10000803f00000000000000000000000000000000550000ff0000803f00000000000000c10000803f00000000000000000000000000000000550000ff010000bfd7b35d3f000000c10000803f00000000000000000000000000000000550000fffdffffbed8b35dbf000000c00000803f00000000000000000000000000000000550000ff0000803f00000000000000c00000803f00000000000000000000000000000000550000ff010000bfd7b35d3f000000c00000803f00000000000000000000000000000000550000fffdffffbed8b35dbf000000c0000080c000000000000000000000000000000000550000ff0000803f00000000000000c0000080c000000000000000000000000000000000550000ff010000bfd7b35d3f000000c0000080c000000000000000000000000000000000550000fffdffffbed8b35dbf000040c0000080bf00000000000000000000000000000000550000ff0000803f00000000000040c0000080bf00000000000000000000000000000000550000ff010000bfd7b35d3f000040c0000080bf00000000000000000000000000000000550000fffdffffbed8b35dbf000080c00000404000000000000000000000000000000000550000ff0000803f00000000000080c00000404000000000000000000000000000000000550000ff010000bfd7b35d3f000080c00000404000000000000000000000000000000000550000fffdffffbed8b35dbf000000000000004000000000000000000000000000000000550000ff0000803f00000000000000000000004000000000000000000000000000000000550000ff010000bfd7b35d3f000000000000004000000000000000000000000000000000550000fffdffffbed8b35dbf000040c00000803f00000000000000000000000000000000550000ff0000803f00000000000040c00000803f00000000000000000000000000000000550000ff010000bfd7b35d3f000040c00000803f00000000000000000000000000000000550000fffdffffbed8b35dbf00008040000000c000000000000000000000000000000000550000ff0000803f0000000000008040000000c000000000000000000000000000000000550000ff010000bfd7b35d3f00008040000000c000000000000000000000000000000000550000fffdffffbed8b35dbf00000000000000c000000000000000000000000000000000550000ff0000803f0000000000000000000000c000000000000000000000000000000000550000ff010000bfd7b35d3f00000000000000c000000000000000000000000000000000550000fffdffffbed8b35dbf0000803f0000004000000000000000000000000000000000550000ff0000803f000000000000803f0000004000000000000000000000000000000000550000ff010000bfd7b35d3f0000803f0000004000000000000000000000000000000000550000fffdffffbed8b35dbf0000a0c0000080bf00000000000000000000000000000000550000ff0000803f000000000000a0c0000080bf00000000000000000000000000000000550000ff010000bfd7b35d3f0000a0c0000080bf00000000000000000000000000000000550000fffdffffbed8b35dbf00004040000080bf00000000000000000000000000000000550000ff0000803f0000000000004040000080bf00000000000000000000000000000000550000ff010000bfd7b35d3f00004040000080bf00000000000000000000000000000000550000fffdffffbed8b35dbf000000400000a0c000000000000000000000000000000000550000ff0000803f00000000000000400000a0c000000000000000000000000000000000550000ff010000bfd7b35d3f000000400000a0c000000000000000000000000000000000550000fffdffffbed8b35dbf0000a0400000c0c000000000000000000000000000000000550000ff0000803f000000000000a0400000c0c000000000000000000000000000000000550000ff010000bfd7b35d3f0000a0400000c0c000000000000000000000000000000000550000fffdffffbed8b35dbf000040400000a04000000000000000000000000000000000550000ff0000803f00000000000040400000a04000000000000000000000000000000000550000ff010000bfd7b35d3f000040400000a04000000000000000000000000000000000550000fffdffffbed8b35dbf0000803f000000c000000000000000000000000000000000550000ff0000803f000000000000803f000000c000000000000000000000000000000000550000ff010000bfd7b35d3f0000803f000000c000000000000000000000000000000000550000fffdffffbed8b35dbf0000c0c00000804000000000000000000000000000000000550000ff0000803f000000000000c0c00000804000000000000000000000000000000000550000ff010000bfd7b35d3f0000c0c00000804000000000000000000000000000000000550000fffdffffbed8b35dbf000000c00000a04000000000000000000000000000000000550000ff0000803f00000000000000c00000a04000000000000000000000000000000000550000ff010000bfd7b35d3f000000c00000a04000000000000000000000000000000000550000fffdffffbed8b35dbf0000803f000080bf00000000000000000000000000000000550000ff0000803f000000000000803f000080bf00000000000000000000000000000000550000ff010000bfd7b35d3f0000803f000080bf00000000000000000000000000000000550000fffdffffbed8b35dbf0000a0c0000080c000000000000000000000000000000000550000ff0000803f000000000000a0c0000080c000000000000000000000000000000000550000ff010000bfd7b35d3f0000a0c0000080c000000000000000000000000000000000550000fffdffffbed8b35dbf00000041000000c000000000000000000000000000000000550000ff0000803f0000000000000041000000c000000000000000000000000000000000550000ff010000bfd7b35d3f00000041000000c000000000000000000000000000000000550000fffdffffbed8b35dbf000000c00000004000000000000000000000000000000000550000ff0000803f00000000000000c00000004000000000000000000000000000000000550000ff010000bfd7b35d3f000000c00000004000000000000000000000000000000000550000fffdffffbed8b35dbf000080c0000080bf00000000000000000000000000000000550000ff0000803f00000000000080c0000080bf00000000000000000000000000000000550000ff010000bfd7b35d3f000080c0000080bf00000000000000000000000000000000550000fffdffffbed8b35dbf000000410000000000000000000000000000000000000000550000ff0000803f00000000000000410000000000000000000000000000000000000000550000ff010000bfd7b35d3f000000410000000000000000000000000000000000000000550000fffdffffbed8b35dbf00004040000040c000000000000000000000000000000000550000ff0000803f0000000000004040000040c000000000000000000000000000000000550000ff010000bfd7b35d3f00004040000040c000000000000000000000000000000000550000fffdffffbed8b35dbf
+    m_DataSize: 3780
+    _typelessdata: 0000c0400000803f00000000000000000000000000000000ff0000ff0000803f000000000000c0400000803f00000000000000000000000000000000ff0000ff010000bfd7b35d3f0000c0400000803f00000000000000000000000000000000ff0000fffdffffbed8b35dbf000000400000e04000000000000000000000000000000000800000ff0000803f00000000000000400000e04000000000000000000000000000000000800000ff010000bfd7b35d3f000000400000e04000000000000000000000000000000000800000fffdffffbed8b35dbf0000803f000080c000000000000000000000000000000000800000ff0000803f000000000000803f000080c000000000000000000000000000000000800000ff010000bfd7b35d3f0000803f000080c000000000000000000000000000000000800000fffdffffbed8b35dbf0000c0c0000000c000000000000000000000000000000000800000ff0000803f000000000000c0c0000000c000000000000000000000000000000000800000ff010000bfd7b35d3f0000c0c0000000c000000000000000000000000000000000800000fffdffffbed8b35dbf000000c00000803f00000000000000000000000000000000800000ff0000803f00000000000000c00000803f00000000000000000000000000000000800000ff010000bfd7b35d3f000000c00000803f00000000000000000000000000000000800000fffdffffbed8b35dbf000000400000a04000000000000000000000000000000000800000ff0000803f00000000000000400000a04000000000000000000000000000000000800000ff010000bfd7b35d3f000000400000a04000000000000000000000000000000000800000fffdffffbed8b35dbf0000803f0000c04000000000000000000000000000000000800000ff0000803f000000000000803f0000c04000000000000000000000000000000000800000ff010000bfd7b35d3f0000803f0000c04000000000000000000000000000000000800000fffdffffbed8b35dbf000080bf0000804000000000000000000000000000000000800000ff0000803f00000000000080bf0000804000000000000000000000000000000000800000ff010000bfd7b35d3f000080bf0000804000000000000000000000000000000000800000fffdffffbed8b35dbf000080c00000000000000000000000000000000000000000800000ff0000803f00000000000080c00000000000000000000000000000000000000000800000ff010000bfd7b35d3f000080c00000000000000000000000000000000000000000800000fffdffffbed8b35dbf0000e0c00000000000000000000000000000000000000000800000ff0000803f000000000000e0c00000000000000000000000000000000000000000800000ff010000bfd7b35d3f0000e0c00000000000000000000000000000000000000000800000fffdffffbed8b35dbf0000a040000000c000000000000000000000000000000000800000ff0000803f000000000000a040000000c000000000000000000000000000000000800000ff010000bfd7b35d3f0000a040000000c000000000000000000000000000000000800000fffdffffbed8b35dbf000000000000404000000000000000000000000000000000800000ff0000803f00000000000000000000404000000000000000000000000000000000800000ff010000bfd7b35d3f000000000000404000000000000000000000000000000000800000fffdffffbed8b35dbf0000a0400000000000000000000000000000000000000000800000ff0000803f000000000000a0400000000000000000000000000000000000000000800000ff010000bfd7b35d3f0000a0400000000000000000000000000000000000000000800000fffdffffbed8b35dbf00000000000000c000000000000000000000000000000000800000ff0000803f0000000000000000000000c000000000000000000000000000000000800000ff010000bfd7b35d3f00000000000000c000000000000000000000000000000000800000fffdffffbed8b35dbf0000a0c00000803f00000000000000000000000000000000800000ff0000803f000000000000a0c00000803f00000000000000000000000000000000800000ff010000bfd7b35d3f0000a0c00000803f00000000000000000000000000000000800000fffdffffbed8b35dbf000040c00000004000000000000000000000000000000000800000ff0000803f00000000000040c00000004000000000000000000000000000000000800000ff010000bfd7b35d3f000040c00000004000000000000000000000000000000000800000fffdffffbed8b35dbf00000000000000c100000000000000000000000000000000800000ff0000803f0000000000000000000000c100000000000000000000000000000000800000ff010000bfd7b35d3f00000000000000c100000000000000000000000000000000800000fffdffffbed8b35dbf000080400000c04000000000000000000000000000000000800000ff0000803f00000000000080400000c04000000000000000000000000000000000800000ff010000bfd7b35d3f000080400000c04000000000000000000000000000000000800000fffdffffbed8b35dbf0000e0400000004000000000000000000000000000000000800000ff0000803f000000000000e0400000004000000000000000000000000000000000800000ff010000bfd7b35d3f0000e0400000004000000000000000000000000000000000800000fffdffffbed8b35dbf0000e0400000000000000000000000000000000000000000800000ff0000803f000000000000e0400000000000000000000000000000000000000000800000ff010000bfd7b35d3f0000e0400000000000000000000000000000000000000000800000fffdffffbed8b35dbf000000000000a04000000000000000000000000000000000800000ff0000803f00000000000000000000a04000000000000000000000000000000000800000ff010000bfd7b35d3f000000000000a04000000000000000000000000000000000800000fffdffffbed8b35dbf0000a0c0000080bf00000000000000000000000000000000800000ff0000803f000000000000a0c0000080bf00000000000000000000000000000000800000ff010000bfd7b35d3f0000a0c0000080bf00000000000000000000000000000000800000fffdffffbed8b35dbf000040c00000a04000000000000000000000000000000000800000ff0000803f00000000000040c00000a04000000000000000000000000000000000800000ff010000bfd7b35d3f000040c00000a04000000000000000000000000000000000800000fffdffffbed8b35dbf000000400000404000000000000000000000000000000000800000ff0000803f00000000000000400000404000000000000000000000000000000000800000ff010000bfd7b35d3f000000400000404000000000000000000000000000000000800000fffdffffbed8b35dbf000080400000000000000000000000000000000000000000800000ff0000803f00000000000080400000000000000000000000000000000000000000800000ff010000bfd7b35d3f000080400000000000000000000000000000000000000000800000fffdffffbed8b35dbf0000e0400000804000000000000000000000000000000000800000ff0000803f000000000000e0400000804000000000000000000000000000000000800000ff010000bfd7b35d3f0000e0400000804000000000000000000000000000000000800000fffdffffbed8b35dbf0000c0c0000080bf00000000000000000000000000000000800000ff0000803f000000000000c0c0000080bf00000000000000000000000000000000800000ff010000bfd7b35d3f0000c0c0000080bf00000000000000000000000000000000800000fffdffffbed8b35dbf000000410000803f00000000000000000000000000000000800000ff0000803f00000000000000410000803f00000000000000000000000000000000800000ff010000bfd7b35d3f000000410000803f00000000000000000000000000000000800000fffdffffbed8b35dbf0000c0400000a04000000000000000000000000000000000800000ff0000803f000000000000c0400000a04000000000000000000000000000000000800000ff010000bfd7b35d3f0000c0400000a04000000000000000000000000000000000800000fffdffffbed8b35dbf000000c00000a0c000000000000000000000000000000000800000ff0000803f00000000000000c00000a0c000000000000000000000000000000000800000ff010000bfd7b35d3f000000c00000a0c000000000000000000000000000000000800000fffdffffbed8b35dbf000000c00000000000000000000000000000000000000000800000ff0000803f00000000000000c00000000000000000000000000000000000000000800000ff010000bfd7b35d3f000000c00000000000000000000000000000000000000000800000fffdffffbed8b35dbf000000000000a0c000000000000000000000000000000000800000ff0000803f00000000000000000000a0c000000000000000000000000000000000800000ff010000bfd7b35d3f000000000000a0c000000000000000000000000000000000800000fffdffffbed8b35dbf000000c0000040c000000000000000000000000000000000800000ff0000803f00000000000000c0000040c000000000000000000000000000000000800000ff010000bfd7b35d3f000000c0000040c000000000000000000000000000000000800000fffdffffbed8b35dbf0000a0c00000000000000000000000000000000000000000800000ff0000803f000000000000a0c00000000000000000000000000000000000000000800000ff010000bfd7b35d3f0000a0c00000000000000000000000000000000000000000800000fffdffffbed8b35dbf00000040000080bf00000000000000000000000000000000800000ff0000803f0000000000000040000080bf00000000000000000000000000000000800000ff010000bfd7b35d3f00000040000080bf00000000000000000000000000000000800000fffdffffbed8b35dbf
   m_CompressedMesh:
     m_Vertices:
       m_NumItems: 0
@@ -1001,116 +2379,10 @@ Mesh:
       m_Data: 
       m_BitSize: 0
   m_LocalAABB:
-    m_Center: {x: 0, y: -.5, z: 0}
-    m_Extent: {x: 8, y: 5.5, z: 0}
+    m_Center: {x: .5, y: -.5, z: 0}
+    m_Extent: {x: 7.5, y: 7.5, z: 0}
   m_MeshUsageFlags: 0
   m_MeshOptimized: 0
---- !u!1 &1488572585
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 1488572586}
-  - 33: {fileID: 1488572588}
-  - 23: {fileID: 1488572587}
-  m_Layer: 0
-  m_Name: GA_Billboards-0-29
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1488572586
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1488572585}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1205676762}
---- !u!23 &1488572587
-Renderer:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1488572585}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_LightmapIndex: 255
-  m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
-  m_Materials:
-  - {fileID: 1553788772}
-  m_SubsetIndices: 
-  m_StaticBatchRoot: {fileID: 0}
-  m_UseLightProbes: 0
-  m_LightProbeAnchor: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_SortingLayerID: 0
---- !u!33 &1488572588
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1488572585}
-  m_Mesh: {fileID: 1382650004}
---- !u!21 &1553788772
-Material:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_Name: Custom/GA_HeatMapSolid
-  m_Shader: {fileID: 4800000, guid: 584bfdd1337274d449b5792146cdfbd5, type: 3}
-  m_ShaderKeywords: []
-  m_CustomRenderQueue: -1
-  m_SavedProperties:
-    serializedVersion: 2
-    m_TexEnvs:
-      data:
-        first:
-          name: _MainTex
-        second:
-          m_Texture: {fileID: 0}
-          m_Scale: {x: 1, y: 1}
-          m_Offset: {x: 0, y: 0}
-    m_Floats:
-      data:
-        first:
-          name: _MaxRadius
-        second: 1
-      data:
-        first:
-          name: _RangeMin
-        second: 0
-      data:
-        first:
-          name: _RangeWidth
-        second: 1
-      data:
-        first:
-          name: _RangeZero
-        second: -.5
-    m_Colors:
-      data:
-        first:
-          name: _Cold
-        second: {r: 1, g: .921568632, b: .0156862754, a: 1}
-      data:
-        first:
-          name: _Warm
-        second: {r: 1, g: 0, b: 0, a: 1}
-      data:
-        first:
-          name: _ColZero
-        second: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &1900231128
 GameObject:
   m_ObjectHideFlags: 0

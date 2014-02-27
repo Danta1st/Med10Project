@@ -32,16 +32,8 @@ public class GA_Submitter : MonoBehaviour {
 	{
 		if(SendData == true)
 		{
-			//Best logic
-			GA.API.Design.NewEvent("Angle:"+sessionID+":"+userID, angle);
-			GA.API.Design.NewEvent("Angle:"+sessionID+":"+userID+":"+ID, angle);
-			
-			//Test logic
-			GA.API.Design.NewEvent(userID+":"+sessionID+":Angle", angle);
-			GA.API.Design.NewEvent(userID+":"+sessionID+":Angle:"+ID, angle);
-			
-			//More test logic
-			GA.API.Design.NewEvent("Complete:Angle:"+ID, angle);
+			//GA.API.Design.NewEvent("Angle:Session"+sessionID+":"+userID, angle);
+			GA.API.Design.NewEvent("Angle:Session"+sessionID+":"+userID+":"+ID, angle);
 		}
 	}
 
@@ -49,33 +41,25 @@ public class GA_Submitter : MonoBehaviour {
 	{
 		if(SendData == true)
 		{
-			//Best logic
-			GA.API.Design.NewEvent("Distance:"+sessionID+":"+userID, distance);
-			GA.API.Design.NewEvent("Distance:"+sessionID+":"+userID+":"+ID, distance);
-			
-			//Test logic
-			GA.API.Design.NewEvent(userID+":"+sessionID+":Distance", distance);
-			GA.API.Design.NewEvent(userID+":"+sessionID+":Distance:"+ID, distance);
-			
-			//More test logic
-			GA.API.Design.NewEvent("Complete:Distance:"+ID, distance);
+			//GA.API.Design.NewEvent("Distance:Session"+sessionID+":"+userID, distance);
+			GA.API.Design.NewEvent("Distance:Session"+sessionID+":"+userID+":"+ID, distance);
 		}
 	}
 
-	public void Position(int ID, Vector3 position)
+	public void PositionSucces(int ID, Vector3 position)
 	{
 		if(SendData == true)
 		{
-			//Best logic
-			GA.API.Design.NewEvent("Position:"+sessionID+":"+userID, position);
-			GA.API.Design.NewEvent("Position:"+sessionID+":"+userID+":"+ID, position);
-			
-			//Test logic
-			GA.API.Design.NewEvent(userID+":"+sessionID+":Position", position);
-			GA.API.Design.NewEvent(userID+":"+sessionID+":Position:"+ID, position);
-			
-			//More test logic
-			GA.API.Design.NewEvent("Complete:Position:"+ID, position);
+			//Succes positions
+			GA.API.Design.NewEvent("Success:Session"+sessionID+":"+userID, position);
+		}
+	}
+	public void PositionFailed(int ID, Vector3 position)
+	{
+		if(SendData == true)
+		{
+			//Failed positions
+			GA.API.Design.NewEvent("Failed:Session"+sessionID+":"+userID, position);
 		}
 	}
 
@@ -83,16 +67,8 @@ public class GA_Submitter : MonoBehaviour {
 	{
 		if(SendData == true)
 		{
-			//Best logic
-			GA.API.Design.NewEvent("Time:"+sessionID+":"+userID, time);
-			GA.API.Design.NewEvent("Time:"+sessionID+":"+userID+":"+ID, time);
-
-			//Test logic
-			GA.API.Design.NewEvent(userID+":"+sessionID+":Time", time);
-			GA.API.Design.NewEvent(userID+":"+sessionID+":Time:"+ID, time);
-
-			//More test logic
-			GA.API.Design.NewEvent("Complete:Time:"+ID, time);
+			//GA.API.Design.NewEvent("Time:Session"+sessionID+":"+userID, time);
+			GA.API.Design.NewEvent("Time:Session"+sessionID+":"+userID+":"+ID, time);
 		}
 	}
 
