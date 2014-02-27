@@ -15,6 +15,7 @@ public class ObjectHandler : MonoBehaviour
 	private SpawnManager sManager;
 	private GA_Submitter gaSubmitter;
 	private XmlData xmlLogger;
+	private Center center;
 	//Object Information - Passed from spawner
 	private int angle;
 	private int objectID;
@@ -41,6 +42,7 @@ public class ObjectHandler : MonoBehaviour
 		
 		gaSubmitter = GameObject.Find("GA_Submitter").GetComponent<GA_Submitter>();
 		xmlLogger = GameObject.Find("XMLlogger").GetComponent<XmlData>();
+		center = GameObject.Find("Center").GetComponent<Center>();
 		//Initiliase
 		lifeCounter = Lifetime;
 	}
@@ -98,6 +100,7 @@ public class ObjectHandler : MonoBehaviour
 				xmlLogger.SetPosition(transform.position);
 				xmlLogger.WriteTargetDataToXml();
 
+				center.ChangeState(Center.State.green);
 				sManager.AllowSpawning();
 				Destroy(gameObject);
 			}
@@ -114,6 +117,7 @@ public class ObjectHandler : MonoBehaviour
 		gaSubmitter.ForceSubmit();
 
 		Unsubscribe();
+		center.ChangeState(Center.State.green);
 		sManager.AllowSpawning();
 		Destroy(gameObject);
 	}

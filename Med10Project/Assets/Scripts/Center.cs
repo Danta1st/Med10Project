@@ -14,8 +14,8 @@ public class Center : MonoBehaviour
 
 	private int SpawnCount = 0;
 
-	private enum State {green, yellow, red};
-	private State state;
+	[HideInInspector] public enum State {green, yellow, red};
+	[HideInInspector] public State state;
 	#endregion
 
 	void Awake()
@@ -93,15 +93,15 @@ public class Center : MonoBehaviour
 		{
 		case State.green:
 			state = State.green;
-			gameObject.renderer.material.color = Color.green;
+			iTween.ColorTo(gameObject, iTween.Hash("color", Color.green, "time", 0.2f));
 			break;
 		case State.yellow:
 			state = State.yellow;
-			gameObject.renderer.material.color = Color.yellow;
+			iTween.ColorTo(gameObject, iTween.Hash("color", Color.yellow, "time", 0.2f));
 			break;
 		case State.red:
 			state = State.red;
-			gameObject.renderer.material.color = Color.red;
+			iTween.ColorTo(gameObject, iTween.Hash("color", Color.red, "time", 0.4f));
 			break;
 		default:
 			break;
