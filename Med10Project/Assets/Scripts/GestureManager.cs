@@ -58,7 +58,7 @@ public class GestureManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		#if UNITY_ANDROID || UNITY_WP8
-		Screen.sleepTimeout = SleepTimeout.SystemSetting;
+		Screen.sleepTimeout = SleepTimeout.NeverSleep;
 		Screen.autorotateToLandscapeLeft = true;
 		Screen.autorotateToLandscapeRight = true;
 		Screen.autorotateToPortrait = false;

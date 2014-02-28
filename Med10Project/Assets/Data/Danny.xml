@@ -397,4 +397,29 @@
       <reactiontime>2.817211</reactiontime>
     </targetinstance>
   </session>
+  <session id="0">
+    <targetinstance id="0">
+      <passed>False</passed>
+      <angle>310</angle>
+      <distance>2.305917</distance>
+      <position>
+        <x>1.766435</x>
+        <y>1.482215</y>
+        <z>0</z>
+      </position>
+      <reactiontime>5.113195</reactiontime>
+    </targetinstance>
+    <targetinstance id="1">
+      <passed>False</passed>
+      <angle>160</angle>
+      <distance>2.312377</distance>
+      <position>
+        <x>-2.002577</x>
+        <y>1.156189</y>
+        <z>0</z>
+      </position>
+      <reactiontime>9.545633</reactiontime>
+    </targetinstance>
+  </session>
+  <session id="0" />
 </Danny>

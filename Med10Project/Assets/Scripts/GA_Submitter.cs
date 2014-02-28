@@ -59,7 +59,7 @@ public class GA_Submitter : MonoBehaviour {
 		if(SendData == true)
 		{
 			//Succes positions
-			GA.API.Design.NewEvent("Success:Session"+sessionID+":"+userID, position);
+			GA.API.Design.NewEvent("Success:Session"+sessionID+":"+userID, ID, position);
 		}
 	}
 	public void PositionFailed(int ID, Vector3 position)
@@ -67,7 +67,7 @@ public class GA_Submitter : MonoBehaviour {
 		if(SendData == true)
 		{
 			//Failed positions
-			GA.API.Design.NewEvent("Failed:Session"+sessionID+":"+userID, position);
+			GA.API.Design.NewEvent("Failed:Session"+sessionID+":"+userID, ID, position);
 		}
 	}
 
