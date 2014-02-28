@@ -35,7 +35,7 @@ public class Center : MonoBehaviour
 	void Start ()
 	{
 		//TODO: Change to "start game" or something similar
-		gManager.OnSwipeUp += bManager.ToggleBeats;
+		//gManager.OnSwipeUp += bManager.ToggleBeats;
 
 		bManager.OnBeat4th1 += PunchCenter;
 		bManager.OnBeat4th3 += PunchCenter;

@@ -25,7 +25,7 @@ public class XmlData : MonoBehaviour
 	private string _userID;
 	private GA_Submitter GA_SubmitterScript;
 
-	void Start ()
+	public void IntiateXMLLogging ()
 	{
 		GA_SubmitterScript = GameObject.Find ("GA_Submitter").GetComponent<GA_Submitter> ();
 		_userID = GA_SubmitterScript.GetUserID ();
