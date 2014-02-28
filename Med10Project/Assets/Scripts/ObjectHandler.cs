@@ -93,7 +93,7 @@ public class ObjectHandler : MonoBehaviour
 				
 				Unsubscribe();
 				//Log Data to XML writer
-				//xmlData.SetPassed(?);
+				xmlLogger.SetPassed(true);
 				xmlLogger.SetAngle(angle);
 				xmlLogger.SetDistance(distance);
 				xmlLogger.SetReactionTime(Time.time - spawnTime);
@@ -118,6 +118,14 @@ public class ObjectHandler : MonoBehaviour
 
 		Unsubscribe();
 		center.ChangeState(Center.State.green);
+		//Log Data to XML writer
+		xmlLogger.SetPassed(false);
+		xmlLogger.SetAngle(angle);
+		xmlLogger.SetDistance(distance);
+		xmlLogger.SetReactionTime(0);
+		xmlLogger.SetPosition(transform.position);
+		xmlLogger.WriteTargetDataToXml();
+
 		sManager.AllowSpawning();
 		Destroy(gameObject);
 	}
