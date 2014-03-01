@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Lars>
+  <session id="14">
+    <targetinstance id="0">
+      <passed>True</passed>
+      <reactiontime>1.044648</reactiontime>
+      <angle>70</angle>
+      <distance>5.931033</distance>
+      <position>
+        <x>-5.573349</x>
+        <y>2.028533</y>
+        <z>0</z>
+      </position>
+    </targetinstance>
+    <targetinstance id="1">
+      <passed>True</passed>
+      <reactiontime>0.6571169</reactiontime>
+      <angle>130</angle>
+      <distance>8.675489</distance>
+      <position>
+        <x>8.675489</x>
+        <y>5.170995E-07</y>
+        <z>0</z>
+      </position>
+    </targetinstance>
+    <targetinstance id="2">
+      <passed>True</passed>
+      <reactiontime>0.5782566</reactiontime>
+      <angle>180</angle>
+      <distance>2.574653</distance>
+      <position>
+        <x>1.654955</x>
+        <y>-1.972298</y>
+        <z>0</z>
+      </position>
+    </targetinstance>
+  </session>
+  <session id="15" />
+</Lars>

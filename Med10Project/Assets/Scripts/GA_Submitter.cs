@@ -24,7 +24,7 @@ public class GA_Submitter : MonoBehaviour {
 		return userID;
 	}
 
-	private void BeginTracing()
+	public void BeginTracing()
 	{
 		//Check for userID and sessionID in playerPrefs
 		if(PlayerPrefs.HasKey(userID))

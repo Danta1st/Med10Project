@@ -397,29 +397,28 @@
       <reactiontime>2.817211</reactiontime>
     </targetinstance>
   </session>
-  <session id="0">
+  <session id="3">
     <targetinstance id="0">
-      <passed>False</passed>
-      <angle>310</angle>
-      <distance>2.305917</distance>
+      <passed>True</passed>
+      <reactiontime>0.8256073</reactiontime>
+      <angle>250</angle>
+      <distance>6.688653</distance>
       <position>
-        <x>1.766435</x>
-        <y>1.482215</y>
+        <x>6.285279</x>
+        <y>-2.287654</y>
         <z>0</z>
       </position>
-      <reactiontime>5.113195</reactiontime>
     </targetinstance>
     <targetinstance id="1">
-      <passed>False</passed>
-      <angle>160</angle>
-      <distance>2.312377</distance>
+      <passed>True</passed>
+      <reactiontime>0.7750626</reactiontime>
+      <angle>310</angle>
+      <distance>2.273766</distance>
       <position>
-        <x>-2.002577</x>
-        <y>1.156189</y>
+        <x>-2.273766</x>
+        <y>-2.710541E-07</y>
         <z>0</z>
       </position>
-      <reactiontime>9.545633</reactiontime>
     </targetinstance>
   </session>
-  <session id="0" />
 </Danny>
