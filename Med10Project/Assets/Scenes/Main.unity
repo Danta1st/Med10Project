@@ -87,6 +87,8 @@ GameObject:
   - 124: {fileID: 98409522}
   - 81: {fileID: 98409521}
   - 114: {fileID: 98409526}
+  - 114: {fileID: 98409527}
+  - 114: {fileID: 98409528}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -180,6 +182,29 @@ MonoBehaviour:
     UseDeltaSwipes: 1
     PinchAndSpread: 0
     Drag: 0
+--- !u!114 &98409527
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 98409520}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1696d757a8dceec49ab1aa2f83d4c7a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &98409528
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 98409520}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ba94f77b9561bb49bff67b1cea7593b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  toggleKey: 32
 --- !u!1 &302019035
 GameObject:
   m_ObjectHideFlags: 0
@@ -2422,44 +2447,6 @@ Transform:
   m_GameObject: {fileID: 1900231128}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
---- !u!1 &2004178451
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 2004178453}
-  - 114: {fileID: 2004178452}
-  m_Layer: 0
-  m_Name: UserIDPrompter
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &2004178452
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2004178451}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1696d757a8dceec49ab1aa2f83d4c7a3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!4 &2004178453
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2004178451}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -.340917617, y: -.530316293, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

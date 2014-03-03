@@ -25,13 +25,21 @@ public class XmlData : MonoBehaviour
 	private string _userID;
 	private GA_Submitter GA_SubmitterScript;
 
+	public void CreateDataFolder()
+	{
+		if(!Directory.Exists(Application.persistentDataPath + @"/Data/")){
+			Directory.CreateDirectory(Application.persistentDataPath + @"/Data/");
+		}
+	}
+
 	public void IntiateXMLLogging ()
 	{
 		GA_SubmitterScript = GameObject.Find ("GA_Submitter").GetComponent<GA_Submitter> ();
 		_userID = GA_SubmitterScript.GetUserID ();
 
-		//XML file path dependant on current UserID
-		filepath = Application.dataPath + @"/Data/" + _userID + ".xml";
+		CreateDataFolder();
+
+		filepath = Application.persistentDataPath + @"/Data/" + _userID + ".xml";
 
 		if (File.Exists (filepath))
 		{
