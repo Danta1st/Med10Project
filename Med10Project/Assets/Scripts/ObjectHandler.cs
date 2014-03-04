@@ -101,6 +101,7 @@ public class ObjectHandler : MonoBehaviour
 				xmlLogger.WriteTargetDataToXml();
 
 				center.ChangeState(Center.State.green);
+				sManager.IncreaseSucces(); //TODO: Implement proper highscore system as independent object
 				sManager.AllowSpawning();
 				Destroy(gameObject);
 			}
