@@ -36,7 +36,7 @@ public class SpawnManager : MonoBehaviour
 	void Start ()
 	{
 		//TODO: Remove on delivery
-		gManager.OnSwipeRight += SpawnObjectRandom;
+		//gManager.OnSwipeRight += SpawnObjectRandom;
 	}
 	
 	#region Class Methods
