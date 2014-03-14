@@ -99,11 +99,11 @@ public class SpawnManager : MonoBehaviour
 		}
 	}
 
-	void OnGUI()
-	{
-		highScoreRect = new Rect(0,0, pWidth, pHeight);
-		highScoreRect.center = new Vector2(Screen.width/2, 20);
-		GUI.Label(highScoreRect, ""+succesCounter, tempStyle);
-	}	
+//	void OnGUI()
+//	{
+//		highScoreRect = new Rect(0,0, pWidth, pHeight);
+//		highScoreRect.center = new Vector2(Screen.width/2, 20);
+//		GUI.Label(highScoreRect, ""+succesCounter, tempStyle);
+//	}	
 	#endregion
 }
