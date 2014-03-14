@@ -1,11 +1,10 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class ObjectHandler : MonoBehaviour 
 {
 	#region Editor Publics
 	[SerializeField] private int Lifetime = 5;
-	[SerializeField] private AudioClip BeatClip;
 	#endregion
 
 
@@ -13,6 +12,7 @@ public class ObjectHandler : MonoBehaviour
 	private BpmManager bManager;
 	private GestureManager gManager;
 	private SpawnManager sManager;
+	private SoundManager soundManager;
 	private GA_Submitter gaSubmitter;
 	private XmlData xmlLogger;
 	private Center center;
@@ -28,6 +28,10 @@ public class ObjectHandler : MonoBehaviour
 	void Awake()
 	{
 		//Get references
+		soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
+		if(soundManager == null)
+			Debug.LogError("No SoundManager was found in the scene.");
+
 		bManager = GameObject.Find("BpmManager").GetComponent<BpmManager>();
 		if(bManager == null)
 			Debug.LogError("No BpmManager was found in the scene.");
@@ -70,9 +74,22 @@ public class ObjectHandler : MonoBehaviour
 	
 	void Start ()
 	{
-		audio.Play();
-		gManager.OnTap += Hit;
+		gManager.OnTapBegan += HandleOnTapBegan;
+		gManager.OnTapEnded += Hit;
 		bManager.OnBeat8th3 += DecreaseLifetime;
+	}
+
+	void HandleOnTapBegan (Vector2 screenPos)
+	{
+		Ray ray = Camera.main.ScreenPointToRay(new Vector3(screenPos.x, screenPos.y, 0));
+		RaycastHit hitInfo;
+		if(Physics.Raycast(ray, out hitInfo))
+		{
+			if(hitInfo.collider == gameObject.collider)
+			{
+				soundManager.PlayTouchBegan();
+			}
+		}
 	}
 	
 	#region Class Methods	
@@ -84,6 +101,8 @@ public class ObjectHandler : MonoBehaviour
 		{
 			if(hitInfo.collider == gameObject.collider)
 			{
+				soundManager.PlayTouchEnded();
+
 				//Submit Data to GA
 				gaSubmitter.Angle(objectID, angle);
 				gaSubmitter.Distance(objectID, distance);
@@ -133,7 +152,8 @@ public class ObjectHandler : MonoBehaviour
 
 	private void Unsubscribe()
 	{
-		gManager.OnTap -= Hit;
+		gManager.OnTapEnded -= Hit;
+		gManager.OnTapBegan -= HandleOnTapBegan;
 		bManager.OnBeat8th3 -= DecreaseLifetime;
 	}
 
@@ -146,7 +166,6 @@ public class ObjectHandler : MonoBehaviour
 		else
 		{
 			lifeCounter--;
-			PlayBeat();
 			PunchObject();
 		}
 	}
@@ -154,11 +173,6 @@ public class ObjectHandler : MonoBehaviour
 	private void PunchObject()
 	{
 		iTween.PunchScale(gameObject, new Vector3(0.2f, 0.2f, 0.2f), 0.5f);
-	}
-
-	private void PlayBeat()
-	{
-		audio.PlayOneShot(BeatClip);
 	}
 
 	private void PlaySucces()

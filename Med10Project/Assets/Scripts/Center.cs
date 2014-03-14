@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class Center : MonoBehaviour 
@@ -11,6 +11,7 @@ public class Center : MonoBehaviour
 	private BpmManager bManager;
 	private GestureManager gManager;
 	private SpawnManager sManager;
+	private SoundManager soundManager;
 
 	private int SpawnCount = 0;
 
@@ -31,6 +32,10 @@ public class Center : MonoBehaviour
 		sManager = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();
 		if(sManager == null)
 			Debug.LogError("No SpawnManager was found in the scene.");
+
+		soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
+		if(soundManager == null)
+			Debug.LogError("No SoundManager was found in the scene.");
 	}
 
 	void Start ()
@@ -38,7 +43,8 @@ public class Center : MonoBehaviour
 		//TODO: Change to "start game" or something similar
 		//gManager.OnSwipeUp += bManager.ToggleBeats;
 
-		gManager.OnTap += TapCenter;
+		gManager.OnTapBegan += HandleOnTapBegan;
+		gManager.OnTapEnded += TapCenter;
 
 		bManager.OnBeat4th1 += PunchCenter;
 		bManager.OnBeat4th3 += PunchCenter;
@@ -47,10 +53,25 @@ public class Center : MonoBehaviour
 		//bManager.OnBeat4th4 += sManager.SpawnObjectRandom;
 	}
 
+	void HandleOnTapBegan (Vector2 screenPos)
+	{
+		if(state == State.green)
+		{
+			Ray ray = Camera.main.ScreenPointToRay(new Vector3(screenPos.x, screenPos.y, 0));
+			RaycastHit hitInfo;
+			if(Physics.Raycast(ray, out hitInfo))
+			{
+				if(hitInfo.collider == gameObject.collider)
+				{
+					soundManager.PlayTouchBegan();
+				}
+			}
+		}
+	}
+
 	#region Class Methods
 	private void PunchCenter()
 	{
-		audio.Play();
 		IncreaseSpawnCount();
 		iTween.PunchScale(gameObject, new Vector3(0.2f, 0.2f, 0.2f), 0.5f);
 	}
@@ -81,6 +102,7 @@ public class Center : MonoBehaviour
 				if(hitInfo.collider == gameObject.collider)
 				{
 					ChangeState(State.yellow);
+					soundManager.PlayTouchEnded();
 				}
 			}
 		}
