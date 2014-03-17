@@ -121,7 +121,7 @@ public class Center : MonoBehaviour
 		{
 		case State.awaitCenterClick:
 			state = State.awaitCenterClick;
-			iTween.ColorTo(gameObject, iTween.Hash("color", Color.green, "time", 0.2f));
+			StartCoroutine(DelayedColorChange());
 			break;
 		case State.awaitTargetSpawn:
 			state = State.awaitTargetSpawn;
@@ -134,6 +134,12 @@ public class Center : MonoBehaviour
 		default:
 			break;
 		}
+	}
+
+	private IEnumerator DelayedColorChange()
+	{
+		yield return new WaitForSeconds(0.5f);
+		iTween.ColorTo(gameObject, iTween.Hash("color", Color.green, "time", 0.2f));
 	}
 
 	public IEnumerator SpawnCenterExplosion(float time)
