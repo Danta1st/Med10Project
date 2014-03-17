@@ -23,7 +23,7 @@ public class GestureManager : MonoBehaviour {
 	private Dictionary<int,float> touchTravelDistance = new Dictionary<int, float>();
 	private Dictionary<int,float> touchLifetime = new Dictionary<int, float>();
 //	private Dictionary<int,GameObject> touchBeganObjects = new Dictionary<int, GameObject>();
-
+	private  GUIManager guiManager;
 	#endregion
 	
 	#region Delegates & Events
@@ -34,6 +34,8 @@ public class GestureManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		guiManager = GameObject.FindWithTag("GuiCamera").GetComponent<GUIManager>();
+
 		#if UNITY_ANDROID || UNITY_WP8
 		Screen.sleepTimeout = SleepTimeout.NeverSleep;
 		Screen.autorotateToLandscapeLeft = true;
@@ -50,7 +52,7 @@ public class GestureManager : MonoBehaviour {
 		//Universal Quit Button
 		if(Input.GetKey(KeyCode.Escape))
 		{
-			Application.Quit();
+			guiManager.ExitConfirmation();
 		}
 		
 		#if UNITY_ANDROID || UNITY_WP8
