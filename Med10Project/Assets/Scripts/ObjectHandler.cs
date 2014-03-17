@@ -1,11 +1,10 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class ObjectHandler : MonoBehaviour 
 {
 	#region Editor Publics
 	[SerializeField] private int Lifetime = 5;
-	[SerializeField] private AudioClip BeatClip;
 	#endregion
 
 
@@ -13,6 +12,7 @@ public class ObjectHandler : MonoBehaviour
 	private BpmManager bManager;
 	private GestureManager gManager;
 	private SpawnManager sManager;
+	private SoundManager soundManager;
 	private GA_Submitter gaSubmitter;
 	private XmlData xmlLogger;
 	private Center center;
@@ -23,11 +23,22 @@ public class ObjectHandler : MonoBehaviour
 	private float spawnTime;
 
 	private int lifeCounter;
+
+	private Color InvisibleColor = new Color(0,1.0f,0,0);
+	private Color FullGreenColor = new Color(0.0f, 1.0f, 0.0f, 1.0f);
+
+	[SerializeField]
+	private GameObject ParticleObject;
+
 	#endregion
 	
 	void Awake()
 	{
 		//Get references
+		soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
+		if(soundManager == null)
+			Debug.LogError("No SoundManager was found in the scene.");
+
 		bManager = GameObject.Find("BpmManager").GetComponent<BpmManager>();
 		if(bManager == null)
 			Debug.LogError("No BpmManager was found in the scene.");
@@ -70,9 +81,37 @@ public class ObjectHandler : MonoBehaviour
 	
 	void Start ()
 	{
-		audio.Play();
-		gManager.OnTap += Hit;
+		gameObject.renderer.material.color = InvisibleColor;
+		gameObject.transform.localScale = Vector3.zero;
+		gManager.OnTapBegan += HandleOnTapBegan;
+		gManager.OnTapEnded += Hit;
 		bManager.OnBeat8th3 += DecreaseLifetime;
+		FadeIn();
+	}
+
+	void FadeIn()
+	{
+		iTween.ColorTo(gameObject, iTween.Hash("color", FullGreenColor, "time", 0.3f));
+		iTween.ScaleTo(gameObject, iTween.Hash("scale", Vector3.one, "easetype", iTween.EaseType.easeOutBack, "time", 0.3f));
+	}
+
+	void FadeOut()
+	{
+		iTween.ColorTo(gameObject, iTween.Hash("color", InvisibleColor, "time", 0.4f));
+		iTween.ScaleTo(gameObject, iTween.Hash("scale", Vector3.zero, "easetype", iTween.EaseType.easeInBack, "time", 0.3f));
+	}
+
+	void HandleOnTapBegan (Vector2 screenPos)
+	{
+		Ray ray = Camera.main.ScreenPointToRay(new Vector3(screenPos.x, screenPos.y, 0));
+		RaycastHit hitInfo;
+		if(Physics.Raycast(ray, out hitInfo))
+		{
+			if(hitInfo.collider == gameObject.collider)
+			{
+				soundManager.PlayTouchBegan();
+			}
+		}
 	}
 	
 	#region Class Methods	
@@ -84,6 +123,9 @@ public class ObjectHandler : MonoBehaviour
 		{
 			if(hitInfo.collider == gameObject.collider)
 			{
+				soundManager.PlayTouchEnded();
+				soundManager.PlayTargetSuccessHit();
+
 				//Submit Data to GA
 				gaSubmitter.Angle(objectID, angle);
 				gaSubmitter.Distance(objectID, distance);
@@ -100,12 +142,21 @@ public class ObjectHandler : MonoBehaviour
 				xmlLogger.SetPosition(transform.position);
 				xmlLogger.WriteTargetDataToXml();
 
-				center.ChangeState(Center.State.green);
+				center.ChangeState(Center.State.awaitCenterClick);
 				sManager.IncreaseSucces(); //TODO: Implement proper highscore system as independent object
 				sManager.AllowSpawning();
-				Destroy(gameObject);
+
+				SpawnParticle();
+				center.StartCoroutine("SpawnCenterExplosion",0.5f);
+				FadeOut();
+				Destroy(gameObject, 2);
 			}
 		}
+	}
+
+	private void SpawnParticle()
+	{
+		Instantiate(ParticleObject, transform.position, transform.rotation);
 	}
 
 	private void Miss()
@@ -118,7 +169,7 @@ public class ObjectHandler : MonoBehaviour
 		gaSubmitter.ForceSubmit();
 
 		Unsubscribe();
-		center.ChangeState(Center.State.green);
+		center.ChangeState(Center.State.awaitCenterClick);
 		//Log Data to XML writer
 		xmlLogger.SetPassed(false);
 		xmlLogger.SetAngle(angle);
@@ -133,7 +184,8 @@ public class ObjectHandler : MonoBehaviour
 
 	private void Unsubscribe()
 	{
-		gManager.OnTap -= Hit;
+		gManager.OnTapEnded -= Hit;
+		gManager.OnTapBegan -= HandleOnTapBegan;
 		bManager.OnBeat8th3 -= DecreaseLifetime;
 	}
 
@@ -146,7 +198,6 @@ public class ObjectHandler : MonoBehaviour
 		else
 		{
 			lifeCounter--;
-			PlayBeat();
 			PunchObject();
 		}
 	}
@@ -154,11 +205,6 @@ public class ObjectHandler : MonoBehaviour
 	private void PunchObject()
 	{
 		iTween.PunchScale(gameObject, new Vector3(0.2f, 0.2f, 0.2f), 0.5f);
-	}
-
-	private void PlayBeat()
-	{
-		audio.PlayOneShot(BeatClip);
 	}
 
 	private void PlaySucces()

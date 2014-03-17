@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class Center : MonoBehaviour 
@@ -11,10 +11,14 @@ public class Center : MonoBehaviour
 	private BpmManager bManager;
 	private GestureManager gManager;
 	private SpawnManager sManager;
+	private SoundManager soundManager;
 
 	private int SpawnCount = 0;
 
-	[HideInInspector] public enum State {green, yellow, red};
+	[SerializeField]
+	private GameObject CenterExplosion;
+
+	[HideInInspector] public enum State {awaitCenterClick, awaitTargetSpawn, awaitTargetClick};
 	[HideInInspector] public State state;
 	#endregion
 
@@ -31,6 +35,10 @@ public class Center : MonoBehaviour
 		sManager = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();
 		if(sManager == null)
 			Debug.LogError("No SpawnManager was found in the scene.");
+
+		soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
+		if(soundManager == null)
+			Debug.LogError("No SoundManager was found in the scene.");
 	}
 
 	void Start ()
@@ -38,30 +46,49 @@ public class Center : MonoBehaviour
 		//TODO: Change to "start game" or something similar
 		//gManager.OnSwipeUp += bManager.ToggleBeats;
 
-		gManager.OnTap += TapCenter;
+		gManager.OnTapBegan += HandleOnTapBegan;
+		gManager.OnTapEnded += TapCenter;
 
 		bManager.OnBeat4th1 += PunchCenter;
 		bManager.OnBeat4th3 += PunchCenter;
 
-		ChangeState(State.green);
+		ChangeState(State.awaitCenterClick);
 		//bManager.OnBeat4th4 += sManager.SpawnObjectRandom;
+	}
+
+	void HandleOnTapBegan (Vector2 screenPos)
+	{
+		if(state == State.awaitCenterClick)
+		{
+			Ray ray = Camera.main.ScreenPointToRay(new Vector3(screenPos.x, screenPos.y, 0));
+			RaycastHit hitInfo;
+			if(Physics.Raycast(ray, out hitInfo))
+			{
+				if(hitInfo.collider == gameObject.collider)
+				{
+					soundManager.PlayTouchBegan();
+				}
+			}
+		}
 	}
 
 	#region Class Methods
 	private void PunchCenter()
 	{
-		audio.Play();
-		IncreaseSpawnCount();
-		iTween.PunchScale(gameObject, new Vector3(0.2f, 0.2f, 0.2f), 0.5f);
+		if(!(state == State.awaitTargetClick))
+		{
+			IncreaseSpawnCount();
+			iTween.PunchScale(gameObject, new Vector3(0.2f, 0.2f, 0.2f), 0.5f);
+		}
 	}
 
 	private void IncreaseSpawnCount()
 	{
-		if(state == State.yellow)
+		if(state == State.awaitTargetSpawn)
 		{
 			if(SpawnCount >= countDownToSpawn)
 			{
-				ChangeState(State.red);
+				ChangeState(State.awaitTargetClick);
 				sManager.SpawnObjectRandom();
 				SpawnCount = 0;
 			}
@@ -72,7 +99,7 @@ public class Center : MonoBehaviour
 
 	private void TapCenter(Vector2 screenPos)
 	{
-		if(state == State.green)
+		if(state == State.awaitCenterClick)
 		{
 			Ray ray = Camera.main.ScreenPointToRay(new Vector3(screenPos.x, screenPos.y, 0));
 			RaycastHit hitInfo;
@@ -80,7 +107,8 @@ public class Center : MonoBehaviour
 			{
 				if(hitInfo.collider == gameObject.collider)
 				{
-					ChangeState(State.yellow);
+					ChangeState(State.awaitTargetSpawn);
+					soundManager.PlayTouchEnded();
 				}
 			}
 		}
@@ -91,21 +119,28 @@ public class Center : MonoBehaviour
 	{
 		switch (plate)
 		{
-		case State.green:
-			state = State.green;
+		case State.awaitCenterClick:
+			state = State.awaitCenterClick;
 			iTween.ColorTo(gameObject, iTween.Hash("color", Color.green, "time", 0.2f));
 			break;
-		case State.yellow:
-			state = State.yellow;
-			iTween.ColorTo(gameObject, iTween.Hash("color", Color.yellow, "time", 0.2f));
+		case State.awaitTargetSpawn:
+			state = State.awaitTargetSpawn;
+			iTween.ColorTo(gameObject, iTween.Hash("color", Color.white, "time", 0.2f));
 			break;
-		case State.red:
-			state = State.red;
-			iTween.ColorTo(gameObject, iTween.Hash("color", Color.red, "time", 0.4f));
+		case State.awaitTargetClick:
+			state = State.awaitTargetClick;
+			iTween.ColorTo(gameObject, iTween.Hash("color", Color.white, "time", 0.4f));
 			break;
 		default:
 			break;
 		}
+	}
+
+	public IEnumerator SpawnCenterExplosion(float time)
+	{
+		yield return new WaitForSeconds(time);
+		GameObject ExpClone = Instantiate(CenterExplosion, transform.position, transform.rotation) as GameObject;
+		Destroy(ExpClone, 1.0f);
 	}
 
 	#endregion
