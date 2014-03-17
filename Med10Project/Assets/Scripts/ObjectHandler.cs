@@ -23,6 +23,10 @@ public class ObjectHandler : MonoBehaviour
 	private float spawnTime;
 
 	private int lifeCounter;
+
+	private Color InvisibleColor = new Color(0,1.0f,0,0);
+	private Color FullGreenColor = new Color(0.0f, 1.0f, 0.0f, 1.0f);
+
 	#endregion
 	
 	void Awake()
@@ -74,9 +78,24 @@ public class ObjectHandler : MonoBehaviour
 	
 	void Start ()
 	{
+		gameObject.renderer.material.color = InvisibleColor;
+		gameObject.transform.localScale = Vector3.zero;
 		gManager.OnTapBegan += HandleOnTapBegan;
 		gManager.OnTapEnded += Hit;
 		bManager.OnBeat8th3 += DecreaseLifetime;
+		FadeIn();
+	}
+
+	void FadeIn()
+	{
+		iTween.ColorTo(gameObject, iTween.Hash("color", FullGreenColor, "time", 0.3f));
+		iTween.ScaleTo(gameObject, iTween.Hash("scale", Vector3.one, "easetype", iTween.EaseType.easeOutBack, "time", 0.3f));
+	}
+
+	void FadeOut()
+	{
+		iTween.ColorTo(gameObject, iTween.Hash("color", InvisibleColor, "time", 0.4f));
+		iTween.ScaleTo(gameObject, iTween.Hash("scale", Vector3.zero, "easetype", iTween.EaseType.easeInBack, "time", 0.3f));
 	}
 
 	void HandleOnTapBegan (Vector2 screenPos)
@@ -102,6 +121,7 @@ public class ObjectHandler : MonoBehaviour
 			if(hitInfo.collider == gameObject.collider)
 			{
 				soundManager.PlayTouchEnded();
+				soundManager.PlayTargetSuccessHit();
 
 				//Submit Data to GA
 				gaSubmitter.Angle(objectID, angle);
@@ -119,10 +139,12 @@ public class ObjectHandler : MonoBehaviour
 				xmlLogger.SetPosition(transform.position);
 				xmlLogger.WriteTargetDataToXml();
 
-				center.ChangeState(Center.State.green);
+				center.ChangeState(Center.State.awaitCenterClick);
 				sManager.IncreaseSucces(); //TODO: Implement proper highscore system as independent object
 				sManager.AllowSpawning();
-				Destroy(gameObject);
+
+				FadeOut();
+				Destroy(gameObject, 2);
 			}
 		}
 	}
@@ -137,7 +159,7 @@ public class ObjectHandler : MonoBehaviour
 		gaSubmitter.ForceSubmit();
 
 		Unsubscribe();
-		center.ChangeState(Center.State.green);
+		center.ChangeState(Center.State.awaitCenterClick);
 		//Log Data to XML writer
 		xmlLogger.SetPassed(false);
 		xmlLogger.SetAngle(angle);

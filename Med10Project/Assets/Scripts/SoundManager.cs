@@ -7,6 +7,8 @@ public class SoundManager : MonoBehaviour {
 	private AudioClip OnTapBeganAudioClip;
 	[SerializeField]
 	private AudioClip OnTapEndAudioClip;
+	[SerializeField]
+	private AudioClip OnTargetSuccessHit;
 	
 	public void PlayTouchBegan()
 	{
@@ -16,6 +18,11 @@ public class SoundManager : MonoBehaviour {
 	public void PlayTouchEnded()
 	{
 		PlaySound(OnTapEndAudioClip);
+	}
+
+	public void PlayTargetSuccessHit()
+	{
+		PlaySound(OnTargetSuccessHit);
 	}
 
 	public void PlaySound(AudioClip audioClipName)

@@ -129,7 +129,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Lifetime: 5
-  BeatClip: {fileID: 8300000, guid: bc1549982bea23e4fbcd1e5d24faae39, type: 3}
 --- !u!135 &13500000
 SphereCollider:
   m_ObjectHideFlags: 1

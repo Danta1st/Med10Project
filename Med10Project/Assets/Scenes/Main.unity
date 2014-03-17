@@ -311,20 +311,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf3669ac1f43488428443c481efceb9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tapThreshold: .5
-  tapPrecision: 10
-  swipeThreshold: 10
-  swipeOffset: 5
-  DeltaSwipeThreshold: 10
-  DeltaSwipeOffset: 2.5
-  isGestureEnabled:
-    SingleTap: 1
-    DoubleTap: 0
-    HorizontalSwipes: 1
-    VerticalSwipes: 1
-    UseDeltaSwipes: 1
-    PinchAndSpread: 0
-    Drag: 0
 --- !u!114 &98409527
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -839,6 +825,47 @@ Material:
         first:
           name: _ColZero
         second: {r: 1, g: 1, b: 1, a: 1}
+--- !u!1 &1034557618
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1034557620}
+  - 114: {fileID: 1034557619}
+  m_Layer: 0
+  m_Name: SoundManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1034557619
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1034557618}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 854c9030d3bbd25438f72b224163676f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnTapBeganAudioClip: {fileID: 8300000, guid: ae55c196442ffe14181d8ed0f80d1e93, type: 3}
+  OnTapEndAudioClip: {fileID: 8300000, guid: a918311eddc1aca48bd4d37b96f76301, type: 3}
+  OnTargetSuccessHit: {fileID: 8300000, guid: a72555872a98399468a13251cadc5142, type: 3}
+--- !u!4 &1034557620
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1034557618}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -.132098138, y: .762387156, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
 --- !u!1 &1078414052
 GameObject:
   m_ObjectHideFlags: 0
