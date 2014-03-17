@@ -13,8 +13,8 @@ public class ObjectHandler : MonoBehaviour
 	private GestureManager gManager;
 	private SpawnManager sManager;
 	private SoundManager soundManager;
-	private GA_Submitter gaSubmitter;
-	private XmlData xmlLogger;
+//	private GA_Submitter gaSubmitter;
+//	private XmlData xmlLogger;
 	private Center center;
 	//Object Information - Passed from spawner
 	private int angle;
@@ -51,8 +51,8 @@ public class ObjectHandler : MonoBehaviour
 		if(sManager == null)
 			Debug.LogError("No SpawnManager was found in the scene.");
 		
-		gaSubmitter = GameObject.Find("GA_Submitter").GetComponent<GA_Submitter>();
-		xmlLogger = GameObject.Find("XMLlogger").GetComponent<XmlData>();
+//		gaSubmitter = GameObject.Find("GA_Submitter").GetComponent<GA_Submitter>();
+//		xmlLogger = GameObject.Find("XMLlogger").GetComponent<XmlData>();
 		center = GameObject.Find("Center").GetComponent<Center>();
 		//Initiliase
 		lifeCounter = Lifetime;
@@ -126,21 +126,21 @@ public class ObjectHandler : MonoBehaviour
 				soundManager.PlayTouchEnded();
 				soundManager.PlayTargetSuccessHit();
 
-				//Submit Data to GA
-				gaSubmitter.Angle(objectID, angle);
-				gaSubmitter.Distance(objectID, distance);
-				gaSubmitter.ReactionTime(objectID, Time.time - spawnTime);
-				gaSubmitter.PositionSucces(objectID, transform.position);
-				gaSubmitter.ForceSubmit();
+//				//Submit Data to GA
+//				gaSubmitter.Angle(objectID, angle);
+//				gaSubmitter.Distance(objectID, distance);
+//				gaSubmitter.ReactionTime(objectID, Time.time - spawnTime);
+//				gaSubmitter.PositionSucces(objectID, transform.position);
+//				gaSubmitter.ForceSubmit();
 				
 				Unsubscribe();
-				//Log Data to XML writer
-				xmlLogger.SetPassed(true);
-				xmlLogger.SetAngle(angle);
-				xmlLogger.SetDistance(distance);
-				xmlLogger.SetReactionTime(Time.time - spawnTime);
-				xmlLogger.SetPosition(transform.position);
-				xmlLogger.WriteTargetDataToXml();
+//				//Log Data to XML writer
+//				xmlLogger.SetPassed(true);
+//				xmlLogger.SetAngle(angle);
+//				xmlLogger.SetDistance(distance);
+//				xmlLogger.SetReactionTime(Time.time - spawnTime);
+//				xmlLogger.SetPosition(transform.position);
+//				xmlLogger.WriteTargetDataToXml();
 
 				center.ChangeState(Center.State.awaitCenterClick);
 				sManager.IncreaseSucces(); //TODO: Implement proper highscore system as independent object
@@ -161,22 +161,23 @@ public class ObjectHandler : MonoBehaviour
 
 	private void Miss()
 	{
-		//Submit Data
-		gaSubmitter.Angle(objectID, angle);
-		gaSubmitter.Distance(objectID, distance);
-		gaSubmitter.ReactionTime(objectID, Time.time - spawnTime);
-		gaSubmitter.PositionFailed(objectID, transform.position);
-		gaSubmitter.ForceSubmit();
+//		//Submit Data
+//		gaSubmitter.Angle(objectID, angle);
+//		gaSubmitter.Distance(objectID, distance);
+//		gaSubmitter.ReactionTime(objectID, Time.time - spawnTime);
+//		gaSubmitter.PositionFailed(objectID, transform.position);
+//		gaSubmitter.ForceSubmit();
 
 		Unsubscribe();
 		center.ChangeState(Center.State.awaitCenterClick);
-		//Log Data to XML writer
-		xmlLogger.SetPassed(false);
-		xmlLogger.SetAngle(angle);
-		xmlLogger.SetDistance(distance);
-		xmlLogger.SetReactionTime(0);
-		xmlLogger.SetPosition(transform.position);
-		xmlLogger.WriteTargetDataToXml();
+
+//		//Log Data to XML writer
+//		xmlLogger.SetPassed(false);
+//		xmlLogger.SetAngle(angle);
+//		xmlLogger.SetDistance(distance);
+//		xmlLogger.SetReactionTime(0);
+//		xmlLogger.SetPosition(transform.position);
+//		xmlLogger.WriteTargetDataToXml();
 
 		sManager.AllowSpawning();
 		Destroy(gameObject);

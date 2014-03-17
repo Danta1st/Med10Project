@@ -13,11 +13,15 @@ public class GUIManager: MonoBehaviour {
 	#endregion
 	
 	#region Privates
+	//Connectivity
+	private HighscoreManager scoreManager;
+	private BpmManager beatManager;
+	//Rects
 	private Rect highscoreRect;
 	private Rect windowRect;
+	//Conditioning
 	private GUIBools guiBools = new GUIBools();
-
-	private HighscoreManager scoreManager;
+	//Variables
 	private Vector3 LeftCoverBeginPos;
 	private Vector3 RightCoverBeginPos;
 	#endregion
@@ -26,8 +30,9 @@ public class GUIManager: MonoBehaviour {
 	{
 		//Connectivity
 		scoreManager = GameObject.Find("HighscoreManager").GetComponent<HighscoreManager>();
+		beatManager = GameObject.Find("BpmManager").GetComponent<BpmManager>();
 
-		//Class general
+		//Rect initialization
 		highscoreRect = new Rect(0, 0, 100, 80);
 		highscoreRect.center = new Vector2(GetCenterWidth(), 20);
 		windowRect = new Rect(0,0, Screen.width * windowMetrics.x, Screen.height * windowMetrics.y);
@@ -65,6 +70,8 @@ public class GUIManager: MonoBehaviour {
 			guiBools.displayUserSelection = false;
 			BlockAll(false);
 			EnableHighscore(true);
+			//TODO: Implement count down
+			beatManager.ToggleBeats();
 		}
 
 		PlaceButton("User 2");

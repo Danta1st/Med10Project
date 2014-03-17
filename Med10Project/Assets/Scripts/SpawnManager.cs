@@ -11,7 +11,6 @@ public class SpawnManager : MonoBehaviour
 	#region Privates
 	private BpmManager bManager;
 	private GestureManager gManager;
-	private GA_Submitter gaSubmitter;
 
 	private bool isOccupied = false;
 
@@ -27,10 +26,6 @@ public class SpawnManager : MonoBehaviour
 		gManager = Camera.main.GetComponent<GestureManager>();
 		if(gManager == null)
 			Debug.LogError("No GestureManager was found on the main camera.");
-
-		gaSubmitter = GameObject.Find("GA_Submitter").GetComponent<GA_Submitter>();
-		if(gaSubmitter == null)
-			Debug.LogError("No GA_Submitter was found in the scene");
 	}
 	
 	void Start ()
