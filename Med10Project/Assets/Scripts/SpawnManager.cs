@@ -28,28 +28,68 @@ public class SpawnManager : MonoBehaviour
 			Debug.LogError("No GestureManager was found on the main camera.");
 	}
 	
-	void Start ()
+	#region Public Methods
+	public void SpawnSpecific(int int1to10)
 	{
-		//TODO: Remove on delivery
-		//gManager.OnSwipeRight += SpawnObjectRandom;
+		if(isOccupied == false)
+		{
+			//Get specific angle
+			int angle = GetAngle(int1to10);
+			//Get Random distance
+			float distance = Random.Range(2.0f, 8.5f);
+			//Rotate self by specific angle
+			RotateSelf(angle);
+			//Record spawn rotation & Position
+			Quaternion rotation = transform.rotation;
+			Vector3 position = gameObject.transform.up * distance;
+			//Rotate self back by specific angle
+			RotateSelf(-angle);
+			//Instantiate game object
+			GameObject go = (GameObject) Instantiate(spawnObject, position, rotation);
+			//Set Object Parameters
+			go.GetComponent<ObjectHandler>().SetAngle((int) angle);
+			go.GetComponent<ObjectHandler>().SetID(objectCounter);
+			go.GetComponent<ObjectHandler>().SetDistance(distance);
+			go.GetComponent<ObjectHandler>().SetSpawnTime(Time.time);
+			//Set occupied
+			isOccupied = true;
+		}
 	}
-	
-	#region Class Methods
-	private void SpawnObject()
+	public void SpawnSpecific(int int1to10, float distance)
 	{
-
+		if(isOccupied == false)
+		{
+			//Get specific angle
+			int angle = GetAngle(int1to10);
+			//Rotate self by specific angle
+			RotateSelf(angle);
+			//Record spawn rotation & Position
+			Quaternion rotation = transform.rotation;
+			Vector3 position = gameObject.transform.up * distance;
+			//Rotate self back by specific angle
+			RotateSelf(-angle);
+			//Instantiate game object
+			GameObject go = (GameObject) Instantiate(spawnObject, position, rotation);
+			//Set Object Parameters
+			go.GetComponent<ObjectHandler>().SetAngle((int) angle);
+			go.GetComponent<ObjectHandler>().SetID(objectCounter);
+			go.GetComponent<ObjectHandler>().SetDistance(distance);
+			go.GetComponent<ObjectHandler>().SetSpawnTime(Time.time);
+			//Set occupied
+			isOccupied = true;
+		}
 	}
 
-	public void SpawnObjectRandom()
+	public void SpawnRandom()
 	{
 		if(isOccupied == false)
 		{
 			//Get Random multiplier
-			int multiplier = Random.Range(0, 35);
+			int multiplier = Random.Range(1, 10);
 			//Get Random Angle
-			int angle = 10 * multiplier;
+			int angle = GetAngle(multiplier);
 			//Get Random Distance
-			float distance = Random.Range(2.0f, 9.0f);
+			float distance = Random.Range(2.0f, 8.5f);
 			//Rotate GameObject
 			transform.Rotate(0, 0, (float) angle);
 			//Get Rotation
@@ -72,33 +112,39 @@ public class SpawnManager : MonoBehaviour
 		}
 	}
 
+	public void SpawnRightRandom()
+	{
+
+	}
+	public void SpawnLeftRandom()
+	{
+
+	}
+	public void SpawnRightSpecific(int int1to5)
+	{
+
+	}
+	public void SpawnLeftSpecific(int int1to5)
+	{
+
+	}
+
 	public void AllowSpawning()
 	{
 		isOccupied = false;
 	}
+	#endregion
 
-	//TODO: Integrate proper highscore system as seperate object
-	private int succesCounter = 0;
-	private float pWidth = 100;
-	private float pHeight = 80;
-	private Rect highScoreRect;
-	public GUIStyle tempStyle;
-
-	public void IncreaseSucces()
+	#region Class Methods
+	int GetAngle(int int1to10)
 	{
-		succesCounter++;
-
-		if(succesCounter > 10)
-		{
-			Application.Quit();
-		}
+		int angle = 36*int1to10 - 18;
+		return angle;
 	}
 
-//	void OnGUI()
-//	{
-//		highScoreRect = new Rect(0,0, pWidth, pHeight);
-//		highScoreRect.center = new Vector2(Screen.width/2, 20);
-//		GUI.Label(highScoreRect, ""+succesCounter, tempStyle);
-//	}	
+	private void RotateSelf(int angle)
+	{
+		transform.Rotate(0, 0, (float) angle);
+	}
 	#endregion
 }

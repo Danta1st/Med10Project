@@ -89,7 +89,7 @@ public class Center : MonoBehaviour
 			if(SpawnCount >= countDownToSpawn)
 			{
 				ChangeState(State.awaitTargetClick);
-				sManager.SpawnObjectRandom();
+				sManager.SpawnRandom();
 				SpawnCount = 0;
 			}
 			else
