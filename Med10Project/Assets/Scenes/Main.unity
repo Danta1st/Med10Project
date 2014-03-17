@@ -609,6 +609,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   countDownToSpawn: 3
+  CenterExplosion: {fileID: 100002, guid: e708d354ffc074d44b6c75a7abae6602, type: 2}
   state: 0
 --- !u!135 &387336500
 SphereCollider:

@@ -15,6 +15,9 @@ public class Center : MonoBehaviour
 
 	private int SpawnCount = 0;
 
+	[SerializeField]
+	private GameObject CenterExplosion;
+
 	[HideInInspector] public enum State {awaitCenterClick, awaitTargetSpawn, awaitTargetClick};
 	[HideInInspector] public State state;
 	#endregion
@@ -131,6 +134,13 @@ public class Center : MonoBehaviour
 		default:
 			break;
 		}
+	}
+
+	public IEnumerator SpawnCenterExplosion(float time)
+	{
+		yield return new WaitForSeconds(time);
+		GameObject ExpClone = Instantiate(CenterExplosion, transform.position, transform.rotation) as GameObject;
+		Destroy(ExpClone, 1.0f);
 	}
 
 	#endregion

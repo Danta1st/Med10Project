@@ -27,6 +27,9 @@ public class ObjectHandler : MonoBehaviour
 	private Color InvisibleColor = new Color(0,1.0f,0,0);
 	private Color FullGreenColor = new Color(0.0f, 1.0f, 0.0f, 1.0f);
 
+	[SerializeField]
+	private GameObject ParticleObject;
+
 	#endregion
 	
 	void Awake()
@@ -143,10 +146,17 @@ public class ObjectHandler : MonoBehaviour
 				sManager.IncreaseSucces(); //TODO: Implement proper highscore system as independent object
 				sManager.AllowSpawning();
 
+				SpawnParticle();
+				center.StartCoroutine("SpawnCenterExplosion",0.5f);
 				FadeOut();
 				Destroy(gameObject, 2);
 			}
 		}
+	}
+
+	private void SpawnParticle()
+	{
+		Instantiate(ParticleObject, transform.position, transform.rotation);
 	}
 
 	private void Miss()
