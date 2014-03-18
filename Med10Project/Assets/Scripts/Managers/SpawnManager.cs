@@ -136,9 +136,9 @@ public class SpawnManager : MonoBehaviour
 	#endregion
 
 	#region Class Methods
-	int GetAngle(int int1to10)
+	private int GetAngle(int int1to10)
 	{
-		int angle = 36*int1to10 - 18;
+		int angle = 36 * int1to10 - 18;
 		return angle;
 	}
 

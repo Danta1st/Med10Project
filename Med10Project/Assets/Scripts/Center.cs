@@ -15,8 +15,7 @@ public class Center : MonoBehaviour
 
 	private int SpawnCount = 0;
 
-	[SerializeField]
-	private GameObject CenterExplosion;
+	[SerializeField] private GameObject CenterExplosion;
 
 	[HideInInspector] public enum State {awaitCenterClick, awaitTargetSpawn, awaitTargetClick};
 	[HideInInspector] public State state;
