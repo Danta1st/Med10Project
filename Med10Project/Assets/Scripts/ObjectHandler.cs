@@ -9,10 +9,10 @@ public class ObjectHandler : MonoBehaviour
 
 
 	#region Privates
-	private BpmManager bManager;
 	private GestureManager gManager;
 	private SpawnManager sManager;
 	private SoundManager soundManager;
+	private HighscoreManager highScoreManager;
 //	private GA_Submitter gaSubmitter;
 //	private XmlData xmlLogger;
 	private Center center;
@@ -39,10 +39,6 @@ public class ObjectHandler : MonoBehaviour
 		if(soundManager == null)
 			Debug.LogError("No SoundManager was found in the scene.");
 
-		bManager = GameObject.Find("BpmManager").GetComponent<BpmManager>();
-		if(bManager == null)
-			Debug.LogError("No BpmManager was found in the scene.");
-
 		gManager = Camera.main.GetComponent<GestureManager>();
 		if(gManager == null)
 			Debug.LogError("No GestureManager was found on the main camera.");
@@ -50,6 +46,10 @@ public class ObjectHandler : MonoBehaviour
 		sManager = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();
 		if(sManager == null)
 			Debug.LogError("No SpawnManager was found in the scene.");
+
+		highScoreManager = GameObject.Find("HighscoreManager").GetComponent<HighscoreManager>();
+		if(highScoreManager == null)
+			Debug.LogError("No HighscoreManager was found in the scene.");
 		
 //		gaSubmitter = GameObject.Find("GA_Submitter").GetComponent<GA_Submitter>();
 //		xmlLogger = GameObject.Find("XMLlogger").GetComponent<XmlData>();
@@ -85,8 +85,8 @@ public class ObjectHandler : MonoBehaviour
 		gameObject.transform.localScale = Vector3.zero;
 		gManager.OnTapBegan += HandleOnTapBegan;
 		gManager.OnTapEnded += Hit;
-		bManager.OnBeat8th3 += DecreaseLifetime;
 		FadeIn();
+		InvokeRepeating("DecreaseLifetime", 1, 1);
 	}
 
 	void FadeIn()
@@ -149,6 +149,8 @@ public class ObjectHandler : MonoBehaviour
 				SpawnParticle();
 				center.StartCoroutine("SpawnCenterExplosion",0.5f);
 				FadeOut();
+				highScoreManager.AddScore(13, true);
+				highScoreManager.IncreaseMultiplier();
 				Destroy(gameObject, 2);
 			}
 		}
@@ -187,7 +189,6 @@ public class ObjectHandler : MonoBehaviour
 	{
 		gManager.OnTapEnded -= Hit;
 		gManager.OnTapBegan -= HandleOnTapBegan;
-		bManager.OnBeat8th3 -= DecreaseLifetime;
 	}
 
 	private void DecreaseLifetime()

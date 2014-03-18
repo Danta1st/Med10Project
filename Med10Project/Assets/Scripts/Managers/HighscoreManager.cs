@@ -59,6 +59,17 @@ public class HighscoreManager : MonoBehaviour {
 			multiplier -= value;
 	}
 
+	public void ResetScore()
+	{
+		currentScore = 0;
+	}
+
+	public void ResetScoreAndMultiplier()
+	{
+		ResetScore();
+		ResetMultiplier();
+	}
+
 	public void ResetMultiplier()
 	{
 		multiplier = 1;

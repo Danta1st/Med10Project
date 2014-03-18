@@ -15,7 +15,6 @@ public class GUIManager: MonoBehaviour {
 	#region Privates
 	//Connectivity
 	private HighscoreManager scoreManager;
-	private BpmManager beatManager;
 	//Rects
 	private Rect highscoreRect;
 	private Rect windowRect;
@@ -24,13 +23,14 @@ public class GUIManager: MonoBehaviour {
 	//Variables
 	private Vector3 LeftCoverBeginPos;
 	private Vector3 RightCoverBeginPos;
+	//Strings
+	private string currentUser;
 	#endregion
 
 	void Start()
 	{
 		//Connectivity
 		scoreManager = GameObject.Find("HighscoreManager").GetComponent<HighscoreManager>();
-		beatManager = GameObject.Find("BpmManager").GetComponent<BpmManager>();
 
 		//Rect initialization
 		highscoreRect = new Rect(0, 0, 100, 80);
@@ -59,6 +59,11 @@ public class GUIManager: MonoBehaviour {
 		{
 			windowRect = GUILayout.Window(0, windowRect, DoExitConfirmationWindow, "Want to quit?");
 		}
+
+		if(guiBools.displayPlayPrompt)
+		{
+			windowRect = GUILayout.Window(0, windowRect, DoPlayPromptWindow, "Confirm User Selection");
+		}
 	}
 
 	#region GUI Windows
@@ -68,13 +73,16 @@ public class GUIManager: MonoBehaviour {
 		if(PlaceButton("User 1"))
 		{
 			guiBools.displayUserSelection = false;
-			BlockAll(false);
-			EnableHighscore(true);
-			//TODO: Implement count down
-			beatManager.ToggleBeats();
+			guiBools.displayPlayPrompt = true;
+			currentUser = "User 1";
 		}
 
-		PlaceButton("User 2");
+		if(PlaceButton("User 2"))
+		{
+			guiBools.displayUserSelection = false;
+			guiBools.displayPlayPrompt = true;
+			currentUser = "User 2";
+		}
 	}
 
 	private void DoExitConfirmationWindow(int windowID)
@@ -91,6 +99,44 @@ public class GUIManager: MonoBehaviour {
 			//TODO: Unpause game (probably counter to begin)
 			guiBools.displayExitConfirmation = false;
 		}
+
+		GUILayout.FlexibleSpace();
+
+		if(PlaceButton("Back To User Selection"))
+		{
+			guiBools.displayExitConfirmation = false;
+			guiBools.displayUserSelection = true;
+			BlockAll(true);
+			//TODO: Needs to reset highscore
+			EnableHighscore(false);
+			scoreManager.ResetScoreAndMultiplier();
+		}
+	}
+
+	private void DoPlayPromptWindow(int windowID)
+	{
+		GUILayout.BeginHorizontal();
+		GUILayout.FlexibleSpace();
+		GUILayout.Label(currentUser + " selected.");
+		GUILayout.FlexibleSpace();
+		GUILayout.EndHorizontal();
+
+		if(PlaceButton("Play"))
+		{
+			guiBools.displayPlayPrompt = false;
+			BlockAll(false);
+			EnableHighscore(true);
+			//TODO: Implement count down
+		}
+
+		GUILayout.FlexibleSpace();
+
+		if(PlaceButton("Cancel"))
+		{
+			guiBools.displayPlayPrompt = false;
+			guiBools.displayUserSelection = true;
+		}
+
 	}
 	#endregion
 
