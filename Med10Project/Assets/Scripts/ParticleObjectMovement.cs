@@ -3,19 +3,59 @@ using System.Collections;
 
 public class ParticleObjectMovement : MonoBehaviour {
 
-	/*private Transform[] waypointArray;
-	float percentsPerSecond = 0.02f; // %2 of the path moved per second
-	float currentPathPercent = 0.0f; //min 0, max 1
-	
-	void Update () 
-	{
-		currentPathPercent += percentsPerSecond * Time.deltaTime;
-		iTween.PutOnPath(gameObject, waypointArray, currentPathPercent);
-	}*/
+	private Vector3[] waypointArray = new Vector3[4];
+	private float curvefactor = 0.25f;
+	private float firstPointOffset = 0.4f;
+	private float secondPointOffset = 0.8f;
 
 	void Start () {
-		iTween.MoveTo(gameObject, iTween.Hash("position", Vector3.zero, "time", .5f, "easetype", iTween.EaseType.easeInBack, "oncomplete", "DestroyObject"));
-	
+		GenerateRandomPath();
+		iTween.MoveTo(gameObject, iTween.Hash("path", waypointArray, "time", 0.8f, "easetype", iTween.EaseType.linear, "oncomplete", "DestroyObject"));
+	}
+
+	void OnDrawGizmos(){
+		if (waypointArray != null) {
+			if(waypointArray.Length>0){
+				iTween.DrawPath(waypointArray);	
+			}	
+		}	
+	}
+
+	void GenerateRandomPath()
+	{
+		waypointArray[0] = transform.position;
+		waypointArray[3] = new Vector3(0,0,0);
+		waypointArray[2] = new Vector3(XOffset(2), YOffset(2), 0);
+		waypointArray[1] = new Vector3(XOffset(1), YOffset(1), 0);
+	}
+
+	float XOffset(int WayPointNumber)
+	{
+		float distance = transform.position.magnitude;
+		//TODO: adjust randomerange values depending on length
+		if(WayPointNumber == 2)
+		{
+			return transform.position.x*0.33f+(Random.Range(-secondPointOffset,secondPointOffset))*distance*curvefactor;
+		}
+		else if(WayPointNumber == 1)
+		{
+			return transform.position.x*0.66f+(Random.Range(-firstPointOffset,firstPointOffset))*distance*curvefactor;
+		}
+		return 0.0f;
+	}
+
+	float YOffset(int WayPointNumber)
+	{
+		float distance = transform.position.magnitude;
+		if(WayPointNumber == 2)
+		{
+			return transform.position.y*0.33f+(Random.Range(-secondPointOffset,secondPointOffset))*distance*curvefactor;
+		}
+		else if(WayPointNumber == 1)
+		{
+			return transform.position.y*0.66f+(Random.Range(-firstPointOffset,firstPointOffset))*distance*curvefactor;
+		}
+		return 0.0f;
 	}
 
 	void DestroyObject()

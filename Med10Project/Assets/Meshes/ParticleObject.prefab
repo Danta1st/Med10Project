@@ -95,7 +95,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 100000}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3e2af368cbe4cbb43984e133ada2f2de, type: 3}
+  m_Script: {fileID: 11500000, guid: 8cb9c085c500b184dbafe617c5e7bd3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!135 &13500000
@@ -160,7 +160,7 @@ ParticleSystem:
         m_PostInfinity: 2
       minMaxState: 0
     startSpeed:
-      scalar: 3.88000011
+      scalar: 2
       maxCurve:
         serializedVersion: 2
         m_Curve:
