@@ -9,20 +9,14 @@ public class SpawnManager : MonoBehaviour
 	#endregion
 
 	#region Privates
-	private BpmManager bManager;
 	private GestureManager gManager;
-
 	private bool isOccupied = false;
-
 	private int objectCounter = 0;
+	private int successCounter = 0;
 	#endregion
 	
 	void Awake()
 	{
-		bManager = GameObject.Find("BpmManager").GetComponent<BpmManager>();
-		if(bManager == null)
-			Debug.LogError("No BpmManager was found in the scene.");
-		
 		gManager = Camera.main.GetComponent<GestureManager>();
 		if(gManager == null)
 			Debug.LogError("No GestureManager was found on the main camera.");
@@ -32,6 +26,7 @@ public class SpawnManager : MonoBehaviour
 	{
 		//TODO: Remove on delivery
 		//gManager.OnSwipeRight += SpawnObjectRandom;
+		NotificationCenter.DefaultCenter().AddObserver(this, "NC_Restart");
 	}
 	
 	#region Class Methods
@@ -76,29 +71,19 @@ public class SpawnManager : MonoBehaviour
 	{
 		isOccupied = false;
 	}
-
-	//TODO: Integrate proper highscore system as seperate object
-	private int succesCounter = 0;
-	private float pWidth = 100;
-	private float pHeight = 80;
-	private Rect highScoreRect;
-	public GUIStyle tempStyle;
-
 	public void IncreaseSucces()
 	{
-		succesCounter++;
+		successCounter++;
 
-		if(succesCounter > 10)
+		if(successCounter > 10)
 		{
 			Application.Quit();
 		}
 	}
 
-//	void OnGUI()
-//	{
-//		highScoreRect = new Rect(0,0, pWidth, pHeight);
-//		highScoreRect.center = new Vector2(Screen.width/2, 20);
-//		GUI.Label(highScoreRect, ""+succesCounter, tempStyle);
-//	}	
+	private void NC_Restart()
+	{
+		successCounter = 0;
+	}
 	#endregion
 }

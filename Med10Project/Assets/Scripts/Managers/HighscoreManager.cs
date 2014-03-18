@@ -9,6 +9,17 @@ public class HighscoreManager : MonoBehaviour {
 	#region Privates
 	private int currentScore = 0;
 	private int multiplier = 1;
+
+	void Start()
+	{
+		NotificationCenter.DefaultCenter().AddObserver(this, "NC_Restart");
+	}
+
+	private void NC_Restart()
+	{
+		ResetScoreAndMultiplier();
+	}
+	
 	#endregion
 
 	#region Public Methods
@@ -57,6 +68,17 @@ public class HighscoreManager : MonoBehaviour {
 	{
 		if(multiplier - value >= 1)
 			multiplier -= value;
+	}
+
+	public void ResetScore()
+	{
+		currentScore = 0;
+	}
+
+	public void ResetScoreAndMultiplier()
+	{
+		ResetScore();
+		ResetMultiplier();
 	}
 
 	public void ResetMultiplier()

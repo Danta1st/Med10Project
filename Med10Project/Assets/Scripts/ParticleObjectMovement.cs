@@ -8,6 +8,7 @@ public class ParticleObjectMovement : MonoBehaviour {
 	private float firstPointOffset = 0.4f;
 	private float secondPointOffset = 0.8f;
 
+
 	void Start () {
 		GenerateRandomPath();
 		iTween.MoveTo(gameObject, iTween.Hash("path", waypointArray, "time", 0.8f, "easetype", iTween.EaseType.linear, "oncomplete", "DestroyObject"));

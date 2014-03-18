@@ -9,13 +9,13 @@ public class ObjectHandler : MonoBehaviour
 
 
 	#region Privates
-	private BpmManager bManager;
 	private GestureManager gManager;
 	private SpawnManager sManager;
 	private SoundManager soundManager;
+	private HighscoreManager highScoreManager;
 //	private GA_Submitter gaSubmitter;
 //	private XmlData xmlLogger;
-	private Center center;
+	private GameStateManager gameManager;
 	//Object Information - Passed from spawner
 	private int angle;
 	private int objectID;
@@ -39,10 +39,6 @@ public class ObjectHandler : MonoBehaviour
 		if(soundManager == null)
 			Debug.LogError("No SoundManager was found in the scene.");
 
-		bManager = GameObject.Find("BpmManager").GetComponent<BpmManager>();
-		if(bManager == null)
-			Debug.LogError("No BpmManager was found in the scene.");
-
 		gManager = Camera.main.GetComponent<GestureManager>();
 		if(gManager == null)
 			Debug.LogError("No GestureManager was found on the main camera.");
@@ -50,10 +46,14 @@ public class ObjectHandler : MonoBehaviour
 		sManager = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();
 		if(sManager == null)
 			Debug.LogError("No SpawnManager was found in the scene.");
+
+		highScoreManager = GameObject.Find("HighscoreManager").GetComponent<HighscoreManager>();
+		if(highScoreManager == null)
+			Debug.LogError("No HighscoreManager was found in the scene.");
 		
 //		gaSubmitter = GameObject.Find("GA_Submitter").GetComponent<GA_Submitter>();
 //		xmlLogger = GameObject.Find("XMLlogger").GetComponent<XmlData>();
-		center = GameObject.Find("Center").GetComponent<Center>();
+		gameManager = GameObject.Find("GameStateManager").GetComponent<GameStateManager>();
 		//Initiliase
 		lifeCounter = Lifetime;
 	}
@@ -85,8 +85,9 @@ public class ObjectHandler : MonoBehaviour
 		gameObject.transform.localScale = Vector3.zero;
 		gManager.OnTapBegan += HandleOnTapBegan;
 		gManager.OnTapEnded += Hit;
-		bManager.OnBeat8th3 += DecreaseLifetime;
 		FadeIn();
+		InvokeRepeating("DecreaseLifetime", 1, 1);
+		NotificationCenter.DefaultCenter().AddObserver(this, "NC_Restart");
 	}
 
 	void FadeIn()
@@ -95,9 +96,9 @@ public class ObjectHandler : MonoBehaviour
 		iTween.ScaleTo(gameObject, iTween.Hash("scale", Vector3.one, "easetype", iTween.EaseType.easeOutBack, "time", 0.3f));
 	}
 
-	void FadeOut()
+	void FadeOut(float fadeTime)
 	{
-		iTween.ColorTo(gameObject, iTween.Hash("color", InvisibleColor, "time", 0.4f));
+		iTween.ColorTo(gameObject, iTween.Hash("color", InvisibleColor, "time", fadeTime));
 		iTween.ScaleTo(gameObject, iTween.Hash("scale", Vector3.zero, "easetype", iTween.EaseType.easeInBack, "time", 0.3f));
 	}
 
@@ -142,13 +143,15 @@ public class ObjectHandler : MonoBehaviour
 //				xmlLogger.SetPosition(transform.position);
 //				xmlLogger.WriteTargetDataToXml();
 
-				center.ChangeState(Center.State.awaitCenterClick);
+				gameManager.ChangeState(GameStateManager.State.awaitCenterClick);
 				sManager.IncreaseSucces(); //TODO: Implement proper highscore system as independent object
 				sManager.AllowSpawning();
 
 				SpawnParticle();
-				center.StartCoroutine("SpawnCenterExplosion",0.5f);
-				FadeOut();
+				gameManager.StartCoroutine("SpawnCenterExplosion", transform.rotation);
+				FadeOut(0.05f);
+				highScoreManager.AddScore(13, true);
+				highScoreManager.IncreaseMultiplier();
 				Destroy(gameObject, 2);
 			}
 		}
@@ -169,7 +172,7 @@ public class ObjectHandler : MonoBehaviour
 //		gaSubmitter.ForceSubmit();
 
 		Unsubscribe();
-		center.ChangeState(Center.State.awaitCenterClick);
+		gameManager.ChangeState(GameStateManager.State.awaitCenterClick);
 
 //		//Log Data to XML writer
 //		xmlLogger.SetPassed(false);
@@ -180,14 +183,14 @@ public class ObjectHandler : MonoBehaviour
 //		xmlLogger.WriteTargetDataToXml();
 
 		sManager.AllowSpawning();
-		Destroy(gameObject);
+		FadeOut(0.3f);
+		Destroy(gameObject, 1);
 	}
 
 	private void Unsubscribe()
 	{
 		gManager.OnTapEnded -= Hit;
 		gManager.OnTapBegan -= HandleOnTapBegan;
-		bManager.OnBeat8th3 -= DecreaseLifetime;
 	}
 
 	private void DecreaseLifetime()
@@ -216,6 +219,11 @@ public class ObjectHandler : MonoBehaviour
 	private void PlayMiss()
 	{
 
+	}
+
+	private void NC_Restart()
+	{
+		Miss();
 	}
 	#endregion
 }
