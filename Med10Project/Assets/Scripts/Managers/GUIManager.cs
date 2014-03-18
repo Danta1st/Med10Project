@@ -109,7 +109,7 @@ public class GUIManager: MonoBehaviour {
 			BlockAll(true);
 			//TODO: Needs to reset highscore
 			EnableHighscore(false);
-			scoreManager.ResetScoreAndMultiplier();
+			NotificationCenter.DefaultCenter().PostNotification(this, "NC_Restart");
 		}
 	}
 

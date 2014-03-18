@@ -15,7 +15,7 @@ public class ObjectHandler : MonoBehaviour
 	private HighscoreManager highScoreManager;
 //	private GA_Submitter gaSubmitter;
 //	private XmlData xmlLogger;
-	private Center center;
+	private GameStateManager gameManager;
 	//Object Information - Passed from spawner
 	private int angle;
 	private int objectID;
@@ -53,7 +53,7 @@ public class ObjectHandler : MonoBehaviour
 		
 //		gaSubmitter = GameObject.Find("GA_Submitter").GetComponent<GA_Submitter>();
 //		xmlLogger = GameObject.Find("XMLlogger").GetComponent<XmlData>();
-		center = GameObject.Find("Center").GetComponent<Center>();
+		gameManager = GameObject.Find("GameStateManager").GetComponent<GameStateManager>();
 		//Initiliase
 		lifeCounter = Lifetime;
 	}
@@ -87,6 +87,7 @@ public class ObjectHandler : MonoBehaviour
 		gManager.OnTapEnded += Hit;
 		FadeIn();
 		InvokeRepeating("DecreaseLifetime", 1, 1);
+		NotificationCenter.DefaultCenter().AddObserver(this, "NC_Restart");
 	}
 
 	void FadeIn()
@@ -95,9 +96,9 @@ public class ObjectHandler : MonoBehaviour
 		iTween.ScaleTo(gameObject, iTween.Hash("scale", Vector3.one, "easetype", iTween.EaseType.easeOutBack, "time", 0.3f));
 	}
 
-	void FadeOut()
+	void FadeOut(float fadeTime)
 	{
-		iTween.ColorTo(gameObject, iTween.Hash("color", InvisibleColor, "time", 0.4f));
+		iTween.ColorTo(gameObject, iTween.Hash("color", InvisibleColor, "time", fadeTime));
 		iTween.ScaleTo(gameObject, iTween.Hash("scale", Vector3.zero, "easetype", iTween.EaseType.easeInBack, "time", 0.3f));
 	}
 
@@ -142,13 +143,13 @@ public class ObjectHandler : MonoBehaviour
 //				xmlLogger.SetPosition(transform.position);
 //				xmlLogger.WriteTargetDataToXml();
 
-				center.ChangeState(Center.State.awaitCenterClick);
+				gameManager.ChangeState(GameStateManager.State.awaitCenterClick);
 				sManager.IncreaseSucces(); //TODO: Implement proper highscore system as independent object
 				sManager.AllowSpawning();
 
 				SpawnParticle();
-				center.StartCoroutine("SpawnCenterExplosion",0.5f);
-				FadeOut();
+				gameManager.StartCoroutine("SpawnCenterExplosion", transform.rotation);
+				FadeOut(0.05f);
 				highScoreManager.AddScore(13, true);
 				highScoreManager.IncreaseMultiplier();
 				Destroy(gameObject, 2);
@@ -171,7 +172,7 @@ public class ObjectHandler : MonoBehaviour
 //		gaSubmitter.ForceSubmit();
 
 		Unsubscribe();
-		center.ChangeState(Center.State.awaitCenterClick);
+		gameManager.ChangeState(GameStateManager.State.awaitCenterClick);
 
 //		//Log Data to XML writer
 //		xmlLogger.SetPassed(false);
@@ -182,7 +183,8 @@ public class ObjectHandler : MonoBehaviour
 //		xmlLogger.WriteTargetDataToXml();
 
 		sManager.AllowSpawning();
-		Destroy(gameObject);
+		FadeOut(0.3f);
+		Destroy(gameObject, 1);
 	}
 
 	private void Unsubscribe()
@@ -217,6 +219,11 @@ public class ObjectHandler : MonoBehaviour
 	private void PlayMiss()
 	{
 
+	}
+
+	private void NC_Restart()
+	{
+		Miss();
 	}
 	#endregion
 }

@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class Center : MonoBehaviour 
+public class GameStateManager : MonoBehaviour 
 {
 	#region Editor Publics
 	[SerializeField] private int countDownToSpawn = 3;
@@ -13,6 +13,7 @@ public class Center : MonoBehaviour
 	private SoundManager soundManager;
 
 	private int SpawnCount = 0;
+	private bool isGettingHit = false;
 
 	[SerializeField]
 	private GameObject CenterExplosion;
@@ -67,7 +68,7 @@ public class Center : MonoBehaviour
 	#region Class Methods
 	private void PunchCenter()
 	{
-		if(!(state == State.awaitTargetClick))
+		if(!(state == State.awaitTargetClick) && !(isGettingHit))
 		{
 			IncreaseSpawnCount();
 			iTween.PunchScale(gameObject, new Vector3(0.2f, 0.2f, 0.2f), 0.5f);
@@ -134,11 +135,17 @@ public class Center : MonoBehaviour
 		iTween.ColorTo(gameObject, iTween.Hash("color", Color.green, "time", 0.2f));
 	}
 
-	public IEnumerator SpawnCenterExplosion(float time)
+	public IEnumerator SpawnCenterExplosion(Quaternion rotation)
 	{
-		yield return new WaitForSeconds(time);
+		isGettingHit = true;
+		transform.rotation = rotation;
+		yield return new WaitForSeconds(0.5f);
+		iTween.PunchPosition(gameObject, Vector3.down*1.01f, 1.1f);
+		iTween.PunchScale(gameObject, new Vector3(0.4f, 1.1f, 0.4f), 0.5f);
 		GameObject ExpClone = Instantiate(CenterExplosion, transform.position, transform.rotation) as GameObject;
-		Destroy(ExpClone, 1.0f);
+		Destroy(ExpClone, 1.2f);
+		yield return new WaitForSeconds(1.2f);
+		isGettingHit = false;
 	}
 
 	#endregion
