@@ -13,7 +13,8 @@ public class GameStateManager : MonoBehaviour
 	private SoundManager soundManager;
 
 	private int SpawnCount = 0;
-	private bool isGettingHit = false;
+	private bool stopPunching = false;
+	private bool playModeActive = true;
 
 	[SerializeField]
 	private GameObject CenterExplosion;
@@ -47,11 +48,12 @@ public class GameStateManager : MonoBehaviour
 		InvokeRepeating("PunchCenter", 0, 1);
 
 		ChangeState(State.awaitCenterClick);
+		NotificationCenter.DefaultCenter().AddObserver(this, "NC_Play");
 	}
 
 	void HandleOnTapBegan (Vector2 screenPos)
 	{
-		if(state == State.awaitCenterClick)
+		if((state == State.awaitCenterClick)&& !playModeActive)
 		{
 			Ray ray = Camera.main.ScreenPointToRay(new Vector3(screenPos.x, screenPos.y, 0));
 			RaycastHit hitInfo;
@@ -68,7 +70,7 @@ public class GameStateManager : MonoBehaviour
 	#region Class Methods
 	private void PunchCenter()
 	{
-		if(!(state == State.awaitTargetClick) && !(isGettingHit))
+		if(!(state == State.awaitTargetClick) && !(stopPunching))
 		{
 			IncreaseSpawnCount();
 			iTween.PunchScale(gameObject, new Vector3(0.2f, 0.2f, 0.2f), 0.5f);
@@ -92,7 +94,7 @@ public class GameStateManager : MonoBehaviour
 
 	private void TapCenter(Vector2 screenPos)
 	{
-		if(state == State.awaitCenterClick)
+		if((state == State.awaitCenterClick) && !playModeActive)
 		{
 			Ray ray = Camera.main.ScreenPointToRay(new Vector3(screenPos.x, screenPos.y, 0));
 			RaycastHit hitInfo;
@@ -137,7 +139,7 @@ public class GameStateManager : MonoBehaviour
 
 	public IEnumerator SpawnCenterExplosion(Quaternion rotation)
 	{
-		isGettingHit = true;
+		stopPunching = true;
 		transform.rotation = rotation;
 		yield return new WaitForSeconds(0.5f);
 		iTween.PunchPosition(gameObject, Vector3.down*1.01f, 1.1f);
@@ -145,7 +147,12 @@ public class GameStateManager : MonoBehaviour
 		GameObject ExpClone = Instantiate(CenterExplosion, transform.position, transform.rotation) as GameObject;
 		Destroy(ExpClone, 1.2f);
 		yield return new WaitForSeconds(1.2f);
-		isGettingHit = false;
+		stopPunching = false;
+	}
+
+	private void NC_Play()
+	{
+		playModeActive = false;
 	}
 
 	#endregion

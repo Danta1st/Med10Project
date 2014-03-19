@@ -18,6 +18,7 @@ public class GUIManager: MonoBehaviour {
 	//Rects
 	private Rect highscoreRect;
 	private Rect windowRect;
+	private Rect countdownRect;
 	//Conditioning
 	private GUIBools guiBools = new GUIBools();
 	//Variables
@@ -25,6 +26,7 @@ public class GUIManager: MonoBehaviour {
 	private Vector3 RightCoverBeginPos;
 	//Strings
 	private string currentUser;
+	private string currentCountdownNumber;
 	#endregion
 
 	void Start()
@@ -37,6 +39,8 @@ public class GUIManager: MonoBehaviour {
 		highscoreRect.center = new Vector2(GetCenterWidth(), 20);
 		windowRect = new Rect(0,0, Screen.width * windowMetrics.x, Screen.height * windowMetrics.y);
 		windowRect.center = new Vector2(GetCenterWidth(), getCenterHeight());
+		countdownRect = new Rect(0,0,400,200);
+		countdownRect.center = new Vector2(GetCenterWidth(), getCenterHeight());
 
 		LeftCoverBeginPos = guiElements.LeftCover.transform.position;
 		RightCoverBeginPos = guiElements.RightCover.transform.position;
@@ -63,6 +67,11 @@ public class GUIManager: MonoBehaviour {
 		if(guiBools.displayPlayPrompt)
 		{
 			windowRect = GUILayout.Window(0, windowRect, DoPlayPromptWindow, "Confirm User Selection");
+		}
+
+		if(guiBools.displayCountDown)
+		{
+			GUI.Label(countdownRect, ""+currentCountdownNumber, guiStyles.CountdownStyle);
 		}
 	}
 
@@ -124,9 +133,8 @@ public class GUIManager: MonoBehaviour {
 		if(PlaceButton("Play"))
 		{
 			guiBools.displayPlayPrompt = false;
-			BlockAll(false);
 			EnableHighscore(true);
-			//TODO: Implement count down
+			StartCoroutine(StartCountDown());
 		}
 
 		GUILayout.FlexibleSpace();
@@ -138,6 +146,22 @@ public class GUIManager: MonoBehaviour {
 		}
 
 	}
+
+	private IEnumerator StartCountDown()
+	{
+		guiBools.displayCountDown = true;
+		currentCountdownNumber = "3";
+		yield return new WaitForSeconds(1.0f);
+		currentCountdownNumber = "2";
+		yield return new WaitForSeconds(1.0f);
+		currentCountdownNumber = "1";
+		yield return new WaitForSeconds(1.0f);
+		currentCountdownNumber = "";
+		guiBools.displayCountDown = false;
+		BlockAll(false);
+		NotificationCenter.DefaultCenter().PostNotification(this, "NC_Play");
+	}
+	
 	#endregion
 
 
@@ -218,6 +242,8 @@ public class GUIManager: MonoBehaviour {
 		if(guiBools.displayExitConfirmation == false)
 			guiBools.displayExitConfirmation = true;
 	}
+
+
 	#endregion
 
 	
@@ -262,6 +288,7 @@ public class GUIManager: MonoBehaviour {
 		public bool displayStatistics = false;
 		public bool displayPlayPrompt = false;
 		public bool displayExitConfirmation = false;
+		public bool displayCountDown = false;
 	}
 
 	[System.Serializable]
@@ -269,6 +296,7 @@ public class GUIManager: MonoBehaviour {
 	{
 		public GUIStyle WindowStyle;
 		public GUIStyle HighscoreStyle;
+		public GUIStyle CountdownStyle;
 	}
 	#endregion
 }
