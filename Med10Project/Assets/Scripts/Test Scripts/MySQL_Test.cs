@@ -10,9 +10,6 @@ using System.Linq;
 public class MySQL_Test : MonoBehaviour {
 
 	#region Privates
-	private bool isSaving = false;
-	private bool isLoading = false;
-
 	// MySQL connection string
 	private string constr = "Server=localhost;Database=demo;User ID=demo;Password=demo;Pooling=true";
 	// MySQL Objects
@@ -20,31 +17,26 @@ public class MySQL_Test : MonoBehaviour {
 	private MySqlCommand cmd = null;
 	private MySqlDataReader rdr = null;
 
-	private string userTable = "TestUsers";
-	private string sessionTable = "Session";
-
+	// Standard table names
 	private enum tables
 	{
-		TestUsers
+		TestUsers,
+		Session
 	}
-
-	private ArrayList UserNames = new ArrayList();
+	// User Names
+	private List<string> userNames = new List<string>();
 	#endregion
 
 	// Use this for initialization
 	void Start () {
-	
+		userNames = GetUsers();
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		if(Input.GetKeyDown(KeyCode.Keypad9))
 		{
-//			CreateUserTable();
-//			AddNewUser("Bente");
-
-			int sessions = GetUserSessions("Danny");
-			Debug.Log("Danny Completed "+sessions+" sessions");
+			GetUsers();
 		}
 	}
 	
@@ -52,8 +44,9 @@ public class MySQL_Test : MonoBehaviour {
 	{
 		CloseConnection();
 	}
+
 	#region Public Methods
-	//Method for creating a new User Table, //TODO: Make check to see if table already exists
+	// Method for creating a new User Table, //TODO: Make check to see if table already exists
 	public void CreateUserTable()
 	{
 		OpenConnection();
@@ -61,7 +54,6 @@ public class MySQL_Test : MonoBehaviour {
 		string[] columnNames = {"userID","userName","completedSessions"};
 		string[] columnTypes = {"int PRIMARY KEY AUTO_INCREMENT NOT NULL","VARCHAR(25) NOT NULL", "int NOT NULL"};
 		CreateTable(tableName,columnNames,columnTypes);
-		Debug.Log("Created new user table");
 		CloseConnection();
 	}
 
@@ -69,8 +61,27 @@ public class MySQL_Test : MonoBehaviour {
 	{
 	}
 
+	// Method for getting all userNames registered in the database
+	public List<string> GetUsers()
+	{
+		OpenConnection();
+		var tableName = tables.TestUsers.ToString();
+		string query = "SELECT userName FROM "+tableName;
+		cmd = new MySqlCommand(query, con);
+		rdr = cmd.ExecuteReader();
+
+		List<string> readArray = new List<string>();
+
+		while(rdr.Read())
+		{
+			readArray.Add(rdr.GetString(rdr.GetOrdinal("userName")));
+		}
+		CloseConnection();
+		return readArray;
+	}
+
 	// Method for getting the amount of completed sessions by a specific user
-	public int GetUserSessions(string userName)
+	public int GetUserSessionCount(string userName)
 	{
 		OpenConnection();
 
@@ -89,13 +100,17 @@ public class MySQL_Test : MonoBehaviour {
 		return sessions;
 	}
 
+	public void GetUserData()
+	{
+		//TODO: GetUserData() Method
+	}
+
 	//Method for adding a new user to the Database
 	public void AddNewUser(string userName)
 	{
 		OpenConnection();
 		string[] userDetails = {"0","'"+userName+"'", ""+0};
 		InsertInto(tables.TestUsers.ToString(), userDetails);
-		Debug.Log("Added to userTable, user: "+userName);
 		CloseConnection();
 	}
 	#endregion
@@ -110,7 +125,6 @@ public class MySQL_Test : MonoBehaviour {
 			
 			// lets see if we can open the connection
 			con.Open();
-			Debug.Log("Connection State: " + con.State);
 		}
 		catch (Exception ex)
 		{
@@ -121,7 +135,6 @@ public class MySQL_Test : MonoBehaviour {
 
 	private void CloseConnection()
 	{
-		Debug.Log("killing con");
 		if (con != null)
 		{
 			if (con.State.ToString() != "Closed")
