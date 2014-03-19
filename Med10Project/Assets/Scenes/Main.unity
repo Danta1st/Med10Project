@@ -793,6 +793,65 @@ MonoBehaviour:
       m_FixedHeight: 0
       m_StretchWidth: 1
       m_StretchHeight: 0
+    CountdownStyle:
+      m_Name: 
+      m_Normal:
+        m_Background: {fileID: 0}
+        m_TextColor: {r: 1, g: 1, b: 1, a: 1}
+      m_Hover:
+        m_Background: {fileID: 0}
+        m_TextColor: {r: 0, g: 0, b: 0, a: 1}
+      m_Active:
+        m_Background: {fileID: 0}
+        m_TextColor: {r: 0, g: 0, b: 0, a: 1}
+      m_Focused:
+        m_Background: {fileID: 0}
+        m_TextColor: {r: 0, g: 0, b: 0, a: 1}
+      m_OnNormal:
+        m_Background: {fileID: 0}
+        m_TextColor: {r: 1, g: 1, b: 1, a: 1}
+      m_OnHover:
+        m_Background: {fileID: 0}
+        m_TextColor: {r: 0, g: 0, b: 0, a: 1}
+      m_OnActive:
+        m_Background: {fileID: 0}
+        m_TextColor: {r: 0, g: 0, b: 0, a: 1}
+      m_OnFocused:
+        m_Background: {fileID: 0}
+        m_TextColor: {r: 0, g: 0, b: 0, a: 1}
+      m_Border:
+        m_Left: 0
+        m_Right: 0
+        m_Top: 0
+        m_Bottom: 0
+      m_Margin:
+        m_Left: 0
+        m_Right: 0
+        m_Top: 0
+        m_Bottom: 0
+      m_Padding:
+        m_Left: 0
+        m_Right: 0
+        m_Top: 0
+        m_Bottom: 0
+      m_Overflow:
+        m_Left: 0
+        m_Right: 0
+        m_Top: 0
+        m_Bottom: 0
+      m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+      m_FontSize: 100
+      m_FontStyle: 0
+      m_Alignment: 4
+      m_WordWrap: 0
+      m_RichText: 1
+      m_TextClipping: 0
+      m_ImagePosition: 0
+      m_ContentOffset: {x: 0, y: 0}
+      m_FixedWidth: 0
+      m_FixedHeight: 0
+      m_StretchWidth: 1
+      m_StretchHeight: 0
   guiElements:
     Highscore: {fileID: 1171651402}
     LeftCover: {fileID: 493698744}
@@ -1194,6 +1253,7 @@ MonoBehaviour:
   OnTapBeganAudioClip: {fileID: 8300000, guid: ae55c196442ffe14181d8ed0f80d1e93, type: 3}
   OnTapEndAudioClip: {fileID: 8300000, guid: a918311eddc1aca48bd4d37b96f76301, type: 3}
   OnTargetSuccessHit: {fileID: 8300000, guid: a72555872a98399468a13251cadc5142, type: 3}
+  OnNewTargetSpawned: {fileID: 8300000, guid: 4756963bd70fdd54da3483e632a8e1f2, type: 3}
 --- !u!4 &1034557620
 Transform:
   m_ObjectHideFlags: 0
@@ -3300,6 +3360,42 @@ Prefab:
       propertyPath: windowMetrics.y
       value: .5
       objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: c06f2f247adcad8408fbf93af80262bf, type: 2}
+      propertyPath: guiStyles.CountdownStyle.m_OnNormal.m_TextColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: c06f2f247adcad8408fbf93af80262bf, type: 2}
+      propertyPath: guiStyles.CountdownStyle.m_OnNormal.m_TextColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: c06f2f247adcad8408fbf93af80262bf, type: 2}
+      propertyPath: guiStyles.CountdownStyle.m_OnNormal.m_TextColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: c06f2f247adcad8408fbf93af80262bf, type: 2}
+      propertyPath: guiStyles.CountdownStyle.m_FontSize
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: c06f2f247adcad8408fbf93af80262bf, type: 2}
+      propertyPath: guiStyles.CountdownStyle.m_Font
+      value: 
+      objectReference: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    - target: {fileID: 11400000, guid: c06f2f247adcad8408fbf93af80262bf, type: 2}
+      propertyPath: guiStyles.CountdownStyle.m_Normal.m_TextColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: c06f2f247adcad8408fbf93af80262bf, type: 2}
+      propertyPath: guiStyles.CountdownStyle.m_Normal.m_TextColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: c06f2f247adcad8408fbf93af80262bf, type: 2}
+      propertyPath: guiStyles.CountdownStyle.m_Normal.m_TextColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: c06f2f247adcad8408fbf93af80262bf, type: 2}
+      propertyPath: guiStyles.CountdownStyle.m_Alignment
+      value: 4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c06f2f247adcad8408fbf93af80262bf, type: 2}
   m_RootGameObject: {fileID: 374426750}
@@ -3378,6 +3474,44 @@ MeshFilter:
   m_PrefabInternal: {fileID: 1557642821}
   m_GameObject: {fileID: 1643197678}
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1765997114
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1765997116}
+  - 114: {fileID: 1765997115}
+  m_Layer: 0
+  m_Name: SQLTEST
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1765997115
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1765997114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6c4e0b3c1992fd429c078b047df50f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1765997116
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1765997114}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 50, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
 --- !u!1 &1900231128
 GameObject:
   m_ObjectHideFlags: 0
