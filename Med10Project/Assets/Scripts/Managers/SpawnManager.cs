@@ -9,7 +9,6 @@ public class SpawnManager : MonoBehaviour
 	#endregion
 
 	#region Privates
-	private BpmManager bManager;
 	private GestureManager gManager;
 
 	private bool isOccupied = false;
@@ -19,10 +18,6 @@ public class SpawnManager : MonoBehaviour
 	
 	void Awake()
 	{
-		bManager = GameObject.Find("BpmManager").GetComponent<BpmManager>();
-		if(bManager == null)
-			Debug.LogError("No BpmManager was found in the scene.");
-		
 		gManager = Camera.main.GetComponent<GestureManager>();
 		if(gManager == null)
 			Debug.LogError("No GestureManager was found on the main camera.");
