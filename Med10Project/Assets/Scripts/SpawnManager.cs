@@ -67,6 +67,45 @@ public class SpawnManager : MonoBehaviour
 		}
 	}
 
+	public void SpawnCircleOfTargets()
+	{
+		if(isOccupied == false)
+		{
+			//Get amount of targets
+			int amount = 8;
+
+			for (int i = 0; i < amount; i++)
+			{
+				//Get Random multiplier
+				int multiplier = amount;
+				//Get Random Angle
+				int angle = 45 * multiplier;
+				//Get Random Distance
+				float distance = 7.0f;
+				//Rotate GameObject
+				transform.Rotate(0, 0, (float) angle);
+				//Get Rotation
+				Quaternion rotation = transform.rotation;
+				//Get Position
+				Vector3 position = gameObject.transform.up * distance;
+				//Rotate Back
+				transform.Rotate(0, 0, angle);
+				//Update Counter
+				objectCounter++;
+				//Instantiate Object
+				GameObject go = (GameObject) Instantiate(spawnObject, position, rotation);
+				//Set Object parameters
+				go.GetComponent<ObjectHandler>().SetAngle((int) angle);
+				go.GetComponent<ObjectHandler>().SetID(objectCounter);
+				go.GetComponent<ObjectHandler>().SetDistance(distance);
+				go.GetComponent<ObjectHandler>().SetSpawnTime(Time.time);
+			}
+
+			//Set occupied
+			isOccupied = true;
+		}
+	}
+
 	public void AllowSpawning()
 	{
 		isOccupied = false;
