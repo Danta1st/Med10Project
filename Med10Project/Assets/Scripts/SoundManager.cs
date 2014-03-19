@@ -9,6 +9,8 @@ public class SoundManager : MonoBehaviour {
 	private AudioClip OnTapEndAudioClip;
 	[SerializeField]
 	private AudioClip OnTargetSuccessHit;
+	[SerializeField]
+	private AudioClip OnNewTargetSpawned;
 	
 	public void PlayTouchBegan()
 	{
@@ -25,7 +27,12 @@ public class SoundManager : MonoBehaviour {
 		PlaySound(OnTargetSuccessHit);
 	}
 
-	public void PlaySound(AudioClip audioClipName)
+	public void PlayNewTargetSpawned()
+	{
+		PlaySound(OnNewTargetSpawned);
+	}
+
+	private void PlaySound(AudioClip audioClipName)
 	{
 		AudioSource tempAudioSource;
 		tempAudioSource = gameObject.AddComponent("AudioSource") as AudioSource;

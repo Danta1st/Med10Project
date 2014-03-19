@@ -797,7 +797,7 @@ MonoBehaviour:
       m_Name: 
       m_Normal:
         m_Background: {fileID: 0}
-        m_TextColor: {r: 0, g: 0, b: 0, a: 1}
+        m_TextColor: {r: 1, g: 1, b: 1, a: 1}
       m_Hover:
         m_Background: {fileID: 0}
         m_TextColor: {r: 0, g: 0, b: 0, a: 1}
@@ -839,10 +839,10 @@ MonoBehaviour:
         m_Right: 0
         m_Top: 0
         m_Bottom: 0
-      m_Font: {fileID: 0}
+      m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
       m_FontSize: 100
       m_FontStyle: 0
-      m_Alignment: 0
+      m_Alignment: 4
       m_WordWrap: 0
       m_RichText: 1
       m_TextClipping: 0
@@ -1253,6 +1253,7 @@ MonoBehaviour:
   OnTapBeganAudioClip: {fileID: 8300000, guid: ae55c196442ffe14181d8ed0f80d1e93, type: 3}
   OnTapEndAudioClip: {fileID: 8300000, guid: a918311eddc1aca48bd4d37b96f76301, type: 3}
   OnTargetSuccessHit: {fileID: 8300000, guid: a72555872a98399468a13251cadc5142, type: 3}
+  OnNewTargetSpawned: {fileID: 8300000, guid: 4756963bd70fdd54da3483e632a8e1f2, type: 3}
 --- !u!4 &1034557620
 Transform:
   m_ObjectHideFlags: 0
@@ -3374,6 +3375,26 @@ Prefab:
     - target: {fileID: 11400000, guid: c06f2f247adcad8408fbf93af80262bf, type: 2}
       propertyPath: guiStyles.CountdownStyle.m_FontSize
       value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: c06f2f247adcad8408fbf93af80262bf, type: 2}
+      propertyPath: guiStyles.CountdownStyle.m_Font
+      value: 
+      objectReference: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    - target: {fileID: 11400000, guid: c06f2f247adcad8408fbf93af80262bf, type: 2}
+      propertyPath: guiStyles.CountdownStyle.m_Normal.m_TextColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: c06f2f247adcad8408fbf93af80262bf, type: 2}
+      propertyPath: guiStyles.CountdownStyle.m_Normal.m_TextColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: c06f2f247adcad8408fbf93af80262bf, type: 2}
+      propertyPath: guiStyles.CountdownStyle.m_Normal.m_TextColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: c06f2f247adcad8408fbf93af80262bf, type: 2}
+      propertyPath: guiStyles.CountdownStyle.m_Alignment
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c06f2f247adcad8408fbf93af80262bf, type: 2}

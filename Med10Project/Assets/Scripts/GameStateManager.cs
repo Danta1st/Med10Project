@@ -13,13 +13,13 @@ public class GameStateManager : MonoBehaviour
 	private SoundManager soundManager;
 
 	private int SpawnCount = 0;
-	private bool stopPunching = false;
-	private bool playModeActive = true;
+	private bool allowPunching = true;
+	private bool playModeActive = false;
 
 	[SerializeField]
 	private GameObject CenterExplosion;
 
-	[HideInInspector] public enum State {awaitCenterClick, awaitTargetSpawn, awaitTargetClick};
+	[HideInInspector] public enum State {awaitCenterClick, awaitTargetSpawn, awaitTargetClick, awaitTargetReturnToCenter};
 	[HideInInspector] public State state;
 	#endregion
 
@@ -49,11 +49,13 @@ public class GameStateManager : MonoBehaviour
 
 		ChangeState(State.awaitCenterClick);
 		NotificationCenter.DefaultCenter().AddObserver(this, "NC_Play");
+		NotificationCenter.DefaultCenter().AddObserver(this, "NC_Pause");
+		NotificationCenter.DefaultCenter().AddObserver(this, "NC_Unpause");
 	}
 
 	void HandleOnTapBegan (Vector2 screenPos)
 	{
-		if((state == State.awaitCenterClick)&& !playModeActive)
+		if((state == State.awaitCenterClick) && playModeActive)
 		{
 			Ray ray = Camera.main.ScreenPointToRay(new Vector3(screenPos.x, screenPos.y, 0));
 			RaycastHit hitInfo;
@@ -62,6 +64,7 @@ public class GameStateManager : MonoBehaviour
 				if(hitInfo.collider == gameObject.collider)
 				{
 					soundManager.PlayTouchBegan();
+					StartCoroutine(OnClickCenterPunching());
 				}
 			}
 		}
@@ -70,9 +73,10 @@ public class GameStateManager : MonoBehaviour
 	#region Class Methods
 	private void PunchCenter()
 	{
-		if(!(state == State.awaitTargetClick) && !(stopPunching))
+		if(!(state == State.awaitTargetClick) && allowPunching && playModeActive)
 		{
 			IncreaseSpawnCount();
+			ResetScaleSize();
 			iTween.PunchScale(gameObject, new Vector3(0.2f, 0.2f, 0.2f), 0.5f);
 		}
 	}
@@ -94,7 +98,7 @@ public class GameStateManager : MonoBehaviour
 
 	private void TapCenter(Vector2 screenPos)
 	{
-		if((state == State.awaitCenterClick) && !playModeActive)
+		if((state == State.awaitCenterClick) && playModeActive)
 		{
 			Ray ray = Camera.main.ScreenPointToRay(new Vector3(screenPos.x, screenPos.y, 0));
 			RaycastHit hitInfo;
@@ -116,7 +120,7 @@ public class GameStateManager : MonoBehaviour
 		{
 		case State.awaitCenterClick:
 			state = State.awaitCenterClick;
-			StartCoroutine(DelayedColorChange());
+			iTween.ColorTo(gameObject, iTween.Hash("color", Color.green, "time", 0.2f));
 			break;
 		case State.awaitTargetSpawn:
 			state = State.awaitTargetSpawn;
@@ -126,33 +130,70 @@ public class GameStateManager : MonoBehaviour
 			state = State.awaitTargetClick;
 			iTween.ColorTo(gameObject, iTween.Hash("color", Color.white, "time", 0.4f));
 			break;
+		case State.awaitTargetReturnToCenter:
+			state = State.awaitTargetReturnToCenter;
+			StartCoroutine(AwaitTargetToCenter());
+			break;
 		default:
 			break;
 		}
 	}
 
-	private IEnumerator DelayedColorChange()
+	private IEnumerator AwaitTargetToCenter()
 	{
 		yield return new WaitForSeconds(0.5f);
 		iTween.ColorTo(gameObject, iTween.Hash("color", Color.green, "time", 0.2f));
+		yield return new WaitForSeconds(0.5f);
+		ChangeState(State.awaitCenterClick);
 	}
 
 	public IEnumerator SpawnCenterExplosion(Quaternion rotation)
 	{
-		stopPunching = true;
+		toggleAllowPunching();
 		transform.rotation = rotation;
 		yield return new WaitForSeconds(0.5f);
-		iTween.PunchPosition(gameObject, Vector3.down*1.01f, 1.1f);
-		iTween.PunchScale(gameObject, new Vector3(0.4f, 1.1f, 0.4f), 0.5f);
+		iTween.PunchPosition(gameObject, Vector3.down*1.01f, 0.5f);
+		ResetScaleSize();
+		iTween.PunchScale(gameObject, new Vector3(0.4f, 1.0f, 0.4f), 0.5f);
 		GameObject ExpClone = Instantiate(CenterExplosion, transform.position, transform.rotation) as GameObject;
 		Destroy(ExpClone, 1.2f);
 		yield return new WaitForSeconds(1.2f);
-		stopPunching = false;
+		toggleAllowPunching();
+	}
+
+	private IEnumerator OnClickCenterPunching()
+	{
+		toggleAllowPunching();
+		ResetScaleSize();
+		iTween.PunchScale(gameObject, new Vector3(-0.5f, -0.5f, -0.5f), 0.5f);
+		yield return new WaitForSeconds(0.5f);
+		toggleAllowPunching();
+	}
+
+	private void toggleAllowPunching()
+	{
+		allowPunching = !allowPunching;
+	}
+
+	private void ResetScaleSize()
+	{
+		iTween.Stop (gameObject, "scale");
+		gameObject.transform.localScale = new Vector3 (2,2,2);
 	}
 
 	private void NC_Play()
 	{
+		playModeActive = true;
+	}
+
+	private void NC_Pause()
+	{
 		playModeActive = false;
+	}
+
+	private void NC_Unpause()
+	{
+		playModeActive = true;
 	}
 
 	#endregion

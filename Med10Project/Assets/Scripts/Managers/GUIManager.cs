@@ -107,6 +107,7 @@ public class GUIManager: MonoBehaviour {
 		{
 			//TODO: Unpause game (probably counter to begin)
 			guiBools.displayExitConfirmation = false;
+			NotificationCenter.DefaultCenter().PostNotification(this, "NC_Unpause");
 		}
 
 		GUILayout.FlexibleSpace();
@@ -239,6 +240,7 @@ public class GUIManager: MonoBehaviour {
 
 	public void ExitConfirmation()
 	{
+		NotificationCenter.DefaultCenter().PostNotification(this, "NC_Pause");
 		if(guiBools.displayExitConfirmation == false)
 			guiBools.displayExitConfirmation = true;
 	}

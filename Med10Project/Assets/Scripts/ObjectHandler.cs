@@ -27,6 +27,8 @@ public class ObjectHandler : MonoBehaviour
 	private Color InvisibleColor = new Color(0,1.0f,0,0);
 	private Color FullGreenColor = new Color(0.0f, 1.0f, 0.0f, 1.0f);
 
+	private bool playModeActive = true;
+
 	[SerializeField]
 	private GameObject ParticleObject;
 
@@ -88,6 +90,9 @@ public class ObjectHandler : MonoBehaviour
 		FadeIn();
 		InvokeRepeating("DecreaseLifetime", 1, 1);
 		NotificationCenter.DefaultCenter().AddObserver(this, "NC_Restart");
+		NotificationCenter.DefaultCenter().AddObserver(this, "NC_Pause");
+		NotificationCenter.DefaultCenter().AddObserver(this, "NC_Unpause");
+		soundManager.PlayNewTargetSpawned();
 	}
 
 	void FadeIn()
@@ -143,7 +148,7 @@ public class ObjectHandler : MonoBehaviour
 //				xmlLogger.SetPosition(transform.position);
 //				xmlLogger.WriteTargetDataToXml();
 
-				gameManager.ChangeState(GameStateManager.State.awaitCenterClick);
+				gameManager.ChangeState(GameStateManager.State.awaitTargetReturnToCenter);
 				sManager.IncreaseSucces(); //TODO: Implement proper highscore system as independent object
 				sManager.AllowSpawning();
 
@@ -195,14 +200,16 @@ public class ObjectHandler : MonoBehaviour
 
 	private void DecreaseLifetime()
 	{
-		if(lifeCounter <= 0)
-		{
-			Miss();
-		}
-		else
-		{
-			lifeCounter--;
-			PunchObject();
+		if(playModeActive){
+			if(lifeCounter <= 0)
+			{
+				Miss();
+			}
+			else
+			{
+				lifeCounter--;
+				PunchObject();
+			}
 		}
 	}
 
@@ -225,5 +232,16 @@ public class ObjectHandler : MonoBehaviour
 	{
 		Miss();
 	}
+
+	private void NC_Pause()
+	{
+		playModeActive = false;
+	}
+
+	private void NC_Unpause()
+	{
+		playModeActive = true;
+	}
+
 	#endregion
 }
