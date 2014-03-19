@@ -16,8 +16,7 @@ public class GameStateManager : MonoBehaviour
 	private bool allowPunching = true;
 	private bool playModeActive = false;
 
-	[SerializeField]
-	private GameObject CenterExplosion;
+	[SerializeField] private GameObject CenterExplosion;
 
 	[HideInInspector] public enum State {awaitCenterClick, awaitTargetSpawn, awaitTargetClick, awaitTargetReturnToCenter};
 	[HideInInspector] public State state;
@@ -88,7 +87,7 @@ public class GameStateManager : MonoBehaviour
 			if(SpawnCount >= countDownToSpawn)
 			{
 				ChangeState(State.awaitTargetClick);
-				sManager.SpawnObjectRandom();
+				sManager.SpawnRandom();
 				SpawnCount = 0;
 			}
 			else

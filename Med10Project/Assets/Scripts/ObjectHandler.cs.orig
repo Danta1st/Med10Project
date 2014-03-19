@@ -148,8 +148,13 @@ public class ObjectHandler : MonoBehaviour
 //				xmlLogger.SetPosition(transform.position);
 //				xmlLogger.WriteTargetDataToXml();
 
+<<<<<<< HEAD
 				gameManager.ChangeState(GameStateManager.State.awaitTargetReturnToCenter);
+				sManager.IncreaseSucces(); //TODO: Implement proper highscore system as independent object
+=======
+				center.ChangeState(Center.State.awaitCenterClick);
 				//sManager.IncreaseSucces(); //TODO: Implement proper highscore system as independent object
+>>>>>>> feature/Danny
 				sManager.AllowSpawning();
 
 				SpawnParticle();

@@ -3,12 +3,9 @@ using System.Collections;
 
 public class SoundManager : MonoBehaviour {
 
-	[SerializeField]
-	private AudioClip OnTapBeganAudioClip;
-	[SerializeField]
-	private AudioClip OnTapEndAudioClip;
-	[SerializeField]
-	private AudioClip OnTargetSuccessHit;
+	[SerializeField] private AudioClip OnTapBeganAudioClip;
+	[SerializeField] private AudioClip OnTapEndAudioClip;
+	[SerializeField] private AudioClip OnTargetSuccessHit;
 	[SerializeField]
 	private AudioClip OnNewTargetSpawned;
 	
