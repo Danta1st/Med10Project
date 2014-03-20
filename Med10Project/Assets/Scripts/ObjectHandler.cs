@@ -4,7 +4,7 @@ using System.Collections;
 public class ObjectHandler : MonoBehaviour 
 {
 	#region Editor Publics
-	[SerializeField] private int Lifetime = 5;
+	[SerializeField] private int Lifetime = 2;
 	#endregion
 
 
@@ -83,7 +83,7 @@ public class ObjectHandler : MonoBehaviour
 	
 	void Start ()
 	{
-		gameObject.renderer.material.color = InvisibleColor;
+		//gameObject.renderer.material.color = InvisibleColor;
 		gameObject.transform.localScale = Vector3.zero;
 		gManager.OnTapBegan += HandleOnTapBegan;
 		gManager.OnTapEnded += Hit;
@@ -93,18 +93,19 @@ public class ObjectHandler : MonoBehaviour
 		NotificationCenter.DefaultCenter().AddObserver(this, "NC_Pause");
 		NotificationCenter.DefaultCenter().AddObserver(this, "NC_Unpause");
 		soundManager.PlayNewTargetSpawned();
+		FadeOut(Lifetime);
 	}
 
 	void FadeIn()
 	{
-		iTween.ColorTo(gameObject, iTween.Hash("color", FullGreenColor, "time", 0.3f));
 		iTween.ScaleTo(gameObject, iTween.Hash("scale", Vector3.one, "easetype", iTween.EaseType.easeOutBack, "time", 0.3f));
+		FadeOut(Lifetime);
 	}
 
 	void FadeOut(float fadeTime)
 	{
-		iTween.ColorTo(gameObject, iTween.Hash("color", InvisibleColor, "time", fadeTime));
-		iTween.ScaleTo(gameObject, iTween.Hash("scale", Vector3.zero, "easetype", iTween.EaseType.easeInBack, "time", 0.3f));
+		iTween.ColorTo(gameObject, iTween.Hash("delay", 0.3f, "color", InvisibleColor, "time", fadeTime));
+		iTween.ScaleTo(gameObject, iTween.Hash("delay", 0.3f, "scale", Vector3.zero, "easetype", iTween.EaseType.easeInBack, "time", fadeTime));
 	}
 
 	void HandleOnTapBegan (Vector2 screenPos)
@@ -154,7 +155,7 @@ public class ObjectHandler : MonoBehaviour
 
 				SpawnParticle();
 				gameManager.StartCoroutine("SpawnCenterExplosion", transform.rotation);
-				FadeOut(0.05f);
+				iTween.ColorTo(gameObject, iTween.Hash("color", InvisibleColor, "time", 0.0f));
 				highScoreManager.AddScore(13, true);
 				highScoreManager.IncreaseMultiplier();
 				Destroy(gameObject, 2);
@@ -189,7 +190,7 @@ public class ObjectHandler : MonoBehaviour
 
 		sManager.AllowSpawning();
 		FadeOut(0.3f);
-		Destroy(gameObject, 1);
+		Destroy(gameObject);
 	}
 
 	private void Unsubscribe()

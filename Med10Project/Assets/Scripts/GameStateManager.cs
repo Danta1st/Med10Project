@@ -16,6 +16,8 @@ public class GameStateManager : MonoBehaviour
 	private bool allowPunching = true;
 	private bool playModeActive = false;
 
+	private int currentDistanceToSpawn = 2;
+
 	[SerializeField] private GameObject CenterExplosion;
 
 	[HideInInspector] public enum State {awaitCenterClick, awaitTargetSpawn, awaitTargetClick, awaitTargetReturnToCenter};
@@ -75,7 +77,7 @@ public class GameStateManager : MonoBehaviour
 		if(!(state == State.awaitTargetClick) && allowPunching && playModeActive)
 		{
 			IncreaseSpawnCount();
-			ResetScaleSize();
+			ResetGOScale();
 			iTween.PunchScale(gameObject, new Vector3(0.2f, 0.2f, 0.2f), 0.5f);
 		}
 	}
@@ -88,6 +90,13 @@ public class GameStateManager : MonoBehaviour
 			{
 				ChangeState(State.awaitTargetClick);
 				sManager.SpawnRandom();
+				//sManager.SpawnXAmount(10, currentDistanceToSpawn);
+
+				if(currentDistanceToSpawn < 10)
+				{
+					currentDistanceToSpawn++;
+				}
+
 				SpawnCount = 0;
 			}
 			else
@@ -120,6 +129,7 @@ public class GameStateManager : MonoBehaviour
 		case State.awaitCenterClick:
 			state = State.awaitCenterClick;
 			iTween.ColorTo(gameObject, iTween.Hash("color", Color.green, "time", 0.2f));
+			gameObject.transform.position = new Vector3 (0,0,0);
 			break;
 		case State.awaitTargetSpawn:
 			state = State.awaitTargetSpawn;
@@ -152,7 +162,7 @@ public class GameStateManager : MonoBehaviour
 		transform.rotation = rotation;
 		yield return new WaitForSeconds(0.5f);
 		iTween.PunchPosition(gameObject, Vector3.down*1.01f, 0.5f);
-		ResetScaleSize();
+		ResetGOScale();
 		iTween.PunchScale(gameObject, new Vector3(0.4f, 1.0f, 0.4f), 0.5f);
 		GameObject ExpClone = Instantiate(CenterExplosion, transform.position, transform.rotation) as GameObject;
 		Destroy(ExpClone, 1.2f);
@@ -163,7 +173,7 @@ public class GameStateManager : MonoBehaviour
 	private IEnumerator OnClickCenterPunching()
 	{
 		toggleAllowPunching();
-		ResetScaleSize();
+		ResetGOScale();
 		iTween.PunchScale(gameObject, new Vector3(-0.5f, -0.5f, -0.5f), 0.5f);
 		yield return new WaitForSeconds(0.5f);
 		toggleAllowPunching();
@@ -174,7 +184,7 @@ public class GameStateManager : MonoBehaviour
 		allowPunching = !allowPunching;
 	}
 
-	private void ResetScaleSize()
+	private void ResetGOScale()
 	{
 		iTween.Stop (gameObject, "scale");
 		gameObject.transform.localScale = new Vector3 (2,2,2);
