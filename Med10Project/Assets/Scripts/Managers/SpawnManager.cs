@@ -6,6 +6,7 @@ public class SpawnManager : MonoBehaviour
 
 	#region Editor Publics
 	[SerializeField] GameObject spawnObject;
+	[SerializeField] GameObject spawnObject2;
 	#endregion
 
 	#region Privates
@@ -52,26 +53,32 @@ public class SpawnManager : MonoBehaviour
 	}
 	public void SpawnSpecific(int int1to10, float distance)
 	{
-		if(isOccupied == false)
+		//Get specific angle
+		int angle = GetAngle(int1to10);
+		//Rotate self by specific angle
+		RotateSelf(angle);
+		//Record spawn rotation & Position
+		Quaternion rotation = transform.rotation;
+		Vector3 position = gameObject.transform.up * distance;
+		//Rotate self back by specific angle
+		RotateSelf(-angle);
+		//Instantiate game object
+		GameObject go = (GameObject) Instantiate(spawnObject, position, rotation);
+		//Set Object Parameters
+		go.GetComponent<ObjectHandler>().SetAngle((int) angle);
+		go.GetComponent<ObjectHandler>().SetID(objectCounter);
+		go.GetComponent<ObjectHandler>().SetDistance(distance);
+		go.GetComponent<ObjectHandler>().SetSpawnTime(Time.time);
+		go.name = go.name+int1to10;
+		//Set occupied
+		isOccupied = true;
+	}
+
+	public void SpawnXAmount(int amountOfTargets, float distance)
+	{
+		for(int i = 1; i <= amountOfTargets; i++)
 		{
-			//Get specific angle
-			int angle = GetAngle(int1to10);
-			//Rotate self by specific angle
-			RotateSelf(angle);
-			//Record spawn rotation & Position
-			Quaternion rotation = transform.rotation;
-			Vector3 position = gameObject.transform.up * distance;
-			//Rotate self back by specific angle
-			RotateSelf(-angle);
-			//Instantiate game object
-			GameObject go = (GameObject) Instantiate(spawnObject, position, rotation);
-			//Set Object Parameters
-			go.GetComponent<ObjectHandler>().SetAngle((int) angle);
-			go.GetComponent<ObjectHandler>().SetID(objectCounter);
-			go.GetComponent<ObjectHandler>().SetDistance(distance);
-			go.GetComponent<ObjectHandler>().SetSpawnTime(Time.time);
-			//Set occupied
-			isOccupied = true;
+			SpawnSpecific(i, distance);
 		}
 	}
 
@@ -133,13 +140,13 @@ public class SpawnManager : MonoBehaviour
 	#region Class Methods
 	private int GetAngle(int int1to10)
 	{
-		int angle = 36 * int1to10 - 18;
+		int angle = (36 * int1to10) - 18;
 		return angle;
 	}
 
 	private void RotateSelf(int angle)
 	{
-		transform.Rotate(0, 0, (float) angle);
+		transform.Rotate(0, 0, (float) -angle);
 	}
 	#endregion
 }
