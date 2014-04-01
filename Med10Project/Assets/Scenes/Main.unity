@@ -836,7 +836,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2ab553d84158c04187b97c1283a4b47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  countDownToSpawn: 3
+  spawnTime: 3
   CenterExplosion: {fileID: 100002, guid: e708d354ffc074d44b6c75a7abae6602, type: 2}
   state: 0
 --- !u!135 &387336500

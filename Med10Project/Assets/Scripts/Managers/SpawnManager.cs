@@ -149,4 +149,14 @@ public class SpawnManager : MonoBehaviour
 		transform.Rotate(0, 0, (float) -angle);
 	}
 	#endregion
+
+	#region Subclasses
+	[System.Serializable]
+	public class SpawnObjects
+	{
+		public GameObject SingleTarget;
+		public GameObject SequentialTarget;
+		public GameObject MultiTarget;
+	}
+	#endregion
 }
