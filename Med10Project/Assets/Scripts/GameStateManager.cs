@@ -11,6 +11,7 @@ public class GameStateManager : MonoBehaviour
 	private GestureManager gManager;
 	private SpawnManager sManager;
 	private SoundManager soundManager;
+	private ClockHandler clock;
 
 	private int SpawnCount = 0;
 	private bool allowPunching = true;
@@ -37,12 +38,13 @@ public class GameStateManager : MonoBehaviour
 		soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
 		if(soundManager == null)
 			Debug.LogError("No SoundManager was found in the scene.");
+
+		clock = GameObject.Find("SpawnClock").GetComponent<ClockHandler>();
+		clock.SetTime((float) countDownToSpawn);
 	}
 
 	void Start ()
 	{
-		//TODO: Change to "start game" or something similar
-
 		gManager.OnTapBegan += HandleOnTapBegan;
 		gManager.OnTapEnded += TapCenter;
 		
@@ -115,30 +117,33 @@ public class GameStateManager : MonoBehaviour
 			{
 				if(hitInfo.collider == gameObject.collider)
 				{
+					//Change the state to currently awaiting a spawn
 					ChangeState(State.awaitTargetSpawn);
+					//Begin clock rotation
+					clock.BeginClock();
+					//Play sound to indicate that the touch has ended
 					soundManager.PlayTouchEnded();
 				}
 			}
 		}
 	}
 
-	//TODO: Fix proper color mechanism for polish, texture?
 	public void ChangeState(State plate)
 	{
 		switch (plate)
 		{
 		case State.awaitCenterClick:
 			state = State.awaitCenterClick;
-			iTween.ColorTo(gameObject, iTween.Hash("color", Color.green, "time", 0.2f));
+			iTween.ColorTo(gameObject, iTween.Hash("color", Color.green, "time", 0.2f, "includeChildre", false));
 			gameObject.transform.position = new Vector3 (0,0,0);
 			break;
 		case State.awaitTargetSpawn:
 			state = State.awaitTargetSpawn;
-			iTween.ColorTo(gameObject, iTween.Hash("color", Color.white, "time", 0.2f));
+			iTween.ColorTo(gameObject, iTween.Hash("color", Color.white, "time", 0.2f, "includeChildre", false));
 			break;
 		case State.awaitTargetClick:
 			state = State.awaitTargetClick;
-			iTween.ColorTo(gameObject, iTween.Hash("color", Color.white, "time", 0.4f));
+			iTween.ColorTo(gameObject, iTween.Hash("color", Color.white, "time", 0.4f, "includeChildre", false));
 			break;
 		case State.awaitTargetReturnToCenter:
 			state = State.awaitTargetReturnToCenter;
@@ -152,7 +157,7 @@ public class GameStateManager : MonoBehaviour
 	private IEnumerator AwaitTargetToCenter()
 	{
 		yield return new WaitForSeconds(0.5f);
-		iTween.ColorTo(gameObject, iTween.Hash("color", Color.green, "time", 0.2f));
+		iTween.ColorTo(gameObject, iTween.Hash("color", Color.green, "time", 0.2f, "includeChildre", false));
 		yield return new WaitForSeconds(0.5f);
 		ChangeState(State.awaitCenterClick);
 	}

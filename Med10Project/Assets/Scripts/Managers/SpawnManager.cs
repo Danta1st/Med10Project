@@ -93,13 +93,13 @@ public class SpawnManager : MonoBehaviour
 			//Get Random Distance
 			float distance = Random.Range(2.0f, 8.5f);
 			//Rotate GameObject
-			transform.Rotate(0, 0, (float) angle);
+			RotateSelf(angle);
 			//Get Rotation
 			Quaternion rotation = transform.rotation;
 			//Get Position
 			Vector3 position = gameObject.transform.up * distance;
 			//Rotate Back
-			transform.Rotate(0, 0, angle);
+			RotateSelf(-angle);
 			//Update Counter
 			objectCounter++;
 			//Instantiate Object
