@@ -88,6 +88,7 @@ public class GameStateManager : MonoBehaviour
 		{
 			if(SpawnCount >= countDownToSpawn)
 			{
+				soundManager.PlayNewTargetSpawned();
 				ChangeState(State.awaitTargetClick);
 				sManager.SpawnRandom();
 				//sManager.SpawnXAmount(10, currentDistanceToSpawn);

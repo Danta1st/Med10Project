@@ -26,11 +26,14 @@ public class ObjectHandler : MonoBehaviour
 
 	private Color InvisibleColor = new Color(0,1.0f,0,0);
 	private Color FullGreenColor = new Color(0.0f, 1.0f, 0.0f, 1.0f);
+	private Color DisabledColor = new Color(1,1,1,1);
 
 	private bool playModeActive = true;
 
 	[SerializeField]
 	private GameObject ParticleObject;
+
+	private bool hideHitTargets = true;
 
 	#endregion
 	
@@ -92,14 +95,16 @@ public class ObjectHandler : MonoBehaviour
 		NotificationCenter.DefaultCenter().AddObserver(this, "NC_Restart");
 		NotificationCenter.DefaultCenter().AddObserver(this, "NC_Pause");
 		NotificationCenter.DefaultCenter().AddObserver(this, "NC_Unpause");
-		soundManager.PlayNewTargetSpawned();
-		FadeOut(Lifetime);
 	}
 
 	void FadeIn()
 	{
 		iTween.ScaleTo(gameObject, iTween.Hash("scale", Vector3.one, "easetype", iTween.EaseType.easeOutBack, "time", 0.3f));
-		FadeOut(Lifetime);
+
+		if(hideHitTargets)
+		{
+			FadeOut(Lifetime);
+		}
 	}
 
 	void FadeOut(float fadeTime)
@@ -155,12 +160,31 @@ public class ObjectHandler : MonoBehaviour
 
 				SpawnParticle();
 				gameManager.StartCoroutine("SpawnCenterExplosion", transform.rotation);
-				iTween.ColorTo(gameObject, iTween.Hash("color", InvisibleColor, "time", 0.0f));
+
+				if(hideHitTargets)
+				{
+					HideTarget();
+				}
+				else{
+					SetTargetDisabled();
+				}
+
 				highScoreManager.AddScore(13, true);
 				highScoreManager.IncreaseMultiplier();
-				Destroy(gameObject, 2);
+
 			}
 		}
+	}
+
+	private void HideTarget()
+	{
+		iTween.ColorTo(gameObject, iTween.Hash("color", InvisibleColor, "time", 0.0f));
+		Destroy(gameObject, 2);
+	}
+
+	private void SetTargetDisabled()
+	{
+		iTween.ColorTo(gameObject, iTween.Hash("color", DisabledColor, "time", 0.3f));
 	}
 
 	private void SpawnParticle()
