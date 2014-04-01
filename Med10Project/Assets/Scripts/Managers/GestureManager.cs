@@ -61,7 +61,7 @@ public class GestureManager : MonoBehaviour {
 			switch(touch.phase)
 			{
 			case TouchPhase.Began:
-				TouchBegan();
+				TouchBegan(touch);
 				//Log begin position
 				touchBeganPositions[touch.fingerId] = touch.position;
 				//Log begin time
@@ -144,13 +144,12 @@ public class GestureManager : MonoBehaviour {
 		}
 	}
 
-	private void TouchBegan()
+	private void TouchBegan(Touch touch)
 	{
-		Touch tempTouch = Input.GetTouch(0);
 
 		if(OnTapBegan != null)
 		{
-			OnTapBegan(tempTouch.position);
+			OnTapBegan(touch.position);
 		}
 	}
 }
