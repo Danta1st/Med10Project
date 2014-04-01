@@ -4,7 +4,9 @@ using System.Collections;
 public class GameStateManager : MonoBehaviour 
 {
 	#region Editor Publics
-	[SerializeField] private int countDownToSpawn = 3;
+	[SerializeField] private float spawnTime = 3.0f;
+	[SerializeField] private GameObject CenterExplosion;
+	//[SerializeField] private int countDownToSpawn = 3;
 	#endregion
 
 	#region Privates
@@ -13,13 +15,14 @@ public class GameStateManager : MonoBehaviour
 	private SoundManager soundManager;
 	private ClockHandler clock;
 
+	private float SpawnBegin;
+
 	private int SpawnCount = 0;
 	private bool allowPunching = true;
 	private bool playModeActive = false;
 
 	private int currentDistanceToSpawn = 2;
 
-	[SerializeField] private GameObject CenterExplosion;
 
 	[HideInInspector] public enum State {awaitCenterClick, awaitTargetSpawn, awaitTargetClick, awaitTargetReturnToCenter};
 	[HideInInspector] public State state;
@@ -40,7 +43,7 @@ public class GameStateManager : MonoBehaviour
 			Debug.LogError("No SoundManager was found in the scene.");
 
 		clock = GameObject.Find("SpawnClock").GetComponent<ClockHandler>();
-		clock.SetTime((float) countDownToSpawn);
+		clock.SetTime(spawnTime);
 	}
 
 	void Start ()
@@ -54,6 +57,29 @@ public class GameStateManager : MonoBehaviour
 		NotificationCenter.DefaultCenter().AddObserver(this, "NC_Play");
 		NotificationCenter.DefaultCenter().AddObserver(this, "NC_Pause");
 		NotificationCenter.DefaultCenter().AddObserver(this, "NC_Unpause");
+	}
+
+	void Update()
+	{
+		switch (state)
+		{
+		case State.awaitCenterClick:
+			break;
+		case State.awaitTargetSpawn:
+			if(Time.time >= spawnTime + SpawnBegin)
+			{
+				ChangeState(State.awaitTargetClick);
+				//sManager.SpawnRandom();
+				sManager.Phase1Stage1();
+			}
+			break;
+		case State.awaitTargetClick:
+			break;
+		case State.awaitTargetReturnToCenter:
+			break;
+		default:
+			break;
+		}
 	}
 
 	void HandleOnTapBegan (Vector2 screenPos)
@@ -83,33 +109,8 @@ public class GameStateManager : MonoBehaviour
 	{
 		if(!(state == State.awaitTargetClick) && allowPunching && playModeActive)
 		{
-			IncreaseSpawnCount();
 			ResetGOScale();
 			iTween.PunchScale(gameObject, new Vector3(0.2f, 0.2f, 0.2f), 0.5f);
-		}
-	}
-
-	private void IncreaseSpawnCount()
-	{
-		if(state == State.awaitTargetSpawn)
-		{
-			if(SpawnCount >= countDownToSpawn)
-			{
-				soundManager.PlayNewTargetSpawned();
-				ChangeState(State.awaitTargetClick);
-				sManager.Phase1Stage1();
-				//sManager.SpawnRandom();
-				//sManager.SpawnXAmount(10, currentDistanceToSpawn);
-
-				if(currentDistanceToSpawn < 10)
-				{
-					currentDistanceToSpawn++;
-				}
-
-				SpawnCount = 0;
-			}
-			else
-				SpawnCount++;
 		}
 	}
 
@@ -136,16 +137,17 @@ public class GameStateManager : MonoBehaviour
 		{
 		case State.awaitCenterClick:
 			state = State.awaitCenterClick;
-			iTween.ColorTo(gameObject, iTween.Hash("color", Color.green, "time", 0.2f, "includeChildre", false));
+			iTween.ColorTo(gameObject, iTween.Hash("color", Color.green, "time", 0.2f, "includeChildren", false));
 			gameObject.transform.position = new Vector3 (0,0,0);
 			break;
 		case State.awaitTargetSpawn:
 			state = State.awaitTargetSpawn;
-			iTween.ColorTo(gameObject, iTween.Hash("color", Color.white, "time", 0.2f, "includeChildre", false));
+			SpawnBegin = Time.time;
+			iTween.ColorTo(gameObject, iTween.Hash("color", Color.white, "time", 0.2f, "includeChildren", false));
 			break;
 		case State.awaitTargetClick:
 			state = State.awaitTargetClick;
-			iTween.ColorTo(gameObject, iTween.Hash("color", Color.white, "time", 0.4f, "includeChildre", false));
+			iTween.ColorTo(gameObject, iTween.Hash("color", Color.white, "time", 0.4f, "includeChildren", false));
 			break;
 		case State.awaitTargetReturnToCenter:
 			state = State.awaitTargetReturnToCenter;
@@ -159,7 +161,7 @@ public class GameStateManager : MonoBehaviour
 	private IEnumerator AwaitTargetToCenter()
 	{
 		yield return new WaitForSeconds(0.5f);
-		iTween.ColorTo(gameObject, iTween.Hash("color", Color.green, "time", 0.2f, "includeChildre", false));
+		iTween.ColorTo(gameObject, iTween.Hash("color", Color.green, "time", 0.2f, "includeChildren", false));
 		yield return new WaitForSeconds(0.5f);
 		ChangeState(State.awaitCenterClick);
 	}
