@@ -40,7 +40,7 @@ public class ClockHandler : MonoBehaviour {
 	private void HideComponents()
 	{
 		//Scale the clock to size 0 - objects "goes into" the center object
-		iTween.ScaleTo(gameObject, Vector3.zero, 0.5f);
+		iTween.ScaleTo(gameObject, iTween.Hash("scale", Vector3.zero, "time", 0.5f, "easetype", iTween.EaseType.easeInBack));
 
 		foreach(Transform t in components)
 		{
@@ -52,7 +52,7 @@ public class ClockHandler : MonoBehaviour {
 	private IEnumerator DoClock()
 	{
 		//Scale object to size 1 - Object "comes out" from the center object
-		iTween.ScaleTo(gameObject, Vector3.one, individualTime);
+		iTween.ScaleTo(gameObject, iTween.Hash("scale", Vector3.one, "time", 0.5f, "easetype", iTween.EaseType.easeOutBack));
 
 		foreach(Transform t in components)
 		{
@@ -75,7 +75,7 @@ public class ClockHandler : MonoBehaviour {
 
 	private void CalculateIndividualTime()
 	{
-		individualTime = time/components.Count;
+		individualTime = (time - 0.5f)/components.Count;
 	}
 	#endregion
 }
