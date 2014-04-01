@@ -49,7 +49,7 @@ public class GameStateManager : MonoBehaviour
 	void Start ()
 	{
 		gManager.OnTapBegan += HandleOnTapBegan;
-		gManager.OnTapEnded += TapCenter;
+		//gManager.OnTapEnded += TapCenter;
 		
 		InvokeRepeating("PunchCenter", 0, 1);
 
@@ -69,7 +69,8 @@ public class GameStateManager : MonoBehaviour
 			if(Time.time >= spawnTime + SpawnBegin)
 			{
 				ChangeState(State.awaitTargetClick);
-				sManager.SpawnRandom();
+				//sManager.SpawnRandom();
+				sManager.Phase1Stage1();
 			}
 			break;
 		case State.awaitTargetClick:
@@ -91,6 +92,11 @@ public class GameStateManager : MonoBehaviour
 			{
 				if(hitInfo.collider == gameObject.collider)
 				{
+					//Change the state to currently awaiting a spawn
+					ChangeState(State.awaitTargetSpawn);
+					//Begin clock rotation
+					clock.BeginClock();
+
 					soundManager.PlayTouchBegan();
 					StartCoroutine(OnClickCenterPunching());
 				}
@@ -118,10 +124,6 @@ public class GameStateManager : MonoBehaviour
 			{
 				if(hitInfo.collider == gameObject.collider)
 				{
-					//Change the state to currently awaiting a spawn
-					ChangeState(State.awaitTargetSpawn);
-					//Begin clock rotation
-					clock.BeginClock();
 					//Play sound to indicate that the touch has ended
 					soundManager.PlayTouchEnded();
 				}
