@@ -21,6 +21,7 @@ public class ObjectHandler : MonoBehaviour
 	private int objectID;
 	private float distance;
 	private float spawnTime;
+	private int anglemultiplier;
 
 	private int lifeCounter;
 
@@ -83,13 +84,18 @@ public class ObjectHandler : MonoBehaviour
 	{
 		spawnTime = time;
 	}
+
+	public void SetMultiplier(int multiplier)
+	{
+		anglemultiplier = multiplier;
+	}
 	
 	void Start ()
 	{
 		//gameObject.renderer.material.color = InvisibleColor;
 		gameObject.transform.localScale = Vector3.zero;
-		gManager.OnTapBegan += HandleOnTapBegan;
-		gManager.OnTapEnded += Hit;
+		gManager.OnTapBegan += Hit;
+		//gManager.OnTapEnded += Hit;
 		FadeIn();
 		InvokeRepeating("DecreaseLifetime", 1, 1);
 		NotificationCenter.DefaultCenter().AddObserver(this, "NC_Restart");
@@ -169,6 +175,8 @@ public class ObjectHandler : MonoBehaviour
 					SetTargetDisabled();
 				}
 
+				sManager.IncreaseDistanceInArray(anglemultiplier);
+
 				highScoreManager.AddScore(13, true);
 				highScoreManager.IncreaseMultiplier();
 
@@ -212,6 +220,7 @@ public class ObjectHandler : MonoBehaviour
 //		xmlLogger.SetPosition(transform.position);
 //		xmlLogger.WriteTargetDataToXml();
 
+		sManager.DecreaseDistanceInArray(anglemultiplier);
 		sManager.AllowSpawning();
 		FadeOut(0.3f);
 		Destroy(gameObject);
@@ -219,8 +228,9 @@ public class ObjectHandler : MonoBehaviour
 
 	private void Unsubscribe()
 	{
-		gManager.OnTapEnded -= Hit;
-		gManager.OnTapBegan -= HandleOnTapBegan;
+		//gManager.OnTapEnded -= Hit;
+		//gManager.OnTapBegan -= HandleOnTapBegan;
+		gManager.OnTapBegan -= Hit;
 	}
 
 	private void DecreaseLifetime()
