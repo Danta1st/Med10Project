@@ -15,6 +15,10 @@ public class SpawnManager : MonoBehaviour
 	private bool isOccupied = false;
 
 	private int objectCounter = 0;
+
+	private float[] distances = new float[10] {2, 2, 2, 2, 2, 2, 2, 2, 2, 2};
+	private float distanceChange = 2f;
+
 	#endregion
 	
 	void Awake()
@@ -25,6 +29,18 @@ public class SpawnManager : MonoBehaviour
 	}
 	
 	#region Public Methods
+	public void IncreaseDistanceInArray(int angle)
+	{
+		distances[angle] = distances[angle]+distanceChange;
+		Debug.Log("Sat angle " + angle + " to " + distances[angle]);
+	}
+
+	public void DecreaseDistanceInArray(int angle)
+	{
+		distances[angle] = distances[angle]-distanceChange;
+		Debug.Log("Sat angle " + angle + " to " + distances[angle]);
+	}
+
 	public void SpawnSpecific(int int1to10)
 	{
 		if(isOccupied == false)
@@ -109,6 +125,37 @@ public class SpawnManager : MonoBehaviour
 			go.GetComponent<ObjectHandler>().SetID(objectCounter);
 			go.GetComponent<ObjectHandler>().SetDistance(distance);
 			go.GetComponent<ObjectHandler>().SetSpawnTime(Time.time);
+			//Set occupied
+			isOccupied = true;
+		}
+	}
+
+	public void Phase1Stage1()
+	{
+		if(isOccupied == false)
+		{
+			//Get Random multiplier
+			int multiplier = Random.Range(1, 10);
+			//Get Random Angle
+			int angle = GetAngle(multiplier);
+			//Rotate GameObject
+			RotateSelf(angle);
+			//Get Rotation
+			Quaternion rotation = transform.rotation;
+			//Get Position
+			Vector3 position = gameObject.transform.up * distances[multiplier];
+			//Rotate Back
+			RotateSelf(-angle);
+			//Update Counter
+			objectCounter++;
+			//Instantiate Object
+			GameObject go = (GameObject) Instantiate(spawnObject, position, rotation);
+			//Set Object parameters
+			go.GetComponent<ObjectHandler>().SetAngle((int) angle);
+			go.GetComponent<ObjectHandler>().SetID(objectCounter);
+			go.GetComponent<ObjectHandler>().SetDistance(distances[multiplier]);
+			go.GetComponent<ObjectHandler>().SetSpawnTime(Time.time);
+			go.GetComponent<ObjectHandler>().SetMultiplier(multiplier);
 			//Set occupied
 			isOccupied = true;
 		}
