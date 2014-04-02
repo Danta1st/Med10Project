@@ -6,24 +6,20 @@ public class GameStateManager : MonoBehaviour
 	#region Editor Publics
 	[SerializeField] private float spawnTime = 3.0f;
 	[SerializeField] private GameObject CenterExplosion;
-	//[SerializeField] private int countDownToSpawn = 3;
 	#endregion
 
 	#region Privates
+	//Script connectivity
 	private GestureManager gManager;
 	private SpawnManager sManager;
 	private SoundManager soundManager;
 	private ClockHandler clock;
-
+	//Time logs
 	private float SpawnBegin;
-
-	private int SpawnCount = 0;
+	//Booleans
 	private bool allowPunching = true;
 	private bool playModeActive = false;
-
-	private int currentDistanceToSpawn = 2;
-
-
+	//States
 	[HideInInspector] public enum State {awaitCenterClick, awaitTargetSpawn, awaitTargetClick, awaitTargetReturnToCenter};
 	[HideInInspector] public State state;
 	#endregion
