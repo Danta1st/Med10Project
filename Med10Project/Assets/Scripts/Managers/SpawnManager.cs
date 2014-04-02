@@ -5,12 +5,13 @@ public class SpawnManager : MonoBehaviour
 {
 
 	#region Editor Publics
-	[SerializeField] GameObject spawnObject;
-	[SerializeField] GameObject spawnObject2;
+	[SerializeField] SpawnObjects spawnObjects;
+	[SerializeField] SpawnThresholds spawnThresholds;
 	#endregion
 
 	#region Privates
 	private GestureManager gManager;
+	private SoundManager sManager;
 
 	private bool isOccupied = false;
 
@@ -26,47 +27,55 @@ public class SpawnManager : MonoBehaviour
 		gManager = Camera.main.GetComponent<GestureManager>();
 		if(gManager == null)
 			Debug.LogError("No GestureManager was found on the main camera.");
+
+		sManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
 	}
 	
 	#region Public Methods
 	public void IncreaseDistanceInArray(int angle)
 	{
-		distances[angle] = distances[angle]+distanceChange;
-		Debug.Log("Sat angle " + angle + " to " + distances[angle]);
+		if(CheckMax(angle, distances[angle]+distanceChange))
+			distances[angle] = distances[angle]+distanceChange;
+
+		Debug.Log("Target: "+angle+" has a distance of: "+ distances[angle]);
 	}
 
 	public void DecreaseDistanceInArray(int angle)
 	{
-		distances[angle] = distances[angle]-distanceChange;
-		Debug.Log("Sat angle " + angle + " to " + distances[angle]);
+		if(CheckMin(angle, distances[angle]-distanceChange))
+			distances[angle] = distances[angle]-distanceChange;
+
+		Debug.Log("Target: "+angle+" has a distance of: "+ distances[angle]);
 	}
 
 	public void SpawnSpecific(int int1to10)
 	{
-		if(isOccupied == false)
-		{
-			//Get specific angle
-			int angle = GetAngle(int1to10);
-			//Get Random distance
-			float distance = Random.Range(2.0f, 8.5f);
-			//Rotate self by specific angle
-			RotateSelf(angle);
-			//Record spawn rotation & Position
-			Quaternion rotation = transform.rotation;
-			Vector3 position = gameObject.transform.up * distance;
-			//Rotate self back by specific angle
-			RotateSelf(-angle);
-			//Instantiate game object
-			GameObject go = (GameObject) Instantiate(spawnObject, position, rotation);
-			//Set Object Parameters
-			go.GetComponent<ObjectHandler>().SetAngle((int) angle);
-			go.GetComponent<ObjectHandler>().SetID(objectCounter);
-			go.GetComponent<ObjectHandler>().SetDistance(distance);
-			go.GetComponent<ObjectHandler>().SetSpawnTime(Time.time);
-			//Set occupied
-			isOccupied = true;
-		}
+		//Get specific angle
+		int angle = GetAngle(int1to10);
+		//Get Random distance
+		float distance = Random.Range(2.0f, 8.5f);
+		//Rotate self by specific angle
+		RotateSelf(angle);
+		//Record spawn rotation & Position
+		Quaternion rotation = transform.rotation;
+		Vector3 position = gameObject.transform.up * distance;
+		//Rotate self back by specific angle
+		RotateSelf(-angle);
+		//Instantiate game object
+		GameObject go = (GameObject) Instantiate(spawnObjects.SingleTarget, position, rotation);
+		//Play Sound
+		sManager.PlayNewTargetSpawned();
+		//Set Object Parameters
+		go.GetComponent<ObjectHandler>().SetAngle((int) angle);
+		go.GetComponent<ObjectHandler>().SetID(objectCounter);
+		go.GetComponent<ObjectHandler>().SetDistance(distance);
+		go.GetComponent<ObjectHandler>().SetSpawnTime(Time.time);
+		go.GetComponent<ObjectHandler>().SetMultiplier(int1to10);
+		go.name = go.name+int1to10;
+		//Set occupied
+		isOccupied = true;
 	}
+
 	public void SpawnSpecific(int int1to10, float distance)
 	{
 		//Get specific angle
@@ -79,18 +88,21 @@ public class SpawnManager : MonoBehaviour
 		//Rotate self back by specific angle
 		RotateSelf(-angle);
 		//Instantiate game object
-		GameObject go = (GameObject) Instantiate(spawnObject, position, rotation);
+		GameObject go = (GameObject) Instantiate(spawnObjects.SingleTarget, position, rotation);
+		//Play Sound
+		sManager.PlayNewTargetSpawned();
 		//Set Object Parameters
 		go.GetComponent<ObjectHandler>().SetAngle((int) angle);
 		go.GetComponent<ObjectHandler>().SetID(objectCounter);
 		go.GetComponent<ObjectHandler>().SetDistance(distance);
 		go.GetComponent<ObjectHandler>().SetSpawnTime(Time.time);
+		go.GetComponent<ObjectHandler>().SetMultiplier(int1to10);
 		go.name = go.name+int1to10;
 		//Set occupied
 		isOccupied = true;
 	}
 
-	public void SpawnXAmount(int amountOfTargets, float distance)
+	public void SpawnXTargets(int amountOfTargets, float distance)
 	{
 		for(int i = 1; i <= amountOfTargets; i++)
 		{
@@ -100,65 +112,16 @@ public class SpawnManager : MonoBehaviour
 
 	public void SpawnRandom()
 	{
-		if(isOccupied == false)
-		{
-			//Get Random multiplier
-			int multiplier = Random.Range(1, 10);
-			//Get Random Angle
-			int angle = GetAngle(multiplier);
-			//Get Random Distance
-			float distance = Random.Range(2.0f, 8.5f);
-			//Rotate GameObject
-			RotateSelf(angle);
-			//Get Rotation
-			Quaternion rotation = transform.rotation;
-			//Get Position
-			Vector3 position = gameObject.transform.up * distance;
-			//Rotate Back
-			RotateSelf(-angle);
-			//Update Counter
-			objectCounter++;
-			//Instantiate Object
-			GameObject go = (GameObject) Instantiate(spawnObject, position, rotation);
-			//Set Object parameters
-			go.GetComponent<ObjectHandler>().SetAngle((int) angle);
-			go.GetComponent<ObjectHandler>().SetID(objectCounter);
-			go.GetComponent<ObjectHandler>().SetDistance(distance);
-			go.GetComponent<ObjectHandler>().SetSpawnTime(Time.time);
-			//Set occupied
-			isOccupied = true;
-		}
+		int multiplier = Random.Range(1,10);
+		float distance = Random.Range(2.0f, 8.5f);
+
+		SpawnSpecific(multiplier, distance);
 	}
 
 	public void Phase1Stage1()
 	{
-		if(isOccupied == false)
-		{
-			//Get Random multiplier
-			int multiplier = Random.Range(1, 10);
-			//Get Random Angle
-			int angle = GetAngle(multiplier);
-			//Rotate GameObject
-			RotateSelf(angle);
-			//Get Rotation
-			Quaternion rotation = transform.rotation;
-			//Get Position
-			Vector3 position = gameObject.transform.up * distances[multiplier];
-			//Rotate Back
-			RotateSelf(-angle);
-			//Update Counter
-			objectCounter++;
-			//Instantiate Object
-			GameObject go = (GameObject) Instantiate(spawnObject, position, rotation);
-			//Set Object parameters
-			go.GetComponent<ObjectHandler>().SetAngle((int) angle);
-			go.GetComponent<ObjectHandler>().SetID(objectCounter);
-			go.GetComponent<ObjectHandler>().SetDistance(distances[multiplier]);
-			go.GetComponent<ObjectHandler>().SetSpawnTime(Time.time);
-			go.GetComponent<ObjectHandler>().SetMultiplier(multiplier);
-			//Set occupied
-			isOccupied = true;
-		}
+		int multiplier = Random.Range(1,10);
+		SpawnSpecific(multiplier, distances[multiplier]);
 	}
 
 	public void SpawnRightRandom()
@@ -195,6 +158,82 @@ public class SpawnManager : MonoBehaviour
 	{
 		transform.Rotate(0, 0, (float) -angle);
 	}
+
+	//Method for checking if we are above maximum
+	private bool CheckMax(int angle, float distance)
+	{
+		switch(angle)
+		{
+		case 1:
+		case 5:
+		case 6:
+		case 10:
+		{
+			if(distance < spawnThresholds.MinMax_1_5_6_10.y)
+				return true;
+			else
+				return false;
+		}
+		case 2:
+		case 4:
+		case 7:
+		case 9:
+		{
+			if(distance < spawnThresholds.MinMax_2_4_7_9.y)
+				return true;
+			else
+				return false;
+		}
+		case 3:
+		case 8:
+		{
+			if(distance < spawnThresholds.MinMax_3_8.y)
+				return true;
+			else
+				return false;
+		}
+		default:
+				return false;
+		}
+	}
+
+	//Method for checking if we are below minimum
+	private bool CheckMin(int angle, float distance)
+	{
+		switch(angle)
+		{
+		case 1:
+		case 5:
+		case 6:
+		case 10:
+		{
+			if(distance > spawnThresholds.MinMax_1_5_6_10.x)
+				return true;
+			else
+				return false;
+		}
+		case 2:
+		case 4:
+		case 7:
+		case 9:
+		{
+			if(distance > spawnThresholds.MinMax_2_4_7_9.x)
+				return true;
+			else
+				return false;
+		}
+		case 3:
+		case 8:
+		{
+			if(distance > spawnThresholds.MinMax_3_8.x)
+				return true;
+			else
+				return false;
+		}
+		default:
+			return false;
+		}
+	}
 	#endregion
 
 	#region Subclasses
@@ -204,6 +243,14 @@ public class SpawnManager : MonoBehaviour
 		public GameObject SingleTarget;
 		public GameObject SequentialTarget;
 		public GameObject MultiTarget;
+	}
+
+	[System.Serializable]
+	public class SpawnThresholds
+	{
+		public Vector2 MinMax_1_5_6_10 = new Vector2(2.0f, 11.5f);
+		public Vector2 MinMax_2_4_7_9 = new Vector2(2.0f, 17.0f);
+		public Vector2 MinMax_3_8 = new Vector2(2.0f, 15.0f);
 	}
 	#endregion
 }

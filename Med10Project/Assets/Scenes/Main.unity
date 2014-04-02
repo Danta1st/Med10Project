@@ -836,7 +836,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2ab553d84158c04187b97c1283a4b47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnTime: 3
+  spawnTime: 1
   CenterExplosion: {fileID: 100002, guid: e708d354ffc074d44b6c75a7abae6602, type: 2}
   state: 0
 --- !u!135 &387336500
@@ -1554,6 +1554,10 @@ Prefab:
       propertyPath: guiStyles.CountdownStyle.m_Alignment
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: c06f2f247adcad8408fbf93af80262bf, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c06f2f247adcad8408fbf93af80262bf, type: 2}
   m_RootGameObject: {fileID: 374426750}
@@ -1659,8 +1663,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 235dd0c2eec8bab49898a32dcd235aa1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnObject: {fileID: 100000, guid: dbe4638c77ad3a445847995921dcd815, type: 2}
-  spawnObject2: {fileID: 0}
+  spawnObjects:
+    SingleTarget: {fileID: 100000, guid: dbe4638c77ad3a445847995921dcd815, type: 2}
+    SequentialTarget: {fileID: 0}
+    MultiTarget: {fileID: 0}
+  spawnThresholds:
+    MinMax_1_5_6_10: {x: 2, y: 11.5}
+    MinMax_2_4_7_9: {x: 2, y: 17}
+    MinMax_3_8: {x: 2, y: 15}
 --- !u!4 &1900231130
 Transform:
   m_ObjectHideFlags: 0
