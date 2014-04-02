@@ -1668,9 +1668,11 @@ MonoBehaviour:
     SequentialTarget: {fileID: 0}
     MultiTarget: {fileID: 0}
   spawnThresholds:
-    MinMax_1_5_6_10: {x: 2, y: 11.5}
-    MinMax_2_4_7_9: {x: 2, y: 17}
+    MinMax_1_5_6_10: {x: 2, y: 10}
+    MinMax_2_4_7_9: {x: 2, y: 16}
     MinMax_3_8: {x: 2, y: 15}
+  incrementThreshold: 1
+  incrementValue: 1
 --- !u!4 &1900231130
 Transform:
   m_ObjectHideFlags: 0
