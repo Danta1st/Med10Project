@@ -48,7 +48,7 @@ public class GameStateManager : MonoBehaviour
 		//gManager.OnTapEnded += TapCenter;
 		
 		InvokeRepeating("PunchCenter", 0, 1);
-		InvokeRepeating("DecreaseSpawnTime", 0, 10);
+		//InvokeRepeating("DecreaseSpawnTime", 0, 10);
 
 		ChangeState(State.awaitCenterClick);
 		NotificationCenter.DefaultCenter().AddObserver(this, "NC_Play");
@@ -67,7 +67,7 @@ public class GameStateManager : MonoBehaviour
 			{
 				ChangeState(State.awaitTargetClick);
 				//sManager.SpawnRandom();
-				sManager.Phase1Stage1();
+				sManager.Phase2Stage1();
 			}
 			break;
 		case State.awaitTargetClick:

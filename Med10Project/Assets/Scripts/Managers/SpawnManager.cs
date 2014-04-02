@@ -124,6 +124,18 @@ public class SpawnManager : MonoBehaviour
 		SpawnSpecific(multiplier, distances[multiplier]);
 	}
 
+	public void Phase2Stage1()
+	{
+		if(GameObject.Find("Phase2Center(Clone)") == null)
+		{
+			GameObject go = (GameObject) Instantiate(spawnObjects.MultiTarget, Vector3.zero, Quaternion.identity);
+		}
+		else{
+			GameObject go = GameObject.Find("Phase2Center(Clone)");
+			go.GetComponent<Phase2Behavior>().ResetActiveTargets();
+		}
+	}
+
 	public void SpawnRightRandom()
 	{
 
