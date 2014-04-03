@@ -21,7 +21,7 @@ public class ObjectHandler : MonoBehaviour
 	private int objectID;
 	private float distance;
 	private float spawnTime;
-	private int anglemultiplier;
+	private int angleIdentifier;
 
 	private int lifeCounter;
 
@@ -87,7 +87,7 @@ public class ObjectHandler : MonoBehaviour
 
 	public void SetMultiplier(int multiplier)
 	{
-		anglemultiplier = multiplier;
+		angleIdentifier = multiplier;
 	}
 	
 	void Start ()
@@ -175,7 +175,7 @@ public class ObjectHandler : MonoBehaviour
 					SetTargetDisabled();
 				}
 
-				sManager.IncreaseDistanceInArray(anglemultiplier);
+				sManager.ReportHit(angleIdentifier, distance);;
 
 				highScoreManager.AddScore(13, true);
 				highScoreManager.IncreaseMultiplier();
@@ -220,7 +220,7 @@ public class ObjectHandler : MonoBehaviour
 //		xmlLogger.SetPosition(transform.position);
 //		xmlLogger.WriteTargetDataToXml();
 
-		sManager.DecreaseDistanceInArray(anglemultiplier);
+		sManager.ReportMiss(angleIdentifier, distance);
 		sManager.AllowSpawning();
 		FadeOut(0.3f);
 		Destroy(gameObject);
