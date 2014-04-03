@@ -16,6 +16,7 @@ public class SpawnManager : MonoBehaviour
 
 	#region Privates
 	private GestureManager gManager;
+	private GameStateManager gStateManager;
 	private SoundManager sManager;
 
 	private bool isOccupied = false;
@@ -23,7 +24,7 @@ public class SpawnManager : MonoBehaviour
 	private int objectCounter = 0;
 	//Distance handling for Phase1State1
 	private List<float> LongestHits = new List<float>();
-	private List<float> ShortestFails = new List<float>();
+	private List<float> ShortestFails = new List<float>();	
 	#endregion
 	
 	void Awake()
@@ -33,6 +34,7 @@ public class SpawnManager : MonoBehaviour
 			Debug.LogError("No GestureManager was found on the main camera.");
 
 		sManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
+		gStateManager = GameObject.Find("GameStateManager").GetComponent<GameStateManager>();
 
 		//Initialise distance lists
 		ResetLists();
@@ -70,7 +72,7 @@ public class SpawnManager : MonoBehaviour
 	//---------------------------------------
 
 	//Methods for spawning
-	public void SpawnSpecific(int int1to10)
+	public void SpawnSpecific(GameObject spawnObject, int int1to10)
 	{
 		//Get specific angle
 		int angle = GetAngle(int1to10);
@@ -84,7 +86,7 @@ public class SpawnManager : MonoBehaviour
 		//Rotate self back by specific angle
 		RotateSelf(-angle);
 		//Instantiate game object
-		GameObject go = (GameObject) Instantiate(spawnObjects.SingleTarget, position, rotation);
+		GameObject go = (GameObject) Instantiate(spawnObject, position, rotation);
 		//Play Sound
 		sManager.PlayNewTargetSpawned();
 		//Set Object Parameters
@@ -98,7 +100,7 @@ public class SpawnManager : MonoBehaviour
 		isOccupied = true;
 	}
 
-	public void SpawnSpecific(int int1to10, float distance)
+	public void SpawnSpecific(GameObject spawnObject, int int1to10, float distance)
 	{
 		//Get specific angle
 		int angle = GetAngle(int1to10);
@@ -110,7 +112,7 @@ public class SpawnManager : MonoBehaviour
 		//Rotate self back by specific angle
 		RotateSelf(-angle);
 		//Instantiate game object
-		GameObject go = (GameObject) Instantiate(spawnObjects.SingleTarget, position, rotation);
+		GameObject go = (GameObject) Instantiate(spawnObject, position, rotation);
 		//Play Sound
 		sManager.PlayNewTargetSpawned();
 		//Set Object Parameters
@@ -122,31 +124,30 @@ public class SpawnManager : MonoBehaviour
 		go.name = go.name+int1to10;
 		//Set occupied
 		isOccupied = true;
-		Debug.Log("Target spawned with angleID: "+int1to10+" and distance: "+distance);
+//		Debug.Log("Target spawned with angleID: "+int1to10+" and distance: "+distance);
 	}
 
-	public void SpawnXTargets(int amountOfTargets, float distance)
-	{
-		for(int i = 1; i <= amountOfTargets; i++)
-		{
-			SpawnSpecific(i, distance);
-		}
-	}
+//	public void SpawnXTargets(int amountOfTargets, float distance)
+//	{
+//		for(int i = 1; i <= amountOfTargets; i++)
+//		{
+//			SpawnSpecific(i, distance);
+//		}
+//	}
 
-	public void SpawnRandom()
+	public void SpawnRandom(GameObject spawnObject)
 	{
-		int multiplier = Random.Range(1,10);
+		int multiplier = Random.Range(1,11);
 		float distance = Random.Range(2.0f, 8.5f);
 
-		SpawnSpecific(multiplier, distance);
+		SpawnSpecific(spawnObject, multiplier, distance);
 	}
 
-	public void Phase1Stage1()
+	public void Phase1Stage1(int int1to10)
 	{
-		//Get random target
-		int multiplier = Random.Range(1,10);
+//		Debug.Log("Spawning with: "+int1to10);
 		//Adjust the index for lists that begin at 0
-		var index = multiplier - 1;
+		var index = int1to10 - 1;
 
 		float distance;
 
@@ -154,11 +155,11 @@ public class SpawnManager : MonoBehaviour
 		//and we have more space to the border of the screen, increment by a factor of 1.0f on fails side
 		if(ShortestFails[index] - LongestHits[index] < incrementThreshold)
 		{
-			if(ShortestFails[index] + incrementValue <= GetAbsMaxDist(multiplier))
+			if(ShortestFails[index] + incrementValue <= GetAbsMaxDist(int1to10))
 				distance = Random.Range(LongestHits[index], ShortestFails[index]) + incrementValue;
 			else
 			{
-				ShortestFails[index] = GetAbsMaxDist(multiplier);
+				ShortestFails[index] = GetAbsMaxDist(int1to10);
 				distance = Random.Range(LongestHits[index], ShortestFails[index]);
 			}
 		}
@@ -167,25 +168,46 @@ public class SpawnManager : MonoBehaviour
 			distance = Random.Range(LongestHits[index], ShortestFails[index]);
 		}
 
-		//Spawn target
-		SpawnSpecific(multiplier, distance);
+		//Check if distance is still below incremenent threshold
+		if(GetAbsMaxDist(int1to10) - LongestHits[index] < incrementThreshold)
+		{
+			//Flag for state 2
+			gStateManager.SetAngleState(int1to10, 0);
+
+//			Debug.Log("Angle "+int1to10+" cleared. Spawning sequential target!");
+
+			//Spawn sequential target
+			SpawnSpecific(spawnObjects.SequentialTarget, int1to10, distance);
+		}
+		else
+		{
+			//Spawn target normally
+			SpawnSpecific(spawnObjects.SingleTarget, int1to10, distance);
+		}
 	}
 
-	public void SpawnRightRandom()
+	public void Phase1Stage2(int int1to10)
 	{
+		int index;
+		if(int1to10 + 5 > 10)
+			index = int1to10 + 5 - 10;
+		else
+			index = int1to10 + 5;
 
+		float distance = GetAbsMaxDist(int1to10) - LongestHits[index - 1];
+
+		if(distance < 2.0f)
+		{
+			gStateManager.SetAngleState(int1to10, 1);
+			Phase1Stage3(int1to10);
+		}
+		else
+			SpawnSpecific(spawnObjects.SingleTarget, int1to10, distance);
 	}
-	public void SpawnLeftRandom()
-	{
 
-	}
-	public void SpawnRightSpecific(int int1to5)
+	public void Phase1Stage3(int int1to10)
 	{
-
-	}
-	public void SpawnLeftSpecific(int int1to5)
-	{
-
+		//TODO: Implement Phase1Stage3
 	}
 
 	public void AllowSpawning()
