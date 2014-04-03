@@ -153,9 +153,8 @@ public class Phase2Object : MonoBehaviour
 
 	private void Miss()
 	{
-		Unsubscribe();
-		gameManager.ChangeState(GameStateManager.State.awaitCenterClick);
 		SetTargetDisabled();
+		phase2Center.SendMiss();
 	}
 
 	private void Unsubscribe()

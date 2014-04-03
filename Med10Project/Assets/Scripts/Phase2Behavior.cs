@@ -10,6 +10,10 @@ public class Phase2Behavior : MonoBehaviour {
 
 	private int currentAmountOfActiveTargets = 0;
 	private int currentAmountOfHits = 0;
+	private int currentAmountOfMisses = 0;
+	private int startDistance = 2;
+	private int currentDistance;
+	private bool missRecieved = false;
 
 	private System.Random _random = new System.Random();
 
@@ -21,9 +25,11 @@ public class Phase2Behavior : MonoBehaviour {
 	}
 
 	void Start () {
-		SpawnXTargets(10, 3);
+		SpawnXTargets(10, 0);
 		StoreTargets();
 		ResetActiveTargets();
+		currentDistance = startDistance;
+		ChangeDistance(0);
 	}
 	
 	// Update is called once per frame
@@ -82,6 +88,36 @@ public class Phase2Behavior : MonoBehaviour {
 		if(currentAmountOfActiveTargets == currentAmountOfHits)
 		{
 			gameManager.ChangeState(GameStateManager.State.awaitTargetReturnToCenter);
+			ChangeDistance(1);
+		}
+	}
+
+	public void SendMiss()
+	{
+		StartCoroutine(WaitForAllMisses());
+	}
+
+	private IEnumerator WaitForAllMisses()
+	{
+		if (!missRecieved){
+			missRecieved = true;
+			currentAmountOfHits = 0;
+			gameManager.ChangeState(GameStateManager.State.awaitCenterClick);
+			ChangeDistance(-1);
+		}
+		yield return new WaitForSeconds(0.5f);
+		missRecieved = false;
+	}
+
+	private void ChangeDistance(int distance)
+	{
+		currentDistance += distance;
+
+		Debug.Log(currentDistance);
+
+		foreach (GameObject target in Targets)
+		{
+			iTween.MoveTo(target, iTween.Hash("position", -target.transform.up*currentDistance, "time", 0.5f, "easetype", iTween.EaseType.linear));
 		}
 	}
 
