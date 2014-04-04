@@ -4,18 +4,20 @@ using System.Collections;
 public class ObjectHandler : MonoBehaviour 
 {
 	#region Editor Publics
+	[SerializeField] private ObjectTypes objectType = ObjectTypes.SingleTarget;
 	[SerializeField] private int Lifetime = 2;
+	[SerializeField] private GameObject ParticleObject;
 	#endregion
 
 
 	#region Privates
+	//Connectivity & References
 	private GestureManager gManager;
 	private SpawnManager sManager;
 	private SoundManager soundManager;
 	private HighscoreManager highScoreManager;
-//	private GA_Submitter gaSubmitter;
-//	private XmlData xmlLogger;
 	private GameStateManager gameManager;
+
 	//Object Information - Passed from spawner
 	private int angle;
 	private int objectID;
@@ -25,17 +27,16 @@ public class ObjectHandler : MonoBehaviour
 
 	private int lifeCounter;
 
+	//Colors
 	private Color InvisibleColor = new Color(0,1.0f,0,0);
 	private Color FullGreenColor = new Color(0.0f, 1.0f, 0.0f, 1.0f);
+	private Color FullBlueColor = new Color(0.0f, 0.0f, 1.0f, 1.0f);
 	private Color DisabledColor = new Color(1,1,1,1);
 
 	private bool playModeActive = true;
-
-	[SerializeField]
-	private GameObject ParticleObject;
-
 	private bool hideHitTargets = true;
 
+	private enum ObjectTypes {SingleTarget, SequentialTarget};
 	#endregion
 	
 	void Awake()
@@ -56,15 +57,14 @@ public class ObjectHandler : MonoBehaviour
 		highScoreManager = GameObject.Find("HighscoreManager").GetComponent<HighscoreManager>();
 		if(highScoreManager == null)
 			Debug.LogError("No HighscoreManager was found in the scene.");
-		
-//		gaSubmitter = GameObject.Find("GA_Submitter").GetComponent<GA_Submitter>();
-//		xmlLogger = GameObject.Find("XMLlogger").GetComponent<XmlData>();
+
 		gameManager = GameObject.Find("GameStateManager").GetComponent<GameStateManager>();
+
 		//Initiliase
 		lifeCounter = Lifetime;
 	}
 
-
+	#region Public Methods
 	public void SetAngle(int degrees)
 	{
 		angle = degrees;
@@ -89,21 +89,31 @@ public class ObjectHandler : MonoBehaviour
 	{
 		angleIdentifier = multiplier;
 	}
-	
+	#endregion
+
 	void Start ()
 	{
-		//gameObject.renderer.material.color = InvisibleColor;
+		//Initialise object at scale zero - invisible
 		gameObject.transform.localScale = Vector3.zero;
+
+		//Initialise object with default color.
+		if(objectType == ObjectTypes.SingleTarget)
+			renderer.material.color = FullGreenColor;
+		else if(objectType == ObjectTypes.SequentialTarget)
+			renderer.material.color = FullBlueColor;
+
 		gManager.OnTapBegan += Hit;
-		//gManager.OnTapEnded += Hit;
 		FadeIn();
 		InvokeRepeating("DecreaseLifetime", 1, 1);
+
+		//Subscripe to observable events
 		NotificationCenter.DefaultCenter().AddObserver(this, "NC_Restart");
 		NotificationCenter.DefaultCenter().AddObserver(this, "NC_Pause");
 		NotificationCenter.DefaultCenter().AddObserver(this, "NC_Unpause");
 	}
-
-	void FadeIn()
+	
+	#region Class Methods
+	private void FadeIn()
 	{
 		iTween.ScaleTo(gameObject, iTween.Hash("scale", Vector3.one, "easetype", iTween.EaseType.easeOutBack, "time", 0.3f));
 
@@ -113,13 +123,13 @@ public class ObjectHandler : MonoBehaviour
 		}
 	}
 
-	void FadeOut(float fadeTime)
+	private void FadeOut(float fadeTime)
 	{
 		iTween.ColorTo(gameObject, iTween.Hash("delay", 0.3f, "color", InvisibleColor, "time", fadeTime));
 		iTween.ScaleTo(gameObject, iTween.Hash("delay", 0.3f, "scale", Vector3.zero, "easetype", iTween.EaseType.easeInBack, "time", fadeTime));
 	}
 
-	void HandleOnTapBegan (Vector2 screenPos)
+	private void HandleOnTapBegan (Vector2 screenPos)
 	{
 		Ray ray = Camera.main.ScreenPointToRay(new Vector3(screenPos.x, screenPos.y, 0));
 		RaycastHit hitInfo;
@@ -131,8 +141,7 @@ public class ObjectHandler : MonoBehaviour
 			}
 		}
 	}
-	
-	#region Class Methods	
+
 	private void Hit(Vector2 screenPos)
 	{
 		Ray ray = Camera.main.ScreenPointToRay(new Vector3(screenPos.x, screenPos.y, 0));
@@ -143,27 +152,22 @@ public class ObjectHandler : MonoBehaviour
 			{
 				soundManager.PlayTouchEnded();
 				soundManager.PlayTargetSuccessHit();
-
-//				//Submit Data to GA
-//				gaSubmitter.Angle(objectID, angle);
-//				gaSubmitter.Distance(objectID, distance);
-//				gaSubmitter.ReactionTime(objectID, Time.time - spawnTime);
-//				gaSubmitter.PositionSucces(objectID, transform.position);
-//				gaSubmitter.ForceSubmit();
 				
 				Unsubscribe();
-//				//Log Data to XML writer
-//				xmlLogger.SetPassed(true);
-//				xmlLogger.SetAngle(angle);
-//				xmlLogger.SetDistance(distance);
-//				xmlLogger.SetReactionTime(Time.time - spawnTime);
-//				xmlLogger.SetPosition(transform.position);
-//				xmlLogger.WriteTargetDataToXml();
 
-				gameManager.ChangeState(GameStateManager.State.awaitTargetReturnToCenter);
-				//sManager.IncreaseSucces(); //TODO: Implement proper highscore system as independent object
+				//Do stuff depending on object type
+				if(objectType == ObjectTypes.SingleTarget)
+				{
+					gameManager.ChangeCenterState(GameStateManager.State.awaitTargetReturnToCenter);
+					sManager.ReportHit(angleIdentifier, distance);
+					//Add score
+				}
+				else if(objectType == ObjectTypes.SequentialTarget)
+				{
+					sManager.Phase1Stage2(angleIdentifier);
+					//Add score, increase multiplier
+				}
 				sManager.AllowSpawning();
-
 				SpawnParticle();
 				gameManager.StartCoroutine("SpawnCenterExplosion", transform.rotation);
 
@@ -174,12 +178,6 @@ public class ObjectHandler : MonoBehaviour
 				else{
 					SetTargetDisabled();
 				}
-
-				sManager.ReportHit(angleIdentifier, distance);;
-
-				highScoreManager.AddScore(13, true);
-				highScoreManager.IncreaseMultiplier();
-
 			}
 		}
 	}
@@ -202,23 +200,8 @@ public class ObjectHandler : MonoBehaviour
 
 	private void Miss()
 	{
-//		//Submit Data
-//		gaSubmitter.Angle(objectID, angle);
-//		gaSubmitter.Distance(objectID, distance);
-//		gaSubmitter.ReactionTime(objectID, Time.time - spawnTime);
-//		gaSubmitter.PositionFailed(objectID, transform.position);
-//		gaSubmitter.ForceSubmit();
-
 		Unsubscribe();
-		gameManager.ChangeState(GameStateManager.State.awaitCenterClick);
-
-//		//Log Data to XML writer
-//		xmlLogger.SetPassed(false);
-//		xmlLogger.SetAngle(angle);
-//		xmlLogger.SetDistance(distance);
-//		xmlLogger.SetReactionTime(0);
-//		xmlLogger.SetPosition(transform.position);
-//		xmlLogger.WriteTargetDataToXml();
+		gameManager.ChangeCenterState(GameStateManager.State.awaitCenterClick);
 
 		sManager.ReportMiss(angleIdentifier, distance);
 		sManager.AllowSpawning();
@@ -228,8 +211,6 @@ public class ObjectHandler : MonoBehaviour
 
 	private void Unsubscribe()
 	{
-		//gManager.OnTapEnded -= Hit;
-		//gManager.OnTapBegan -= HandleOnTapBegan;
 		gManager.OnTapBegan -= Hit;
 	}
 
@@ -253,16 +234,6 @@ public class ObjectHandler : MonoBehaviour
 		iTween.PunchScale(gameObject, new Vector3(0.2f, 0.2f, 0.2f), 0.5f);
 	}
 
-	private void PlaySucces()
-	{
-
-	}
-
-	private void PlayMiss()
-	{
-
-	}
-
 	private void NC_Restart()
 	{
 		Miss();
@@ -277,6 +248,5 @@ public class ObjectHandler : MonoBehaviour
 	{
 		playModeActive = true;
 	}
-
 	#endregion
 }

@@ -1236,7 +1236,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!23 &1171651403
 Renderer:
   m_ObjectHideFlags: 0
@@ -1558,6 +1558,10 @@ Prefab:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 100004, guid: c06f2f247adcad8408fbf93af80262bf, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c06f2f247adcad8408fbf93af80262bf, type: 2}
   m_RootGameObject: {fileID: 374426750}
@@ -1665,7 +1669,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnObjects:
     SingleTarget: {fileID: 100000, guid: dbe4638c77ad3a445847995921dcd815, type: 2}
-    SequentialTarget: {fileID: 0}
+    SequentialTarget: {fileID: 100000, guid: 34f321032382ee14987e77a8fc8f0e34, type: 2}
     MultiTarget: {fileID: 0}
   spawnThresholds:
     MinMax_1_5_6_10: {x: 2, y: 10}
