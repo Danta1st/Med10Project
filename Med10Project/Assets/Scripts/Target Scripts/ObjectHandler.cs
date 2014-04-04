@@ -36,7 +36,7 @@ public class ObjectHandler : MonoBehaviour
 	private bool playModeActive = true;
 	private bool hideHitTargets = true;
 
-	private enum ObjectTypes {SingleTarget, SequentialTarget};
+	private enum ObjectTypes {SingleTarget, SequentialTarget, MultiTarget};
 	#endregion
 	
 	void Awake()
@@ -160,14 +160,18 @@ public class ObjectHandler : MonoBehaviour
 				{
 					gameManager.ChangeCenterState(GameStateManager.State.awaitTargetReturnToCenter);
 					sManager.ReportHit(angleIdentifier, distance);
-					//Add score
+					//TODO: Add score, reset multiplier
 				}
 				else if(objectType == ObjectTypes.SequentialTarget)
 				{
 					sManager.Phase1Stage2(angleIdentifier);
-					//Add score, increase multiplier
+					//TODO: Add score, increase multiplier
 				}
-				sManager.AllowSpawning();
+				else if(objectType == ObjectTypes.MultiTarget)
+				{
+					gameManager.IncreaseMultiTargetCounter();
+				}
+
 				SpawnParticle();
 				gameManager.StartCoroutine("SpawnCenterExplosion", transform.rotation);
 
@@ -180,6 +184,16 @@ public class ObjectHandler : MonoBehaviour
 				}
 			}
 		}
+	}
+	
+	private void Miss()
+	{
+		Unsubscribe();
+		gameManager.ChangeCenterState(GameStateManager.State.awaitCenterClick);
+		
+		sManager.ReportMiss(angleIdentifier, distance);
+		FadeOut(0.3f);
+		Destroy(gameObject);
 	}
 
 	private void HideTarget()
@@ -198,16 +212,6 @@ public class ObjectHandler : MonoBehaviour
 		Instantiate(ParticleObject, transform.position, transform.rotation);
 	}
 
-	private void Miss()
-	{
-		Unsubscribe();
-		gameManager.ChangeCenterState(GameStateManager.State.awaitCenterClick);
-
-		sManager.ReportMiss(angleIdentifier, distance);
-		sManager.AllowSpawning();
-		FadeOut(0.3f);
-		Destroy(gameObject);
-	}
 
 	private void Unsubscribe()
 	{

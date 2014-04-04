@@ -25,8 +25,9 @@ public class GameStateManager : MonoBehaviour
 	//States
 	[HideInInspector] public enum State {awaitCenterClick, awaitTargetSpawn, awaitTargetClick, awaitTargetReturnToCenter};
 	[HideInInspector] public State state;
-
 	private Phase1States phase1States = new Phase1States();
+	//Counters
+	private int multiTargetCounter = 0;
 	#endregion
 
 	void Awake()
@@ -74,7 +75,7 @@ public class GameStateManager : MonoBehaviour
 				
 				//Get random target
 				int int1to10 = Random.Range(1, 11); //Remember, max is exlusive for ints
-				Debug.Log("Rolled: "+int1to10);
+
 				//Spawn according to state TODO: Move to own method taking int1to10 as input
 				if(phase1States.GetAngleState(int1to10) == Phase1States.States.SingleTarget ||
 				   phase1States.GetAngleState(int1to10) == Phase1States.States.SequentialTarget)
@@ -84,6 +85,11 @@ public class GameStateManager : MonoBehaviour
 			}
 			break;
 		case State.awaitTargetClick:
+			if(multiTargetCounter >= 3)
+			{
+				multiTargetCounter = 0;
+				ChangeCenterState(State.awaitTargetReturnToCenter);
+			}
 			break;
 		case State.awaitTargetReturnToCenter:
 			break;
@@ -115,6 +121,11 @@ public class GameStateManager : MonoBehaviour
 	}
 
 	#region Public Methods
+	public void IncreaseMultiTargetCounter()
+	{
+		multiTargetCounter++;
+	}
+
 	public void SetAngleState(int int1to10, int state)
 	{
 		if(state == 0 && phase1States.GetAngleState(int1to10) == Phase1States.States.SingleTarget)
@@ -123,6 +134,39 @@ public class GameStateManager : MonoBehaviour
 			phase1States.SetAngleState(int1to10, Phase1States.States.MultipleTargets);
 		else if(state == 2 && phase1States.GetAngleState(int1to10) == Phase1States.States.MultipleTargets)
 			return; //TODO: Change to phase 2
+	}
+
+	public int GetAngleState(int int1to10)
+	{
+		return (int) phase1States.GetAngleState(int1to10);
+	}
+
+	//Public Method for changing the center state.
+	public void ChangeCenterState(State plate)
+	{
+		switch (plate)
+		{
+		case State.awaitCenterClick:
+			state = State.awaitCenterClick;
+			iTween.ColorTo(gameObject, iTween.Hash("color", Color.green, "time", 0.2f, "includeChildren", false));
+			gameObject.transform.position = new Vector3 (0,0,0);
+			break;
+		case State.awaitTargetSpawn:
+			state = State.awaitTargetSpawn;
+			SpawnBegin = Time.time;
+			iTween.ColorTo(gameObject, iTween.Hash("color", Color.white, "time", 0.2f, "includeChildren", false));
+			break;
+		case State.awaitTargetClick:
+			state = State.awaitTargetClick;
+			iTween.ColorTo(gameObject, iTween.Hash("color", Color.white, "time", 0.4f, "includeChildren", false));
+			break;
+		case State.awaitTargetReturnToCenter:
+			state = State.awaitTargetReturnToCenter;
+			StartCoroutine(AwaitTargetToCenter());
+			break;
+		default:
+			break;
+		}
 	}
 	#endregion
 
@@ -153,32 +197,6 @@ public class GameStateManager : MonoBehaviour
 		}
 	}
 
-	public void ChangeCenterState(State plate)
-	{
-		switch (plate)
-		{
-		case State.awaitCenterClick:
-			state = State.awaitCenterClick;
-			iTween.ColorTo(gameObject, iTween.Hash("color", Color.green, "time", 0.2f, "includeChildren", false));
-			gameObject.transform.position = new Vector3 (0,0,0);
-			break;
-		case State.awaitTargetSpawn:
-			state = State.awaitTargetSpawn;
-			SpawnBegin = Time.time;
-			iTween.ColorTo(gameObject, iTween.Hash("color", Color.white, "time", 0.2f, "includeChildren", false));
-			break;
-		case State.awaitTargetClick:
-			state = State.awaitTargetClick;
-			iTween.ColorTo(gameObject, iTween.Hash("color", Color.white, "time", 0.4f, "includeChildren", false));
-			break;
-		case State.awaitTargetReturnToCenter:
-			state = State.awaitTargetReturnToCenter;
-			StartCoroutine(AwaitTargetToCenter());
-			break;
-		default:
-			break;
-		}
-	}
 
 	private IEnumerator AwaitTargetToCenter()
 	{
@@ -270,7 +288,7 @@ public class GameStateManager : MonoBehaviour
 
 		public void ResetStates()
 		{
-			for(int i = 1; i <= stateArray.Length; i++)
+			for(int i = 0; i < stateArray.Length; i++)
 			{
 				stateArray[i] = States.SingleTarget;
 			}

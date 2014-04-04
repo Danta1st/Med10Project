@@ -124,16 +124,7 @@ public class SpawnManager : MonoBehaviour
 		go.name = go.name+int1to10;
 		//Set occupied
 		isOccupied = true;
-//		Debug.Log("Target spawned with angleID: "+int1to10+" and distance: "+distance);
 	}
-
-//	public void SpawnXTargets(int amountOfTargets, float distance)
-//	{
-//		for(int i = 1; i <= amountOfTargets; i++)
-//		{
-//			SpawnSpecific(i, distance);
-//		}
-//	}
 
 	public void SpawnRandom(GameObject spawnObject)
 	{
@@ -145,7 +136,6 @@ public class SpawnManager : MonoBehaviour
 
 	public void Phase1Stage1(int int1to10)
 	{
-//		Debug.Log("Spawning with: "+int1to10);
 		//Adjust the index for lists that begin at 0
 		var index = int1to10 - 1;
 
@@ -174,10 +164,9 @@ public class SpawnManager : MonoBehaviour
 			//Flag for state 2
 			gStateManager.SetAngleState(int1to10, 0);
 
-//			Debug.Log("Angle "+int1to10+" cleared. Spawning sequential target!");
-
 			//Spawn sequential target
 			SpawnSpecific(spawnObjects.SequentialTarget, int1to10, distance);
+			//SpawnSpecific(spawnObjects.SingleTarget, int1to10, distance);
 		}
 		else
 		{
@@ -189,30 +178,49 @@ public class SpawnManager : MonoBehaviour
 	public void Phase1Stage2(int int1to10)
 	{
 		int index;
+		//Calculate opposite index
 		if(int1to10 + 5 > 10)
 			index = int1to10 + 5 - 10;
 		else
 			index = int1to10 + 5;
 
+		//Calculate distance based on opposite progress
 		float distance = GetAbsMaxDist(int1to10) - LongestHits[index - 1];
 
 		if(distance < 2.0f)
 		{
-			gStateManager.SetAngleState(int1to10, 1);
-			Phase1Stage3(int1to10);
+			//Spawn stage 2 item with minimum distance
+			SpawnSpecific(spawnObjects.SingleTarget, int1to10, 2.0f);
+			//Flag this angle for multiple Targets
+			gStateManager.SetAngleState(int1to10, 1); //Goes from Sequential to Multitarget
 		}
 		else
+		{
+			//Spawn stage 2 item
 			SpawnSpecific(spawnObjects.SingleTarget, int1to10, distance);
+		}
 	}
 
 	public void Phase1Stage3(int int1to10)
 	{
 		//TODO: Implement Phase1Stage3
-	}
+		float dist = Random.Range(2.0f, GetAbsMaxDist(1));
 
-	public void AllowSpawning()
-	{
-		isOccupied = false;
+		for(int i = -1; i <= 1; i++)
+		{
+			int j;
+
+			//Catch out of bound errors
+			if(int1to10 + i > 10)
+				j = int1to10 + i - 10;
+			else if(int1to10 + i < 1)
+				j = int1to10 + i + 10;
+			else
+				j = int1to10 + i;
+
+			//Spawn Objects
+			SpawnSpecific(spawnObjects.MultiTarget, j, dist);
+		}
 	}
 	#endregion
 
