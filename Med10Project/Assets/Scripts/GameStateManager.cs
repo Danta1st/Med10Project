@@ -53,6 +53,7 @@ public class GameStateManager : MonoBehaviour
 		//gManager.OnTapEnded += TapCenter;
 		
 		InvokeRepeating("PunchCenter", 0, 1);
+		//InvokeRepeating("DecreaseSpawnTime", 0, 10);
 
 		ChangeCenterState(State.awaitCenterClick);
 		NotificationCenter.DefaultCenter().AddObserver(this, "NC_Play");
@@ -81,6 +82,9 @@ public class GameStateManager : MonoBehaviour
 					sManager.Phase1Stage1(int1to10);
 				else if(phase1States.GetAngleState(int1to10) == Phase1States.States.MultipleTargets)
 					sManager.Phase1Stage3(int1to10);
+
+				//Outcomment to start phase2 - needs to be started once phase1 is over.
+				//sManager.Phase2Stage1();
 			}
 			break;
 		case State.awaitTargetClick:
@@ -89,6 +93,16 @@ public class GameStateManager : MonoBehaviour
 			break;
 		default:
 			break;
+		}
+	}
+
+	void DecreaseSpawnTime()
+	{
+		//TODO: This should rather be based on a player's reaction time than just played time.
+		if(spawnTime > 0.5f)
+		{
+			spawnTime -= 0.1f;
+			clock.SetTime(spawnTime);
 		}
 	}
 
@@ -185,7 +199,7 @@ public class GameStateManager : MonoBehaviour
 //		Debug.Log("AwaitingTargetToCenter");
 		yield return new WaitForSeconds(0.5f);
 		iTween.ColorTo(gameObject, iTween.Hash("color", Color.green, "time", 0.2f, "includeChildren", false));
-		yield return new WaitForSeconds(0.5f);
+		yield return new WaitForSeconds(0.3f);
 		ChangeCenterState(State.awaitCenterClick);
 	}
 

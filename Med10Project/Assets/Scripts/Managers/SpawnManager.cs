@@ -174,8 +174,6 @@ public class SpawnManager : MonoBehaviour
 			//Flag for state 2
 			gStateManager.SetAngleState(int1to10, 0);
 
-//			Debug.Log("Angle "+int1to10+" cleared. Spawning sequential target!");
-
 			//Spawn sequential target
 			SpawnSpecific(spawnObjects.SequentialTarget, int1to10, distance);
 		}
@@ -208,6 +206,18 @@ public class SpawnManager : MonoBehaviour
 	public void Phase1Stage3(int int1to10)
 	{
 		//TODO: Implement Phase1Stage3
+	}
+
+	public void Phase2Stage1()
+	{
+		if(GameObject.Find("Phase2Center(Clone)") == null)
+		{
+			GameObject go = (GameObject) Instantiate(spawnObjects.MultiTarget, Vector3.zero, Quaternion.identity);
+		}
+		else{
+			GameObject go = GameObject.Find("Phase2Center(Clone)");
+			go.GetComponent<Phase2Behavior>().ResetActiveTargets();
+		}
 	}
 
 	public void AllowSpawning()
@@ -318,7 +328,7 @@ public class SpawnManager : MonoBehaviour
 	}
 
 	//Method for getting max distances
-	private float GetAbsMaxDist(int int1to10)
+	public float GetAbsMaxDist(int int1to10)
 	{
 		switch(int1to10)
 		{
