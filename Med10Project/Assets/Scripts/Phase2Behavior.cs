@@ -5,15 +5,20 @@ using System;
 public class Phase2Behavior : MonoBehaviour {
 
 	private GameStateManager gameManager;
+	private SpawnManager spawnManager;
+	private GUIManager guiManager;
 	[SerializeField] private GameObject SpawnObject;
 	private GameObject[] Targets;
 
 	private int currentAmountOfActiveTargets = 0;
 	private int currentAmountOfHits = 0;
 	private int currentAmountOfMisses = 0;
-	private int startDistance = 2;
+	private int startDistance = 10;
 	private int currentDistance;
 	private bool missRecieved = false;
+
+	private enum Stage {Right, Left, Both};
+	private Stage stage;
 
 	private System.Random _random = new System.Random();
 
@@ -22,14 +27,21 @@ public class Phase2Behavior : MonoBehaviour {
 	void Awake()
 	{
 		gameManager = GameObject.Find("GameStateManager").GetComponent<GameStateManager>();
+		spawnManager = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();
+		guiManager =  GameObject.Find("3DGUICamera").GetComponent<GUIManager>();
 	}
 
 	void Start () {
+		//SHOULD PROBABLY REMOVE LEL
+		guiManager.EnableHighscore(false);
+
+		stage = Stage.Right;
 		SpawnXTargets(10, 0);
 		StoreTargets();
 		ResetActiveTargets();
 		currentDistance = startDistance;
 		ChangeDistance(0);
+		guiManager.BlockLeftHalf(true);
 	}
 	
 	// Update is called once per frame
@@ -39,24 +51,36 @@ public class Phase2Behavior : MonoBehaviour {
 
 	public void ResetActiveTargets()
 	{
-		//currentAmountOfActiveTargets = Random.Range(1,5);
-		currentAmountOfActiveTargets = 3;
-		StartCoroutine(SetTargetsActive(currentAmountOfActiveTargets));
+		currentAmountOfActiveTargets = UnityEngine.Random.Range(2,5);
+
+		SetTargetsActive(currentAmountOfActiveTargets);
+
 		currentAmountOfHits = 0;
 	}
 
-	private IEnumerator SetTargetsActive(int amount)
+	private void SetTargetsActive(int amount)
 	{
-		yield return new WaitForSeconds(0.5f);
-		int[] randomTargets = new int[10];
+		int[] randomTargets = new int[5];
 
-		for (int x = 0; x < randomTargets.Length; x++) 
+		if(stage == Stage.Right)
 		{
-			randomTargets[x] = x;
+			randomTargets = new int[5]{5,6,7,8,9};
+		}
+		else if(stage == Stage.Left)
+		{
+			randomTargets = new int[5]{0,1,2,3,4};
+		}
+		else if(stage == Stage.Both)
+		{
+			randomTargets = new int[10];
+			for (int x = 0; x < randomTargets.Length; x++) 
+			{
+				randomTargets[x] = x;
+			}
 		}
 
 		Shuffle(randomTargets);
-
+		
 		for (int i = 0; i < amount; i++)
 		{
 			Targets[randomTargets[i]].GetComponent<Phase2Object>().SetActiveTarget();
@@ -88,7 +112,7 @@ public class Phase2Behavior : MonoBehaviour {
 		if(currentAmountOfActiveTargets == currentAmountOfHits)
 		{
 			gameManager.ChangeState(GameStateManager.State.awaitTargetReturnToCenter);
-			ChangeDistance(1);
+			ChangeDistance(10);
 		}
 	}
 
@@ -103,7 +127,7 @@ public class Phase2Behavior : MonoBehaviour {
 			missRecieved = true;
 			currentAmountOfHits = 0;
 			gameManager.ChangeState(GameStateManager.State.awaitCenterClick);
-			ChangeDistance(-1);
+			ChangeDistance(-10);
 		}
 		yield return new WaitForSeconds(0.5f);
 		missRecieved = false;
@@ -113,14 +137,44 @@ public class Phase2Behavior : MonoBehaviour {
 	{
 		currentDistance += distance;
 
-		Debug.Log(currentDistance);
+		if(currentDistance < 20)
+		{
+			currentDistance = 20;
+		}
+		if(currentDistance > 100)
+		{
+			currentDistance = 20;
+   			StartCoroutine(ChangeStage());
+		}
 
 		foreach (GameObject target in Targets)
 		{
-			iTween.MoveTo(target, iTween.Hash("position", -target.transform.up*currentDistance, "time", 0.5f, "easetype", iTween.EaseType.linear));
+			float maxDistanceForThisAngle = (spawnManager.GetAbsMaxDist(target.GetComponent<Phase2Object>().GetMultiplier()));
+			float maxDistanceForShortestAngle = spawnManager.GetAbsMaxDist(1);
+			float adjustedDistance = (((currentDistance/100.0f)*maxDistanceForShortestAngle)/2)
+									+(((currentDistance/100.0f)*maxDistanceForThisAngle)/2);
+			iTween.MoveTo(target, iTween.Hash("position", -target.transform.up*adjustedDistance, "time", 0.5f, "easetype", iTween.EaseType.linear));
 		}
 	}
 
+	private IEnumerator ChangeStage()
+	{
+		if(stage == Stage.Right){
+			stage = Stage.Left;
+			yield return new WaitForSeconds(1.0f);
+			guiManager.BlockRightHalf(true);
+			yield return new WaitForSeconds(1.0f);
+			guiManager.BlockLeftHalf(false);
+		}
+		else if(stage == Stage.Left){
+			stage = Stage.Both;
+			yield return new WaitForSeconds(1.0f);
+			guiManager.BlockAll(false);
+		}
+		else if(stage == Stage.Both){
+			stage = Stage.Both;
+		}
+	}
 
 	private void SpawnSpecific(int int1to10, float distance)
 	{

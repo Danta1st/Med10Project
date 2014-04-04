@@ -308,7 +308,7 @@ public class SpawnManager : MonoBehaviour
 	}
 
 	//Method for getting max distances
-	private float GetAbsMaxDist(int int1to10)
+	public float GetAbsMaxDist(int int1to10)
 	{
 		switch(int1to10)
 		{

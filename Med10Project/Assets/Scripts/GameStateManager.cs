@@ -169,7 +169,7 @@ public class GameStateManager : MonoBehaviour
 	{
 		yield return new WaitForSeconds(0.5f);
 		iTween.ColorTo(gameObject, iTween.Hash("color", Color.green, "time", 0.2f, "includeChildren", false));
-		yield return new WaitForSeconds(0.5f);
+		yield return new WaitForSeconds(0.3f);
 		ChangeState(State.awaitCenterClick);
 	}
 

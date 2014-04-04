@@ -4,7 +4,7 @@ using System.Collections;
 public class Phase2Object : MonoBehaviour 
 {
 	#region Editor Publics
-	private int Lifetime = 3;
+	private int Lifetime = 2;
 	#endregion
 
 
@@ -92,6 +92,11 @@ public class Phase2Object : MonoBehaviour
 	public void SetMultiplier(int multiplier)
 	{
 		anglemultiplier = multiplier;
+	}
+
+	public int GetMultiplier()
+	{
+		return anglemultiplier;
 	}
 
 	void FadeIn()
