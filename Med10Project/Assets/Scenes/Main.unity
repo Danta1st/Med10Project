@@ -1678,7 +1678,8 @@ MonoBehaviour:
   spawnObjects:
     SingleTarget: {fileID: 100000, guid: dbe4638c77ad3a445847995921dcd815, type: 2}
     SequentialTarget: {fileID: 100000, guid: 34f321032382ee14987e77a8fc8f0e34, type: 2}
-    MultiTarget: {fileID: 100000, guid: 64e4f0e03f7cff148a8b837edf21534f, type: 2}
+    MultiTarget: {fileID: 100000, guid: 80686954ba1339441a207fb06208110a, type: 2}
+    Phase2Targets: {fileID: 100000, guid: 64e4f0e03f7cff148a8b837edf21534f, type: 2}
   spawnThresholds:
     MinMax_1_5_6_10: {x: 2, y: 10}
     MinMax_2_4_7_9: {x: 2, y: 16}

@@ -111,7 +111,7 @@ public class Phase2Object : MonoBehaviour
 		RaycastHit hitInfo;
 		if(Physics.Raycast(ray, out hitInfo))
 		{
-			if(hitInfo.collider == gameObject.collider && activeTarget)
+			if(hitInfo.collider == gameObject.collider && activeTarget && playModeActive)
 			{
 				soundManager.PlayTouchEnded();
 				soundManager.PlayTargetSuccessHit();
@@ -189,7 +189,7 @@ public class Phase2Object : MonoBehaviour
 
 	private void NC_Restart()
 	{
-		Miss();
+		Unsubscribe();
 	}
 
 	private void NC_Pause()
