@@ -53,7 +53,7 @@ public class GameStateManager : MonoBehaviour
 
 	void Start ()
 	{
-		phase = Phases.Phase2;
+		phase = Phases.Phase1;
 		gManager.OnTapBegan += HandleOnTapBegan;
 		//gManager.OnTapEnded += TapCenter;
 		
