@@ -3,6 +3,9 @@ using System.Collections;
 
 public class GameStateManager : MonoBehaviour 
 {
+	#region Publics
+	#endregion
+
 	#region Editor Publics
 	[SerializeField] private float spawnTime = 3.0f;
 	[SerializeField] private GameObject CenterExplosion;
@@ -22,6 +25,8 @@ public class GameStateManager : MonoBehaviour
 	//States
 	[HideInInspector] public enum State {awaitCenterClick, awaitTargetSpawn, awaitTargetClick, awaitTargetReturnToCenter};
 	[HideInInspector] public State state;
+
+	private Phase1States phase1States = new Phase1States();
 	#endregion
 
 	void Awake()
@@ -50,10 +55,11 @@ public class GameStateManager : MonoBehaviour
 		InvokeRepeating("PunchCenter", 0, 1);
 		//InvokeRepeating("DecreaseSpawnTime", 0, 10);
 
-		ChangeState(State.awaitCenterClick);
+		ChangeCenterState(State.awaitCenterClick);
 		NotificationCenter.DefaultCenter().AddObserver(this, "NC_Play");
 		NotificationCenter.DefaultCenter().AddObserver(this, "NC_Pause");
 		NotificationCenter.DefaultCenter().AddObserver(this, "NC_Unpause");
+		NotificationCenter.DefaultCenter().AddObserver(this, "NC_Restart");
 	}
 
 	void Update()
@@ -65,9 +71,20 @@ public class GameStateManager : MonoBehaviour
 		case State.awaitTargetSpawn:
 			if(Time.time >= spawnTime + SpawnBegin)
 			{
-				ChangeState(State.awaitTargetClick);
-				//sManager.SpawnRandom();
-				sManager.Phase2Stage1();
+				ChangeCenterState(State.awaitTargetClick);
+				
+				//Get random target
+				int int1to10 = Random.Range(1, 11); //Remember, max is exlusive for ints
+				Debug.Log("Rolled: "+int1to10);
+				//Spawn according to state TODO: Move to own method taking int1to10 as input
+				if(phase1States.GetAngleState(int1to10) == Phase1States.States.SingleTarget ||
+				   phase1States.GetAngleState(int1to10) == Phase1States.States.SequentialTarget)
+					sManager.Phase1Stage1(int1to10);
+				else if(phase1States.GetAngleState(int1to10) == Phase1States.States.MultipleTargets)
+					sManager.Phase1Stage3(int1to10);
+
+				//Outcomment to start phase2 - needs to be started once phase1 is over.
+				//sManager.Phase2Stage1();
 			}
 			break;
 		case State.awaitTargetClick:
@@ -100,7 +117,7 @@ public class GameStateManager : MonoBehaviour
 				if(hitInfo.collider == gameObject.collider)
 				{
 					//Change the state to currently awaiting a spawn
-					ChangeState(State.awaitTargetSpawn);
+					ChangeCenterState(State.awaitTargetSpawn);
 					//Begin clock rotation
 					clock.BeginClock();
 
@@ -110,6 +127,18 @@ public class GameStateManager : MonoBehaviour
 			}
 		}
 	}
+
+	#region Public Methods
+	public void SetAngleState(int int1to10, int state)
+	{
+		if(state == 0 && phase1States.GetAngleState(int1to10) == Phase1States.States.SingleTarget)
+			phase1States.SetAngleState(int1to10, Phase1States.States.SequentialTarget);
+		else if(state == 1 && phase1States.GetAngleState(int1to10) == Phase1States.States.SequentialTarget)
+			phase1States.SetAngleState(int1to10, Phase1States.States.MultipleTargets);
+		else if(state == 2 && phase1States.GetAngleState(int1to10) == Phase1States.States.MultipleTargets)
+			return; //TODO: Change to phase 2
+	}
+	#endregion
 
 	#region Class Methods
 	private void PunchCenter()
@@ -138,7 +167,7 @@ public class GameStateManager : MonoBehaviour
 		}
 	}
 
-	public void ChangeState(State plate)
+	public void ChangeCenterState(State plate)
 	{
 		switch (plate)
 		{
@@ -167,10 +196,11 @@ public class GameStateManager : MonoBehaviour
 
 	private IEnumerator AwaitTargetToCenter()
 	{
+//		Debug.Log("AwaitingTargetToCenter");
 		yield return new WaitForSeconds(0.5f);
 		iTween.ColorTo(gameObject, iTween.Hash("color", Color.green, "time", 0.2f, "includeChildren", false));
 		yield return new WaitForSeconds(0.3f);
-		ChangeState(State.awaitCenterClick);
+		ChangeCenterState(State.awaitCenterClick);
 	}
 
 	public IEnumerator SpawnCenterExplosion(Quaternion rotation)
@@ -222,5 +252,43 @@ public class GameStateManager : MonoBehaviour
 		playModeActive = true;
 	}
 
+	private void NC_Restart()
+	{
+		phase1States.ResetStates();
+	}
+	#endregion
+
+	#region Subclasses
+	[System.Serializable]
+	public class Phase1States
+	{
+		public enum States {SingleTarget, SequentialTarget, MultipleTargets};
+
+		private States[] stateArray = new States[10] {States.SingleTarget, States.SingleTarget, States.SingleTarget, 
+													 States.SingleTarget, States.SingleTarget, States.SingleTarget, 
+													 States.SingleTarget, States.SingleTarget, States.SingleTarget, 
+													 States.SingleTarget};
+
+		public void SetAngleState(int int1to10, States state)
+		{
+			var i = int1to10-1;
+//			Debug.Log("Setting state: "+state+" with index: "+i);
+			stateArray[i] = state;
+		}
+		public States GetAngleState(int int1to10)
+		{
+			var i = int1to10-1;
+//			Debug.Log("Returning state: "+stateArray[i]+" with index: "+i);
+			return stateArray[i];
+		}
+
+		public void ResetStates()
+		{
+			for(int i = 1; i <= stateArray.Length; i++)
+			{
+				stateArray[i] = States.SingleTarget;
+			}
+		}
+	}
 	#endregion
 }

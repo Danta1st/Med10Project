@@ -111,7 +111,7 @@ public class Phase2Behavior : MonoBehaviour {
 		currentAmountOfHits++;
 		if(currentAmountOfActiveTargets == currentAmountOfHits)
 		{
-			gameManager.ChangeState(GameStateManager.State.awaitTargetReturnToCenter);
+			gameManager.ChangeCenterState(GameStateManager.State.awaitTargetReturnToCenter);
 			ChangeDistance(10);
 		}
 	}
@@ -126,7 +126,7 @@ public class Phase2Behavior : MonoBehaviour {
 		if (!missRecieved){
 			missRecieved = true;
 			currentAmountOfHits = 0;
-			gameManager.ChangeState(GameStateManager.State.awaitCenterClick);
+			gameManager.ChangeCenterState(GameStateManager.State.awaitCenterClick);
 			ChangeDistance(-10);
 		}
 		yield return new WaitForSeconds(0.5f);

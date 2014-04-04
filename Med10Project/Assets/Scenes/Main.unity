@@ -836,7 +836,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2ab553d84158c04187b97c1283a4b47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnTime: 1.50999999
+  spawnTime: 1
   CenterExplosion: {fileID: 100002, guid: e708d354ffc074d44b6c75a7abae6602, type: 2}
   state: 0
 --- !u!135 &387336500
@@ -1236,7 +1236,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!23 &1171651403
 Renderer:
   m_ObjectHideFlags: 0
@@ -1558,6 +1558,10 @@ Prefab:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 100004, guid: c06f2f247adcad8408fbf93af80262bf, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2300000, guid: c06f2f247adcad8408fbf93af80262bf, type: 2}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -1673,7 +1677,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnObjects:
     SingleTarget: {fileID: 100000, guid: dbe4638c77ad3a445847995921dcd815, type: 2}
-    SequentialTarget: {fileID: 0}
+    SequentialTarget: {fileID: 100000, guid: 34f321032382ee14987e77a8fc8f0e34, type: 2}
     MultiTarget: {fileID: 100000, guid: 64e4f0e03f7cff148a8b837edf21534f, type: 2}
   spawnThresholds:
     MinMax_1_5_6_10: {x: 2, y: 10}

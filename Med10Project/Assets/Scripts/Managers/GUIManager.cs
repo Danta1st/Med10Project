@@ -134,7 +134,7 @@ public class GUIManager: MonoBehaviour {
 		if(PlaceButton("Play"))
 		{
 			guiBools.displayPlayPrompt = false;
-			EnableHighscore(true);
+//			EnableHighscore(true);
 			StartCoroutine(StartCountDown());
 		}
 
