@@ -32,21 +32,25 @@ public class Phase2Behavior : MonoBehaviour {
 	}
 
 	void Start () {
-		//SHOULD PROBABLY REMOVE LEL
-		guiManager.EnableHighscore(false);
-
+		NotificationCenter.DefaultCenter().AddObserver(this, "NC_Restart");
 		stage = Stage.Right;
 		SpawnXTargets(10, 0);
 		StoreTargets();
-		ResetActiveTargets();
+		StartCoroutine("StartStage");
 		currentDistance = startDistance;
-		ChangeDistance(0);
 		guiManager.BlockLeftHalf(true);
 	}
 	
 	// Update is called once per frame
 	void Update () {
 	
+	}
+
+	public IEnumerator StartStage()
+	{
+		yield return new WaitForSeconds(1.0f);
+		ChangeDistance(0);
+		ResetActiveTargets();
 	}
 
 	public void ResetActiveTargets()
@@ -56,6 +60,7 @@ public class Phase2Behavior : MonoBehaviour {
 		SetTargetsActive(currentAmountOfActiveTargets);
 
 		currentAmountOfHits = 0;
+
 	}
 
 	private void SetTargetsActive(int amount)
@@ -217,6 +222,11 @@ public class Phase2Behavior : MonoBehaviour {
 	private void RotateSelf(int angle)
 	{
 		transform.Rotate(0, 0, (float) -angle);
+	}
+
+	private void NC_Restart()
+	{
+		Destroy(gameObject, 0.5f);
 	}
 
 }

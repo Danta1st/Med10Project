@@ -212,7 +212,7 @@ public class SpawnManager : MonoBehaviour
 	{
 		if(GameObject.Find("Phase2Center(Clone)") == null)
 		{
-			GameObject go = (GameObject) Instantiate(spawnObjects.MultiTarget, Vector3.zero, Quaternion.identity);
+			GameObject go = (GameObject) Instantiate(spawnObjects.Phase2Targets, Vector3.zero, Quaternion.identity);
 		}
 		else{
 			GameObject go = GameObject.Find("Phase2Center(Clone)");
@@ -371,6 +371,7 @@ public class SpawnManager : MonoBehaviour
 		public GameObject SingleTarget;
 		public GameObject SequentialTarget;
 		public GameObject MultiTarget;
+		public GameObject Phase2Targets;
 	}
 
 	[System.Serializable]

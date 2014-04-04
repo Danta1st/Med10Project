@@ -27,6 +27,10 @@ public class GameStateManager : MonoBehaviour
 	[HideInInspector] public State state;
 
 	private Phase1States phase1States = new Phase1States();
+
+	public enum Phases {Phase1, Phase2, Phase3};
+	private Phases phase;
+
 	#endregion
 
 	void Awake()
@@ -49,6 +53,7 @@ public class GameStateManager : MonoBehaviour
 
 	void Start ()
 	{
+		phase = Phases.Phase2;
 		gManager.OnTapBegan += HandleOnTapBegan;
 		//gManager.OnTapEnded += TapCenter;
 		
@@ -64,6 +69,10 @@ public class GameStateManager : MonoBehaviour
 
 	void Update()
 	{
+		if(Input.GetKeyDown(KeyCode.A))
+			Debug.Log (state);
+
+
 		switch (state)
 		{
 		case State.awaitCenterClick:
@@ -72,19 +81,23 @@ public class GameStateManager : MonoBehaviour
 			if(Time.time >= spawnTime + SpawnBegin)
 			{
 				ChangeCenterState(State.awaitTargetClick);
-				
-				//Get random target
-				int int1to10 = Random.Range(1, 11); //Remember, max is exlusive for ints
-				Debug.Log("Rolled: "+int1to10);
-				//Spawn according to state TODO: Move to own method taking int1to10 as input
-				if(phase1States.GetAngleState(int1to10) == Phase1States.States.SingleTarget ||
-				   phase1States.GetAngleState(int1to10) == Phase1States.States.SequentialTarget)
-					sManager.Phase1Stage1(int1to10);
-				else if(phase1States.GetAngleState(int1to10) == Phase1States.States.MultipleTargets)
-					sManager.Phase1Stage3(int1to10);
 
-				//Outcomment to start phase2 - needs to be started once phase1 is over.
-				//sManager.Phase2Stage1();
+				//Spawn according to state TODO: Move to own method taking int1to10 as input
+				if(phase == Phases.Phase1){
+					//Get random target
+					int int1to10 = Random.Range(1, 11); //Remember, max is exlusive for ints
+					Debug.Log("Rolled: "+int1to10);
+
+					if(phase1States.GetAngleState(int1to10) == Phase1States.States.SingleTarget ||
+					   phase1States.GetAngleState(int1to10) == Phase1States.States.SequentialTarget)
+						sManager.Phase1Stage1(int1to10);
+					else if(phase1States.GetAngleState(int1to10) == Phase1States.States.MultipleTargets)
+						sManager.Phase1Stage3(int1to10);
+				}
+				else if(phase == Phases.Phase2)
+				{
+					sManager.Phase2Stage1();
+				}
 			}
 			break;
 		case State.awaitTargetClick:
@@ -136,7 +149,7 @@ public class GameStateManager : MonoBehaviour
 		else if(state == 1 && phase1States.GetAngleState(int1to10) == Phase1States.States.SequentialTarget)
 			phase1States.SetAngleState(int1to10, Phase1States.States.MultipleTargets);
 		else if(state == 2 && phase1States.GetAngleState(int1to10) == Phase1States.States.MultipleTargets)
-			return; //TODO: Change to phase 2
+			phase = Phases.Phase2;
 	}
 	#endregion
 
@@ -255,7 +268,10 @@ public class GameStateManager : MonoBehaviour
 	private void NC_Restart()
 	{
 		phase1States.ResetStates();
-	}
+		phase = Phases.Phase1;
+
+		ChangeCenterState(State.awaitCenterClick);
+	}	
 	#endregion
 
 	#region Subclasses
@@ -284,7 +300,7 @@ public class GameStateManager : MonoBehaviour
 
 		public void ResetStates()
 		{
-			for(int i = 1; i <= stateArray.Length; i++)
+			for(int i = 0; i < stateArray.Length; i++)
 			{
 				stateArray[i] = States.SingleTarget;
 			}
