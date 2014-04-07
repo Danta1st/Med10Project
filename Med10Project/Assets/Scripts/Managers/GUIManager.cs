@@ -5,7 +5,7 @@ public class GUIManager: MonoBehaviour {
 	
 	#region Editor Publics
 	[SerializeField] private float curtainSpeed = 1.0f;
-	[SerializeField] private iTween.EaseType curtainEasetype = iTween.EaseType.easeOutBack;
+	[SerializeField] private iTween.EaseType curtainEasetype = iTween.EaseType.easeOutCirc;
 	[SerializeField] private GUIStyle guiLook;
 	[SerializeField] private GUIStyles guiStyles;
 	[SerializeField] private GUIElements guiElements;
