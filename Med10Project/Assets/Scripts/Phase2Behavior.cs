@@ -18,7 +18,7 @@ public class Phase2Behavior : MonoBehaviour {
 	private bool missRecieved = false;
 
 	private enum Stage {Right, Left, Both};
-	private Stage stage;
+	private Stage stage = Stage.Right;
 
 	private System.Random _random = new System.Random();
 
@@ -33,17 +33,35 @@ public class Phase2Behavior : MonoBehaviour {
 
 	void Start () {
 		NotificationCenter.DefaultCenter().AddObserver(this, "NC_Restart");
-		stage = Stage.Right;
 		SpawnXTargets(10, 0);
 		StoreTargets();
 		StartCoroutine("StartStage");
 		currentDistance = startDistance;
-		guiManager.BlockLeftHalf(true);
+
+		//Determine curtain blocking
+		if(stage == Stage.Right)
+		{
+			guiManager.BlockRightHalf(false);
+			guiManager.BlockLeftHalf(true);
+		}
+		else if(stage == Stage.Left)
+		{
+			guiManager.BlockRightHalf(true);
+			guiManager.BlockLeftHalf(false);
+		}
+		else if(stage == Stage.Both)
+			guiManager.BlockAll(false);
+
 	}
 	
 	// Update is called once per frame
 	void Update () {
 	
+	}
+	
+	private void StoreTargets()
+	{
+		Targets = GameObject.FindGameObjectsWithTag("Phase2Object");
 	}
 
 	public IEnumerator StartStage()
@@ -55,7 +73,7 @@ public class Phase2Behavior : MonoBehaviour {
 
 	public void ResetActiveTargets()
 	{
-		currentAmountOfActiveTargets = UnityEngine.Random.Range(2,5);
+		currentAmountOfActiveTargets = UnityEngine.Random.Range(2,4); //Random range on int is exclusive max
 
 		SetTargetsActive(currentAmountOfActiveTargets);
 
@@ -107,10 +125,6 @@ public class Phase2Behavior : MonoBehaviour {
 		}
 	}
 
-	private void StoreTargets()
-	{
-		Targets = GameObject.FindGameObjectsWithTag("Phase2Object");
-	}
 
 	public void SendHit(){
 		currentAmountOfHits++;
@@ -158,7 +172,7 @@ public class Phase2Behavior : MonoBehaviour {
 			float maxDistanceForShortestAngle = spawnManager.GetAbsMaxDist(1);
 			float adjustedDistance = (((currentDistance/100.0f)*maxDistanceForShortestAngle)/2)
 									+(((currentDistance/100.0f)*maxDistanceForThisAngle)/2);
-			iTween.MoveTo(target, iTween.Hash("position", -target.transform.up*adjustedDistance, "time", 0.5f, "easetype", iTween.EaseType.linear));
+			iTween.MoveTo(target, iTween.Hash("position", -target.transform.up*adjustedDistance, "time", 0.5f, "easetype", iTween.EaseType.easeInBack));
 		}
 	}
 
@@ -179,6 +193,26 @@ public class Phase2Behavior : MonoBehaviour {
 		else if(stage == Stage.Both){
 			stage = Stage.Both;
 		}
+	}
+
+	public void SetStageRight()
+	{
+		stage = Stage.Right;
+		guiManager.BlockLeftHalf(true);
+		guiManager.BlockRightHalf(false);
+	}
+
+	public void SetStageLeft()
+	{
+		stage = Stage.Left;
+		guiManager.BlockLeftHalf(false);
+		guiManager.BlockRightHalf(true);
+	}
+
+	public void SetStageBoth()
+	{
+		stage = Stage.Both;
+		guiManager.BlockAll(false);
 	}
 
 	private void SpawnSpecific(int int1to10, float distance)

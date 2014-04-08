@@ -14,6 +14,7 @@ public class GameStateManager : MonoBehaviour
 	#region Privates
 	//Script connectivity
 	private GestureManager gManager;
+	private GUIManager guiManager;
 	private SpawnManager sManager;
 	private SoundManager soundManager;
 	private ClockHandler clock;
@@ -41,6 +42,8 @@ public class GameStateManager : MonoBehaviour
 		gManager = Camera.main.GetComponent<GestureManager>();
 		if(gManager == null)
 			Debug.LogError("No GestureManager was found on the main camera.");
+
+		guiManager = GameObject.Find("3DGUICamera").GetComponent<GUIManager>();
 
 		sManager = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();
 		if(sManager == null)
@@ -82,16 +85,21 @@ public class GameStateManager : MonoBehaviour
 				ChangeCenterState(State.awaitTargetClick);
 
 				//Spawn according to state TODO: Move to own method taking int1to10 as input
-				if(phase == Phases.Phase1){
+				if(phase == Phases.Phase1)
+				{
 					//Get random target
 					int int1to10 = Random.Range(1, 11); //Remember, max is exlusive for ints
-					Debug.Log("Rolled: "+int1to10);
 
+					//Spawn target according to current state
 					if(phase1States.GetAngleState(int1to10) == Phase1States.States.SingleTarget ||
 					   phase1States.GetAngleState(int1to10) == Phase1States.States.SequentialTarget)
+					{
 						sManager.Phase1Stage1(int1to10);
+					}
 					else if(phase1States.GetAngleState(int1to10) == Phase1States.States.MultipleTargets)
+					{
 						sManager.Phase1Stage3(int1to10);
+					}
 				}
 				else if(phase == Phases.Phase2)
 				{
@@ -193,6 +201,18 @@ public class GameStateManager : MonoBehaviour
 			break;
 		}
 	}
+
+	public void CheckPhase1Ended()
+	{
+		for(int i = 1; i <= 10; i++)
+		{
+			if(GetAngleState(i) == 0 || GetAngleState(i) == 1)
+			{
+				return;
+			}
+		}
+		phase = Phases.Phase2;
+	}
 	#endregion
 
 	#region Class Methods
@@ -247,9 +267,90 @@ public class GameStateManager : MonoBehaviour
 		iTween.Stop (gameObject, "scale");
 		gameObject.transform.localScale = new Vector3 (2,2,2);
 	}
+	
+	//Begin at Specific Phase -----------------------------------
+	private void BeginState_1()
+	{
+		phase1States.SetStates(Phase1States.States.SingleTarget);
+		ChangeCenterState(State.awaitCenterClick);
+	}
+	
+	private void BeginState_2()
+	{
+		for(int i = 1; i <= 10; i += 2)
+		{
+			sManager.SetLongestHit(i);
+			phase1States.SetAngleState(i, Phase1States.States.SequentialTarget);
+		}
+		
+		ChangeCenterState(State.awaitCenterClick);
+	}
+	
+	private void BeginState_3()
+	{
+		for(int i = 1; i <= 10; i += 2)
+		{
+			phase1States.SetAngleState(i, Phase1States.States.MultipleTargets);
+		}
+		ChangeCenterState(State.awaitCenterClick);
+	}
+	
+	private void BeginState_4()
+	{
+		phase = Phases.Phase2;
+		ChangeCenterState(State.awaitTargetClick);
+		sManager.Phase2Stage1();
+		GameObject.Find("Phase2Center(Clone)").GetComponent<Phase2Behavior>().SetStageRight();
+//		ChangeCenterState(State.awaitCenterClick);
+	}
+
+	private void BeginState_5()
+	{
+		phase = Phases.Phase2;
+		ChangeCenterState(State.awaitTargetClick);
+		sManager.Phase2Stage1();
+		GameObject.Find("Phase2Center(Clone)").GetComponent<Phase2Behavior>().SetStageLeft();
+	}
+
+	private void BeginState_6()
+	{
+		phase = Phases.Phase2;
+		ChangeCenterState(State.awaitTargetClick);
+		sManager.Phase2Stage1();
+		GameObject.Find("Phase2Center(Clone)").GetComponent<Phase2Behavior>().SetStageBoth();
+	}
+
+	private void BeginAtShortCut()
+	{
+		string stageToBeginAt = guiManager.GetStage();
+
+		switch(stageToBeginAt)
+		{
+		case "Single Target":
+			BeginState_1();
+			break;
+		case "Sequential Target":
+			BeginState_2();
+			break;
+		case "Multi Target":
+			BeginState_3();
+			break;
+		case "Identify Right":
+			BeginState_4();
+			break;
+		case "Identify Left":
+			BeginState_5();
+			break;
+		case "Identify Both":
+			BeginState_6();
+			break;
+		}
+	}
+	//-----------------------------------------------------------
 
 	private void NC_Play()
 	{
+		BeginAtShortCut();
 		playModeActive = true;
 	}
 
@@ -269,19 +370,7 @@ public class GameStateManager : MonoBehaviour
 		phase = Phases.Phase1;
 
 		ChangeCenterState(State.awaitCenterClick);
-	}	
-
-	public void CheckPhase1Ended()
-	{
-		for(int i = 1; i <= 10; i++)
-		{
-			if(GetAngleState(i) == 0 || GetAngleState(i) == 1)
-			{
-				return;
-			}
-		}
-		phase = Phases.Phase2;
-	}
+	}		
 	#endregion
 
 	#region Subclasses
@@ -313,6 +402,14 @@ public class GameStateManager : MonoBehaviour
 			for(int i = 0; i < stateArray.Length; i++)
 			{
 				stateArray[i] = States.SingleTarget;
+			}
+		}
+
+		public void SetStates(States state)
+		{
+			for(int i = 0; i < stateArray.Length; i++)
+			{
+				stateArray[i] = state;
 			}
 		}
 	}
