@@ -71,6 +71,11 @@ public class GameTimerManager : MonoBehaviour {
 		currentTimePlayed = 0;
 		gameOver = false;
 	}
+
+	private float GetPauseOFfset()
+	{
+		return pauseOffset;
+	}
 	
 	private void NC_Restart()
 	{
