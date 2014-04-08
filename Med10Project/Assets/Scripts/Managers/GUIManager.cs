@@ -27,6 +27,7 @@ public class GUIManager: MonoBehaviour {
 	//Strings
 	private string currentUser;
 	private string currentCountdownNumber;
+	private string currentStage;
 	#endregion
 
 	void Start()
@@ -52,6 +53,11 @@ public class GUIManager: MonoBehaviour {
 		if(guiBools.displayUserSelection == true)
 		{
 			windowRect = GUILayout.Window(0, windowRect, DoUserSelectionWindow, "User Selection");
+		}
+
+		if(guiBools.displayStageSelection == true)
+		{
+			windowRect = GUILayout.Window(0, windowRect, DoStageSelectionWindow, "Stage Selection");
 		}
 
 		if(guiBools.displayHighscore == true)
@@ -82,15 +88,62 @@ public class GUIManager: MonoBehaviour {
 		if(PlaceButton("User 1"))
 		{
 			guiBools.displayUserSelection = false;
-			guiBools.displayPlayPrompt = true;
+			//			guiBools.displayPlayPrompt = true;
+			guiBools.displayStageSelection = true;
 			currentUser = "User 1";
 		}
 
 		if(PlaceButton("User 2"))
 		{
 			guiBools.displayUserSelection = false;
-			guiBools.displayPlayPrompt = true;
+			//			guiBools.displayPlayPrompt = true;
+			guiBools.displayStageSelection = true;
 			currentUser = "User 2";
+		}
+	}
+
+	private void DoStageSelectionWindow(int windowID)
+	{
+		if(PlaceButton("Single Target"))
+		{
+			guiBools.displayStageSelection = false;
+			guiBools.displayPlayPrompt = true;
+			currentStage = "Single Target";
+		}
+		
+		if(PlaceButton("Sequential Target"))
+		{
+			guiBools.displayStageSelection = false;
+			guiBools.displayPlayPrompt = true;
+			currentStage = "Sequential Target";
+		}
+		
+		if(PlaceButton("Multi Target"))
+		{
+			guiBools.displayStageSelection = false;
+			guiBools.displayPlayPrompt = true;
+			currentStage = "Multi Target";
+		}
+		
+		if(PlaceButton("Identify Right"))
+		{
+			guiBools.displayStageSelection = false;
+			guiBools.displayPlayPrompt = true;
+			currentStage = "Identify Right";
+		}
+		
+		if(PlaceButton("Identify Left"))
+		{
+			guiBools.displayStageSelection = false;
+			guiBools.displayPlayPrompt = true;
+			currentStage = "Identify Left";
+		}
+		
+		if(PlaceButton("Identify Both"))
+		{
+			guiBools.displayStageSelection = false;
+			guiBools.displayPlayPrompt = true;
+			currentStage = "Identify Both";
 		}
 	}
 
@@ -250,7 +303,10 @@ public class GUIManager: MonoBehaviour {
 			guiBools.displayExitConfirmation = true;
 	}
 
-
+	public string GetStage()
+	{
+		return currentStage;
+	}
 	#endregion
 
 	
@@ -296,6 +352,7 @@ public class GUIManager: MonoBehaviour {
 		public bool displayPlayPrompt = false;
 		public bool displayExitConfirmation = false;
 		public bool displayCountDown = false;
+		public bool displayStageSelection = false;
 	}
 
 	[System.Serializable]
