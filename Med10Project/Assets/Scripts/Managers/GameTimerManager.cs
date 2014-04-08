@@ -45,6 +45,11 @@ public class GameTimerManager : MonoBehaviour {
 		}
 	}
 
+	public float GetCurrentPlayTime()
+	{
+		return currentTimePlayed;
+	}
+
 	private void OutOfTime()
 	{
 		Debug.Log("GameOver");

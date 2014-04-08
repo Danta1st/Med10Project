@@ -16,12 +16,15 @@ public class ObjectHandler : MonoBehaviour
 	private SoundManager soundManager;
 	private HighscoreManager highScoreManager;
 	private GameStateManager gameManager;
+	private WriteToTXT txtWriter;
 
 	//Object Information - Passed from spawner
 	private int angle;
 	private int objectID;
 	private float distance;
 	private float spawnTime;
+	private float hitTime;
+	private float reactiontime;
 	private int angleIdentifier;
 
 	//Animation times and punch count
@@ -63,6 +66,10 @@ public class ObjectHandler : MonoBehaviour
 			Debug.LogError("No HighscoreManager was found in the scene.");
 
 		gameManager = GameObject.Find("GameStateManager").GetComponent<GameStateManager>();
+
+		txtWriter = GameObject.Find("WriteToTXT").GetComponent<WriteToTXT>();
+		if(txtWriter == null)
+			Debug.LogError("No txtWriter was found in the scene.");
 
 	}
 
@@ -210,7 +217,10 @@ public class ObjectHandler : MonoBehaviour
 					gameManager.StartCoroutine("SpawnCenterExplosion", transform.rotation);
 					//TODO: Add score, increase multiplier
 				}
-				
+
+				CalculateReactionTime();
+				txtWriter.LogData(reactiontime, transform.position, screenPos, true);
+
 				Unsubscribe();
 				Destroy(gameObject);
 			}
@@ -222,10 +232,16 @@ public class ObjectHandler : MonoBehaviour
 		isPunching = true;
 		Unsubscribe();
 		gameManager.ChangeCenterState(GameStateManager.State.awaitCenterClick);
-		
+		txtWriter.LogData(reactiontime, transform.position, new Vector2(0,0), false);
 		sManager.ReportMiss(angleIdentifier, distance);
 		FadeOut(fadeOutTime);
 
+	}
+
+	private void CalculateReactionTime()
+	{
+		hitTime = Time.time;
+		reactiontime = hitTime - spawnTime;
 	}
 
 	private void SetTargetDisabled()

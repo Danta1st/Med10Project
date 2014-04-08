@@ -220,6 +220,11 @@ public class GUIManager: MonoBehaviour {
 
 
 	#region Public Methods
+	public string GetUserID()
+	{
+		return currentUser;
+	}
+
 	//Highscore Logic-----------------------
 	public void EnableHighscore(bool state)
 	{
