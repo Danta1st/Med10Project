@@ -128,6 +128,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4ee94f5abde85f46b9cd2d924c41fcf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objectType: 0
   Lifetime: 5
   ParticleObject: {fileID: 100000, guid: 06b0dd2a855234b4a84e3eb65fd70381, type: 2}
 --- !u!135 &13500000
