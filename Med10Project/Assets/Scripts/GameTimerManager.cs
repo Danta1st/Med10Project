@@ -3,7 +3,12 @@ using System.Collections;
 
 public class GameTimerManager : MonoBehaviour {
 
+	#region Editor Publics
+	[SerializeField] private bool EnableTimer = false;
 	[SerializeField] private float maxTimeInMinutes = 0.15f;
+	#endregion
+
+	#region Privates
 	private float maxTime = 0;
 	private float StartTime = 0;
 	private float currentTimePlayed = 0;
@@ -14,6 +19,7 @@ public class GameTimerManager : MonoBehaviour {
 
 	private bool gameOver = false;
 	private bool gameRunning = false;
+	#endregion
 
 	// Use this for initialization
 	void Start () {
@@ -25,8 +31,8 @@ public class GameTimerManager : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
-
+	void Update () 
+	{
 		if(gameRunning && !gameOver)
 		{
 			currentTimePlayed = Time.time - StartTime - pauseOffset;
@@ -34,7 +40,8 @@ public class GameTimerManager : MonoBehaviour {
 
 		if(currentTimePlayed > maxTime && !gameOver)
 		{
-			OutOfTime();
+			if(EnableTimer == true)
+				OutOfTime();
 		}
 	}
 

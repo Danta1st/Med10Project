@@ -17,21 +17,23 @@ public class GameStateManager : MonoBehaviour
 	private SpawnManager sManager;
 	private SoundManager soundManager;
 	private ClockHandler clock;
+
 	//Time logs
 	private float SpawnBegin;
+
 	//Booleans
 	private bool allowPunching = true;
 	private bool playModeActive = false;
+
 	//States
 	[HideInInspector] public enum State {awaitCenterClick, awaitTargetSpawn, awaitTargetClick, awaitTargetReturnToCenter};
 	[HideInInspector] public State state;
 	private Phase1States phase1States = new Phase1States();
-	//Counters
-	private int multiTargetCounter = 0;
-
 	public enum Phases {Phase1, Phase2, Phase3};
 	private Phases phase;
 
+	//Counters
+	private int multiTargetCounter = 0;
 	#endregion
 
 	void Awake()
@@ -54,12 +56,12 @@ public class GameStateManager : MonoBehaviour
 
 	void Start ()
 	{
+		//Begin at Phase 1
 		phase = Phases.Phase1;
+		//Subscribe to Tap Gesture
 		gManager.OnTapBegan += HandleOnTapBegan;
-		//gManager.OnTapEnded += TapCenter;
-		
+		//Begin Punching
 		InvokeRepeating("PunchCenter", 0, 1);
-		//InvokeRepeating("DecreaseSpawnTime", 0, 10);
 
 		ChangeCenterState(State.awaitCenterClick);
 		NotificationCenter.DefaultCenter().AddObserver(this, "NC_Play");
@@ -70,10 +72,6 @@ public class GameStateManager : MonoBehaviour
 
 	void Update()
 	{
-		if(Input.GetKeyDown(KeyCode.A))
-			Debug.Log (state);
-
-
 		switch (state)
 		{
 		case State.awaitCenterClick:
@@ -138,7 +136,7 @@ public class GameStateManager : MonoBehaviour
 					//Change the state to currently awaiting a spawn
 					ChangeCenterState(State.awaitTargetSpawn);
 					//Begin clock rotation
-					clock.BeginClock();
+//					clock.BeginClock();
 
 					soundManager.PlayTouchBegan();
 					StartCoroutine(OnClickCenterPunching());
