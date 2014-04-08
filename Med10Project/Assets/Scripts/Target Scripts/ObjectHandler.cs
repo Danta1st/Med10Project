@@ -6,9 +6,8 @@ public class ObjectHandler : MonoBehaviour
 	#region Editor Publics
 	[SerializeField] private ObjectTypes objectType = ObjectTypes.SingleTarget;
 	[SerializeField] private float Lifetime = 2;
-	[SerializeField] private GameObject ParticleObject;
+	[SerializeField] private Particles particles;
 	#endregion
-
 
 	#region Privates
 	//Connectivity & References
@@ -172,6 +171,7 @@ public class ObjectHandler : MonoBehaviour
 
 	private void DestroySelf()
 	{
+		soundManager.PlayMissed();
 		Destroy(gameObject);
 	}
 
@@ -191,20 +191,25 @@ public class ObjectHandler : MonoBehaviour
 				{
 					gameManager.ChangeCenterState(GameStateManager.State.awaitCenterClick);
 					sManager.ReportHit(angleIdentifier, distance);
+					SpawnParticle(particles.SingleExplosion);
+					SpawnParticle(particles.CenterChaser);
+					gameManager.StartCoroutine("SpawnCenterExplosion", transform.rotation);
 					//TODO: Add score, reset multiplier
 				}
 				else if(objectType == ObjectTypes.SequentialTarget)
 				{
 					sManager.Phase1Stage2(angleIdentifier);
+					SpawnParticle(particles.SequentialExplosion);
 					//TODO: Add score, increase multiplier
 				}
 				else if(objectType == ObjectTypes.MultiTarget)
 				{
 					gameManager.IncreaseMultiTargetCounter();
+					SpawnParticle(particles.SingleExplosion);
+					SpawnParticle(particles.CenterChaser);
+					gameManager.StartCoroutine("SpawnCenterExplosion", transform.rotation);
+					//TODO: Add score, increase multiplier
 				}
-
-				SpawnParticle();
-				gameManager.StartCoroutine("SpawnCenterExplosion", transform.rotation);
 				
 				Unsubscribe();
 				Destroy(gameObject);
@@ -214,11 +219,13 @@ public class ObjectHandler : MonoBehaviour
 	
 	private void Miss()
 	{
+		isPunching = true;
 		Unsubscribe();
 		gameManager.ChangeCenterState(GameStateManager.State.awaitCenterClick);
 		
 		sManager.ReportMiss(angleIdentifier, distance);
 		FadeOut(fadeOutTime);
+
 	}
 
 	private void SetTargetDisabled()
@@ -226,9 +233,9 @@ public class ObjectHandler : MonoBehaviour
 		iTween.ColorTo(gameObject, iTween.Hash("color", DisabledColor, "time", 0.3f));
 	}
 
-	private void SpawnParticle()
+	private void SpawnParticle(GameObject particleObject)
 	{
-		Instantiate(ParticleObject, transform.position, transform.rotation);
+		Instantiate(particleObject, transform.position, transform.rotation);
 	}
 
 	private void Unsubscribe()
@@ -249,6 +256,16 @@ public class ObjectHandler : MonoBehaviour
 	private void NC_Unpause()
 	{
 		playModeActive = true;
+	}
+	#endregion
+	
+	#region Subclasses
+	[System.Serializable]
+	public class Particles
+	{
+		public GameObject CenterChaser;
+		public GameObject SingleExplosion;
+		public GameObject SequentialExplosion;
 	}
 	#endregion
 }
