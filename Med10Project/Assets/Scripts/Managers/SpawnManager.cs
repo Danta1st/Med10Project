@@ -95,7 +95,7 @@ public class SpawnManager : MonoBehaviour
 		//Instantiate game object
 		GameObject go = (GameObject) Instantiate(spawnObject, position, rotation);
 		//Play Sound
-		sManager.PlayNewTargetSpawned();
+//		sManager.PlayNewTargetSpawned();
 		//Set Object Parameters
 		go.GetComponent<ObjectHandler>().SetAngle((int) angle);
 		go.GetComponent<ObjectHandler>().SetID(objectCounter);
@@ -121,7 +121,7 @@ public class SpawnManager : MonoBehaviour
 		//Instantiate game object
 		GameObject go = (GameObject) Instantiate(spawnObject, position, rotation);
 		//Play Sound
-		sManager.PlayNewTargetSpawned();
+//		sManager.PlayNewTargetSpawned();
 		//Set Object Parameters
 		go.GetComponent<ObjectHandler>().SetAngle((int) angle);
 		go.GetComponent<ObjectHandler>().SetID(objectCounter);
