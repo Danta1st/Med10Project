@@ -1358,8 +1358,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2489482318a9c304faa086783fc4c166, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EnableTimer: 0
-  maxTimeInMinutes: 1
+  EnableTimer: 1
+  maxTimeInMinutes: 2
 --- !u!4 &1286373020
 Transform:
   m_ObjectHideFlags: 0
