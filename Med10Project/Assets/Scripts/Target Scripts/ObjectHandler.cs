@@ -178,7 +178,11 @@ public class ObjectHandler : MonoBehaviour
 
 	private void DestroySelf()
 	{
+<<<<<<< HEAD
 //		soundManager.PlayMissed();
+=======
+		//soundManager.PlayMissed();
+>>>>>>> develop
 		Destroy(gameObject);
 	}
 
@@ -219,7 +223,7 @@ public class ObjectHandler : MonoBehaviour
 				}
 
 				CalculateReactionTime();
-				txtWriter.LogData(reactiontime, transform.position, screenPos, true);
+				txtWriter.LogData(objectType.ToString(), reactiontime, angle, distance, transform.position, screenPos, true);
 
 				Unsubscribe();
 				Destroy(gameObject);
@@ -232,7 +236,7 @@ public class ObjectHandler : MonoBehaviour
 		isPunching = true;
 		Unsubscribe();
 		gameManager.ChangeCenterState(GameStateManager.State.awaitCenterClick);
-		txtWriter.LogData(reactiontime, transform.position, new Vector2(0,0), false);
+		txtWriter.LogData(objectType.ToString(), 0, angle, distance, transform.position, new Vector2(0,0), false);
 		sManager.ReportMiss(angleIdentifier, distance);
 		FadeOut(fadeOutTime);
 

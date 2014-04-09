@@ -4,22 +4,28 @@ using System.Collections;
 public class Phase2Object : MonoBehaviour 
 {
 	#region Editor Publics
-	private int Lifetime = 2;
+	[SerializeField] private ObjectTypes objectType = ObjectTypes.P2_Right;
+	[SerializeField] private int Lifetime = 2;
 	#endregion
 
 
 	#region Privates
+	public enum ObjectTypes {P2_Right, P2_Left, P2_Both};
+
 	private GestureManager gManager;
 	private SoundManager soundManager;
 	private HighscoreManager highScoreManager;
 	private GameStateManager gameManager;
 	private Phase2Behavior phase2Center;
+	private WriteToTXT txtWriter;
 
 	//Object Information - Passed from spawner
 	private int angle;
 	private int objectID;
 	private float distance;
 	private float spawnTime;
+	private float hitTime;
+	private float reactiontime;
 	private int anglemultiplier;
 
 	private int lifeCounter;
@@ -54,6 +60,10 @@ public class Phase2Object : MonoBehaviour
 //		xmlLogger = GameObject.Find("XMLlogger").GetComponent<XmlData>();
 		gameManager = GameObject.Find("GameStateManager").GetComponent<GameStateManager>();
 		phase2Center = GameObject.Find("Phase2Center(Clone)").GetComponent<Phase2Behavior>();
+
+		txtWriter = GameObject.Find("WriteToTXT").GetComponent<WriteToTXT>();
+		if(txtWriter == null)
+			Debug.LogError("No txtWriter was found in the scene.");
 	}
 
 	void Start ()
@@ -118,18 +128,31 @@ public class Phase2Object : MonoBehaviour
 				
 				//Unsubscribe();
 
-				phase2Center.SendHit();
-
 				SpawnParticle();
 				gameManager.StartCoroutine("SpawnCenterExplosion", transform.rotation);
 
 				SetTargetDisabled();
 
+				CalculateReactionTime();
+				txtWriter.LogData(objectType.ToString(), reactiontime, angle, distance, transform.position, screenPos, true);
+
 				highScoreManager.AddScore(13, true);
 				highScoreManager.IncreaseMultiplier();
 
+				phase2Center.SendHit();
 			}
 		}
+	}
+
+	public void SetObjectType(ObjectTypes _objecttype)
+	{
+		objectType = _objecttype;
+	}
+
+	private void CalculateReactionTime()
+	{
+		hitTime = Time.time;
+		reactiontime = hitTime - spawnTime;
 	}
 
 	private void HideTarget()
@@ -149,6 +172,7 @@ public class Phase2Object : MonoBehaviour
 		iTween.ColorTo(gameObject, iTween.Hash("color", FullGreenColor, "time", 0.3f));
 		activeTarget = true;
 		lifeCounter = Lifetime;
+		SetSpawnTime(Time.time);
 	}
 
 	private void SpawnParticle()
@@ -159,6 +183,7 @@ public class Phase2Object : MonoBehaviour
 	private void Miss()
 	{
 		SetTargetDisabled();
+		txtWriter.LogData(objectType.ToString(), 0, angle, distance, transform.position, new Vector2(0,0), false);
 		phase2Center.SendMiss();
 	}
 

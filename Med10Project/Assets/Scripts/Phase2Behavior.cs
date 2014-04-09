@@ -7,6 +7,8 @@ public class Phase2Behavior : MonoBehaviour {
 	private GameStateManager gameManager;
 	private SpawnManager spawnManager;
 	private GUIManager guiManager;
+	private SoundManager sManager;
+
 	[SerializeField] private GameObject SpawnObject;
 	private GameObject[] Targets;
 
@@ -29,6 +31,7 @@ public class Phase2Behavior : MonoBehaviour {
 		gameManager = GameObject.Find("GameStateManager").GetComponent<GameStateManager>();
 		spawnManager = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();
 		guiManager =  GameObject.Find("3DGUICamera").GetComponent<GUIManager>();
+		sManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
 	}
 
 	void Start () {
@@ -83,6 +86,8 @@ public class Phase2Behavior : MonoBehaviour {
 
 	private void SetTargetsActive(int amount)
 	{
+		sManager.PlayNewTargetSpawned();
+
 		int[] randomTargets = new int[5];
 
 		if(stage == Stage.Right)
@@ -107,6 +112,19 @@ public class Phase2Behavior : MonoBehaviour {
 		for (int i = 0; i < amount; i++)
 		{
 			Targets[randomTargets[i]].GetComponent<Phase2Object>().SetActiveTarget();
+
+			if(stage == Stage.Right)
+			{
+				Targets[randomTargets[i]].GetComponent<Phase2Object>().SetObjectType(Phase2Object.ObjectTypes.P2_Right);
+			}
+			else if(stage == Stage.Left)
+			{
+				Targets[randomTargets[i]].GetComponent<Phase2Object>().SetObjectType(Phase2Object.ObjectTypes.P2_Left);
+			}
+			else if(stage == Stage.Both)
+			{
+				Targets[randomTargets[i]].GetComponent<Phase2Object>().SetObjectType(Phase2Object.ObjectTypes.P2_Both);
+			}
 		}
 
 	}
@@ -173,6 +191,7 @@ public class Phase2Behavior : MonoBehaviour {
 			float adjustedDistance = (((currentDistance/100.0f)*maxDistanceForShortestAngle)/2)
 									+(((currentDistance/100.0f)*maxDistanceForThisAngle)/2);
 			iTween.MoveTo(target, iTween.Hash("position", -target.transform.up*adjustedDistance, "time", 0.5f, "easetype", iTween.EaseType.easeInBack));
+			target.GetComponent<Phase2Object>().SetDistance(adjustedDistance);
 		}
 	}
 
@@ -231,8 +250,8 @@ public class Phase2Behavior : MonoBehaviour {
 		go.transform.parent = transform;
 		//Set Object Parameters
 		go.GetComponent<Phase2Object>().SetAngle((int) angle);
-		go.GetComponent<Phase2Object>().SetDistance(distance);
-		go.GetComponent<Phase2Object>().SetSpawnTime(Time.time);
+		//go.GetComponent<Phase2Object>().SetDistance(distance);
+		//go.GetComponent<Phase2Object>().SetSpawnTime(Time.time);
 		go.GetComponent<Phase2Object>().SetMultiplier(int1to10);
 		go.GetComponent<Phase2Object>().SetTargetDisabled();
 		go.name = go.name+int1to10;

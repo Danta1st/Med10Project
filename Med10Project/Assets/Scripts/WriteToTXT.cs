@@ -13,8 +13,11 @@ public class WriteToTXT : MonoBehaviour {
 	private string currentStringToWrite;
 
 	private string userID;
+	private string stage;
 	private string time;
 	private string reactiontime;
+	private string angle;
+	private string distance;
 	private string targetpositionX;
 	private string targetpositionY;
 	private string touchpositionX;
@@ -49,14 +52,15 @@ public class WriteToTXT : MonoBehaviour {
 
 		using (StreamWriter writer = File.AppendText(directorypath + filename))
 		{
-			writer.WriteLine("userID;time;reactiontime;targetpositionX;targetpositionY;touchpositionX;touchpositionY;hitormiss");
+			writer.WriteLine("userID;stage;hittime;reactiontime;angle;distance;targetpositionX;targetpositionY;touchpositionX;touchpositionY;hitormiss");
 		}
 	}
 
-	public void LogData(float _reactiontime, Vector3 _targetposition, Vector2 _touchposition, bool _wasHit)
+	public void LogData(string _stage, float _reactiontime, float _angle, float _distance, Vector3 _targetposition, Vector2 _touchposition, bool _wasHit)
 	{
 		userID = gManager.GetUserID();
-		time = gtManager.GetCurrentPlayTime().ToString(".00");
+		stage = _stage;
+		time = gtManager.GetCurrentPlayTime().ToString("#.00");
 
 		if(_reactiontime < 1)
 		{
@@ -67,12 +71,15 @@ public class WriteToTXT : MonoBehaviour {
 			reactiontime = _reactiontime.ToString("#.000");
 		}
 
-		Vector3 tempVector = Camera.main.WorldToScreenPoint(_targetposition);
-		targetpositionX = tempVector.x.ToString();
-		targetpositionY = tempVector.y.ToString();
+		angle = _angle.ToString("#.00");
+		distance = _distance.ToString("#.00");
 
-		touchpositionX = _touchposition.x.ToString(".00");
-		touchpositionY = _touchposition.y.ToString(".00");
+		Vector3 tempVector = Camera.main.WorldToScreenPoint(_targetposition);
+		targetpositionX = tempVector.x.ToString("#.0");
+		targetpositionY = tempVector.y.ToString("#.0");
+
+		touchpositionX = _touchposition.x.ToString("#.0");
+		touchpositionY = _touchposition.y.ToString("#.0");
 
 		if(_wasHit)
 		{
@@ -83,7 +90,7 @@ public class WriteToTXT : MonoBehaviour {
 			hitOrMiss = "miss";
 		}
 
-		currentStringToWrite = userID+";"+time+";"+reactiontime+";"+targetpositionX+";"+targetpositionY+";"+touchpositionX+";"+touchpositionY+";"+hitOrMiss;
+		currentStringToWrite = userID+";"+stage+";"+time+";"+reactiontime+";"+angle+";"+distance+";"+targetpositionX+";"+targetpositionY+";"+touchpositionX+";"+touchpositionY+";"+hitOrMiss;
 		WriteTXT();
 	}
 
