@@ -188,7 +188,7 @@ public class ObjectHandler : MonoBehaviour
 		RaycastHit hitInfo;
 		if(Physics.Raycast(ray, out hitInfo))
 		{
-			if(hitInfo.collider == gameObject.collider)
+			if(hitInfo.collider == gameObject.collider && playModeActive)
 			{
 				soundManager.PlayTouchEnded();
 				soundManager.PlayTargetSuccessHit();
