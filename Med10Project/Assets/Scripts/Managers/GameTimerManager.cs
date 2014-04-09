@@ -3,6 +3,8 @@ using System.Collections;
 
 public class GameTimerManager : MonoBehaviour {
 
+	private GUIManager guiManager;
+
 	#region Editor Publics
 	[SerializeField] private bool EnableTimer = false;
 	[SerializeField] private float maxTimeInMinutes = 0.15f;
@@ -28,6 +30,7 @@ public class GameTimerManager : MonoBehaviour {
 		NotificationCenter.DefaultCenter().AddObserver(this, "NC_Unpause");
 		NotificationCenter.DefaultCenter().AddObserver(this, "NC_Restart");
 		maxTime = 60*maxTimeInMinutes;
+		guiManager = GameObject.Find("3DGUICamera").GetComponent<GUIManager>();
 	}
 	
 	// Update is called once per frame
@@ -56,6 +59,7 @@ public class GameTimerManager : MonoBehaviour {
 		NotificationCenter.DefaultCenter().PostNotification(this, "NC_Pause");
 		gameOver = true;
 		gameRunning = false;
+		guiManager.OutOfTimeReturnToMenu();
 	}
 
 	private void StartGameTimer()
@@ -111,10 +115,10 @@ public class GameTimerManager : MonoBehaviour {
 
 	void OnGUI()
 	{
-		if(gameRunning)
-			GUI.Label(new Rect(50, 50, 200, 200), ""+currentTimePlayed.ToString("0"));
+		/*if(gameRunning)
+			GUI.Label(new Rect(50, 50, 200, 200), ""+currentTimePlayed.ToString("0"));*/
 
-		if(gameOver)
-			GUI.Label(new Rect(200, 200, 200, 200), "Game Ended");
+		/*if(gameOver)
+			GUI.Label(new Rect(200, 200, 200, 200), "S");*/
 	}
 }

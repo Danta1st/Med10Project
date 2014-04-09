@@ -225,6 +225,15 @@ public class GUIManager: MonoBehaviour {
 		return currentUser;
 	}
 
+	public void OutOfTimeReturnToMenu()
+	{
+		guiBools.displayUserSelection = true;
+		BlockAll(true);
+		//TODO: Needs to reset highscore
+		EnableHighscore(false);
+		NotificationCenter.DefaultCenter().PostNotification(this, "NC_Restart");
+	}
+
 	//Highscore Logic-----------------------
 	public void EnableHighscore(bool state)
 	{
