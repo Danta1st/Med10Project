@@ -129,7 +129,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectType: 1
-  Lifetime: .800000012
+  Lifetime: 3
   particles:
     CenterChaser: {fileID: 100000, guid: 06b0dd2a855234b4a84e3eb65fd70381, type: 2}
     SingleExplosion: {fileID: 100000, guid: 35dedb80b664d6a46b2e06c768f90da4, type: 2}

@@ -1,5 +1,7 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 
 public class GameStateManager : MonoBehaviour 
 {
@@ -88,16 +90,20 @@ public class GameStateManager : MonoBehaviour
 				if(phase == Phases.Phase1)
 				{
 					//Get random target
-					int int1to10 = Random.Range(1, 11); //Remember, max is exlusive for ints
+//					int int1to10 = Random.Range(1, 11); //Remember, max is exlusive for ints
+
+					int int1to10 = GetWeightedRandom();
 
 					//Spawn target according to current state
 					if(phase1States.GetAngleState(int1to10) == Phase1States.States.SingleTarget ||
 					   phase1States.GetAngleState(int1to10) == Phase1States.States.SequentialTarget)
 					{
+						soundManager.PlayNewTargetSpawned();
 						sManager.Phase1Stage1(int1to10);
 					}
 					else if(phase1States.GetAngleState(int1to10) == Phase1States.States.MultipleTargets)
 					{
+						soundManager.PlayNewTargetSpawned();
 						sManager.Phase1Stage3(int1to10);
 					}
 				}
@@ -111,7 +117,7 @@ public class GameStateManager : MonoBehaviour
 			if(multiTargetCounter >= 3)
 			{
 				multiTargetCounter = 0;
-				ChangeCenterState(State.awaitTargetReturnToCenter);
+				ChangeCenterState(State.awaitCenterClick);
 			}
 			break;
 		case State.awaitTargetReturnToCenter:
@@ -266,6 +272,68 @@ public class GameStateManager : MonoBehaviour
 	{
 		iTween.Stop (gameObject, "scale");
 		gameObject.transform.localScale = new Vector3 (2,2,2);
+	}
+
+	private List<Phase1States.States> lastSpawnStates = new List<Phase1States.States>();
+	private int GetWeightedRandom()
+	{
+		if(lastSpawnStates.Count() == 2 && lastSpawnStates[0] == lastSpawnStates[1])
+		{
+			if(lastSpawnStates[0] == Phase1States.States.MultipleTargets || lastSpawnStates[0] == Phase1States.States.SequentialTarget)
+			{
+				List<int> singleTargetList = new List<int>();
+				List<int> sequentialTargetList = new List<int>();
+
+				for(int i = 1; i <= 10; i++)
+				{
+					//Gather all current singleTarget angles
+					if(phase1States.GetAngleState(i) == Phase1States.States.SingleTarget)
+					{
+						singleTargetList.Add(i);
+					}
+					//Gather all current SequentialTarget angles
+					else if(phase1States.GetAngleState(i) == Phase1States.States.SequentialTarget)
+					{
+						sequentialTargetList.Add(i);
+					}
+				}
+
+				if(singleTargetList.Count() != 0)
+				{
+					//Get random singleTarget from current angles of single targets
+					int j = Random.Range(1, singleTargetList.Count() + 1);
+					//Add item at the end of latest spawn list
+					lastSpawnStates.Add(phase1States.GetAngleState(singleTargetList[j-1]));
+					//If more than two items in list, remove the front index
+					if(lastSpawnStates.Count() > 2)
+						lastSpawnStates.RemoveAt(0);
+					//Return angle ID to spawn
+					return singleTargetList[j-1];
+				}
+				else if(sequentialTargetList.Count() != 0)
+				{
+					//Get random sequentialTarget from current angles of single targets
+					int j = Random.Range(1, sequentialTargetList.Count() + 1);
+					//Add item at the end of latest spawn list
+					lastSpawnStates.Add(phase1States.GetAngleState(sequentialTargetList[j-1]));
+					//If more than two items in list, remove the front index
+					if(lastSpawnStates.Count() > 2)
+						lastSpawnStates.RemoveAt(0);
+					//Return angle ID to spawn
+					return sequentialTargetList[j-1];
+				}
+			}
+		}
+
+		//If none of the above. Spawn total random
+		int k = Random.Range(1, 11);
+		//Add item at the end of latest spawn list
+		lastSpawnStates.Add(phase1States.GetAngleState(k));
+		//If more than two items in list, remove the front index
+		if(lastSpawnStates.Count() > 2)
+			lastSpawnStates.RemoveAt(0);
+		//Return angle ID to spawn
+		return k;
 	}
 	
 	//Begin at Specific Phase -----------------------------------
