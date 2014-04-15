@@ -9,13 +9,21 @@ public class HighscoreManager : MonoBehaviour {
 	#region Privates
 	private int currentScore = 0;
 	private int multiplier = 1;
+	private int hits = 0;
+	private int misses = 0;
 
 	void Start()
 	{
 		NotificationCenter.DefaultCenter().AddObserver(this, "NC_Restart");
+		NotificationCenter.DefaultCenter().AddObserver(this, "NC_Play");
 	}
 
 	private void NC_Restart()
+	{
+		ResetScoreAndMultiplier();
+	}
+
+	private void NC_Play()
 	{
 		ResetScoreAndMultiplier();
 	}
@@ -32,6 +40,16 @@ public class HighscoreManager : MonoBehaviour {
 	{
 		return multiplier;
 	}
+	
+	public int GetHits()
+	{
+		return hits;
+	}
+	
+	public int GetMisses()
+	{
+		return misses;
+	}
 
 	public void AddScore(int value, bool useMultiplier)
 	{
@@ -41,6 +59,19 @@ public class HighscoreManager : MonoBehaviour {
 			currentScore += value;
 
 	}
+
+	public void AddHit()
+	{
+		hits += 1;
+		Debug.Log ("Hits: "+hits);
+	}
+
+	public void AddMiss()
+	{
+		misses += 1;
+		Debug.Log ("Misses: "+misses);
+	}
+
 	public void SubtractScore(int value)
 	{
 		if(currentScore - value >= 0)
@@ -79,11 +110,23 @@ public class HighscoreManager : MonoBehaviour {
 	{
 		ResetScore();
 		ResetMultiplier();
+		ResetHits();
+		ResetMisses();
 	}
 
 	public void ResetMultiplier()
 	{
 		multiplier = 1;
+	}
+
+	public void ResetHits()
+	{
+		hits = 0;
+	}
+	
+	public void ResetMisses()
+	{
+		misses = 0;
 	}
 	#endregion
 

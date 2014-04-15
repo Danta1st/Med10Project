@@ -218,6 +218,8 @@ public class ObjectHandler : MonoBehaviour
 					//TODO: Add score, increase multiplier
 				}
 
+				highScoreManager.AddHit();
+
 				CalculateReactionTime();
 				txtWriter.LogData(objectType.ToString(), reactiontime, angle, distance, transform.position, screenPos, true);
 
@@ -229,6 +231,7 @@ public class ObjectHandler : MonoBehaviour
 	
 	private void Miss()
 	{
+		highScoreManager.AddMiss();
 		isPunching = true;
 		Unsubscribe();
 		gameManager.ChangeCenterState(GameStateManager.State.awaitCenterClick);
