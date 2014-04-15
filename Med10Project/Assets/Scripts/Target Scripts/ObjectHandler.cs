@@ -178,7 +178,7 @@ public class ObjectHandler : MonoBehaviour
 
 	private void DestroySelf()
 	{
-//		soundManager.PlayMissed();
+		soundManager.PlayMissed();
 		Destroy(gameObject);
 	}
 

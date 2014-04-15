@@ -66,7 +66,7 @@ public class GameStateManager : MonoBehaviour
 		//Subscribe to Tap Gesture
 		gManager.OnTapBegan += HandleOnTapBegan;
 		//Begin Punching
-		InvokeRepeating("PunchCenter", 0, 1);
+		InvokeRepeating("PunchCenter", 0, 1.25f);
 
 		ChangeCenterState(State.awaitCenterClick);
 		NotificationCenter.DefaultCenter().AddObserver(this, "NC_Play");
@@ -228,6 +228,7 @@ public class GameStateManager : MonoBehaviour
 		{
 			ResetGOScale();
 			iTween.PunchScale(gameObject, new Vector3(0.2f, 0.2f, 0.2f), 0.5f);
+			soundManager.PlayCenterPunch();
 		}
 	}
 

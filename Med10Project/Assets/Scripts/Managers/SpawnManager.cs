@@ -94,8 +94,6 @@ public class SpawnManager : MonoBehaviour
 		RotateSelf(-angle);
 		//Instantiate game object
 		GameObject go = (GameObject) Instantiate(spawnObject, position, rotation);
-		//Play Sound
-//		sManager.PlayNewTargetSpawned();
 		//Set Object Parameters
 		go.GetComponent<ObjectHandler>().SetAngle((int) angle);
 		go.GetComponent<ObjectHandler>().SetID(objectCounter);
@@ -120,8 +118,6 @@ public class SpawnManager : MonoBehaviour
 		RotateSelf(-angle);
 		//Instantiate game object
 		GameObject go = (GameObject) Instantiate(spawnObject, position, rotation);
-		//Play Sound
-//		sManager.PlayNewTargetSpawned();
 		//Set Object Parameters
 		go.GetComponent<ObjectHandler>().SetAngle((int) angle);
 		go.GetComponent<ObjectHandler>().SetID(objectCounter);
@@ -147,6 +143,9 @@ public class SpawnManager : MonoBehaviour
 		var index = int1to10 - 1;
 
 		float distance;
+		
+		//Increment ObjectCounter
+		objectCounter++;
 
 		//Calculate distance. If space between hits and fails are to narrow, 
 		//and we have more space to the border of the screen, increment by a factor of 1.0f on fails side
@@ -190,6 +189,9 @@ public class SpawnManager : MonoBehaviour
 			index = int1to10 + 5 - 10;
 		else
 			index = int1to10 + 5;
+		
+		//Increment ObjectCounter
+		objectCounter++;
 
 		//Calculate distance based on opposite progress
 		float distance = GetAbsMaxDist(int1to10) - LongestHits[index - 1];
@@ -211,7 +213,10 @@ public class SpawnManager : MonoBehaviour
 
 	public void Phase1Stage3(int int1to10)
 	{
-		//TODO: Implement Phase1Stage3
+		
+		//Increment ObjectCounter
+		objectCounter++;
+
 		float dist = Random.Range(2.0f, GetAbsMaxDist(1));
 
 		for(int i = -1; i <= 1; i++)
