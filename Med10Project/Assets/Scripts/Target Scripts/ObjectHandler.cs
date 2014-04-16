@@ -217,11 +217,10 @@ public class ObjectHandler : MonoBehaviour
 					gameManager.StartCoroutine("SpawnCenterExplosion", transform.rotation);
 					//TODO: Add score, increase multiplier
 				}
-
-				highScoreManager.AddHit();
-
 				CalculateReactionTime();
 				txtWriter.LogData(objectType.ToString(), reactiontime, angle, distance, transform.position, screenPos, true);
+
+				highScoreManager.AddHit(reactiontime);
 
 				Unsubscribe();
 				Destroy(gameObject);
