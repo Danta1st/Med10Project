@@ -255,7 +255,12 @@ public class ObjectHandler : MonoBehaviour
 		highScoreManager.AddMiss();
 		isPunching = true;
 		Unsubscribe();
-		gameManager.ChangeCenterState(GameStateManager.State.awaitCenterClick);
+
+		if(objectType == ObjectTypes.MultiTarget)
+			gameManager.IncreaseMultiTargetCounter();
+		else
+			gameManager.ChangeCenterState(GameStateManager.State.awaitCenterClick);
+
 		txtWriter.LogData(objectType.ToString(), 0, angle, distance, transform.position, new Vector2(0,0), false);
 		sManager.ReportMiss(angleID, distance);
 		FadeOut(fadeOutTime);
