@@ -1015,6 +1015,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnTime: 0
   CenterExplosion: {fileID: 100002, guid: e708d354ffc074d44b6c75a7abae6602, type: 2}
+  calibrationAmount: 15
   state: 0
 --- !u!135 &387336500
 SphereCollider:
@@ -1288,6 +1289,7 @@ MonoBehaviour:
   OnTargetSuccessHit: {fileID: 8300000, guid: a72555872a98399468a13251cadc5142, type: 3}
   OnNewTargetSpawned: {fileID: 8300000, guid: 4756963bd70fdd54da3483e632a8e1f2, type: 3}
   OnMiss: {fileID: 8300000, guid: 215138bada971944da3ee9d390cf5b11, type: 3}
+  OnCenterPunch: {fileID: 0}
 --- !u!4 &1034557620
 Transform:
   m_ObjectHideFlags: 0
@@ -1536,7 +1538,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EnableTimer: 1
-  maxTimeInMinutes: .150000006
+  maxTimeInMinutes: 1
 --- !u!4 &1286373020
 Transform:
   m_ObjectHideFlags: 0
