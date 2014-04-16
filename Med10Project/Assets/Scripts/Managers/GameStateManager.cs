@@ -11,6 +11,7 @@ public class GameStateManager : MonoBehaviour
 	#region Editor Publics
 	[SerializeField] private float spawnTime = 3.0f;
 	[SerializeField] private GameObject CenterExplosion;
+	[SerializeField] private int calibrationAmount = 15;
 	#endregion
 
 	#region Privates
@@ -32,10 +33,11 @@ public class GameStateManager : MonoBehaviour
 	[HideInInspector] public enum State {awaitCenterClick, awaitTargetSpawn, awaitTargetClick, awaitTargetReturnToCenter};
 	[HideInInspector] public State state;
 	private Phase1States phase1States = new Phase1States();
-	public enum Phases {Phase1, Phase2, Phase3};
+	public enum Phases {Phase0, Phase1, Phase2, Phase3};
 	private Phases phase;
 
 	//Counters
+	private int calibrationCounter = 0;
 	private int multiTargetCounter = 0;
 	#endregion
 
@@ -84,14 +86,29 @@ public class GameStateManager : MonoBehaviour
 		case State.awaitTargetSpawn:
 			if(Time.time >= spawnTime + SpawnBegin)
 			{
+				//Change the state
 				ChangeCenterState(State.awaitTargetClick);
 
-				//Spawn according to state TODO: Move to own method taking int1to10 as input
-				if(phase == Phases.Phase1)
+				//Spawn according to state
+				if(phase == Phases.Phase0)
+				{
+					if(calibrationCounter < calibrationAmount)
+					{
+						//Spawn calibration Target
+						sManager.SpawnCalibration();
+						//Increase Count
+						calibrationCounter++;
+					}
+					else
+					{
+						//TODO: Calculate mean reaction times
+						phase = Phases.Phase1;
+					}
+
+				}
+				else if(phase == Phases.Phase1)
 				{
 					//Get random target
-//					int int1to10 = Random.Range(1, 11); //Remember, max is exlusive for ints
-
 					int int1to10 = GetWeightedRandom();
 
 					//Spawn target according to current state

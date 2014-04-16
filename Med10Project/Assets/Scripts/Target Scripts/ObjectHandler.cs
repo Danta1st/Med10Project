@@ -27,6 +27,8 @@ public class ObjectHandler : MonoBehaviour
 	private float reactiontime;
 	private int angleIdentifier;
 
+	private float rtLifetime = 1.0f;
+
 	//Animation times and punch count
 	private float fadeInTime = 0.3f;
 	private float fadeOutTime = 0.3f;
@@ -43,7 +45,7 @@ public class ObjectHandler : MonoBehaviour
 	private bool playModeActive = true;
 	private bool isPunching = true;
 
-	private enum ObjectTypes {SingleTarget, SequentialTarget, MultiTarget};
+	private enum ObjectTypes {CalibrationTarget, SingleTarget, SequentialTarget, MultiTarget};
 	#endregion
 	
 	void Awake()
@@ -107,7 +109,7 @@ public class ObjectHandler : MonoBehaviour
 			{
 				PunchObject();
 			}
-			//should we record a miss?
+			//should we record a miss? 
 			else if(isPunching == false && Time.time >= spawnTime + Lifetime - fadeOutTime)
 			{
 				Miss();

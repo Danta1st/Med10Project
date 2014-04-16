@@ -137,6 +137,28 @@ public class SpawnManager : MonoBehaviour
 		SpawnSpecific(spawnObject, multiplier, distance);
 	}
 
+	private List<int> calibrationList = new List<int>();
+	public void SpawnCalibration()
+	{
+		if(calibrationList.Count <= 0)
+		{
+			//Fill array
+			for(int i = 1; i <= 5; i++)
+				calibrationList.Add(i);
+		}
+		else
+		{
+			//Get random identifier & get angleID from list
+			int angleID = calibrationList[Random.Range(0, calibrationList.Count)];
+			//Get abs distance value / 2
+			float distance = GetAbsMaxDist(angleID)/2;
+			//Remove from List
+			calibrationList.Remove(angleID);
+			//SpawnSpecific calibrationObject
+			SpawnSpecific(spawnObjects.CalibrationTarget, angleID, distance);
+		}
+	}
+
 	public void Phase1Stage1(int int1to10)
 	{
 		//Adjust the index for lists that begin at 0
@@ -398,6 +420,7 @@ public class SpawnManager : MonoBehaviour
 	[System.Serializable]
 	public class SpawnObjects
 	{
+		public GameObject CalibrationTarget;
 		public GameObject SingleTarget;
 		public GameObject SequentialTarget;
 		public GameObject MultiTarget;
