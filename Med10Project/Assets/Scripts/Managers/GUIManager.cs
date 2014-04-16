@@ -28,6 +28,12 @@ public class GUIManager: MonoBehaviour {
 	private string currentUser;
 	private string currentCountdownNumber;
 	private string currentStage;
+
+	private int hits;
+	private int misses;
+	private string avgReactionTime;
+
+	private bool gameOver = false;
 	#endregion
 
 	void Start()
@@ -45,6 +51,9 @@ public class GUIManager: MonoBehaviour {
 
 		LeftCoverBeginPos = guiElements.LeftCover.transform.position;
 		RightCoverBeginPos = guiElements.RightCover.transform.position;
+
+		NotificationCenter.DefaultCenter().AddObserver(this, "NC_GameOver");
+		NotificationCenter.DefaultCenter().AddObserver(this, "NC_Restart");
 	}
 	
 	//TODO: Implement proper guistyles
@@ -67,7 +76,7 @@ public class GUIManager: MonoBehaviour {
 
 		if(guiBools.displayExitConfirmation == true)
 		{
-			windowRect = GUILayout.Window(0, windowRect, DoExitConfirmationWindow, "Want to quit?");
+			windowRect = GUILayout.Window(0, windowRect, DoExitConfirmationWindow, "Continue or Exit?");
 		}
 
 		if(guiBools.displayPlayPrompt)
@@ -79,27 +88,42 @@ public class GUIManager: MonoBehaviour {
 		{
 			GUI.Label(countdownRect, ""+currentCountdownNumber, guiStyles.CountdownStyle);
 		}
+
+		if(guiBools.displayEndScreen)
+		{
+			windowRect = GUILayout.Window(0, windowRect, DoEndScreenWindow, "Score");
+			//GUI.Label(countdownRect, "Hits: "+hits, guiStyles.CountdownStyle);
+		}
 	}
 
 	#region GUI Windows
 	private void DoUserSelectionWindow(int windowID)
 	{
+		GUILayout.FlexibleSpace();
 		//TODO: Implement proper user selection with the logging system
 		if(PlaceButton("User 1"))
 		{
 			guiBools.displayUserSelection = false;
-			//			guiBools.displayPlayPrompt = true;
-			guiBools.displayStageSelection = true;
+			guiBools.displayPlayPrompt = true;
+			//guiBools.displayStageSelection = true;
 			currentUser = "User 1";
 		}
 
 		if(PlaceButton("User 2"))
 		{
 			guiBools.displayUserSelection = false;
-			//			guiBools.displayPlayPrompt = true;
-			guiBools.displayStageSelection = true;
+			guiBools.displayPlayPrompt = true;
+			//guiBools.displayStageSelection = true;
 			currentUser = "User 2";
 		}
+
+
+		GUILayout.FlexibleSpace();
+		if(PlaceButton("Exit Game"))
+		{
+			Application.Quit();
+		}
+		GUILayout.FlexibleSpace();
 	}
 
 	private void DoStageSelectionWindow(int windowID)
@@ -149,31 +173,38 @@ public class GUIManager: MonoBehaviour {
 
 	private void DoExitConfirmationWindow(int windowID)
 	{
-		if(PlaceButton("Yes"))
+		EnableEndScreen(false);
+
+		GUILayout.FlexibleSpace();
+
+		if(!gameOver)
+		{
+			if(PlaceButton("Continue"))
+			{
+				guiBools.displayExitConfirmation = false;
+				NotificationCenter.DefaultCenter().PostNotification(this, "NC_Unpause");
+			}
+		}
+
+		/*if(PlaceButton("Exit Game))
 		{
 			//TODO: Pause Game
 			//TODO: Save, send, log Data
 			Application.Quit();
-		}
-
-		if(PlaceButton("No"))
-		{
-			//TODO: Unpause game (probably counter to begin)
-			guiBools.displayExitConfirmation = false;
-			NotificationCenter.DefaultCenter().PostNotification(this, "NC_Unpause");
-		}
+		}*/
 
 		GUILayout.FlexibleSpace();
 
-		if(PlaceButton("Back To User Selection"))
+		if(PlaceButton("Exit To Menu"))
 		{
 			guiBools.displayExitConfirmation = false;
 			guiBools.displayUserSelection = true;
 			BlockAll(true);
-			//TODO: Needs to reset highscore
 			EnableHighscore(false);
 			NotificationCenter.DefaultCenter().PostNotification(this, "NC_Restart");
 		}
+		GUILayout.FlexibleSpace();
+
 	}
 
 	private void DoPlayPromptWindow(int windowID)
@@ -201,6 +232,51 @@ public class GUIManager: MonoBehaviour {
 
 	}
 
+	private void DoEndScreenWindow(int windowID)
+	{
+		GUILayout.FlexibleSpace();
+
+		GUILayout.BeginHorizontal();
+		GUILayout.FlexibleSpace();
+		GUILayout.Label("Hits: "+hits);
+		GUILayout.FlexibleSpace();
+		GUILayout.EndHorizontal();
+
+		GUILayout.FlexibleSpace();
+
+		GUILayout.BeginHorizontal();
+		GUILayout.FlexibleSpace();
+		GUILayout.Label("Misses: "+ misses);
+		GUILayout.FlexibleSpace();
+		GUILayout.EndHorizontal();
+		
+		GUILayout.FlexibleSpace();
+
+		GUILayout.BeginHorizontal();
+		GUILayout.FlexibleSpace();
+		GUILayout.Label("Average Reaction Time: "+ avgReactionTime);
+		GUILayout.FlexibleSpace();
+		GUILayout.EndHorizontal();
+		
+		GUILayout.FlexibleSpace();
+
+		GUILayout.BeginHorizontal();
+		if(PlaceButton("Exit To Menu"))
+		{
+			guiBools.displayEndScreen = false;
+			guiBools.displayUserSelection = true;
+			BlockAll(true);
+			EnableHighscore(false);
+			NotificationCenter.DefaultCenter().PostNotification(this, "NC_Restart");
+		}
+		GUILayout.FlexibleSpace();
+		if(PlaceButton("Exit Game"))
+		{
+			Application.Quit();
+		}
+		GUILayout.EndHorizontal();
+	}
+
 	private IEnumerator StartCountDown()
 	{
 		guiBools.displayCountDown = true;
@@ -225,15 +301,6 @@ public class GUIManager: MonoBehaviour {
 		return currentUser;
 	}
 
-	public void OutOfTimeReturnToMenu()
-	{
-		guiBools.displayUserSelection = true;
-		BlockAll(true);
-		//TODO: Needs to reset highscore
-		EnableHighscore(false);
-		NotificationCenter.DefaultCenter().PostNotification(this, "NC_Restart");
-	}
-
 	//Highscore Logic-----------------------
 	public void EnableHighscore(bool state)
 	{
@@ -247,6 +314,22 @@ public class GUIManager: MonoBehaviour {
 			guiElements.Highscore.SetActive(false);
 			guiBools.displayHighscore = false;
 		}
+	}
+
+	public void EnableEndScreen(bool state)
+	{
+		if(state == true)
+		{
+			hits = scoreManager.GetHits();
+			misses = scoreManager.GetMisses();
+			avgReactionTime = scoreManager.GetAverageStringReactiontime();
+			guiBools.displayEndScreen = true;
+		}
+		else if (state == false)
+		{
+			guiBools.displayEndScreen = false;
+		}
+
 	}
 
 	//Curtain Logic-------------------------
@@ -307,15 +390,19 @@ public class GUIManager: MonoBehaviour {
 
 	public void ExitConfirmation()
 	{
-		NotificationCenter.DefaultCenter().PostNotification(this, "NC_Pause");
-		if(guiBools.displayExitConfirmation == false)
-			guiBools.displayExitConfirmation = true;
+		if(!gameOver){
+			NotificationCenter.DefaultCenter().PostNotification(this, "NC_Pause");
+
+			if(guiBools.displayExitConfirmation == false)
+				guiBools.displayExitConfirmation = true;
+		}
 	}
 
 	public string GetStage()
 	{
 		return currentStage;
 	}
+
 	#endregion
 
 	
@@ -334,11 +421,23 @@ public class GUIManager: MonoBehaviour {
 	{
 		bool state = true;
 		//TODO: Implement proper guistyle through guiStyles.WindowStyle or new style
-		if(GUILayout.Button(text, GUILayout.MinHeight(40)))
+		//if(GUILayout.Button(text, GUILayout.MinHeight(40)))
+		if(GUILayout.Button(text, guiStyles.WindowStyle, GUILayout.MinHeight(Screen.height*0.15f), GUILayout.MinWidth(Screen.width*0.2f)))
 			return (true);
 		else
 			return (false);
 	}
+
+	private void NC_GameOver()
+	{
+		gameOver = true;
+	}
+
+	private void NC_Restart()
+	{
+		gameOver = false;
+	}
+
 	#endregion
 
 	#region Subclasses
@@ -362,6 +461,7 @@ public class GUIManager: MonoBehaviour {
 		public bool displayExitConfirmation = false;
 		public bool displayCountDown = false;
 		public bool displayStageSelection = false;
+		public bool displayEndScreen = false;
 	}
 
 	[System.Serializable]
