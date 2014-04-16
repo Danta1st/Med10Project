@@ -588,7 +588,7 @@ MonoBehaviour:
         m_Background: {fileID: 0}
         m_TextColor: {r: 0, g: 0, b: 0, a: 1}
       m_Active:
-        m_Background: {fileID: 0}
+        m_Background: {fileID: 2800000, guid: 6a5cf5bfa019de6418e1eb38ffa64742, type: 3}
         m_TextColor: {r: 1, g: 1, b: 1, a: 1}
       m_Focused:
         m_Background: {fileID: 0}
@@ -627,7 +627,184 @@ MonoBehaviour:
         m_Bottom: 0
       m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
       m_FontSize: 20
-      m_FontStyle: 1
+      m_FontStyle: 0
+      m_Alignment: 4
+      m_WordWrap: 0
+      m_RichText: 1
+      m_TextClipping: 0
+      m_ImagePosition: 0
+      m_ContentOffset: {x: 0, y: 0}
+      m_FixedWidth: 0
+      m_FixedHeight: 0
+      m_StretchWidth: 1
+      m_StretchHeight: 0
+    WindowFrameStyle:
+      m_Name: 
+      m_Normal:
+        m_Background: {fileID: 2800000, guid: a701790fdeb60a44fac12c892265a8ef, type: 3}
+        m_TextColor: {r: 1, g: 1, b: 1, a: 1}
+      m_Hover:
+        m_Background: {fileID: 0}
+        m_TextColor: {r: 0, g: 0, b: 0, a: 1}
+      m_Active:
+        m_Background: {fileID: 0}
+        m_TextColor: {r: 0, g: 0, b: 0, a: 1}
+      m_Focused:
+        m_Background: {fileID: 0}
+        m_TextColor: {r: 0, g: 0, b: 0, a: 1}
+      m_OnNormal:
+        m_Background: {fileID: 0}
+        m_TextColor: {r: 0, g: 0, b: 0, a: 1}
+      m_OnHover:
+        m_Background: {fileID: 0}
+        m_TextColor: {r: 0, g: 0, b: 0, a: 1}
+      m_OnActive:
+        m_Background: {fileID: 0}
+        m_TextColor: {r: 0, g: 0, b: 0, a: 1}
+      m_OnFocused:
+        m_Background: {fileID: 0}
+        m_TextColor: {r: 0, g: 0, b: 0, a: 1}
+      m_Border:
+        m_Left: 0
+        m_Right: 0
+        m_Top: 0
+        m_Bottom: 0
+      m_Margin:
+        m_Left: 0
+        m_Right: 0
+        m_Top: 0
+        m_Bottom: 0
+      m_Padding:
+        m_Left: 5
+        m_Right: 5
+        m_Top: 5
+        m_Bottom: 5
+      m_Overflow:
+        m_Left: 0
+        m_Right: 0
+        m_Top: 0
+        m_Bottom: 0
+      m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+      m_FontSize: 14
+      m_FontStyle: 0
+      m_Alignment: 1
+      m_WordWrap: 0
+      m_RichText: 1
+      m_TextClipping: 0
+      m_ImagePosition: 0
+      m_ContentOffset: {x: 0, y: 0}
+      m_FixedWidth: 0
+      m_FixedHeight: 0
+      m_StretchWidth: 1
+      m_StretchHeight: 0
+    WindowLabelStyle:
+      m_Name: 
+      m_Normal:
+        m_Background: {fileID: 0}
+        m_TextColor: {r: 1, g: 1, b: 1, a: 1}
+      m_Hover:
+        m_Background: {fileID: 0}
+        m_TextColor: {r: 0, g: 0, b: 0, a: 1}
+      m_Active:
+        m_Background: {fileID: 0}
+        m_TextColor: {r: 0, g: 0, b: 0, a: 1}
+      m_Focused:
+        m_Background: {fileID: 0}
+        m_TextColor: {r: 0, g: 0, b: 0, a: 1}
+      m_OnNormal:
+        m_Background: {fileID: 0}
+        m_TextColor: {r: 0, g: 0, b: 0, a: 1}
+      m_OnHover:
+        m_Background: {fileID: 0}
+        m_TextColor: {r: 0, g: 0, b: 0, a: 1}
+      m_OnActive:
+        m_Background: {fileID: 0}
+        m_TextColor: {r: 0, g: 0, b: 0, a: 1}
+      m_OnFocused:
+        m_Background: {fileID: 0}
+        m_TextColor: {r: 0, g: 0, b: 0, a: 1}
+      m_Border:
+        m_Left: 0
+        m_Right: 0
+        m_Top: 0
+        m_Bottom: 0
+      m_Margin:
+        m_Left: 0
+        m_Right: 0
+        m_Top: 0
+        m_Bottom: 0
+      m_Padding:
+        m_Left: 0
+        m_Right: 0
+        m_Top: 0
+        m_Bottom: 0
+      m_Overflow:
+        m_Left: 0
+        m_Right: 0
+        m_Top: 0
+        m_Bottom: 0
+      m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+      m_FontSize: 18
+      m_FontStyle: 0
+      m_Alignment: 4
+      m_WordWrap: 0
+      m_RichText: 1
+      m_TextClipping: 0
+      m_ImagePosition: 0
+      m_ContentOffset: {x: 0, y: 0}
+      m_FixedWidth: 0
+      m_FixedHeight: 0
+      m_StretchWidth: 1
+      m_StretchHeight: 0
+    WindowScoreLabelStyle:
+      m_Name: 
+      m_Normal:
+        m_Background: {fileID: 0}
+        m_TextColor: {r: 1, g: 1, b: 1, a: 1}
+      m_Hover:
+        m_Background: {fileID: 0}
+        m_TextColor: {r: 0, g: 0, b: 0, a: 1}
+      m_Active:
+        m_Background: {fileID: 0}
+        m_TextColor: {r: 0, g: 0, b: 0, a: 1}
+      m_Focused:
+        m_Background: {fileID: 0}
+        m_TextColor: {r: 0, g: 0, b: 0, a: 1}
+      m_OnNormal:
+        m_Background: {fileID: 0}
+        m_TextColor: {r: 0, g: 0, b: 0, a: 1}
+      m_OnHover:
+        m_Background: {fileID: 0}
+        m_TextColor: {r: 0, g: 0, b: 0, a: 1}
+      m_OnActive:
+        m_Background: {fileID: 0}
+        m_TextColor: {r: 0, g: 0, b: 0, a: 1}
+      m_OnFocused:
+        m_Background: {fileID: 0}
+        m_TextColor: {r: 0, g: 0, b: 0, a: 1}
+      m_Border:
+        m_Left: 0
+        m_Right: 0
+        m_Top: 0
+        m_Bottom: 0
+      m_Margin:
+        m_Left: 0
+        m_Right: 0
+        m_Top: 0
+        m_Bottom: 0
+      m_Padding:
+        m_Left: 0
+        m_Right: 0
+        m_Top: 0
+        m_Bottom: 0
+      m_Overflow:
+        m_Left: 0
+        m_Right: 0
+        m_Top: 0
+        m_Bottom: 0
+      m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+      m_FontSize: 14
+      m_FontStyle: 0
       m_Alignment: 4
       m_WordWrap: 0
       m_RichText: 1
@@ -1359,7 +1536,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EnableTimer: 1
-  maxTimeInMinutes: 2
+  maxTimeInMinutes: .150000006
 --- !u!4 &1286373020
 Transform:
   m_ObjectHideFlags: 0
@@ -1619,6 +1796,154 @@ Prefab:
       propertyPath: guiStyles.WindowStyle.m_Normal.m_Background
       value: 
       objectReference: {fileID: 2800000, guid: 5b9961426910df74ab37cd3646cfb7ea, type: 3}
+    - target: {fileID: 11400000, guid: c06f2f247adcad8408fbf93af80262bf, type: 2}
+      propertyPath: guiStyles.WindowFrameStyle.m_Normal.m_TextColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: c06f2f247adcad8408fbf93af80262bf, type: 2}
+      propertyPath: guiStyles.WindowFrameStyle.m_Normal.m_TextColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: c06f2f247adcad8408fbf93af80262bf, type: 2}
+      propertyPath: guiStyles.WindowFrameStyle.m_Normal.m_TextColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: c06f2f247adcad8408fbf93af80262bf, type: 2}
+      propertyPath: guiStyles.WindowFrameStyle.m_Alignment
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: c06f2f247adcad8408fbf93af80262bf, type: 2}
+      propertyPath: guiStyles.WindowFrameStyle.m_Font
+      value: 
+      objectReference: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    - target: {fileID: 11400000, guid: c06f2f247adcad8408fbf93af80262bf, type: 2}
+      propertyPath: guiStyles.WindowFrameStyle.m_FontSize
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: c06f2f247adcad8408fbf93af80262bf, type: 2}
+      propertyPath: guiStyles.WindowFrameStyle.m_Normal.m_Background
+      value: 
+      objectReference: {fileID: 2800000, guid: a701790fdeb60a44fac12c892265a8ef, type: 3}
+    - target: {fileID: 11400000, guid: c06f2f247adcad8408fbf93af80262bf, type: 2}
+      propertyPath: guiStyles.WindowFrameStyle.m_Border.m_Left
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: c06f2f247adcad8408fbf93af80262bf, type: 2}
+      propertyPath: guiStyles.WindowFrameStyle.m_Border.m_Right
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: c06f2f247adcad8408fbf93af80262bf, type: 2}
+      propertyPath: guiStyles.WindowFrameStyle.m_Border.m_Top
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: c06f2f247adcad8408fbf93af80262bf, type: 2}
+      propertyPath: guiStyles.WindowFrameStyle.m_Border.m_Bottom
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: c06f2f247adcad8408fbf93af80262bf, type: 2}
+      propertyPath: guiStyles.WindowFrameStyle.m_Margin.m_Left
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: c06f2f247adcad8408fbf93af80262bf, type: 2}
+      propertyPath: guiStyles.WindowFrameStyle.m_Margin.m_Right
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: c06f2f247adcad8408fbf93af80262bf, type: 2}
+      propertyPath: guiStyles.WindowFrameStyle.m_Margin.m_Top
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: c06f2f247adcad8408fbf93af80262bf, type: 2}
+      propertyPath: guiStyles.WindowFrameStyle.m_Margin.m_Bottom
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: c06f2f247adcad8408fbf93af80262bf, type: 2}
+      propertyPath: guiStyles.WindowFrameStyle.m_Padding.m_Left
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: c06f2f247adcad8408fbf93af80262bf, type: 2}
+      propertyPath: guiStyles.WindowFrameStyle.m_Padding.m_Right
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: c06f2f247adcad8408fbf93af80262bf, type: 2}
+      propertyPath: guiStyles.WindowFrameStyle.m_Padding.m_Top
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: c06f2f247adcad8408fbf93af80262bf, type: 2}
+      propertyPath: guiStyles.WindowFrameStyle.m_Padding.m_Bottom
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: c06f2f247adcad8408fbf93af80262bf, type: 2}
+      propertyPath: guiStyles.WindowFrameStyle.m_Overflow.m_Top
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: c06f2f247adcad8408fbf93af80262bf, type: 2}
+      propertyPath: guiStyles.WindowStyle.m_OnNormal.m_Background
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: c06f2f247adcad8408fbf93af80262bf, type: 2}
+      propertyPath: guiStyles.WindowStyle.m_Active.m_Background
+      value: 
+      objectReference: {fileID: 2800000, guid: 6a5cf5bfa019de6418e1eb38ffa64742, type: 3}
+    - target: {fileID: 11400000, guid: c06f2f247adcad8408fbf93af80262bf, type: 2}
+      propertyPath: guiStyles.WindowStyle.m_FontStyle
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: c06f2f247adcad8408fbf93af80262bf, type: 2}
+      propertyPath: guiStyles.WindowStyle.m_TextClipping
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: c06f2f247adcad8408fbf93af80262bf, type: 2}
+      propertyPath: guiStyles.WindowStyle.m_StretchWidth
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: c06f2f247adcad8408fbf93af80262bf, type: 2}
+      propertyPath: guiStyles.WindowLabelStyle.m_Normal.m_TextColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: c06f2f247adcad8408fbf93af80262bf, type: 2}
+      propertyPath: guiStyles.WindowLabelStyle.m_Normal.m_TextColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: c06f2f247adcad8408fbf93af80262bf, type: 2}
+      propertyPath: guiStyles.WindowLabelStyle.m_Normal.m_TextColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: c06f2f247adcad8408fbf93af80262bf, type: 2}
+      propertyPath: guiStyles.WindowLabelStyle.m_Alignment
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: c06f2f247adcad8408fbf93af80262bf, type: 2}
+      propertyPath: guiStyles.WindowLabelStyle.m_Font
+      value: 
+      objectReference: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    - target: {fileID: 11400000, guid: c06f2f247adcad8408fbf93af80262bf, type: 2}
+      propertyPath: guiStyles.WindowLabelStyle.m_FontSize
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: c06f2f247adcad8408fbf93af80262bf, type: 2}
+      propertyPath: guiStyles.WindowScoreLabelStyle.m_Normal.m_TextColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: c06f2f247adcad8408fbf93af80262bf, type: 2}
+      propertyPath: guiStyles.WindowScoreLabelStyle.m_Normal.m_TextColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: c06f2f247adcad8408fbf93af80262bf, type: 2}
+      propertyPath: guiStyles.WindowScoreLabelStyle.m_Normal.m_TextColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: c06f2f247adcad8408fbf93af80262bf, type: 2}
+      propertyPath: guiStyles.WindowScoreLabelStyle.m_Font
+      value: 
+      objectReference: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    - target: {fileID: 11400000, guid: c06f2f247adcad8408fbf93af80262bf, type: 2}
+      propertyPath: guiStyles.WindowScoreLabelStyle.m_FontSize
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: c06f2f247adcad8408fbf93af80262bf, type: 2}
+      propertyPath: guiStyles.WindowScoreLabelStyle.m_Alignment
+      value: 4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c06f2f247adcad8408fbf93af80262bf, type: 2}
   m_RootGameObject: {fileID: 374426750}
