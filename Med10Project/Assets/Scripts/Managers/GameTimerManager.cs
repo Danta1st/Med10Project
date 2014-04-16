@@ -55,11 +55,12 @@ public class GameTimerManager : MonoBehaviour {
 
 	private void OutOfTime()
 	{
-		Debug.Log("GameOver");
 		NotificationCenter.DefaultCenter().PostNotification(this, "NC_Pause");
+		NotificationCenter.DefaultCenter().PostNotification(this, "NC_GameOver");
 		gameOver = true;
 		gameRunning = false;
-		guiManager.OutOfTimeReturnToMenu();
+		//guiManager.OutOfTimeReturnToMenu();
+		guiManager.EnableEndScreen(true);
 	}
 
 	private void StartGameTimer()

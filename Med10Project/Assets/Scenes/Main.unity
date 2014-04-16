@@ -622,7 +622,7 @@ MonoBehaviour:
     WindowStyle:
       m_Name: 
       m_Normal:
-        m_Background: {fileID: 0}
+        m_Background: {fileID: 2800000, guid: 5b9961426910df74ab37cd3646cfb7ea, type: 3}
         m_TextColor: {r: 1, g: 1, b: 1, a: 1}
       m_Hover:
         m_Background: {fileID: 0}
@@ -1658,6 +1658,10 @@ Prefab:
       propertyPath: curtainEasetype
       value: 19
       objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: c06f2f247adcad8408fbf93af80262bf, type: 2}
+      propertyPath: guiStyles.WindowStyle.m_Normal.m_Background
+      value: 
+      objectReference: {fileID: 2800000, guid: 5b9961426910df74ab37cd3646cfb7ea, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c06f2f247adcad8408fbf93af80262bf, type: 2}
   m_RootGameObject: {fileID: 374426750}
