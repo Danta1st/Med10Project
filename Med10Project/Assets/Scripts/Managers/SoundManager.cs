@@ -9,10 +9,13 @@ public class SoundManager : MonoBehaviour {
 	[SerializeField] private AudioClip OnTargetSuccessHit;
 	[SerializeField] private AudioClip OnNewTargetSpawned;
 	[SerializeField] private AudioClip OnMiss;
+	[SerializeField] private AudioClip OnCenterPunch;
 	#endregion
 	
 	private float hitPitch = 1.0f;
 	private float lastHitTime = 0;
+	private float lastMissTime = 0;
+	private int missCounter = 1;
 
 	#region Public Methods
 	public void PlayTouchBegan()
@@ -27,9 +30,6 @@ public class SoundManager : MonoBehaviour {
 
 	public void PlayTargetSuccessHit()
 	{
-//		lastHitTime = hitTime;
-//		hitTime = Time.time;
-
 		if(Time.time - lastHitTime < 1.0f)
 		{
 			hitPitch *= 1.05f;
@@ -51,7 +51,26 @@ public class SoundManager : MonoBehaviour {
 
 	public void PlayMissed()
 	{
-		PlaySound(OnMiss);
+		if(Time.time - lastMissTime > 20.0f)
+		{
+			if(missCounter <= 0)
+			{
+				lastMissTime = Time.time;
+				missCounter = 1;
+				PlaySound(OnMiss);
+			}
+			else
+			{
+				missCounter--;
+				PlaySound(OnMiss);
+			}
+		}
+	}
+	
+	public void PlayCenterPunch()
+	{
+		var pitch = Random.Range(1.0f, 1.1f);
+		PlaySound(OnCenterPunch, pitch);
 	}
 	#endregion
 

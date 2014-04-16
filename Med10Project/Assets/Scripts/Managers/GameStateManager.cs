@@ -11,6 +11,7 @@ public class GameStateManager : MonoBehaviour
 	#region Editor Publics
 	[SerializeField] private float spawnTime = 3.0f;
 	[SerializeField] private GameObject CenterExplosion;
+	[SerializeField] private int calibrationAmount = 15;
 	#endregion
 
 	#region Privates
@@ -20,6 +21,7 @@ public class GameStateManager : MonoBehaviour
 	private SpawnManager sManager;
 	private SoundManager soundManager;
 	private ClockHandler clock;
+	private HighscoreManager highscoreManager;
 
 	//Time logs
 	private float SpawnBegin;
@@ -32,10 +34,11 @@ public class GameStateManager : MonoBehaviour
 	[HideInInspector] public enum State {awaitCenterClick, awaitTargetSpawn, awaitTargetClick, awaitTargetReturnToCenter};
 	[HideInInspector] public State state;
 	private Phase1States phase1States = new Phase1States();
-	public enum Phases {Phase1, Phase2, Phase3};
+	public enum Phases {Phase0, Phase1, Phase2, Phase3};
 	private Phases phase;
 
 	//Counters
+	private int calibrationCounter = 0;
 	private int multiTargetCounter = 0;
 	#endregion
 
@@ -46,6 +49,7 @@ public class GameStateManager : MonoBehaviour
 			Debug.LogError("No GestureManager was found on the main camera.");
 
 		guiManager = GameObject.Find("3DGUICamera").GetComponent<GUIManager>();
+		highscoreManager = GameObject.Find("HighscoreManager").GetComponent<HighscoreManager>();
 
 		sManager = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();
 		if(sManager == null)
@@ -61,12 +65,12 @@ public class GameStateManager : MonoBehaviour
 
 	void Start ()
 	{
-		//Begin at Phase 1
-		phase = Phases.Phase1;
+		//Begin at Phase 0 - Calibration
+		phase = Phases.Phase0;
 		//Subscribe to Tap Gesture
 		gManager.OnTapBegan += HandleOnTapBegan;
 		//Begin Punching
-		InvokeRepeating("PunchCenter", 0, 1);
+		InvokeRepeating("PunchCenter", 0, 1.25f);
 
 		ChangeCenterState(State.awaitCenterClick);
 		NotificationCenter.DefaultCenter().AddObserver(this, "NC_Play");
@@ -84,14 +88,34 @@ public class GameStateManager : MonoBehaviour
 		case State.awaitTargetSpawn:
 			if(Time.time >= spawnTime + SpawnBegin)
 			{
+				//Change the state
 				ChangeCenterState(State.awaitTargetClick);
 
-				//Spawn according to state TODO: Move to own method taking int1to10 as input
-				if(phase == Phases.Phase1)
+				//Spawn according to state
+				if(phase == Phases.Phase0)
+				{
+					if(calibrationCounter < calibrationAmount)
+					{
+						//Spawn calibration Target
+						sManager.SpawnCalibration();
+						soundManager.PlayNewTargetSpawned();
+						//Increase Count
+						calibrationCounter++;
+					}
+					else
+					{
+						float rt = highscoreManager.GetAverageFloatReactiontime();
+						//Calibration done. Set user Mean reaction Time in SpawnManager
+						sManager.SetAverageReactionTime(rt);
+						//Flag for phase1
+						phase = Phases.Phase1;
+						sManager.SpawnCalibration();
+					}
+
+				}
+				else if(phase == Phases.Phase1)
 				{
 					//Get random target
-//					int int1to10 = Random.Range(1, 11); //Remember, max is exlusive for ints
-
 					int int1to10 = GetWeightedRandom();
 
 					//Spawn target according to current state
@@ -228,6 +252,7 @@ public class GameStateManager : MonoBehaviour
 		{
 			ResetGOScale();
 			iTween.PunchScale(gameObject, new Vector3(0.2f, 0.2f, 0.2f), 0.5f);
+//			soundManager.PlayCenterPunch();
 		}
 	}
 

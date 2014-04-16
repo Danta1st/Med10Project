@@ -22,6 +22,7 @@ public class SpawnManager : MonoBehaviour
 	private bool isOccupied = false;
 
 	private int objectCounter = 0;
+	private float AverageRT = 100.0f;
 	//Distance handling for Phase1State1
 	private List<float> LongestHits = new List<float>();
 	private List<float> ShortestFails = new List<float>();	
@@ -46,6 +47,11 @@ public class SpawnManager : MonoBehaviour
 	}
 
 	#region Public Methods
+	public void SetAverageReactionTime(float reactionTime)
+	{
+		AverageRT = reactionTime;
+	}
+
 	//TEMPORARY: Method for manually adjusting succes distance;
 	public void SetLongestHit(int int1to10)
 	{
@@ -94,14 +100,13 @@ public class SpawnManager : MonoBehaviour
 		RotateSelf(-angle);
 		//Instantiate game object
 		GameObject go = (GameObject) Instantiate(spawnObject, position, rotation);
-		//Play Sound
-//		sManager.PlayNewTargetSpawned();
 		//Set Object Parameters
 		go.GetComponent<ObjectHandler>().SetAngle((int) angle);
 		go.GetComponent<ObjectHandler>().SetID(objectCounter);
 		go.GetComponent<ObjectHandler>().SetDistance(distance);
 		go.GetComponent<ObjectHandler>().SetSpawnTime(Time.time);
 		go.GetComponent<ObjectHandler>().SetMultiplier(int1to10);
+		go.GetComponent<ObjectHandler>().SetMeanReactionTime(AverageRT);
 		go.name = go.name+int1to10;
 		//Set occupied
 		isOccupied = true;
@@ -120,14 +125,13 @@ public class SpawnManager : MonoBehaviour
 		RotateSelf(-angle);
 		//Instantiate game object
 		GameObject go = (GameObject) Instantiate(spawnObject, position, rotation);
-		//Play Sound
-//		sManager.PlayNewTargetSpawned();
 		//Set Object Parameters
 		go.GetComponent<ObjectHandler>().SetAngle((int) angle);
 		go.GetComponent<ObjectHandler>().SetID(objectCounter);
 		go.GetComponent<ObjectHandler>().SetDistance(distance);
 		go.GetComponent<ObjectHandler>().SetSpawnTime(Time.time);
 		go.GetComponent<ObjectHandler>().SetMultiplier(int1to10);
+		go.GetComponent<ObjectHandler>().SetMeanReactionTime(AverageRT);
 		go.name = go.name+int1to10;
 		//Set occupied
 		isOccupied = true;
@@ -141,12 +145,35 @@ public class SpawnManager : MonoBehaviour
 		SpawnSpecific(spawnObject, multiplier, distance);
 	}
 
+	private List<int> calibrationList = new List<int>();
+	public void SpawnCalibration()
+	{
+		if(calibrationList.Count <= 0)
+		{
+			//Fill array
+			for(int i = 1; i <= 5; i++)
+				calibrationList.Add(i);
+		}
+
+		//Get random identifier & get angleID from list
+		int angleID = calibrationList[Random.Range(0, calibrationList.Count)];
+		//Get abs distance value / 2
+		float distance = GetAbsMaxDist(angleID)/2;
+		//Remove from List
+		calibrationList.Remove(angleID);
+		//SpawnSpecific calibrationObject
+		SpawnSpecific(spawnObjects.SingleTarget, angleID, distance);
+	}
+
 	public void Phase1Stage1(int int1to10)
 	{
 		//Adjust the index for lists that begin at 0
 		var index = int1to10 - 1;
 
 		float distance;
+		
+		//Increment ObjectCounter
+		objectCounter++;
 
 		//Calculate distance. If space between hits and fails are to narrow, 
 		//and we have more space to the border of the screen, increment by a factor of 1.0f on fails side
@@ -173,7 +200,6 @@ public class SpawnManager : MonoBehaviour
 
 			//Spawn sequential target
 			SpawnSpecific(spawnObjects.SequentialTarget, int1to10, distance);
-			//SpawnSpecific(spawnObjects.SingleTarget, int1to10, distance);
 		}
 		else
 		{
@@ -190,6 +216,9 @@ public class SpawnManager : MonoBehaviour
 			index = int1to10 + 5 - 10;
 		else
 			index = int1to10 + 5;
+		
+		//Increment ObjectCounter
+		objectCounter++;
 
 		//Calculate distance based on opposite progress
 		float distance = GetAbsMaxDist(int1to10) - LongestHits[index - 1];
@@ -211,7 +240,10 @@ public class SpawnManager : MonoBehaviour
 
 	public void Phase1Stage3(int int1to10)
 	{
-		//TODO: Implement Phase1Stage3
+		
+		//Increment ObjectCounter
+		objectCounter++;
+
 		float dist = Random.Range(2.0f, GetAbsMaxDist(1));
 
 		for(int i = -1; i <= 1; i++)
