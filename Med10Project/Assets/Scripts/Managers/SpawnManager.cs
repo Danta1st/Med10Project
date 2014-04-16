@@ -22,6 +22,7 @@ public class SpawnManager : MonoBehaviour
 	private bool isOccupied = false;
 
 	private int objectCounter = 0;
+	private float AverageRT = 100.0f;
 	//Distance handling for Phase1State1
 	private List<float> LongestHits = new List<float>();
 	private List<float> ShortestFails = new List<float>();	
@@ -46,6 +47,11 @@ public class SpawnManager : MonoBehaviour
 	}
 
 	#region Public Methods
+	public void SetAverageReactionTime(float reactionTime)
+	{
+		AverageRT = reactionTime;
+	}
+
 	//TEMPORARY: Method for manually adjusting succes distance;
 	public void SetLongestHit(int int1to10)
 	{
@@ -100,6 +106,7 @@ public class SpawnManager : MonoBehaviour
 		go.GetComponent<ObjectHandler>().SetDistance(distance);
 		go.GetComponent<ObjectHandler>().SetSpawnTime(Time.time);
 		go.GetComponent<ObjectHandler>().SetMultiplier(int1to10);
+		go.GetComponent<ObjectHandler>().SetMeanReactionTime(AverageRT);
 		go.name = go.name+int1to10;
 		//Set occupied
 		isOccupied = true;
@@ -124,6 +131,7 @@ public class SpawnManager : MonoBehaviour
 		go.GetComponent<ObjectHandler>().SetDistance(distance);
 		go.GetComponent<ObjectHandler>().SetSpawnTime(Time.time);
 		go.GetComponent<ObjectHandler>().SetMultiplier(int1to10);
+		go.GetComponent<ObjectHandler>().SetMeanReactionTime(AverageRT);
 		go.name = go.name+int1to10;
 		//Set occupied
 		isOccupied = true;
@@ -146,17 +154,15 @@ public class SpawnManager : MonoBehaviour
 			for(int i = 1; i <= 5; i++)
 				calibrationList.Add(i);
 		}
-		else
-		{
-			//Get random identifier & get angleID from list
-			int angleID = calibrationList[Random.Range(0, calibrationList.Count)];
-			//Get abs distance value / 2
-			float distance = GetAbsMaxDist(angleID)/2;
-			//Remove from List
-			calibrationList.Remove(angleID);
-			//SpawnSpecific calibrationObject
-			SpawnSpecific(spawnObjects.CalibrationTarget, angleID, distance);
-		}
+
+		//Get random identifier & get angleID from list
+		int angleID = calibrationList[Random.Range(0, calibrationList.Count)];
+		//Get abs distance value / 2
+		float distance = GetAbsMaxDist(angleID)/2;
+		//Remove from List
+		calibrationList.Remove(angleID);
+		//SpawnSpecific calibrationObject
+		SpawnSpecific(spawnObjects.SingleTarget, angleID, distance);
 	}
 
 	public void Phase1Stage1(int int1to10)
@@ -194,7 +200,6 @@ public class SpawnManager : MonoBehaviour
 
 			//Spawn sequential target
 			SpawnSpecific(spawnObjects.SequentialTarget, int1to10, distance);
-			//SpawnSpecific(spawnObjects.SingleTarget, int1to10, distance);
 		}
 		else
 		{
@@ -420,7 +425,6 @@ public class SpawnManager : MonoBehaviour
 	[System.Serializable]
 	public class SpawnObjects
 	{
-		public GameObject CalibrationTarget;
 		public GameObject SingleTarget;
 		public GameObject SequentialTarget;
 		public GameObject MultiTarget;

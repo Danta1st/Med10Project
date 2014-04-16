@@ -25,9 +25,9 @@ public class ObjectHandler : MonoBehaviour
 	private float spawnTime;
 	private float hitTime;
 	private float reactiontime;
-	private int angleIdentifier;
+	private int angleID;
 
-	private float rtLifetime = 1.0f;
+	private float rtLifetime = 100.0f;
 
 	//Animation times and punch count
 	private float fadeInTime = 0.3f;
@@ -45,7 +45,7 @@ public class ObjectHandler : MonoBehaviour
 	private bool playModeActive = true;
 	private bool isPunching = true;
 
-	private enum ObjectTypes {CalibrationTarget, SingleTarget, SequentialTarget, MultiTarget};
+	private enum ObjectTypes {SingleTarget, SequentialTarget, MultiTarget};
 	#endregion
 	
 	void Awake()
@@ -140,7 +140,12 @@ public class ObjectHandler : MonoBehaviour
 	
 	public void SetMultiplier(int multiplier)
 	{
-		angleIdentifier = multiplier;
+		angleID = multiplier;
+	}
+
+	public void SetMeanReactionTime(float reactionTime)
+	{
+		rtLifetime = reactionTime;
 	}
 	#endregion
 
@@ -199,17 +204,31 @@ public class ObjectHandler : MonoBehaviour
 				if(objectType == ObjectTypes.SingleTarget)
 				{
 					gameManager.ChangeCenterState(GameStateManager.State.awaitCenterClick);
-					sManager.ReportHit(angleIdentifier, distance);
+
+					//If we are not still calibrating
+					if(rtLifetime < 100.0f)
+					{
+						//If user didn't press within his average reaction time, Report a miss to the adaptation system
+						if(Time.time - spawnTime <= rtLifetime)
+						{
+							//TODO: Insert Hit Recording
+							sManager.ReportHit(angleID, distance);
+						}
+						else
+						{
+							//TODO: Insert Late Hit Recording
+							sManager.ReportMiss(angleID, distance);
+						}
+					}
+					
 					SpawnParticle(particles.SingleExplosion);
 					SpawnParticle(particles.CenterChaser);
 					gameManager.StartCoroutine("SpawnCenterExplosion", transform.rotation);
-					//TODO: Add score, reset multiplier
 				}
 				else if(objectType == ObjectTypes.SequentialTarget)
 				{
-					sManager.Phase1Stage2(angleIdentifier);
+					sManager.Phase1Stage2(angleID);
 					SpawnParticle(particles.SequentialExplosion);
-					//TODO: Add score, increase multiplier
 				}
 				else if(objectType == ObjectTypes.MultiTarget)
 				{
@@ -217,8 +236,8 @@ public class ObjectHandler : MonoBehaviour
 					SpawnParticle(particles.SingleExplosion);
 					SpawnParticle(particles.CenterChaser);
 					gameManager.StartCoroutine("SpawnCenterExplosion", transform.rotation);
-					//TODO: Add score, increase multiplier
 				}
+
 				CalculateReactionTime();
 				txtWriter.LogData(objectType.ToString(), reactiontime, angle, distance, transform.position, screenPos, true);
 
@@ -232,12 +251,13 @@ public class ObjectHandler : MonoBehaviour
 	
 	private void Miss()
 	{
+		//TODO: Insert Miss Recording
 		highScoreManager.AddMiss();
 		isPunching = true;
 		Unsubscribe();
 		gameManager.ChangeCenterState(GameStateManager.State.awaitCenterClick);
 		txtWriter.LogData(objectType.ToString(), 0, angle, distance, transform.position, new Vector2(0,0), false);
-		sManager.ReportMiss(angleIdentifier, distance);
+		sManager.ReportMiss(angleID, distance);
 		FadeOut(fadeOutTime);
 
 	}

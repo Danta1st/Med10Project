@@ -21,6 +21,7 @@ public class GameStateManager : MonoBehaviour
 	private SpawnManager sManager;
 	private SoundManager soundManager;
 	private ClockHandler clock;
+	private HighscoreManager highscoreManager;
 
 	//Time logs
 	private float SpawnBegin;
@@ -48,6 +49,7 @@ public class GameStateManager : MonoBehaviour
 			Debug.LogError("No GestureManager was found on the main camera.");
 
 		guiManager = GameObject.Find("3DGUICamera").GetComponent<GUIManager>();
+		highscoreManager = GameObject.Find("HighscoreManager").GetComponent<HighscoreManager>();
 
 		sManager = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();
 		if(sManager == null)
@@ -63,8 +65,8 @@ public class GameStateManager : MonoBehaviour
 
 	void Start ()
 	{
-		//Begin at Phase 1
-		phase = Phases.Phase1;
+		//Begin at Phase 0 - Calibration
+		phase = Phases.Phase0;
 		//Subscribe to Tap Gesture
 		gManager.OnTapBegan += HandleOnTapBegan;
 		//Begin Punching
@@ -96,13 +98,18 @@ public class GameStateManager : MonoBehaviour
 					{
 						//Spawn calibration Target
 						sManager.SpawnCalibration();
+						soundManager.PlayNewTargetSpawned();
 						//Increase Count
 						calibrationCounter++;
 					}
 					else
 					{
-						//TODO: Calculate mean reaction times
+						float rt = highscoreManager.GetAverageFloatReactiontime();
+						//Calibration done. Set user Mean reaction Time in SpawnManager
+						sManager.SetAverageReactionTime(rt);
+						//Flag for phase1
 						phase = Phases.Phase1;
+						sManager.SpawnCalibration();
 					}
 
 				}
@@ -245,7 +252,7 @@ public class GameStateManager : MonoBehaviour
 		{
 			ResetGOScale();
 			iTween.PunchScale(gameObject, new Vector3(0.2f, 0.2f, 0.2f), 0.5f);
-			soundManager.PlayCenterPunch();
+//			soundManager.PlayCenterPunch();
 		}
 	}
 

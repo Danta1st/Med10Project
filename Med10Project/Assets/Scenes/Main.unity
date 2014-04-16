@@ -1806,7 +1806,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnObjects:
-    CalibrationTarget: {fileID: 0}
     SingleTarget: {fileID: 100000, guid: dbe4638c77ad3a445847995921dcd815, type: 2}
     SequentialTarget: {fileID: 100000, guid: 34f321032382ee14987e77a8fc8f0e34, type: 2}
     MultiTarget: {fileID: 100000, guid: 80686954ba1339441a207fb06208110a, type: 2}
