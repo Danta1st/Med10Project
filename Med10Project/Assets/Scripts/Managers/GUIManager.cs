@@ -54,6 +54,8 @@ public class GUIManager: MonoBehaviour {
 
 		NotificationCenter.DefaultCenter().AddObserver(this, "NC_GameOver");
 		NotificationCenter.DefaultCenter().AddObserver(this, "NC_Restart");
+		NotificationCenter.DefaultCenter().AddObserver(this, "NC_Pause");
+		NotificationCenter.DefaultCenter().AddObserver(this, "NC_Unpause");
 	}
 	
 	//TODO: Implement proper guistyles
@@ -61,12 +63,12 @@ public class GUIManager: MonoBehaviour {
 	{
 		if(guiBools.displayUserSelection == true)
 		{
-			windowRect = GUILayout.Window(0, windowRect, DoUserSelectionWindow, "User Selection");
+			windowRect = GUILayout.Window(0, windowRect, DoUserSelectionWindow, "", guiStyles.WindowFrameStyle);
 		}
 
 		if(guiBools.displayStageSelection == true)
 		{
-			windowRect = GUILayout.Window(0, windowRect, DoStageSelectionWindow, "Stage Selection");
+			windowRect = GUILayout.Window(0, windowRect, DoStageSelectionWindow, "", guiStyles.WindowFrameStyle);
 		}
 
 		if(guiBools.displayHighscore == true)
@@ -76,12 +78,12 @@ public class GUIManager: MonoBehaviour {
 
 		if(guiBools.displayExitConfirmation == true)
 		{
-			windowRect = GUILayout.Window(0, windowRect, DoExitConfirmationWindow, "Continue or Exit?");
+			windowRect = GUILayout.Window(0, windowRect, DoExitConfirmationWindow, "", guiStyles.WindowFrameStyle);
 		}
 
 		if(guiBools.displayPlayPrompt)
 		{
-			windowRect = GUILayout.Window(0, windowRect, DoPlayPromptWindow, "Confirm User Selection");
+			windowRect = GUILayout.Window(0, windowRect, DoPlayPromptWindow, "", guiStyles.WindowFrameStyle);
 		}
 
 		if(guiBools.displayCountDown)
@@ -91,7 +93,7 @@ public class GUIManager: MonoBehaviour {
 
 		if(guiBools.displayEndScreen)
 		{
-			windowRect = GUILayout.Window(0, windowRect, DoEndScreenWindow, "Score");
+			windowRect = GUILayout.Window(0, windowRect, DoEndScreenWindow, "", guiStyles.WindowFrameStyle);
 			//GUI.Label(countdownRect, "Hits: "+hits, guiStyles.CountdownStyle);
 		}
 	}
@@ -99,7 +101,6 @@ public class GUIManager: MonoBehaviour {
 	#region GUI Windows
 	private void DoUserSelectionWindow(int windowID)
 	{
-		GUILayout.FlexibleSpace();
 		//TODO: Implement proper user selection with the logging system
 		if(PlaceButton("User 1"))
 		{
@@ -108,6 +109,8 @@ public class GUIManager: MonoBehaviour {
 			//guiBools.displayStageSelection = true;
 			currentUser = "User 1";
 		}
+
+		GUILayout.Space(5);
 
 		if(PlaceButton("User 2"))
 		{
@@ -119,11 +122,12 @@ public class GUIManager: MonoBehaviour {
 
 
 		GUILayout.FlexibleSpace();
+
 		if(PlaceButton("Exit Game"))
 		{
 			Application.Quit();
 		}
-		GUILayout.FlexibleSpace();
+
 	}
 
 	private void DoStageSelectionWindow(int windowID)
@@ -173,7 +177,13 @@ public class GUIManager: MonoBehaviour {
 
 	private void DoExitConfirmationWindow(int windowID)
 	{
-		EnableEndScreen(false);
+		GUILayout.FlexibleSpace();
+
+		GUILayout.BeginHorizontal();
+		GUILayout.FlexibleSpace();
+		GUILayout.Label("Continue or Exit?", guiStyles.WindowLabelStyle);
+		GUILayout.FlexibleSpace();
+		GUILayout.EndHorizontal();
 
 		GUILayout.FlexibleSpace();
 
@@ -193,7 +203,7 @@ public class GUIManager: MonoBehaviour {
 			Application.Quit();
 		}*/
 
-		GUILayout.FlexibleSpace();
+		GUILayout.Space(5);
 
 		if(PlaceButton("Exit To Menu"))
 		{
@@ -203,17 +213,19 @@ public class GUIManager: MonoBehaviour {
 			EnableHighscore(false);
 			NotificationCenter.DefaultCenter().PostNotification(this, "NC_Restart");
 		}
-		GUILayout.FlexibleSpace();
-
 	}
 
 	private void DoPlayPromptWindow(int windowID)
 	{
+		GUILayout.FlexibleSpace();
+
 		GUILayout.BeginHorizontal();
 		GUILayout.FlexibleSpace();
-		GUILayout.Label(currentUser + " selected.");
+		GUILayout.Label(currentUser + " selected.", guiStyles.WindowLabelStyle);
 		GUILayout.FlexibleSpace();
 		GUILayout.EndHorizontal();
+
+		GUILayout.FlexibleSpace();
 
 		if(PlaceButton("Play"))
 		{
@@ -222,7 +234,7 @@ public class GUIManager: MonoBehaviour {
 			StartCoroutine(StartCountDown());
 		}
 
-		GUILayout.FlexibleSpace();
+		GUILayout.Space(5);
 
 		if(PlaceButton("Cancel"))
 		{
@@ -235,10 +247,10 @@ public class GUIManager: MonoBehaviour {
 	private void DoEndScreenWindow(int windowID)
 	{
 		GUILayout.FlexibleSpace();
-
+		
 		GUILayout.BeginHorizontal();
 		GUILayout.FlexibleSpace();
-		GUILayout.Label("Hits: "+hits);
+		GUILayout.Label("Times Up!", guiStyles.WindowLabelStyle);
 		GUILayout.FlexibleSpace();
 		GUILayout.EndHorizontal();
 
@@ -246,7 +258,15 @@ public class GUIManager: MonoBehaviour {
 
 		GUILayout.BeginHorizontal();
 		GUILayout.FlexibleSpace();
-		GUILayout.Label("Misses: "+ misses);
+		GUILayout.Label("Hits: "+hits, guiStyles.WindowScoreLabelStyle);
+		GUILayout.FlexibleSpace();
+		GUILayout.EndHorizontal();
+
+		GUILayout.FlexibleSpace();
+
+		GUILayout.BeginHorizontal();
+		GUILayout.FlexibleSpace();
+		GUILayout.Label("Misses: "+ misses, guiStyles.WindowScoreLabelStyle);
 		GUILayout.FlexibleSpace();
 		GUILayout.EndHorizontal();
 		
@@ -254,13 +274,14 @@ public class GUIManager: MonoBehaviour {
 
 		GUILayout.BeginHorizontal();
 		GUILayout.FlexibleSpace();
-		GUILayout.Label("Average Reaction Time: "+ avgReactionTime);
+		GUILayout.Label("Average Reaction Time: "+ avgReactionTime, guiStyles.WindowScoreLabelStyle);
 		GUILayout.FlexibleSpace();
 		GUILayout.EndHorizontal();
 		
 		GUILayout.FlexibleSpace();
 
 		GUILayout.BeginHorizontal();
+		GUILayout.FlexibleSpace();
 		if(PlaceButton("Exit To Menu"))
 		{
 			guiBools.displayEndScreen = false;
@@ -269,11 +290,12 @@ public class GUIManager: MonoBehaviour {
 			EnableHighscore(false);
 			NotificationCenter.DefaultCenter().PostNotification(this, "NC_Restart");
 		}
-		GUILayout.FlexibleSpace();
+		GUILayout.Space(5);
 		if(PlaceButton("Exit Game"))
 		{
 			Application.Quit();
 		}
+		GUILayout.FlexibleSpace();
 		GUILayout.EndHorizontal();
 	}
 
@@ -318,18 +340,32 @@ public class GUIManager: MonoBehaviour {
 
 	public void EnableEndScreen(bool state)
 	{
+		//BlockAll(true);
 		if(state == true)
 		{
 			hits = scoreManager.GetHits();
 			misses = scoreManager.GetMisses();
-			avgReactionTime = scoreManager.GetAverageStringReactiontime();
+			avgReactionTime = scoreManager.GetAverageStringReactiontime()+" seconds";
+			StartCoroutine(EndGameDelayedScreen(true));		}
+		else if (state == false)
+		{
+			StartCoroutine(EndGameDelayedScreen(false));
+		}
+
+	}
+
+	private IEnumerator EndGameDelayedScreen(bool state)
+	{
+		if(state == true)
+		{
+			yield return new WaitForSeconds(1.0f);
 			guiBools.displayEndScreen = true;
 		}
 		else if (state == false)
 		{
+			yield return new WaitForSeconds(0.0f);
 			guiBools.displayEndScreen = false;
 		}
-
 	}
 
 	//Curtain Logic-------------------------
@@ -437,6 +473,14 @@ public class GUIManager: MonoBehaviour {
 	{
 		gameOver = false;
 	}
+	private void NC_Pause()
+	{
+		BlockAll(true);
+	}
+	private void NC_Unpause()
+	{
+		BlockAll(false);
+	}
 
 	#endregion
 
@@ -468,6 +512,9 @@ public class GUIManager: MonoBehaviour {
 	public class GUIStyles
 	{
 		public GUIStyle WindowStyle;
+		public GUIStyle WindowFrameStyle;
+		public GUIStyle WindowLabelStyle;
+		public GUIStyle WindowScoreLabelStyle;
 		public GUIStyle HighscoreStyle;
 		public GUIStyle CountdownStyle;
 	}
