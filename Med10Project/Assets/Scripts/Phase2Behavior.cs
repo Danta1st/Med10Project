@@ -24,7 +24,7 @@ public class Phase2Behavior : MonoBehaviour {
 
 	private System.Random _random = new System.Random();
 
-	// Use this for initialization
+	private float artLifetime = 100.0f;
 
 	void Awake()
 	{
@@ -62,6 +62,11 @@ public class Phase2Behavior : MonoBehaviour {
 	
 	}
 	
+	public void SetMeanReactionTime(float reactionTime)
+	{
+		artLifetime = reactionTime;
+	}
+
 	private void StoreTargets()
 	{
 		Targets = GameObject.FindGameObjectsWithTag("Phase2Object");
@@ -254,6 +259,7 @@ public class Phase2Behavior : MonoBehaviour {
 		//go.GetComponent<Phase2Object>().SetSpawnTime(Time.time);
 		go.GetComponent<Phase2Object>().SetMultiplier(int1to10);
 		go.GetComponent<Phase2Object>().SetTargetDisabled();
+		go.GetComponent<Phase2Object>().SetMeanReactionTime(artLifetime);
 		go.name = go.name+int1to10;
 		//Set occupied
 	}

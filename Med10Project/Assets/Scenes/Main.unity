@@ -1538,7 +1538,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EnableTimer: 1
-  maxTimeInMinutes: 1
+  maxTimeInMinutes: 10
 --- !u!4 &1286373020
 Transform:
   m_ObjectHideFlags: 0

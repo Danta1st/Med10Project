@@ -269,6 +269,7 @@ public class SpawnManager : MonoBehaviour
 		{
 			Debug.Log("spawning phase2Center");
 			GameObject go = (GameObject) Instantiate(spawnObjects.Phase2Targets, Vector3.zero, Quaternion.identity);
+			go.GetComponent<Phase2Behavior>().SetMeanReactionTime(AverageRT);
 		}
 		else
 		{

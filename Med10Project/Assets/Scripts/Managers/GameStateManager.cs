@@ -40,6 +40,9 @@ public class GameStateManager : MonoBehaviour
 	//Counters
 	private int calibrationCounter = 0;
 	private int multiTargetCounter = 0;
+
+	//Lists
+	private List<int> targetList = new List<int>();
 	#endregion
 
 	void Awake()
@@ -106,7 +109,7 @@ public class GameStateManager : MonoBehaviour
 					{
 						float rt = highscoreManager.GetAverageFloatReactiontime();
 						//Calibration done. Set user Mean reaction Time in SpawnManager
-						sManager.SetAverageReactionTime(rt);
+						sManager.SetAverageReactionTime(rt+0.15f);
 						//Flag for phase1
 						phase = Phases.Phase1;
 						sManager.SpawnCalibration();
@@ -116,7 +119,7 @@ public class GameStateManager : MonoBehaviour
 				else if(phase == Phases.Phase1)
 				{
 					//Get random target
-					int int1to10 = GetWeightedRandom();
+					int int1to10 = GetWeightedRandomAngle();
 
 					//Spawn target according to current state
 					if(phase1States.GetAngleState(int1to10) == Phase1States.States.SingleTarget ||
@@ -148,16 +151,6 @@ public class GameStateManager : MonoBehaviour
 			break;
 		default:
 			break;
-		}
-	}
-
-	void DecreaseSpawnTime()
-	{
-		//TODO: This should rather be based on a player's reaction time than just played time.
-		if(spawnTime > 0.5f)
-		{
-			spawnTime -= 0.1f;
-			clock.SetTime(spawnTime);
 		}
 	}
 
@@ -199,10 +192,10 @@ public class GameStateManager : MonoBehaviour
 			phase = Phases.Phase2;
 	}
 
-	public int GetAngleState(int int1to10)
-	{
-		return (int) phase1States.GetAngleState(int1to10);
-	}
+//	public int GetAngleState(int int1to10)
+//	{
+//		return (int) phase1States.GetAngleState(int1to10);
+//	}
 
 	//Public Method for changing the center state.
 	public void ChangeCenterState(State plate)
@@ -236,7 +229,8 @@ public class GameStateManager : MonoBehaviour
 	{
 		for(int i = 1; i <= 10; i++)
 		{
-			if(GetAngleState(i) == 0 || GetAngleState(i) == 1)
+			if(phase1States.GetAngleState(i) == Phase1States.States.SingleTarget || 
+			   phase1States.GetAngleState(i) == Phase1States.States.SequentialTarget)
 			{
 				return;
 			}
@@ -258,7 +252,6 @@ public class GameStateManager : MonoBehaviour
 
 	private IEnumerator AwaitTargetToCenter()
 	{
-//		Debug.Log("AwaitingTargetToCenter");
 		yield return new WaitForSeconds(0.5f);
 		iTween.ColorTo(gameObject, iTween.Hash("color", Color.green, "time", 0.2f, "includeChildren", false));
 		yield return new WaitForSeconds(0.3f);
@@ -299,66 +292,29 @@ public class GameStateManager : MonoBehaviour
 		gameObject.transform.localScale = new Vector3 (2,2,2);
 	}
 
-	private List<Phase1States.States> lastSpawnStates = new List<Phase1States.States>();
-	private int GetWeightedRandom()
+	private int GetWeightedRandomAngle()
 	{
-		if(lastSpawnStates.Count() == 2 && lastSpawnStates[0] == lastSpawnStates[1])
+		if(targetList.Count <= 0)
 		{
-			if(lastSpawnStates[0] == Phase1States.States.MultipleTargets || lastSpawnStates[0] == Phase1States.States.SequentialTarget)
+			//Fill list with angle id's, if singletarget add it twice.
+			for(int i = 1; i <= 10; i++)
 			{
-				List<int> singleTargetList = new List<int>();
-				List<int> sequentialTargetList = new List<int>();
-
-				for(int i = 1; i <= 10; i++)
+				if(phase1States.GetAngleState(i) == Phase1States.States.SingleTarget)
 				{
-					//Gather all current singleTarget angles
-					if(phase1States.GetAngleState(i) == Phase1States.States.SingleTarget)
-					{
-						singleTargetList.Add(i);
-					}
-					//Gather all current SequentialTarget angles
-					else if(phase1States.GetAngleState(i) == Phase1States.States.SequentialTarget)
-					{
-						sequentialTargetList.Add(i);
-					}
+					targetList.Add(i);
+					targetList.Add(i);
 				}
-
-				if(singleTargetList.Count() != 0)
-				{
-					//Get random singleTarget from current angles of single targets
-					int j = Random.Range(1, singleTargetList.Count() + 1);
-					//Add item at the end of latest spawn list
-					lastSpawnStates.Add(phase1States.GetAngleState(singleTargetList[j-1]));
-					//If more than two items in list, remove the front index
-					if(lastSpawnStates.Count() > 2)
-						lastSpawnStates.RemoveAt(0);
-					//Return angle ID to spawn
-					return singleTargetList[j-1];
-				}
-				else if(sequentialTargetList.Count() != 0)
-				{
-					//Get random sequentialTarget from current angles of single targets
-					int j = Random.Range(1, sequentialTargetList.Count() + 1);
-					//Add item at the end of latest spawn list
-					lastSpawnStates.Add(phase1States.GetAngleState(sequentialTargetList[j-1]));
-					//If more than two items in list, remove the front index
-					if(lastSpawnStates.Count() > 2)
-						lastSpawnStates.RemoveAt(0);
-					//Return angle ID to spawn
-					return sequentialTargetList[j-1];
-				}
+				else
+					targetList.Add(i);
 			}
 		}
-
-		//If none of the above. Spawn total random
-		int k = Random.Range(1, 11);
-		//Add item at the end of latest spawn list
-		lastSpawnStates.Add(phase1States.GetAngleState(k));
-		//If more than two items in list, remove the front index
-		if(lastSpawnStates.Count() > 2)
-			lastSpawnStates.RemoveAt(0);
-		//Return angle ID to spawn
-		return k;
+		
+		//Get random identifier & get angleID from list
+		int angleID = targetList[Random.Range(0, targetList.Count)];
+		//Remove from List
+		targetList.Remove(angleID);
+		//Return value
+		return angleID;
 	}
 	
 	//Begin at Specific Phase -----------------------------------
@@ -460,7 +416,9 @@ public class GameStateManager : MonoBehaviour
 	private void NC_Restart()
 	{
 		phase1States.ResetStates();
-		phase = Phases.Phase1;
+		calibrationCounter = 0;
+		targetList.Clear();
+		phase = Phases.Phase0;
 
 		ChangeCenterState(State.awaitCenterClick);
 	}		
@@ -480,13 +438,11 @@ public class GameStateManager : MonoBehaviour
 		public void SetAngleState(int int1to10, States state)
 		{
 			var i = int1to10-1;
-//			Debug.Log("Setting state: "+state+" with index: "+i);
 			stateArray[i] = state;
 		}
 		public States GetAngleState(int int1to10)
 		{
 			var i = int1to10-1;
-//			Debug.Log("Returning state: "+stateArray[i]+" with index: "+i);
 			return stateArray[i];
 		}
 
