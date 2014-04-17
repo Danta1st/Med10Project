@@ -15,6 +15,8 @@ public class GUIManager: MonoBehaviour {
 	#region Privates
 	//Connectivity
 	private HighscoreManager scoreManager;
+	private WriteToTXT txtLogger;
+
 	//Rects
 	private Rect highscoreRect;
 	private Rect windowRect;
@@ -40,7 +42,7 @@ public class GUIManager: MonoBehaviour {
 	{
 		//Connectivity
 		scoreManager = GameObject.Find("HighscoreManager").GetComponent<HighscoreManager>();
-
+		txtLogger = GameObject.Find("WriteToTXT").GetComponent<WriteToTXT>();
 		//Rect initialization
 		highscoreRect = new Rect(0, 0, 100, 80);
 		highscoreRect.center = new Vector2(GetCenterWidth(), 20);
@@ -57,8 +59,7 @@ public class GUIManager: MonoBehaviour {
 		NotificationCenter.DefaultCenter().AddObserver(this, "NC_Pause");
 		NotificationCenter.DefaultCenter().AddObserver(this, "NC_Unpause");
 	}
-	
-	//TODO: Implement proper guistyles
+
 	void OnGUI()
 	{
 		if(guiBools.displayUserSelection == true)
@@ -101,7 +102,6 @@ public class GUIManager: MonoBehaviour {
 	#region GUI Windows
 	private void DoUserSelectionWindow(int windowID)
 	{
-		//TODO: Implement proper user selection with the logging system
 		if(PlaceButton("User 1"))
 		{
 			guiBools.displayUserSelection = false;
@@ -230,6 +230,7 @@ public class GUIManager: MonoBehaviour {
 		if(PlaceButton("Play"))
 		{
 			guiBools.displayPlayPrompt = false;
+			txtLogger.UpdateSessionID(currentUser);
 //			EnableHighscore(true);
 			StartCoroutine(StartCountDown());
 		}

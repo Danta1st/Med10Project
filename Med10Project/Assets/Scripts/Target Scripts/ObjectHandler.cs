@@ -27,7 +27,7 @@ public class ObjectHandler : MonoBehaviour
 	private float reactiontime;
 	private int angleID;
 
-	private float rtLifetime = 100.0f;
+	private float artLifetime = 100.0f;
 
 	//Animation times and punch count
 	private float fadeInTime = 0.3f;
@@ -46,6 +46,7 @@ public class ObjectHandler : MonoBehaviour
 	private bool isPunching = true;
 
 	private enum ObjectTypes {SingleTarget, SequentialTarget, MultiTarget};
+	private enum HitType {Calibration, Hit, LateHit, Miss};
 	#endregion
 	
 	void Awake()
@@ -145,7 +146,7 @@ public class ObjectHandler : MonoBehaviour
 
 	public void SetMeanReactionTime(float reactionTime)
 	{
-		rtLifetime = reactionTime;
+		artLifetime = reactionTime;
 	}
 	#endregion
 
@@ -200,23 +201,37 @@ public class ObjectHandler : MonoBehaviour
 				soundManager.PlayTouchEnded();
 				soundManager.PlayTargetSuccessHit();
 
+				HitType hitType = HitType.Calibration;
+				
+				//If we are not still calibrating
+				if(artLifetime < 100.0f)
+				{
+					//If user didn't press within his average reaction time, note that it was a LateHit in logging
+					if(Time.time - spawnTime <= artLifetime)
+					{
+						hitType = HitType.Hit;
+					}
+					else
+					{
+						hitType = HitType.LateHit;
+					}
+				}
+
 				//Do stuff depending on object type
 				if(objectType == ObjectTypes.SingleTarget)
 				{
 					gameManager.ChangeCenterState(GameStateManager.State.awaitCenterClick);
 
 					//If we are not still calibrating
-					if(rtLifetime < 100.0f)
+					if(artLifetime < 100.0f)
 					{
 						//If user didn't press within his average reaction time, Report a miss to the adaptation system
-						if(Time.time - spawnTime <= rtLifetime)
+						if(Time.time - spawnTime <= artLifetime)
 						{
-							//TODO: Insert Hit Recording
 							sManager.ReportHit(angleID, distance);
 						}
 						else
 						{
-							//TODO: Insert Late Hit Recording
 							sManager.ReportMiss(angleID, distance);
 						}
 					}
@@ -239,7 +254,8 @@ public class ObjectHandler : MonoBehaviour
 				}
 
 				CalculateReactionTime();
-				txtWriter.LogData(objectType.ToString(), reactiontime, angle, distance, transform.position, screenPos, true);
+				//TODO: Include HitType in logging
+				txtWriter.LogData(objectType.ToString(), reactiontime, angle, distance, transform.position, screenPos, hitType.ToString());
 
 				highScoreManager.AddHit(reactiontime);
 
@@ -255,8 +271,13 @@ public class ObjectHandler : MonoBehaviour
 		highScoreManager.AddMiss();
 		isPunching = true;
 		Unsubscribe();
-		gameManager.ChangeCenterState(GameStateManager.State.awaitCenterClick);
-		txtWriter.LogData(objectType.ToString(), 0, angle, distance, transform.position, new Vector2(0,0), false);
+
+		if(objectType == ObjectTypes.MultiTarget)
+			gameManager.IncreaseMultiTargetCounter();
+		else
+			gameManager.ChangeCenterState(GameStateManager.State.awaitCenterClick);
+
+		txtWriter.LogData(objectType.ToString(), 0, angle, distance, transform.position, new Vector2(0,0), HitType.Miss.ToString());
 		sManager.ReportMiss(angleID, distance);
 		FadeOut(fadeOutTime);
 
