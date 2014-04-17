@@ -641,7 +641,7 @@ MonoBehaviour:
     WindowFrameStyle:
       m_Name: 
       m_Normal:
-        m_Background: {fileID: 2800000, guid: a701790fdeb60a44fac12c892265a8ef, type: 3}
+        m_Background: {fileID: 2800000, guid: 3b4a62ac846bfae44a0d1f058e4cbea2, type: 3}
         m_TextColor: {r: 1, g: 1, b: 1, a: 1}
       m_Hover:
         m_Background: {fileID: 0}
@@ -675,10 +675,10 @@ MonoBehaviour:
         m_Top: 0
         m_Bottom: 0
       m_Padding:
-        m_Left: 5
-        m_Right: 5
-        m_Top: 5
-        m_Bottom: 5
+        m_Left: 10
+        m_Right: 10
+        m_Top: 10
+        m_Bottom: 10
       m_Overflow:
         m_Left: 0
         m_Right: 0
@@ -744,7 +744,7 @@ MonoBehaviour:
         m_Top: 0
         m_Bottom: 0
       m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-      m_FontSize: 18
+      m_FontSize: 22
       m_FontStyle: 0
       m_Alignment: 4
       m_WordWrap: 0
@@ -803,7 +803,7 @@ MonoBehaviour:
         m_Top: 0
         m_Bottom: 0
       m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-      m_FontSize: 14
+      m_FontSize: 17
       m_FontStyle: 0
       m_Alignment: 4
       m_WordWrap: 0
@@ -877,7 +877,7 @@ MonoBehaviour:
     CountdownStyle:
       m_Name: 
       m_Normal:
-        m_Background: {fileID: 0}
+        m_Background: {fileID: 2800000, guid: e3823cb6af74c304ea24e89288f369ce, type: 3}
         m_TextColor: {r: 1, g: 1, b: 1, a: 1}
       m_Hover:
         m_Background: {fileID: 0}
@@ -995,6 +995,7 @@ GameObject:
   - 114: {fileID: 387336499}
   - 82: {fileID: 387336504}
   - 135: {fileID: 387336500}
+  - 114: {fileID: 387336505}
   m_Layer: 0
   m_Name: GameStateManager
   m_TagString: Untagged
@@ -1041,7 +1042,7 @@ Renderer:
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
-  - {fileID: 10302, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 702100c54e0732d46835510d5dabc74b, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
@@ -1126,6 +1127,18 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
+--- !u!114 &387336505
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 387336498}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b13958045cdec6745aed7467a34989b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotateSpeed: .300000012
 --- !u!1 &493698744
 GameObject:
   m_ObjectHideFlags: 0
@@ -1538,7 +1551,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EnableTimer: 1
-  maxTimeInMinutes: 10
+  maxTimeInMinutes: .5
 --- !u!4 &1286373020
 Transform:
   m_ObjectHideFlags: 0
@@ -1825,7 +1838,7 @@ Prefab:
     - target: {fileID: 11400000, guid: c06f2f247adcad8408fbf93af80262bf, type: 2}
       propertyPath: guiStyles.WindowFrameStyle.m_Normal.m_Background
       value: 
-      objectReference: {fileID: 2800000, guid: a701790fdeb60a44fac12c892265a8ef, type: 3}
+      objectReference: {fileID: 2800000, guid: 3b4a62ac846bfae44a0d1f058e4cbea2, type: 3}
     - target: {fileID: 11400000, guid: c06f2f247adcad8408fbf93af80262bf, type: 2}
       propertyPath: guiStyles.WindowFrameStyle.m_Border.m_Left
       value: 0
@@ -1860,19 +1873,19 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11400000, guid: c06f2f247adcad8408fbf93af80262bf, type: 2}
       propertyPath: guiStyles.WindowFrameStyle.m_Padding.m_Left
-      value: 5
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 11400000, guid: c06f2f247adcad8408fbf93af80262bf, type: 2}
       propertyPath: guiStyles.WindowFrameStyle.m_Padding.m_Right
-      value: 5
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 11400000, guid: c06f2f247adcad8408fbf93af80262bf, type: 2}
       propertyPath: guiStyles.WindowFrameStyle.m_Padding.m_Top
-      value: 5
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 11400000, guid: c06f2f247adcad8408fbf93af80262bf, type: 2}
       propertyPath: guiStyles.WindowFrameStyle.m_Padding.m_Bottom
-      value: 5
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 11400000, guid: c06f2f247adcad8408fbf93af80262bf, type: 2}
       propertyPath: guiStyles.WindowFrameStyle.m_Overflow.m_Top
@@ -1920,7 +1933,7 @@ Prefab:
       objectReference: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     - target: {fileID: 11400000, guid: c06f2f247adcad8408fbf93af80262bf, type: 2}
       propertyPath: guiStyles.WindowLabelStyle.m_FontSize
-      value: 18
+      value: 22
       objectReference: {fileID: 0}
     - target: {fileID: 11400000, guid: c06f2f247adcad8408fbf93af80262bf, type: 2}
       propertyPath: guiStyles.WindowScoreLabelStyle.m_Normal.m_TextColor.r
@@ -1940,12 +1953,16 @@ Prefab:
       objectReference: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     - target: {fileID: 11400000, guid: c06f2f247adcad8408fbf93af80262bf, type: 2}
       propertyPath: guiStyles.WindowScoreLabelStyle.m_FontSize
-      value: 14
+      value: 17
       objectReference: {fileID: 0}
     - target: {fileID: 11400000, guid: c06f2f247adcad8408fbf93af80262bf, type: 2}
       propertyPath: guiStyles.WindowScoreLabelStyle.m_Alignment
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: c06f2f247adcad8408fbf93af80262bf, type: 2}
+      propertyPath: guiStyles.CountdownStyle.m_Normal.m_Background
+      value: 
+      objectReference: {fileID: 2800000, guid: e3823cb6af74c304ea24e89288f369ce, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c06f2f247adcad8408fbf93af80262bf, type: 2}
   m_RootGameObject: {fileID: 374426750}

@@ -15,6 +15,7 @@ public class GameStateManager : MonoBehaviour
 	#endregion
 
 	#region Privates
+	private Color FullGreenColor = new Color(0.23f, 1.0f, 0.0f, 1.0f);
 	//Script connectivity
 	private GestureManager gManager;
 	private GUIManager guiManager;
@@ -204,7 +205,7 @@ public class GameStateManager : MonoBehaviour
 		{
 		case State.awaitCenterClick:
 			state = State.awaitCenterClick;
-			iTween.ColorTo(gameObject, iTween.Hash("color", Color.green, "time", 0.2f, "includeChildren", false));
+			iTween.ColorTo(gameObject, iTween.Hash("color", FullGreenColor, "time", 0.2f, "includeChildren", false));
 			gameObject.transform.position = new Vector3 (0,0,0);
 			break;
 		case State.awaitTargetSpawn:
@@ -253,7 +254,7 @@ public class GameStateManager : MonoBehaviour
 	private IEnumerator AwaitTargetToCenter()
 	{
 		yield return new WaitForSeconds(0.5f);
-		iTween.ColorTo(gameObject, iTween.Hash("color", Color.green, "time", 0.2f, "includeChildren", false));
+		iTween.ColorTo(gameObject, iTween.Hash("color", FullGreenColor, "time", 0.2f, "includeChildren", false));
 		yield return new WaitForSeconds(0.3f);
 		ChangeCenterState(State.awaitCenterClick);
 	}
@@ -261,7 +262,7 @@ public class GameStateManager : MonoBehaviour
 	public IEnumerator SpawnCenterExplosion(Quaternion rotation)
 	{
 		toggleAllowPunching();
-		transform.rotation = rotation;
+		//transform.rotation = rotation;
 		yield return new WaitForSeconds(0.5f);
 		iTween.PunchPosition(gameObject, Vector3.down*1.01f, 0.5f);
 		ResetGOScale();
