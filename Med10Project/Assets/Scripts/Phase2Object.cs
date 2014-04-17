@@ -6,12 +6,13 @@ public class Phase2Object : MonoBehaviour
 	#region Editor Publics
 	[SerializeField] private ObjectTypes objectType = ObjectTypes.P2_Right;
 	[SerializeField] private int Lifetime = 2;
+	[SerializeField] private GameObject ParticleObject;
+	public enum ObjectTypes {P2_Right, P2_Left, P2_Both};
 	#endregion
 
 
 	#region Privates
-	public enum ObjectTypes {P2_Right, P2_Left, P2_Both};
-
+	//Connectivity
 	private GestureManager gManager;
 	private SoundManager soundManager;
 	private HighscoreManager highScoreManager;
@@ -27,18 +28,22 @@ public class Phase2Object : MonoBehaviour
 	private float hitTime;
 	private float reactiontime;
 	private int anglemultiplier;
+	private float artLifetime = 100.0f;
 
+	//Counters
 	private int lifeCounter;
 
+	//Colors
 	private Color InvisibleColor = new Color(0,1.0f,0,0);
 	private Color FullGreenColor = new Color(0.23f, 1.0f, 0.0f, 1.0f);
 	private Color DisabledColor = new Color(1,1,1,1);
 
+	//Bools
 	private bool playModeActive = true;
-
-	[SerializeField] private GameObject ParticleObject;
 	private bool activeTarget = false;
 
+	//Enums
+	private enum HitType {Calibration, Hit, LateHit, Miss};
 	#endregion
 	
 	void Awake()
@@ -55,9 +60,7 @@ public class Phase2Object : MonoBehaviour
 		highScoreManager = GameObject.Find("HighscoreManager").GetComponent<HighscoreManager>();
 		if(highScoreManager == null)
 			Debug.LogError("No HighscoreManager was found in the scene.");
-		
-//		gaSubmitter = GameObject.Find("GA_Submitter").GetComponent<GA_Submitter>();
-//		xmlLogger = GameObject.Find("XMLlogger").GetComponent<XmlData>();
+
 		gameManager = GameObject.Find("GameStateManager").GetComponent<GameStateManager>();
 		phase2Center = GameObject.Find("Phase2Center(Clone)").GetComponent<Phase2Behavior>();
 
@@ -109,6 +112,11 @@ public class Phase2Object : MonoBehaviour
 		return anglemultiplier;
 	}
 
+	public void SetMeanReactionTime(float reactionTime)
+	{
+		artLifetime = reactionTime;
+	}
+
 	void FadeIn()
 	{
 		iTween.ScaleTo(gameObject, iTween.Hash("scale", Vector3.one, "easetype", iTween.EaseType.easeOutBack, "time", 0.3f));
@@ -123,10 +131,21 @@ public class Phase2Object : MonoBehaviour
 		{
 			if(hitInfo.collider == gameObject.collider && activeTarget && playModeActive)
 			{
+				
+				HitType hitType;
+
+				//If user didn't press within his average reaction time, note that it was a LateHit in logging
+				if(Time.time - spawnTime <= artLifetime * 1.5f)
+				{
+					hitType = HitType.Hit;
+				}
+				else
+				{
+					hitType = HitType.LateHit;
+				}
+
 				soundManager.PlayTouchEnded();
 				soundManager.PlayTargetSuccessHit();
-				
-				//Unsubscribe();
 
 				SpawnParticle();
 				gameManager.StartCoroutine("SpawnCenterExplosion", transform.rotation);
@@ -134,12 +153,16 @@ public class Phase2Object : MonoBehaviour
 				SetTargetDisabled();
 
 				CalculateReactionTime();
-				txtWriter.LogData(objectType.ToString(), reactiontime, angle, distance, transform.position, screenPos, true);
+				txtWriter.LogData(objectType.ToString(), reactiontime, angle, distance, transform.position, screenPos, hitType.ToString());
 
 				highScoreManager.AddScore(13, true);
 				highScoreManager.IncreaseMultiplier();
 
-				phase2Center.SendHit();
+				//Correct here for not correcting size based on artTime
+				if(hitType == HitType.Hit)
+					phase2Center.SendHit();
+				else
+					Miss();
 			}
 		}
 	}
@@ -183,7 +206,7 @@ public class Phase2Object : MonoBehaviour
 	private void Miss()
 	{
 		SetTargetDisabled();
-		txtWriter.LogData(objectType.ToString(), 0, angle, distance, transform.position, new Vector2(0,0), false);
+		txtWriter.LogData(objectType.ToString(), 0, angle, distance, transform.position, new Vector2(0,0), HitType.Miss.ToString());
 		phase2Center.SendMiss();
 	}
 
