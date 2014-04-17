@@ -21,6 +21,9 @@ public class GUIManager: MonoBehaviour {
 	private Rect highscoreRect;
 	private Rect windowRect;
 	private Rect countdownRect;
+	private Rect countdownRectBeginPos;
+	private Rect countdownRectEndPos;
+	private float countdownRectEndPosX;
 	//Conditioning
 	private GUIBools guiBools = new GUIBools();
 	//Variables
@@ -50,6 +53,7 @@ public class GUIManager: MonoBehaviour {
 		windowRect.center = new Vector2(GetCenterWidth(), getCenterHeight());
 		countdownRect = new Rect(0,0,150,150);
 		countdownRect.center = new Vector2(GetCenterWidth(), getCenterHeight());
+		countdownRectEndPosX = GetCenterWidth() + 85;
 
 		LeftCoverBeginPos = guiElements.LeftCover.transform.position;
 		RightCoverBeginPos = guiElements.RightCover.transform.position;
@@ -301,6 +305,10 @@ public class GUIManager: MonoBehaviour {
 	private IEnumerator StartCountDown()
 	{
 		guiBools.displayCountDown = true;
+
+		//Slide the countdown to the right side of the screen over 1.5 seconds
+		iTween.ValueTo(gameObject, iTween.Hash("from", countdownRect.x, "to", countdownRect.x + 150, "time", 1.5f, 
+		                                       "onupdate", "UpdateCountdownRect"));
 		currentCountdownNumber = "3";
 		yield return new WaitForSeconds(1.0f);
 		currentCountdownNumber = "2";
@@ -309,10 +317,15 @@ public class GUIManager: MonoBehaviour {
 		yield return new WaitForSeconds(1.0f);
 		currentCountdownNumber = "";
 		guiBools.displayCountDown = false;
-		BlockAll(false);
+		BlockRightHalf(false);
 		NotificationCenter.DefaultCenter().PostNotification(this, "NC_Play");
 	}
-	
+
+	private void UpdateCountdownRect(float itweenChange)
+	{
+		countdownRect.x = itweenChange;
+	}
+
 	#endregion
 
 
@@ -470,6 +483,7 @@ public class GUIManager: MonoBehaviour {
 
 	private void NC_Restart()
 	{
+		countdownRect.center = new Vector2(GetCenterWidth(), getCenterHeight());
 		gameOver = false;
 	}
 	private void NC_Pause()
