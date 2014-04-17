@@ -21,9 +21,6 @@ public class GUIManager: MonoBehaviour {
 	private Rect highscoreRect;
 	private Rect windowRect;
 	private Rect countdownRect;
-	private Rect countdownRectBeginPos;
-	private Rect countdownRectEndPos;
-	private float countdownRectEndPosX;
 	//Conditioning
 	private GUIBools guiBools = new GUIBools();
 	//Variables
@@ -53,7 +50,6 @@ public class GUIManager: MonoBehaviour {
 		windowRect.center = new Vector2(GetCenterWidth(), getCenterHeight());
 		countdownRect = new Rect(0,0,150,150);
 		countdownRect.center = new Vector2(GetCenterWidth(), getCenterHeight());
-		countdownRectEndPosX = GetCenterWidth() + 85;
 
 		LeftCoverBeginPos = guiElements.LeftCover.transform.position;
 		RightCoverBeginPos = guiElements.RightCover.transform.position;
@@ -467,7 +463,6 @@ public class GUIManager: MonoBehaviour {
 	
 	private bool PlaceButton(string text)
 	{
-		bool state = true;
 		//TODO: Implement proper guistyle through guiStyles.WindowStyle or new style
 		//if(GUILayout.Button(text, GUILayout.MinHeight(40)))
 		if(GUILayout.Button(text, guiStyles.WindowStyle, GUILayout.MinHeight(Screen.height*0.15f), GUILayout.MinWidth(Screen.width*0.15f)))
