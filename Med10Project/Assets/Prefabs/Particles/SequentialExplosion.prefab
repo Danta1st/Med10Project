@@ -11,6 +11,7 @@ GameObject:
   - 198: {fileID: 19800000}
   - 199: {fileID: 19900000}
   - 114: {fileID: 11400000}
+  - 114: {fileID: 11400002}
   m_Layer: 0
   m_Name: SequentialExplosion
   m_TagString: Untagged
@@ -40,6 +41,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38dc4a9b9dadd9c40a0efc0ef599fe1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &11400002
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b13958045cdec6745aed7467a34989b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotateSpeed: .600000024
 --- !u!198 &19800000
 ParticleSystem:
   m_ObjectHideFlags: 1

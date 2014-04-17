@@ -31,7 +31,7 @@ public class Phase2Object : MonoBehaviour
 	private int lifeCounter;
 
 	private Color InvisibleColor = new Color(0,1.0f,0,0);
-	private Color FullGreenColor = new Color(0.0f, 1.0f, 0.0f, 1.0f);
+	private Color FullGreenColor = new Color(0.23f, 1.0f, 0.0f, 1.0f);
 	private Color DisabledColor = new Color(1,1,1,1);
 
 	private bool playModeActive = true;

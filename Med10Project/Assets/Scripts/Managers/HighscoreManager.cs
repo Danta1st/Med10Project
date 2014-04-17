@@ -69,10 +69,10 @@ public class HighscoreManager : MonoBehaviour {
 
 		if(avgReactiontime < 1)
 		{
-			tempAvgReactString = "0"+avgReactiontime.ToString("#.0");
+			tempAvgReactString = "0"+avgReactiontime.ToString("#.000");
 		}
 		else{
-			tempAvgReactString = avgReactiontime.ToString("#.0");
+			tempAvgReactString = avgReactiontime.ToString("#.000");
 		}
 
 		return tempAvgReactString;

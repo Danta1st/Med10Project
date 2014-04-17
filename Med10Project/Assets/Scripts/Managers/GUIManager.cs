@@ -46,7 +46,7 @@ public class GUIManager: MonoBehaviour {
 		highscoreRect.center = new Vector2(GetCenterWidth(), 20);
 		windowRect = new Rect(0,0, Screen.width * windowMetrics.x, Screen.height * windowMetrics.y);
 		windowRect.center = new Vector2(GetCenterWidth(), getCenterHeight());
-		countdownRect = new Rect(0,0,400,200);
+		countdownRect = new Rect(0,0,150,150);
 		countdownRect.center = new Vector2(GetCenterWidth(), getCenterHeight());
 
 		LeftCoverBeginPos = guiElements.LeftCover.transform.position;
@@ -205,7 +205,7 @@ public class GUIManager: MonoBehaviour {
 
 		GUILayout.Space(5);
 
-		if(PlaceButton("Exit To Menu"))
+		if(PlaceButton("Back To Menu"))
 		{
 			guiBools.displayExitConfirmation = false;
 			guiBools.displayUserSelection = true;
@@ -281,8 +281,7 @@ public class GUIManager: MonoBehaviour {
 		GUILayout.FlexibleSpace();
 
 		GUILayout.BeginHorizontal();
-		GUILayout.FlexibleSpace();
-		if(PlaceButton("Exit To Menu"))
+		if(PlaceButton("Back To Menu"))
 		{
 			guiBools.displayEndScreen = false;
 			guiBools.displayUserSelection = true;
@@ -295,7 +294,6 @@ public class GUIManager: MonoBehaviour {
 		{
 			Application.Quit();
 		}
-		GUILayout.FlexibleSpace();
 		GUILayout.EndHorizontal();
 	}
 
@@ -384,7 +382,7 @@ public class GUIManager: MonoBehaviour {
 		else if(state == false && guiBools.displayLeftHalf == false)
 		{
 			guiBools.displayLeftHalf = true;
-			var newPosition = new Vector3(LeftCoverBeginPos.x - 17.0f, 
+			var newPosition = new Vector3(LeftCoverBeginPos.x - 18.0f, 
 			                              LeftCoverBeginPos.y, 
 			                              LeftCoverBeginPos.z);
 			iTween.MoveTo(guiElements.LeftCover, iTween.Hash("position", newPosition, 
@@ -408,7 +406,7 @@ public class GUIManager: MonoBehaviour {
 		else if(state == false && guiBools.displayRightHalf == false)
 		{
 			guiBools.displayRightHalf = true;
-			var newPosition = new Vector3(RightCoverBeginPos.x + 17, 
+			var newPosition = new Vector3(RightCoverBeginPos.x + 18.0f, 
 			                              RightCoverBeginPos.y, 
 			                              RightCoverBeginPos.z);
 			iTween.MoveTo(guiElements.RightCover, iTween.Hash("position", newPosition, 
@@ -458,7 +456,7 @@ public class GUIManager: MonoBehaviour {
 		bool state = true;
 		//TODO: Implement proper guistyle through guiStyles.WindowStyle or new style
 		//if(GUILayout.Button(text, GUILayout.MinHeight(40)))
-		if(GUILayout.Button(text, guiStyles.WindowStyle, GUILayout.MinHeight(Screen.height*0.15f), GUILayout.MinWidth(Screen.width*0.2f)))
+		if(GUILayout.Button(text, guiStyles.WindowStyle, GUILayout.MinHeight(Screen.height*0.15f), GUILayout.MinWidth(Screen.width*0.15f)))
 			return (true);
 		else
 			return (false);
@@ -475,11 +473,12 @@ public class GUIManager: MonoBehaviour {
 	}
 	private void NC_Pause()
 	{
-		BlockAll(true);
+		//Blocking here gives problems in phase2 since unpausing will remove both walls regardless of which stage.
+		//BlockAll(true);
 	}
 	private void NC_Unpause()
 	{
-		BlockAll(false);
+		//BlockAll(false);
 	}
 
 	#endregion
