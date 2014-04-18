@@ -178,7 +178,7 @@ public class Phase2Object : MonoBehaviour
 				soundManager.PlayTargetSuccessHit();
 
 				SpawnParticle();
-				gameManager.StartCoroutine("SpawnCenterExplosion", transform.rotation);
+				gameManager.StartCoroutine("SpawnCenterExplosion", -transform.up);
 
 				SetTargetDisabled();
 
