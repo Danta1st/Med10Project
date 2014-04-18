@@ -11,6 +11,7 @@ public class GameStateManager : MonoBehaviour
 	#region Editor Publics
 	[SerializeField] private float spawnTime = 3.0f;
 	[SerializeField] private GameObject CenterExplosion;
+	[SerializeField] private GameObject CenterPunch;
 	[SerializeField] private int calibrationAmount = 15;
 	#endregion
 
@@ -70,7 +71,7 @@ public class GameStateManager : MonoBehaviour
 	void Start ()
 	{
 		//Begin at Phase 0 - Calibration
-		phase = Phases.Phase0;
+		phase = Phases.Phase1;
 		//Subscribe to Tap Gesture
 		gManager.OnTapBegan += HandleOnTapBegan;
 		//Begin Punching
@@ -81,6 +82,7 @@ public class GameStateManager : MonoBehaviour
 		NotificationCenter.DefaultCenter().AddObserver(this, "NC_Pause");
 		NotificationCenter.DefaultCenter().AddObserver(this, "NC_Unpause");
 		NotificationCenter.DefaultCenter().AddObserver(this, "NC_Restart");
+
 	}
 
 	void Update()
@@ -246,6 +248,9 @@ public class GameStateManager : MonoBehaviour
 		if(!(state == State.awaitTargetClick) && allowPunching && playModeActive)
 		{
 			ResetGOScale();
+			//GameObject PunchClone = Instantiate(CenterPunch, transform.position, transform.rotation) as GameObject;
+			//Destroy(PunchClone, 1.2f);
+			//iTween.PunchPosition(gameObject, new Vector3(0f, 0.1f, 0.0f), 1.0f);
 			iTween.PunchScale(gameObject, new Vector3(0.2f, 0.2f, 0.2f), 0.5f);
 //			soundManager.PlayCenterPunch();
 		}
