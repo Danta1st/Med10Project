@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using System.Collections;
-using System;
 using System.Collections.Generic;
 
 public class Phase2Behavior : MonoBehaviour {
@@ -8,22 +7,18 @@ public class Phase2Behavior : MonoBehaviour {
 	private GameStateManager gameManager;
 	private SpawnManager spawnManager;
 	private GUIManager guiManager;
-	private SoundManager sManager;
 
 	[SerializeField] private GameObject SpawnObject;
 	private GameObject[] Targets;
 
 	private int currentAmountOfActiveTargets = 0;
 	private int currentAmountOfHits = 0;
-	private int currentAmountOfMisses = 0;
 	private int startDistance = 10;
 	private int currentDistance;
 	private bool missRecieved = false;
 
 	private enum Stage {Right, Left, Both};
 	private Stage stage = Stage.Right;
-
-	private System.Random _random = new System.Random();
 
 	private float artLifetime = 100.0f;
 	private int objectCounter;
@@ -33,7 +28,6 @@ public class Phase2Behavior : MonoBehaviour {
 		gameManager = GameObject.Find("GameStateManager").GetComponent<GameStateManager>();
 		spawnManager = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();
 		guiManager =  GameObject.Find("3DGUICamera").GetComponent<GUIManager>();
-		sManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
 	}
 
 	void Start () {
@@ -88,7 +82,7 @@ public class Phase2Behavior : MonoBehaviour {
 
 	public void ResetActiveTargets()
 	{
-		currentAmountOfActiveTargets = 2; //UnityEngine.Random.Range(2,4); //Random range on int is exclusive max
+		currentAmountOfActiveTargets = 2; //Random.Range(2,4); //Random range on int is exclusive max
 
 		SetTargetsActive2();
 //		SetTargetsActive(currentAmountOfActiveTargets);
@@ -121,29 +115,29 @@ public class Phase2Behavior : MonoBehaviour {
 
 		if(stage == Stage.Right)
 		{
-			int angle = RightSideTargets[UnityEngine.Random.Range(0, RightSideTargets.Count)];
+			int angle = RightSideTargets[Random.Range(0, RightSideTargets.Count)];
 			targets.Add(angle);
 			RightSideTargets.Remove(angle);
 		
-			int secondAngle = RightSideTargets[UnityEngine.Random.Range(0, RightSideTargets.Count)];
+			int secondAngle = RightSideTargets[Random.Range(0, RightSideTargets.Count)];
 			targets.Add(secondAngle);
 		}
 		else if(stage == Stage.Left)
 		{
-			int angle = LeftSideTargets[UnityEngine.Random.Range(0, LeftSideTargets.Count)];
+			int angle = LeftSideTargets[Random.Range(0, LeftSideTargets.Count)];
 			targets.Add(angle);
 			LeftSideTargets.Remove(angle);
 			
-			int secondAngle = LeftSideTargets[UnityEngine.Random.Range(0, LeftSideTargets.Count)];
+			int secondAngle = LeftSideTargets[Random.Range(0, LeftSideTargets.Count)];
 			targets.Add(secondAngle);
 		}
 		else if(stage == Stage.Both)
 		{
-			int rightAngle = RightSideTargets[UnityEngine.Random.Range(0, RightSideTargets.Count)];
+			int rightAngle = RightSideTargets[Random.Range(0, RightSideTargets.Count)];
 			targets.Add(rightAngle);
 			RightSideTargets.Remove(rightAngle);
 
-			int leftAngle = LeftSideTargets[UnityEngine.Random.Range(0, LeftSideTargets.Count)];
+			int leftAngle = LeftSideTargets[Random.Range(0, LeftSideTargets.Count)];
 			targets.Add(leftAngle);
 			LeftSideTargets.Remove(leftAngle);
 		}

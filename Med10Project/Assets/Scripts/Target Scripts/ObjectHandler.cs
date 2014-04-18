@@ -254,10 +254,9 @@ public class ObjectHandler : MonoBehaviour
 				}
 
 				CalculateReactionTime();
-				//TODO: Include HitType in logging
-				txtWriter.LogData(objectType.ToString(), reactiontime, angle, distance, transform.position, screenPos, hitType.ToString(), objectID);
+				txtWriter.LogData(objectType.ToString(), reactiontime, angle, distance, transform.position, screenPos, hitType.ToString(), objectID, angleID);
 
-				highScoreManager.AddHit(reactiontime);
+				highScoreManager.AddHit(angleID, reactiontime);
 
 				Unsubscribe();
 				Destroy(gameObject);
@@ -267,8 +266,7 @@ public class ObjectHandler : MonoBehaviour
 	
 	private void Miss()
 	{
-		//TODO: Insert Miss Recording
-		highScoreManager.AddMiss();
+		highScoreManager.AddMiss(angleID);
 		isPunching = true;
 		Unsubscribe();
 
@@ -277,10 +275,9 @@ public class ObjectHandler : MonoBehaviour
 		else
 			gameManager.ChangeCenterState(GameStateManager.State.awaitCenterClick);
 
-		txtWriter.LogData(objectType.ToString(), 0, angle, distance, transform.position, new Vector2(0,0), HitType.Miss.ToString(), objectID);
+		txtWriter.LogData(objectType.ToString(), 0, angle, distance, transform.position, new Vector2(0,0), HitType.Miss.ToString(), objectID, angleID);
 		sManager.ReportMiss(angleID, distance);
 		FadeOut(fadeOutTime);
-
 	}
 
 	private void CalculateReactionTime()
