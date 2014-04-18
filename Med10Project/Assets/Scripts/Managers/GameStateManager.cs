@@ -71,7 +71,7 @@ public class GameStateManager : MonoBehaviour
 	void Start ()
 	{
 		//Begin at Phase 0 - Calibration
-		phase = Phases.Phase2;
+		phase = Phases.Phase0;
 		//Subscribe to Tap Gesture
 		gManager.OnTapBegan += HandleOnTapBegan;
 		//Begin Punching
