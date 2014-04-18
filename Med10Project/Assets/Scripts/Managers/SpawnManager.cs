@@ -155,7 +155,7 @@ public class SpawnManager : MonoBehaviour
 		//Get random identifier & get angleID from list
 		int angleID = calibrationList[Random.Range(0, calibrationList.Count)];
 		//Get abs distance value / 2
-		float distance = GetAbsMaxDist(angleID)/2;
+		float distance = (GetAbsMaxDist(angleID)/3) * 2;
 		//Remove from List
 		calibrationList.Remove(angleID);
 		//SpawnSpecific calibrationObject
@@ -267,6 +267,7 @@ public class SpawnManager : MonoBehaviour
 			Debug.Log("spawning phase2Center");
 			GameObject go = (GameObject) Instantiate(spawnObjects.Phase2Targets, Vector3.zero, Quaternion.identity);
 			go.GetComponent<Phase2Behavior>().SetMeanReactionTime(AverageRT);
+			go.GetComponent<Phase2Behavior>().SetObjectCounter(objectCounter);
 		}
 		else
 		{
