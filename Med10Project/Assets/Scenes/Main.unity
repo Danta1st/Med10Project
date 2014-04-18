@@ -1252,8 +1252,6 @@ GameObject:
   - 124: {fileID: 98409522}
   - 81: {fileID: 98409521}
   - 114: {fileID: 98409526}
-  - 114: {fileID: 98409527}
-  - 114: {fileID: 98409528}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1338,31 +1336,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf3669ac1f43488428443c481efceb9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &98409527
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11400002, guid: 5a4983c68ccf6734dac18224756cc0bf,
-    type: 2}
-  m_PrefabInternal: {fileID: 1544905809}
-  m_GameObject: {fileID: 98409520}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1696d757a8dceec49ab1aa2f83d4c7a3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &98409528
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11400004, guid: 5a4983c68ccf6734dac18224756cc0bf,
-    type: 2}
-  m_PrefabInternal: {fileID: 1544905809}
-  m_GameObject: {fileID: 98409520}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7ba94f77b9561bb49bff67b1cea7593b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  toggleKey: 32
 --- !u!1 &143072879
 GameObject:
   m_ObjectHideFlags: 0
@@ -2396,8 +2369,8 @@ MonoBehaviour:
   OnTapEndAudioClip: {fileID: 8300000, guid: a918311eddc1aca48bd4d37b96f76301, type: 3}
   OnTargetSuccessHit: {fileID: 8300000, guid: a72555872a98399468a13251cadc5142, type: 3}
   OnNewTargetSpawned: {fileID: 8300000, guid: 4756963bd70fdd54da3483e632a8e1f2, type: 3}
-  OnMiss: {fileID: 8300000, guid: 215138bada971944da3ee9d390cf5b11, type: 3}
-  OnCenterPunch: {fileID: 0}
+  OnMiss: {fileID: 8300000, guid: 54d302dbd7821f045817c840a3f16d54, type: 3}
+  OnCenterPunch: {fileID: 8300000, guid: c4ddcc77cfc480f42828c442069b7cde, type: 3}
 --- !u!4 &1034557620
 Transform:
   m_ObjectHideFlags: 0
@@ -2862,7 +2835,9 @@ Prefab:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 11400002, guid: 5a4983c68ccf6734dac18224756cc0bf, type: 2}
+    - {fileID: 11400004, guid: 5a4983c68ccf6734dac18224756cc0bf, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 5a4983c68ccf6734dac18224756cc0bf, type: 2}
   m_RootGameObject: {fileID: 98409520}
   m_IsPrefabParent: 0
