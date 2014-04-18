@@ -33,7 +33,6 @@ public class ParticleObjectMovement : MonoBehaviour {
 	float XOffset(int WayPointNumber)
 	{
 		float distance = transform.position.magnitude;
-		//TODO: adjust randomerange values depending on length
 		if(WayPointNumber == 2)
 		{
 			return transform.position.x*0.33f+(Random.Range(-secondPointOffset,secondPointOffset))*distance*curvefactor;

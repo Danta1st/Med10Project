@@ -1597,6 +1597,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 829bd19e9c9d95346a532f2d684a6488, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Users:
+  - User 1
+  - User 2
+  - User 3
+  - User 4
   curtainSpeed: 1
   curtainEasetype: 19
   guiLook:
@@ -2623,7 +2628,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EnableTimer: 1
-  maxTimeInMinutes: 4
+  maxTimeInMinutes: 8
 --- !u!4 &1286373020
 Transform:
   m_ObjectHideFlags: 0

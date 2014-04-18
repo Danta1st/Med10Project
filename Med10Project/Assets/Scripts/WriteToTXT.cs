@@ -12,7 +12,7 @@ public class WriteToTXT : MonoBehaviour {
 
 	private string currentStringToWrite;
 
-	private string userID;
+	private int userID;
 	private int sessionID;
 	private string stage;
 	private string time;
@@ -46,19 +46,20 @@ public class WriteToTXT : MonoBehaviour {
 	}
 
 	private void CreateNewTXTFile(){
-		userID = gManager.GetUserID();
-		filename = userID+" - "+System.DateTime.Now.ToString()+".txt";
+		string userPrefix = "User" + gManager.GetUserID();
+		filename = userPrefix+" - "+System.DateTime.Now.ToString()+".txt";
 		filename = filename.Replace("/","-");
 		filename = filename.Replace(":","-");
 
 //		using (StreamWriter writer = File.AppendText(directorypath + filename))
 //		{
-//			writer.WriteLine("userID;sessionID;targetID;stage;hittime;reactiontime;angle;distance;targetpositionX;targetpositionY;touchpositionX;touchpositionY;hitormiss");
+//			writer.WriteLine("userID;sessionID;targetID;stage;hitTime;reactionTime;angleID;angle;distance;targetPositionX;targetPositionY;touchPositionX;touchPositionY;hitType");
 //		}
 	}
 
-	public void UpdateSessionID(string userID)
+	public void UpdateSessionID(int _userID)
 	{
+		string userID = "User"+_userID;
 		//Check for userID and sessionID in playerPrefs
 		if(PlayerPrefs.HasKey(userID))
 			sessionID = PlayerPrefs.GetInt(userID) + 1;
@@ -67,7 +68,8 @@ public class WriteToTXT : MonoBehaviour {
 		PlayerPrefs.SetInt(userID, sessionID);
 	}
 
-	public void LogData(string _stage, float _reactiontime, float _angle, float _distance, Vector3 _targetposition, Vector2 _touchposition, string hitType, int targetID)
+	public void LogData(string _stage, float _reactiontime, int _angle, float _distance, 
+	                    Vector3 _targetposition, Vector2 _touchposition, string hitType, int targetID, int angleID)
 	{
 		userID = gManager.GetUserID();
 		stage = _stage;
@@ -92,7 +94,7 @@ public class WriteToTXT : MonoBehaviour {
 		touchpositionX = _touchposition.x.ToString("#.0");
 		touchpositionY = _touchposition.y.ToString("#.0");
 
-		currentStringToWrite = userID+";"+sessionID+";"+targetID+";"+stage+";"+time+";"+reactiontime+";"+angle+";"+distance+";"+targetpositionX+";"+targetpositionY+";"+touchpositionX+";"+touchpositionY+";"+hitType;
+		currentStringToWrite = ""+userID+";"+sessionID+";"+targetID+";"+stage+";"+time+";"+reactiontime+";"+angleID+";"+angle+";"+distance+";"+targetpositionX+";"+targetpositionY+";"+touchpositionX+";"+touchpositionY+";"+hitType;
 		WriteTXT();
 	}
 

@@ -110,7 +110,7 @@ public class GameStateManager : MonoBehaviour
 					}
 					else
 					{
-						float rt = highscoreManager.GetAverageFloatReactiontime();
+						float rt = highscoreManager.GetReactionMean();
 						//Calibration done. Set user Mean reaction Time in SpawnManager
 						sManager.SetAverageReactionTime(rt + 0.15f);
 						//Flag for phase1

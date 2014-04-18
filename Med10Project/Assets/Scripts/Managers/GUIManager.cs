@@ -1,9 +1,10 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class GUIManager: MonoBehaviour {
 	
 	#region Editor Publics
+	[SerializeField] private string[] Users = {"User 1", "User 2", "User 3", "User 4"};
 	[SerializeField] private float curtainSpeed = 1.0f;
 	[SerializeField] private iTween.EaseType curtainEasetype = iTween.EaseType.easeOutCirc;
 	[SerializeField] private GUIStyle guiLook;
@@ -21,13 +22,17 @@ public class GUIManager: MonoBehaviour {
 	private Rect highscoreRect;
 	private Rect windowRect;
 	private Rect countdownRect;
+
 	//Conditioning
 	private GUIBools guiBools = new GUIBools();
+
 	//Variables
 	private Vector3 LeftCoverBeginPos;
 	private Vector3 RightCoverBeginPos;
+
 	//Strings
 	private string currentUser;
+	private int CurrentUserID;
 	private string currentCountdownNumber;
 	private string currentStage;
 
@@ -102,25 +107,21 @@ public class GUIManager: MonoBehaviour {
 	#region GUI Windows
 	private void DoUserSelectionWindow(int windowID)
 	{
-		if(PlaceButton("User 1"))
+		for(int i = 0; i < Users.Length; i++)
 		{
-			guiBools.displayUserSelection = false;
-			guiBools.displayPlayPrompt = true;
-			//guiBools.displayStageSelection = true;
-			currentUser = "User 1";
+			GUILayout.Space(5);
+
+			if(PlaceButton(Users[i], 0.1f, 0.1f))
+			{
+				guiBools.displayUserSelection = false;
+				guiBools.displayPlayPrompt = true;
+				//guiBools.displayStageSelection = true;
+				currentUser = Users[i];
+				CurrentUserID = i;
+			}
 		}
-
-		GUILayout.Space(5);
-
-		if(PlaceButton("User 2"))
-		{
-			guiBools.displayUserSelection = false;
-			guiBools.displayPlayPrompt = true;
-			//guiBools.displayStageSelection = true;
-			currentUser = "User 2";
-		}
-
-
+		
+		GUILayout.Space(10);
 		GUILayout.FlexibleSpace();
 
 		if(PlaceButton("Exit Game"))
@@ -184,7 +185,7 @@ public class GUIManager: MonoBehaviour {
 		GUILayout.Label("Continue or Exit?", guiStyles.WindowLabelStyle);
 		GUILayout.FlexibleSpace();
 		GUILayout.EndHorizontal();
-
+		
 		GUILayout.FlexibleSpace();
 
 		if(!gameOver)
@@ -203,7 +204,7 @@ public class GUIManager: MonoBehaviour {
 			Application.Quit();
 		}*/
 
-		GUILayout.Space(5);
+		GUILayout.Space(10);
 
 		if(PlaceButton("Back To Menu"))
 		{
@@ -230,12 +231,12 @@ public class GUIManager: MonoBehaviour {
 		if(PlaceButton("Play"))
 		{
 			guiBools.displayPlayPrompt = false;
-			txtLogger.UpdateSessionID(currentUser);
+			txtLogger.UpdateSessionID(CurrentUserID);
 //			EnableHighscore(true);
 			StartCoroutine(StartCountDown());
 		}
 
-		GUILayout.Space(5);
+		GUILayout.Space(10);
 
 		if(PlaceButton("Cancel"))
 		{
@@ -290,7 +291,7 @@ public class GUIManager: MonoBehaviour {
 			EnableHighscore(false);
 			NotificationCenter.DefaultCenter().PostNotification(this, "NC_Restart");
 		}
-		GUILayout.Space(5);
+		GUILayout.Space(10);
 		if(PlaceButton("Exit Game"))
 		{
 			Application.Quit();
@@ -326,9 +327,9 @@ public class GUIManager: MonoBehaviour {
 
 
 	#region Public Methods
-	public string GetUserID()
+	public int GetUserID()
 	{
-		return currentUser;
+		return CurrentUserID;
 	}
 
 	//Highscore Logic-----------------------
@@ -351,15 +352,14 @@ public class GUIManager: MonoBehaviour {
 		//BlockAll(true);
 		if(state == true)
 		{
-			hits = scoreManager.GetHits();
-			misses = scoreManager.GetMisses();
-			avgReactionTime = scoreManager.GetAverageStringReactiontime()+" seconds";
+			hits = scoreManager.GetHitCount();
+			misses = scoreManager.GetMissCount();
+			avgReactionTime = scoreManager.GetReactionMeanFloat()+" seconds";
 			StartCoroutine(EndGameDelayedScreen(true));		}
 		else if (state == false)
 		{
 			StartCoroutine(EndGameDelayedScreen(false));
 		}
-
 	}
 
 	private IEnumerator EndGameDelayedScreen(bool state)
@@ -466,6 +466,13 @@ public class GUIManager: MonoBehaviour {
 		//TODO: Implement proper guistyle through guiStyles.WindowStyle or new style
 		//if(GUILayout.Button(text, GUILayout.MinHeight(40)))
 		if(GUILayout.Button(text, guiStyles.WindowStyle, GUILayout.MinHeight(Screen.height*0.15f), GUILayout.MinWidth(Screen.width*0.15f)))
+			return (true);
+		else
+			return (false);
+	}
+	private bool PlaceButton(string text, float heightPercentage, float widthPercentage)
+	{
+		if(GUILayout.Button(text, guiStyles.WindowStyle, GUILayout.MinHeight(Screen.height*heightPercentage), GUILayout.MinWidth(Screen.width*widthPercentage)))
 			return (true);
 		else
 			return (false);

@@ -2,10 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 
-
-//TODO: 
-//Calculate distance. If distance bigger or lesser than max and min register swipe.
-
 public class GestureManager : MonoBehaviour {
 	
 	#region Editor Publics

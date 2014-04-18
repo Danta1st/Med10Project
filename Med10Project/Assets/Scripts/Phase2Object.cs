@@ -28,7 +28,7 @@ public class Phase2Object : MonoBehaviour
 	private float spawnTime;
 	private float hitTime;
 	private float reactiontime;
-	private int anglemultiplier;
+	private int angleID;
 	private float artLifetime = 100.0f;
 
 	//Variables
@@ -129,12 +129,12 @@ public class Phase2Object : MonoBehaviour
 
 	public void SetMultiplier(int multiplier)
 	{
-		anglemultiplier = multiplier;
+		angleID = multiplier;
 	}
 
 	public int GetMultiplier()
 	{
-		return anglemultiplier;
+		return angleID;
 	}
 
 	public void SetMeanReactionTime(float reactionTime)
@@ -187,13 +187,18 @@ public class Phase2Object : MonoBehaviour
 				highScoreManager.AddScore(13, true);
 				highScoreManager.IncreaseMultiplier();
 				
-				if(Time.time - spawnTime <= artLifetime * 1.5f) //TODO: Change to 2.5f before delivery!
+				txtWriter.LogData(objectType.ToString(), reactiontime, angle, distance, transform.position, screenPos, hitType.ToString(), objectID, angleID);
+				highScoreManager.AddHit(angleID, reactiontime);
+
+				if(Time.time - spawnTime <= artLifetime * 2.5f) //Change to 2.5f before delivery!
 				{
-					txtWriter.LogData(objectType.ToString(), reactiontime, angle, distance, transform.position, screenPos, hitType.ToString(), objectID);
 					phase2Center.SendHit();
 				}
 				else
-					Miss();
+				{
+					SetTargetDisabled();
+					phase2Center.SendMiss();
+				}
 			}
 		}
 	}
@@ -237,7 +242,8 @@ public class Phase2Object : MonoBehaviour
 	private void Miss()
 	{
 		SetTargetDisabled();
-		txtWriter.LogData(objectType.ToString(), 0, angle, distance, transform.position, new Vector2(0,0), HitType.Miss.ToString(), objectID);
+		highScoreManager.AddMiss(angleID);
+		txtWriter.LogData(objectType.ToString(), 0, angle, distance, transform.position, new Vector2(0,0), HitType.Miss.ToString(), objectID, angleID);
 		phase2Center.SendMiss();
 	}
 
