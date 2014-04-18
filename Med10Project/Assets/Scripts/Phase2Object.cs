@@ -31,8 +31,10 @@ public class Phase2Object : MonoBehaviour
 	private int anglemultiplier;
 	private float artLifetime = 100.0f;
 
-	//Counters
-	private int lifeCounter;
+	//Variables
+	private float disableTime = 0.3f;
+	private float punchTime = 0.5f;
+	private int punches = 0;
 
 	//Colors
 	private Color InvisibleColor = new Color(0,1.0f,0,0);
@@ -41,6 +43,7 @@ public class Phase2Object : MonoBehaviour
 
 	//Bools
 	private bool playModeActive = true;
+	private bool isPunching = false;
 	private bool activeTarget = false;
 
 	//Enums
@@ -72,15 +75,36 @@ public class Phase2Object : MonoBehaviour
 
 	void Start ()
 	{
-		lifeCounter = Lifetime;
-		gameObject.renderer.material.color = DisabledColor;
-		gameObject.transform.localScale = Vector3.zero;
-		gManager.OnTapBegan += Hit;
-		FadeIn();
-		InvokeRepeating("DecreaseLifetime", 1, 1);
 		NotificationCenter.DefaultCenter().AddObserver(this, "NC_Restart");
 		NotificationCenter.DefaultCenter().AddObserver(this, "NC_Pause");
 		NotificationCenter.DefaultCenter().AddObserver(this, "NC_Unpause");
+
+		CalculatePunches();
+
+		gameObject.renderer.material.color = DisabledColor;
+
+		gameObject.transform.localScale = Vector3.zero;
+
+		gManager.OnTapBegan += Hit;
+
+		FadeIn();
+	}
+
+	void Update()
+	{
+		if(playModeActive && activeTarget)
+		{
+			//Should we punch?
+			if(isPunching == false && Time.time < spawnTime + punchTime * punches)
+			{
+				PunchObject();
+			}
+			//should we record a miss? 
+			else if(isPunching == false && Time.time >= spawnTime + Lifetime - disableTime)
+			{
+				Miss();
+			}
+		}
 	}
 
 	public void SetAngle(int degrees)
@@ -118,12 +142,17 @@ public class Phase2Object : MonoBehaviour
 		artLifetime = reactionTime;
 	}
 
-	void FadeIn()
+	private void FadeIn()
 	{
 		iTween.ScaleTo(gameObject, iTween.Hash("scale", Vector3.one, "easetype", iTween.EaseType.easeOutBack, "time", 0.3f));
 	}
 
-	#region Class Methods	
+	#region Class Methods
+	private void CalculatePunches()
+	{
+		punches = (int) ((Lifetime - punchTime - disableTime) / (punchTime));
+	}
+
 	private void Hit(Vector2 screenPos)
 	{
 		Ray ray = Camera.main.ScreenPointToRay(new Vector3(screenPos.x, screenPos.y, 0));
@@ -159,7 +188,7 @@ public class Phase2Object : MonoBehaviour
 				highScoreManager.AddScore(13, true);
 				highScoreManager.IncreaseMultiplier();
 				
-				if(Time.time - spawnTime <= artLifetime * 2.5f)
+				if(Time.time - spawnTime <= artLifetime * 1.5f) //TODO: Change to 2.5f before delivery!
 					phase2Center.SendHit();
 				else
 					Miss();
@@ -186,7 +215,7 @@ public class Phase2Object : MonoBehaviour
 
 	public void SetTargetDisabled()
 	{
-		iTween.ColorTo(gameObject, iTween.Hash("color", DisabledColor, "time", 0.3f));
+		iTween.ColorTo(gameObject, iTween.Hash("color", DisabledColor, "time", disableTime));
 		activeTarget = false;
 	}
 
@@ -194,7 +223,6 @@ public class Phase2Object : MonoBehaviour
 	{
 		iTween.ColorTo(gameObject, iTween.Hash("color", FullGreenColor, "time", 0.3f));
 		activeTarget = true;
-		lifeCounter = Lifetime;
 		SetSpawnTime(Time.time);
 	}
 
@@ -216,24 +244,19 @@ public class Phase2Object : MonoBehaviour
 		gManager.OnTapBegan -= Hit;
 	}
 
-	private void DecreaseLifetime()
-	{
-		if(playModeActive && activeTarget){
-			if(lifeCounter <= 0)
-			{
-				Miss();
-			}
-			else
-			{
-				lifeCounter--;
-				PunchObject();
-			}
-		}
-	}
-
 	private void PunchObject()
 	{
-		iTween.PunchScale(gameObject, new Vector3(0.2f, 0.2f, 0.2f), 0.5f);
+		isPunching = true;
+		
+		Vector3 scale = new Vector3(0.2f, 0.2f, 0.2f);
+
+		iTween.PunchScale(gameObject, iTween.Hash("amount", scale, "time", punchTime, 
+		                                          "oncomplete", "AllowPunching", "oncompletetarget", gameObject));
+	}
+
+	private void AllowPunching()
+	{
+		isPunching = false;
 	}
 
 	private void NC_Restart()
