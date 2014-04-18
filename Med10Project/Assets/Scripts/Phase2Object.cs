@@ -183,13 +183,15 @@ public class Phase2Object : MonoBehaviour
 				SetTargetDisabled();
 
 				CalculateReactionTime();
-				txtWriter.LogData(objectType.ToString(), reactiontime, angle, distance, transform.position, screenPos, hitType.ToString(), objectID);
 
 				highScoreManager.AddScore(13, true);
 				highScoreManager.IncreaseMultiplier();
 				
 				if(Time.time - spawnTime <= artLifetime * 1.5f) //TODO: Change to 2.5f before delivery!
+				{
+					txtWriter.LogData(objectType.ToString(), reactiontime, angle, distance, transform.position, screenPos, hitType.ToString(), objectID);
 					phase2Center.SendHit();
+				}
 				else
 					Miss();
 			}
