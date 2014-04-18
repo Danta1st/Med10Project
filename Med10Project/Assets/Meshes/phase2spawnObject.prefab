@@ -131,6 +131,7 @@ MonoBehaviour:
   objectType: 0
   Lifetime: 4
   ParticleObject: {fileID: 100000, guid: 06b0dd2a855234b4a84e3eb65fd70381, type: 2}
+  ParticleObject2: {fileID: 100000, guid: 35dedb80b664d6a46b2e06c768f90da4, type: 2}
 --- !u!135 &13500000
 SphereCollider:
   m_ObjectHideFlags: 1

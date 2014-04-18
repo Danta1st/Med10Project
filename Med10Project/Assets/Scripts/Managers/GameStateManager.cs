@@ -173,7 +173,7 @@ public class GameStateManager : MonoBehaviour
 //					clock.BeginClock();
 
 					soundManager.PlayTouchBegan();
-					StartCoroutine(OnClickCenterPunching());
+					OnClickCenterPunching();
 				}
 			}
 		}
@@ -251,6 +251,7 @@ public class GameStateManager : MonoBehaviour
 			Destroy(PunchClone, 1.2f);
 			//iTween.PunchPosition(gameObject, new Vector3(0f, 0.1f, 0.0f), 1.0f);
 			iTween.PunchScale(gameObject, new Vector3(0.2f, 0.2f, 0.2f), 0.5f);
+			ResetGOScale();
 			//			soundManager.PlayCenterPunch();
 		}
 	}
@@ -258,24 +259,23 @@ public class GameStateManager : MonoBehaviour
 	private IEnumerator AwaitTargetToCenter()
 	{
 		yield return new WaitForSeconds(0.5f);
-		iTween.ColorTo(gameObject, iTween.Hash("color", FullGreenColor, "time", 0.2f, "includeChildren", false));
+		iTween.ColorTo(gameObject, iTween.Hash("color", FullGreenColor, "time", 0.0f, "includeChildren", false));
 		yield return new WaitForSeconds(0.3f);
 		ChangeCenterState(State.awaitCenterClick);
 	}
 
-	public IEnumerator SpawnCenterExplosion(Quaternion rotation)
+	public IEnumerator SpawnCenterExplosion(Vector3 angle)
 	{
 		if(allowPunching)
 		{
 			allowPunching = false;
-			transform.rotation = rotation;
 			yield return new WaitForSeconds(0.5f);
-			iTween.PunchPosition(gameObject, Vector3.down*1.01f, 0.5f);
+			iTween.PunchPosition(gameObject, angle*1.01f, 0.5f);
 			iTween.PunchScale(gameObject, new Vector3(0.4f, 1.0f, 0.4f), 0.5f);
 			GameObject ExpClone = Instantiate(CenterExplosion, transform.position, transform.rotation) as GameObject;
 			Destroy(ExpClone, 1.2f);
-			yield return new WaitForSeconds(0.5f);
 			ResetGOScale();
+			yield return new WaitForSeconds(0.5f);
 			allowPunching = true;
 		}
 		else
@@ -286,28 +286,23 @@ public class GameStateManager : MonoBehaviour
 		}
 	}
 
-	private IEnumerator OnClickCenterPunching()
+	private void OnClickCenterPunching()
 	{
 		if(allowPunching)
 		{
 			iTween.PunchScale(gameObject, new Vector3(1.5f, 1.5f, 1.5f), 0.5f);
-			yield return new WaitForSeconds(0.5f);
 			ResetGOScale();
 		}
 
 		GameObject PunchClone = Instantiate(CenterPunch, transform.position, transform.rotation) as GameObject;
 		Destroy(PunchClone, 1.2f);
 	}
-	
-	private void toggleAllowPunching()
-	{
-		allowPunching = !allowPunching;
-	}
 
 	private IEnumerator ResetGOScale()
 	{
 		yield return new WaitForSeconds(0.5f);
 		iTween.Stop (gameObject, "scale");
+		iTween.Stop (gameObject, "position");
 		gameObject.transform.localScale = new Vector3 (2,2,2);
 		gameObject.transform.position = new Vector3 (0,0,0);
 	}
