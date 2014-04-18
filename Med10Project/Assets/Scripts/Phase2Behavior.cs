@@ -160,7 +160,7 @@ public class Phase2Behavior : MonoBehaviour {
 		currentAmountOfHits++;
 		if(currentAmountOfActiveTargets == currentAmountOfHits)
 		{
-			gameManager.ChangeCenterState(GameStateManager.State.awaitTargetReturnToCenter);
+			gameManager.ChangeCenterState(GameStateManager.State.awaitCenterClick);
 			ChangeDistance(10);
 		}
 	}
