@@ -238,7 +238,7 @@ public class ObjectHandler : MonoBehaviour
 					
 					SpawnParticle(particles.SingleExplosion);
 					SpawnParticle(particles.CenterChaser);
-					gameManager.StartCoroutine("SpawnCenterExplosion", transform.rotation);
+					gameManager.StartCoroutine("SpawnCenterExplosion", -transform.up);
 				}
 				else if(objectType == ObjectTypes.SequentialTarget)
 				{
@@ -250,7 +250,7 @@ public class ObjectHandler : MonoBehaviour
 					gameManager.IncreaseMultiTargetCounter();
 					SpawnParticle(particles.SingleExplosion);
 					SpawnParticle(particles.CenterChaser);
-					gameManager.StartCoroutine("SpawnCenterExplosion", transform.rotation);
+					gameManager.StartCoroutine("SpawnCenterExplosion", -transform.up);
 				}
 
 				CalculateReactionTime();

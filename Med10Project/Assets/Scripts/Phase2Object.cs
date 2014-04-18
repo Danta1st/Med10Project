@@ -7,6 +7,7 @@ public class Phase2Object : MonoBehaviour
 	[SerializeField] private ObjectTypes objectType = ObjectTypes.P2_Right;
 	[SerializeField] private int Lifetime = 2;
 	[SerializeField] private GameObject ParticleObject;
+	[SerializeField] private GameObject ParticleObject2;
 	public enum ObjectTypes {P2_Right, P2_Left, P2_Both};
 	#endregion
 
@@ -200,6 +201,7 @@ public class Phase2Object : MonoBehaviour
 	private void SpawnParticle()
 	{
 		Instantiate(ParticleObject, transform.position, transform.rotation);
+		Instantiate(ParticleObject2, transform.position, transform.rotation);
 	}
 
 	private void Miss()
