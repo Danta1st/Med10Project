@@ -135,7 +135,7 @@ public class Phase2Object : MonoBehaviour
 				HitType hitType;
 
 				//If user didn't press within his average reaction time, note that it was a LateHit in logging
-				if(Time.time - spawnTime <= artLifetime * 1.5f)
+				if(Time.time - spawnTime <= artLifetime)
 				{
 					hitType = HitType.Hit;
 				}
@@ -153,13 +153,12 @@ public class Phase2Object : MonoBehaviour
 				SetTargetDisabled();
 
 				CalculateReactionTime();
-				txtWriter.LogData(objectType.ToString(), reactiontime, angle, distance, transform.position, screenPos, hitType.ToString());
+				txtWriter.LogData(objectType.ToString(), reactiontime, angle, distance, transform.position, screenPos, hitType.ToString(), objectID);
 
 				highScoreManager.AddScore(13, true);
 				highScoreManager.IncreaseMultiplier();
-
-				//Correct here for not correcting size based on artTime
-				if(hitType == HitType.Hit)
+				
+				if(Time.time - spawnTime <= artLifetime * 2.5f)
 					phase2Center.SendHit();
 				else
 					Miss();
@@ -206,7 +205,7 @@ public class Phase2Object : MonoBehaviour
 	private void Miss()
 	{
 		SetTargetDisabled();
-		txtWriter.LogData(objectType.ToString(), 0, angle, distance, transform.position, new Vector2(0,0), HitType.Miss.ToString());
+		txtWriter.LogData(objectType.ToString(), 0, angle, distance, transform.position, new Vector2(0,0), HitType.Miss.ToString(), objectID);
 		phase2Center.SendMiss();
 	}
 

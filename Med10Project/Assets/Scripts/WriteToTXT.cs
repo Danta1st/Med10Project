@@ -51,10 +51,10 @@ public class WriteToTXT : MonoBehaviour {
 		filename = filename.Replace("/","-");
 		filename = filename.Replace(":","-");
 
-		using (StreamWriter writer = File.AppendText(directorypath + filename))
-		{
-			writer.WriteLine("userID;sessionID;stage;hittime;reactiontime;angle;distance;targetpositionX;targetpositionY;touchpositionX;touchpositionY;hitormiss");
-		}
+//		using (StreamWriter writer = File.AppendText(directorypath + filename))
+//		{
+//			writer.WriteLine("userID;sessionID;targetID;stage;hittime;reactiontime;angle;distance;targetpositionX;targetpositionY;touchpositionX;touchpositionY;hitormiss");
+//		}
 	}
 
 	public void UpdateSessionID(string userID)
@@ -67,7 +67,7 @@ public class WriteToTXT : MonoBehaviour {
 		PlayerPrefs.SetInt(userID, sessionID);
 	}
 
-	public void LogData(string _stage, float _reactiontime, float _angle, float _distance, Vector3 _targetposition, Vector2 _touchposition, string hitType)
+	public void LogData(string _stage, float _reactiontime, float _angle, float _distance, Vector3 _targetposition, Vector2 _touchposition, string hitType, int targetID)
 	{
 		userID = gManager.GetUserID();
 		stage = _stage;
@@ -92,7 +92,7 @@ public class WriteToTXT : MonoBehaviour {
 		touchpositionX = _touchposition.x.ToString("#.0");
 		touchpositionY = _touchposition.y.ToString("#.0");
 
-		currentStringToWrite = userID+";"+sessionID+";"+stage+";"+time+";"+reactiontime+";"+angle+";"+distance+";"+targetpositionX+";"+targetpositionY+";"+touchpositionX+";"+touchpositionY+";"+hitType;
+		currentStringToWrite = userID+";"+sessionID+";"+targetID+";"+stage+";"+time+";"+reactiontime+";"+angle+";"+distance+";"+targetpositionX+";"+targetpositionY+";"+touchpositionX+";"+touchpositionY+";"+hitType;
 		WriteTXT();
 	}
 

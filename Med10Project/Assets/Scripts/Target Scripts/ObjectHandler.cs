@@ -255,7 +255,7 @@ public class ObjectHandler : MonoBehaviour
 
 				CalculateReactionTime();
 				//TODO: Include HitType in logging
-				txtWriter.LogData(objectType.ToString(), reactiontime, angle, distance, transform.position, screenPos, hitType.ToString());
+				txtWriter.LogData(objectType.ToString(), reactiontime, angle, distance, transform.position, screenPos, hitType.ToString(), objectID);
 
 				highScoreManager.AddHit(reactiontime);
 
@@ -277,7 +277,7 @@ public class ObjectHandler : MonoBehaviour
 		else
 			gameManager.ChangeCenterState(GameStateManager.State.awaitCenterClick);
 
-		txtWriter.LogData(objectType.ToString(), 0, angle, distance, transform.position, new Vector2(0,0), HitType.Miss.ToString());
+		txtWriter.LogData(objectType.ToString(), 0, angle, distance, transform.position, new Vector2(0,0), HitType.Miss.ToString(), objectID);
 		sManager.ReportMiss(angleID, distance);
 		FadeOut(fadeOutTime);
 

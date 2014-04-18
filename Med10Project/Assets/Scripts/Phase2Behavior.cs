@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System;
+using System.Collections.Generic;
 
 public class Phase2Behavior : MonoBehaviour {
 
@@ -25,6 +26,7 @@ public class Phase2Behavior : MonoBehaviour {
 	private System.Random _random = new System.Random();
 
 	private float artLifetime = 100.0f;
+	private int objectCounter;
 
 	void Awake()
 	{
@@ -58,13 +60,18 @@ public class Phase2Behavior : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
-	
+	void Update () 
+	{
+
 	}
 	
 	public void SetMeanReactionTime(float reactionTime)
 	{
 		artLifetime = reactionTime;
+	}
+	public void SetObjectCounter(int count)
+	{
+		objectCounter = count;
 	}
 
 	private void StoreTargets()
@@ -81,73 +88,73 @@ public class Phase2Behavior : MonoBehaviour {
 
 	public void ResetActiveTargets()
 	{
-		currentAmountOfActiveTargets = UnityEngine.Random.Range(2,4); //Random range on int is exclusive max
+		currentAmountOfActiveTargets = 2; //UnityEngine.Random.Range(2,4); //Random range on int is exclusive max
 
-		SetTargetsActive(currentAmountOfActiveTargets);
+		SetTargetsActive2();
+//		SetTargetsActive(currentAmountOfActiveTargets);
 
 		currentAmountOfHits = 0;
-
 	}
 
-	private void SetTargetsActive(int amount)
+	private List<int> RightSideTargets = new List<int>();
+	private List<int> LeftSideTargets = new List<int>();
+	private void SetTargetsActive2()
 	{
-		sManager.PlayNewTargetSpawned();
+		//Increase the targetID
+		objectCounter++;
 
-		int[] randomTargets = new int[5];
+		List<int> targets = new List<int>();
+		if(RightSideTargets.Count <= 1 || LeftSideTargets.Count <= 1)
+		{
+			RightSideTargets.Clear();
+			LeftSideTargets.Clear();
+
+			//Fill Lists
+			for(int i = 1; i <= 10; i++)
+			{
+				if(i <= 5)
+					RightSideTargets.Add(i);
+				else
+					LeftSideTargets.Add(i);
+			}
+		}
 
 		if(stage == Stage.Right)
 		{
-			randomTargets = new int[5]{5,6,7,8,9};
+			int angle = RightSideTargets[UnityEngine.Random.Range(0, RightSideTargets.Count)];
+			targets.Add(angle);
+			RightSideTargets.Remove(angle);
+		
+			int secondAngle = RightSideTargets[UnityEngine.Random.Range(0, RightSideTargets.Count)];
+			targets.Add(secondAngle);
 		}
 		else if(stage == Stage.Left)
 		{
-			randomTargets = new int[5]{0,1,2,3,4};
+			int angle = LeftSideTargets[UnityEngine.Random.Range(0, LeftSideTargets.Count)];
+			targets.Add(angle);
+			LeftSideTargets.Remove(angle);
+			
+			int secondAngle = LeftSideTargets[UnityEngine.Random.Range(0, LeftSideTargets.Count)];
+			targets.Add(secondAngle);
 		}
 		else if(stage == Stage.Both)
 		{
-			randomTargets = new int[10];
-			for (int x = 0; x < randomTargets.Length; x++) 
-			{
-				randomTargets[x] = x;
-			}
+			int rightAngle = RightSideTargets[UnityEngine.Random.Range(0, RightSideTargets.Count)];
+			targets.Add(rightAngle);
+			RightSideTargets.Remove(rightAngle);
+
+			int leftAngle = LeftSideTargets[UnityEngine.Random.Range(0, LeftSideTargets.Count)];
+			targets.Add(leftAngle);
+			LeftSideTargets.Remove(leftAngle);
 		}
 
-		Shuffle(randomTargets);
-		
-		for (int i = 0; i < amount; i++)
+		for(int i = 0; i < targets.Count; i++)
 		{
-			Targets[randomTargets[i]].GetComponent<Phase2Object>().SetActiveTarget();
-
-			if(stage == Stage.Right)
-			{
-				Targets[randomTargets[i]].GetComponent<Phase2Object>().SetObjectType(Phase2Object.ObjectTypes.P2_Right);
-			}
-			else if(stage == Stage.Left)
-			{
-				Targets[randomTargets[i]].GetComponent<Phase2Object>().SetObjectType(Phase2Object.ObjectTypes.P2_Left);
-			}
-			else if(stage == Stage.Both)
-			{
-				Targets[randomTargets[i]].GetComponent<Phase2Object>().SetObjectType(Phase2Object.ObjectTypes.P2_Both);
-			}
-		}
-
-	}
-
-	public void Shuffle<T>(T[] array)
-	{
-		var random = _random;
-		for (int i = array.Length; i > 1; i--)
-		{
-			// Pick random element to swap.
-			int j = random.Next(i); // 0 <= j <= i-1
-			// Swap.
-			T tmp = array[j];
-			array[j] = array[i - 1];
-			array[i - 1] = tmp;
+			GameObject go = Targets[targets[i]-1];
+			go.GetComponent<Phase2Object>().SetID(objectCounter);
+			go.GetComponent<Phase2Object>().SetActiveTarget();
 		}
 	}
-
 
 	public void SendHit(){
 		currentAmountOfHits++;
@@ -192,10 +199,14 @@ public class Phase2Behavior : MonoBehaviour {
 		foreach (GameObject target in Targets)
 		{
 			float maxDistanceForThisAngle = (spawnManager.GetAbsMaxDist(target.GetComponent<Phase2Object>().GetMultiplier()));
+
 			float maxDistanceForShortestAngle = spawnManager.GetAbsMaxDist(1);
+
 			float adjustedDistance = (((currentDistance/100.0f)*maxDistanceForShortestAngle)/2)
 									+(((currentDistance/100.0f)*maxDistanceForThisAngle)/2);
-			iTween.MoveTo(target, iTween.Hash("position", -target.transform.up*adjustedDistance, "time", 0.5f, "easetype", iTween.EaseType.easeInBack));
+
+			iTween.MoveTo(target, iTween.Hash("position", target.transform.up * adjustedDistance, "time", 0.5f, "easetype", iTween.EaseType.easeInBack));
+
 			target.GetComponent<Phase2Object>().SetDistance(adjustedDistance);
 		}
 	}
@@ -204,6 +215,7 @@ public class Phase2Behavior : MonoBehaviour {
 	{
 		if(stage == Stage.Right){
 			stage = Stage.Left;
+			ChangeTargetType(Phase2Object.ObjectTypes.P2_Left);
 			yield return new WaitForSeconds(1.0f);
 			guiManager.BlockRightHalf(true);
 			yield return new WaitForSeconds(1.0f);
@@ -211,11 +223,20 @@ public class Phase2Behavior : MonoBehaviour {
 		}
 		else if(stage == Stage.Left){
 			stage = Stage.Both;
+			ChangeTargetType(Phase2Object.ObjectTypes.P2_Both);
 			yield return new WaitForSeconds(1.0f);
 			guiManager.BlockAll(false);
 		}
 		else if(stage == Stage.Both){
 			stage = Stage.Both;
+		}
+	}
+
+	private void ChangeTargetType(Phase2Object.ObjectTypes type)
+	{
+		foreach(GameObject go in Targets)
+		{
+			go.GetComponent<Phase2Object>().SetObjectType(type);
 		}
 	}
 

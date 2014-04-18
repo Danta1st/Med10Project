@@ -17,9 +17,8 @@ public class SpawnManager : MonoBehaviour
 	#region Privates
 	private GestureManager gManager;
 	private GameStateManager gStateManager;
-	private SoundManager sManager;
+//	private SoundManager sManager;
 
-	private bool isOccupied = false;
 
 	private int objectCounter = 0;
 	private float AverageRT = 100.0f;
@@ -34,7 +33,7 @@ public class SpawnManager : MonoBehaviour
 		if(gManager == null)
 			Debug.LogError("No GestureManager was found on the main camera.");
 
-		sManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
+//		sManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
 		gStateManager = GameObject.Find("GameStateManager").GetComponent<GameStateManager>();
 
 		//Initialise distance lists
@@ -109,7 +108,6 @@ public class SpawnManager : MonoBehaviour
 		go.GetComponent<ObjectHandler>().SetMeanReactionTime(AverageRT);
 		go.name = go.name+int1to10;
 		//Set occupied
-		isOccupied = true;
 	}
 
 	public void SpawnSpecific(GameObject spawnObject, int int1to10, float distance)
@@ -134,7 +132,6 @@ public class SpawnManager : MonoBehaviour
 		go.GetComponent<ObjectHandler>().SetMeanReactionTime(AverageRT);
 		go.name = go.name+int1to10;
 		//Set occupied
-		isOccupied = true;
 	}
 
 	public void SpawnRandom(GameObject spawnObject)
@@ -158,7 +155,7 @@ public class SpawnManager : MonoBehaviour
 		//Get random identifier & get angleID from list
 		int angleID = calibrationList[Random.Range(0, calibrationList.Count)];
 		//Get abs distance value / 2
-		float distance = GetAbsMaxDist(angleID)/2;
+		float distance = (GetAbsMaxDist(angleID)/3) * 2;
 		//Remove from List
 		calibrationList.Remove(angleID);
 		//SpawnSpecific calibrationObject
@@ -270,17 +267,13 @@ public class SpawnManager : MonoBehaviour
 			Debug.Log("spawning phase2Center");
 			GameObject go = (GameObject) Instantiate(spawnObjects.Phase2Targets, Vector3.zero, Quaternion.identity);
 			go.GetComponent<Phase2Behavior>().SetMeanReactionTime(AverageRT);
+			go.GetComponent<Phase2Behavior>().SetObjectCounter(objectCounter);
 		}
 		else
 		{
 			GameObject go = GameObject.Find("Phase2Center(Clone)");
 			go.GetComponent<Phase2Behavior>().ResetActiveTargets();
 		}
-	}
-
-	public void AllowSpawning()
-	{
-		isOccupied = false;
 	}
 	#endregion
 
