@@ -13,7 +13,6 @@ GameObject:
   - 124: {fileID: 12400000}
   - 81: {fileID: 8100000}
   - 114: {fileID: 11400000}
-  - 114: {fileID: 11400002}
   - 114: {fileID: 11400004}
   m_Layer: 0
   m_Name: Main Camera
@@ -85,31 +84,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cf3669ac1f43488428443c481efceb9f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tapThreshold: .5
-  tapPrecision: 10
-  swipeThreshold: 10
-  swipeOffset: 5
-  DeltaSwipeThreshold: 10
-  DeltaSwipeOffset: 2.5
-  isGestureEnabled:
-    SingleTap: 1
-    DoubleTap: 0
-    HorizontalSwipes: 1
-    VerticalSwipes: 1
-    UseDeltaSwipes: 1
-    PinchAndSpread: 0
-    Drag: 0
---- !u!114 &11400002
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100000}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1696d757a8dceec49ab1aa2f83d4c7a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &11400004

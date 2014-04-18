@@ -359,7 +359,7 @@ ParticleSystem:
         rgba: 4294967295
       maxColor:
         serializedVersion: 2
-        rgba: 4278255420
+        rgba: 4278255390
       minMaxState: 0
     startSize:
       scalar: 2
@@ -419,7 +419,7 @@ ParticleSystem:
       minMaxState: 3
     gravityModifier: 0
     inheritVelocity: 0
-    maxNumParticles: 1000
+    maxNumParticles: 100
   ShapeModule:
     serializedVersion: 2
     enabled: 1
@@ -2733,6 +2733,14 @@ Prefab:
       propertyPath: ColorModule.gradient.maxGradient.key2.rgba
       value: 65289
       objectReference: {fileID: 0}
+    - target: {fileID: 19800000, guid: b66c7416d122ec54e9bd32ee66bbf5ad, type: 2}
+      propertyPath: InitialModule.startColor.maxColor.rgba
+      value: 4278255390
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: b66c7416d122ec54e9bd32ee66bbf5ad, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b66c7416d122ec54e9bd32ee66bbf5ad, type: 2}
   m_RootGameObject: {fileID: 94167472}
@@ -2831,12 +2839,12 @@ Prefab:
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 11400002, guid: 5a4983c68ccf6734dac18224756cc0bf, type: 2}
+    - target: {fileID: 0}
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
-    - {fileID: 11400002, guid: 5a4983c68ccf6734dac18224756cc0bf, type: 2}
+    - {fileID: 0}
     - {fileID: 11400004, guid: 5a4983c68ccf6734dac18224756cc0bf, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 5a4983c68ccf6734dac18224756cc0bf, type: 2}
   m_RootGameObject: {fileID: 98409520}
