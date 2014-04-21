@@ -222,7 +222,7 @@ public class Phase2Behavior : MonoBehaviour {
 			guiManager.BlockAll(false);
 		}
 		else if(stage == Stage.Both){
-			stage = Stage.Both;
+			NotificationCenter.DefaultCenter().PostNotification(this, "NC_GameOver");
 		}
 	}
 
