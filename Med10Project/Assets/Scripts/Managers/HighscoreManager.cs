@@ -85,7 +85,14 @@ public class HighscoreManager : MonoBehaviour {
 		
 		for(int i = 1; i <= angleCount; i++)
 		{
-			reactionMeans.Add(GetReactionMean(i));
+			if(GetReactionMean(i) != null)
+			{
+				reactionMeans.Add(GetReactionMean(i));
+			}
+			else
+			{
+				reactionMeans.Add(0);
+			}
 		}
 		
 		return reactionMeans;
