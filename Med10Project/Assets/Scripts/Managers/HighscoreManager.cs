@@ -5,11 +5,13 @@ using System.Collections.Generic;
 public class HighscoreManager : MonoBehaviour {
 
 	#region Editor Publics
+	[SerializeField] private int calibrationSkipAmount = 3;
 	#endregion
 
 	#region Privates
 	private int currentScore = 0;
 	private int multiplier = 1;
+	private int skipCounter = 0;
 
 	//Reactiontime Lists
 	private int angleCount = 10;
@@ -32,10 +34,15 @@ public class HighscoreManager : MonoBehaviour {
 	
 	public void AddHit(int angleID, float _reactionTime)
 	{
-		//Increase count for hits
-		angleHits[angleID - 1]++; // = angleHits[angleID - 1] + 1;
-		//Add reaction time to angle list
-		AddReactionTime(angleID, _reactionTime);
+		if(skipCounter >= calibrationSkipAmount)
+		{
+			//Increase count for hits
+			angleHits[angleID - 1]++; // = angleHits[angleID - 1] + 1;
+			//Add reaction time to angle list
+			AddReactionTime(angleID, _reactionTime);
+		}
+		else
+			skipCounter++;
 	}
 	
 	public void AddMiss(int angleID)
@@ -90,7 +97,7 @@ public class HighscoreManager : MonoBehaviour {
 		
 		return reactionMeans;
 	}
-	
+
 	//Method returning the mean reaction of a specific angle
 	public float GetReactionMean(int angleID)
 	{
@@ -209,6 +216,7 @@ public class HighscoreManager : MonoBehaviour {
 	}
 	public void ResetScoreAndMultiplier()
 	{
+		skipCounter = 0;
 		ResetScore();
 		ResetMultiplier();
 		ResetLists();
