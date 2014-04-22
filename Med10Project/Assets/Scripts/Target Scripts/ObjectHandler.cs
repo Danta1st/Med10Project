@@ -16,6 +16,7 @@ public class ObjectHandler : MonoBehaviour
 	private SoundManager soundManager;
 	private HighscoreManager highScoreManager;
 	private GameStateManager gameManager;
+	private GameTimerManager timeManager;
 	private WriteToTXT txtWriter;
 
 	//Object Information - Passed from spawner
@@ -69,6 +70,8 @@ public class ObjectHandler : MonoBehaviour
 			Debug.LogError("No HighscoreManager was found in the scene.");
 
 		gameManager = GameObject.Find("GameStateManager").GetComponent<GameStateManager>();
+
+		timeManager = GameObject.Find("GameTimerManager").GetComponent<GameTimerManager>();
 
 		txtWriter = GameObject.Find("WriteToTXT").GetComponent<WriteToTXT>();
 		if(txtWriter == null)

@@ -16,7 +16,6 @@ public class MissClick : MonoBehaviour
 	private GestureManager gManager;
 	private SoundManager soundManager;
 	private WriteToTXT txtWriter;
-	private GameStateManager gameManager;
 
 	private bool logMissClicks = false;
 
@@ -26,7 +25,6 @@ public class MissClick : MonoBehaviour
 	void Awake()
 	{
 		gManager = Camera.main.GetComponent<GestureManager>();
-		gameManager = GameObject.Find("GameStateManager").GetComponent<GameStateManager>();
 		soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
 		txtWriter = GameObject.Find("WriteToTXT").GetComponent<WriteToTXT>();
 	}

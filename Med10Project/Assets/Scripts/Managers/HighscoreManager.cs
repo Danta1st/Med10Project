@@ -155,7 +155,7 @@ public class HighscoreManager : MonoBehaviour {
 		}
 		//Calculate Mean Value
 		float mean = sum/(float) count;
-		
+		Debug.Log("sum: "+sum+" count: "+count+" HS RT MEAN: "+mean);
 		return mean;
 	}
 
