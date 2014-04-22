@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class MissClick : MonoBehaviour 
 {
@@ -13,24 +14,28 @@ public class MissClick : MonoBehaviour
 	#region Privates
 	//Script connectivity
 	private GestureManager gManager;
-	private GameTimerManager timeManager;
 	private SoundManager soundManager;
 	private WriteToTXT txtWriter;
+	private GameStateManager gameManager;
+
+	private bool logMissClicks = false;
+
 	private string missClick = "MissClick";
 	#endregion
 	
 	void Awake()
 	{
-		gManager = Camera.main.GetComponent<GestureManager>();		
+		gManager = Camera.main.GetComponent<GestureManager>();
+		gameManager = GameObject.Find("GameStateManager").GetComponent<GameStateManager>();
 		soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
 		txtWriter = GameObject.Find("WriteToTXT").GetComponent<WriteToTXT>();
-		timeManager = GameObject.Find("GameTimerManager").GetComponent<GameTimerManager>();
 	}
 
 	void Start () 
 	{
 		//Subscribe to Tap Gesture
 		gManager.OnTapBegan += HandleOnTapBegan;
+
 		//Begin Observing for default notifications
 		NotificationCenter.DefaultCenter().AddObserver(this, "NC_Play");
 		NotificationCenter.DefaultCenter().AddObserver(this, "NC_Pause");
@@ -45,33 +50,92 @@ public class MissClick : MonoBehaviour
 		RaycastHit hitInfo;
 		if(Physics.Raycast(ray, out hitInfo) == false)
 		{				
+			//Play touch sound
 			soundManager.PlayTouchBegan();
-			Vector3 worldPos = Camera.main.ScreenToWorldPoint(new Vector3(screenPosition.x, screenPosition.y, 0));
-			Debug.Log("Missclick at: "+worldPos);
-			txtWriter.LogData(missClick, 0.0f, 0, 0.0f, worldPos, screenPosition, missClick, 0, 0);
-		}
-	}
 
-	
-	void Update () 
-	{
-		
+			//Could we skip all this stuff? ;D 
+			if(logMissClicks)
+			{
+				//Declare variables
+				float dist = 0;
+				Vector3 pos = Vector3.zero;
+				List<GameObject> targetList = new List<GameObject>();
+
+				//Search for targets and fill list
+				if(GameObject.FindGameObjectsWithTag("Target") != null)
+					targetList.AddRange(GameObject.FindGameObjectsWithTag("Target"));
+
+				//Is there normal targets? 
+				if(targetList.Count != 0)
+				{
+					//Go through all targets found
+					foreach(GameObject target in targetList)
+					{
+						var position = Camera.main.WorldToScreenPoint(target.transform.position);
+						var distance = Vector2.Distance(screenPosition, position);
+
+						if(dist == 0 || dist > distance)
+						{
+							pos = target.transform.position;
+							dist = distance;
+						}
+					}
+				}
+				//if not, are there phase2objects? 
+				else if(GameObject.FindGameObjectsWithTag("Phase2Object") != null)
+				{
+					targetList.AddRange(GameObject.FindGameObjectsWithTag("Phase2Object"));
+
+					//Go through all targets found
+					foreach(GameObject target in targetList)
+					{
+						//If they are active, check for distance
+						if(target.GetComponent<Phase2Object>().TargetIsActive())
+						{
+							var position = Camera.main.WorldToScreenPoint(target.transform.position);
+							var distance = Vector2.Distance(screenPosition, position);
+							
+							if(dist == 0 || dist > distance)
+							{
+								pos = target.transform.position;
+								dist = distance;
+							}
+						}
+					}
+
+					//Was there no active targets, then calculate distance to center
+					if(dist == 0)
+						dist = Vector2.Distance(screenPosition, Camera.main.WorldToScreenPoint(pos));
+				}
+				else
+				{
+					//Closest target is center/Vector3.zero
+					dist = Vector2.Distance(screenPosition, Camera.main.WorldToScreenPoint(pos));
+				}
+
+				//Add to file
+				txtWriter.LogData(missClick, 0.0f, 0, dist, pos, screenPosition, missClick, 0, 0);
+			}
+		}
 	}
 	
 	private void NC_Play()
 	{
+		logMissClicks = true;
 	}
 	
 	private void NC_Pause()
 	{
+		logMissClicks = false;
 	}
 	
 	private void NC_Unpause()
 	{
+		logMissClicks = true;
 	}
 	
 	private void NC_Restart()
 	{
+		logMissClicks = false;
 	}	
-
 }

@@ -32,7 +32,7 @@ public class GUIManager: MonoBehaviour {
 
 	//Strings
 	private string currentUser;
-	private int CurrentUserID;
+	private int CurrentUserID = -1;
 	private string currentCountdownNumber;
 	private string currentStage;
 

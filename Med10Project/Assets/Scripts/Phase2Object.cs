@@ -188,7 +188,7 @@ public class Phase2Object : MonoBehaviour
 				highScoreManager.IncreaseMultiplier();
 				
 				txtWriter.LogData(objectType.ToString(), reactiontime, angle, distance, transform.position, screenPos, hitType.ToString(), objectID, angleID);
-				highScoreManager.AddHit(angleID, reactiontime);
+				highScoreManager.AddHit(angleID, reactiontime, distance);
 
 				if(Time.time - spawnTime <= artLifetime * 2.5f) //Change to 2.5f before delivery!
 				{
@@ -206,6 +206,11 @@ public class Phase2Object : MonoBehaviour
 	public void SetObjectType(ObjectTypes _objecttype)
 	{
 		objectType = _objecttype;
+	}
+
+	public bool TargetIsActive()
+	{
+		return activeTarget;
 	}
 
 	private void CalculateReactionTime()
@@ -242,7 +247,7 @@ public class Phase2Object : MonoBehaviour
 	private void Miss()
 	{
 		SetTargetDisabled();
-		highScoreManager.AddMiss(angleID);
+		highScoreManager.AddMiss(angleID, distance);
 		txtWriter.LogData(objectType.ToString(), 0, angle, distance, transform.position, new Vector2(0,0), HitType.Miss.ToString(), objectID, angleID);
 		phase2Center.SendMiss();
 	}

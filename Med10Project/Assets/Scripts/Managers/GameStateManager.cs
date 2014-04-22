@@ -37,7 +37,7 @@ public class GameStateManager : MonoBehaviour
 	[HideInInspector] public State state;
 	private Phase1States phase1States = new Phase1States();
 	public enum Phases {Phase0, Phase1, Phase2, Phase3};
-	private Phases phase;
+	[HideInInspector] public Phases phase;
 
 	//Counters
 	private int calibrationCounter = 0;

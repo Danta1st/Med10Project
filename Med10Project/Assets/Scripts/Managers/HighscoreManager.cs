@@ -16,6 +16,8 @@ public class HighscoreManager : MonoBehaviour {
 	//Reactiontime Lists
 	private int angleCount = 10;
 	private List<List<float>> rtList = new List<List<float>>();
+	private List<List<float>> hitDistances = new List<List<float>>();
+	private List<List<float>> missDistances = new List<List<float>>();
 	private List<int> angleHits = new List<int>();
 	private List<int> angleMisses = new List<int>();
 
@@ -32,7 +34,7 @@ public class HighscoreManager : MonoBehaviour {
 	#region Public Methods	
 	//Statistics------------------------------------------------------------------------------
 	
-	public void AddHit(int angleID, float _reactionTime)
+	public void AddHit(int angleID, float _reactionTime, float _distance)
 	{
 		if(skipCounter >= calibrationSkipAmount)
 		{
@@ -40,15 +42,19 @@ public class HighscoreManager : MonoBehaviour {
 			angleHits[angleID - 1]++; // = angleHits[angleID - 1] + 1;
 			//Add reaction time to angle list
 			AddReactionTime(angleID, _reactionTime);
+			//Add distance to hitDistance list
+			AddHitDistance(angleID, _distance);
 		}
 		else
 			skipCounter++;
 	}
 	
-	public void AddMiss(int angleID)
+	public void AddMiss(int angleID, float _distance)
 	{
 		//Increase count for misses
 		angleMisses[angleID - 1]++;
+		//Add distance to missDistance list
+		AddMissDistance(angleID, _distance);
 	}
 
 	//Method returning the total hit count
@@ -83,6 +89,16 @@ public class HighscoreManager : MonoBehaviour {
 	public int GetMissCount(int angleID)
 	{
 		return angleMisses[angleID - 1];
+	}
+
+	public List<float> GetHitDistances(int angleID)
+	{
+		return hitDistances[angleID - 1];
+	}
+
+	public List<float> GetMissDistances(int angleID)
+	{
+		return missDistances[angleID - 1];
 	}
 		
 	//Method returning a list containing all mean reaction times
@@ -229,9 +245,11 @@ public class HighscoreManager : MonoBehaviour {
 	{
 		for(int i = 1; i <= amountOfLists; i++)
 		{
-			//Add amountOfLists to Reaction Time Lists
+			//Add amountOfLists to Reaction Time Lists, hitDistances, & missDistances
 			List<float> sublist = new List<float>();
 			rtList.Add(sublist);
+			hitDistances.Add(sublist);
+			missDistances.Add(sublist);
 			//Add amountOfLists entries to hits
 			angleHits.Add(0);
 			//Add amountOfLists entries to misses
@@ -246,11 +264,24 @@ public class HighscoreManager : MonoBehaviour {
 
 		rtList[index].Add(reactionTime);
 	}
-
+	private void AddHitDistance(int angleID, float distance)
+	{
+		int index = angleID - 1;
+		
+		hitDistances[index].Add(distance);
+	}
+	private void AddMissDistance(int angleID, float distance)
+	{
+		int index = angleID - 1;
+		
+		missDistances[index].Add(distance);
+	}
 
 	private void ResetLists()
 	{
 		rtList.Clear();
+		hitDistances.Clear();
+		missDistances.Clear();
 		angleHits.Clear();
 		angleMisses.Clear();
 		InitialiseLists(angleCount);
