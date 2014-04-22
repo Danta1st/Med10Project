@@ -265,7 +265,7 @@ public class ObjectHandler : MonoBehaviour
 
 				txtWriter.LogData(objectType.ToString(), reactiontime, angle, distance, transform.position, screenPos, hitType.ToString(), objectID, angleID);
 
-				highScoreManager.AddHit(angleID, reactiontime);
+				highScoreManager.AddHit(angleID, reactiontime, distance);
 
 				Unsubscribe();
 				Destroy(gameObject);
@@ -275,7 +275,7 @@ public class ObjectHandler : MonoBehaviour
 	
 	private void Miss()
 	{
-		highScoreManager.AddMiss(angleID);
+		highScoreManager.AddMiss(angleID, distance);
 		isPunching = true;
 		Unsubscribe();
 

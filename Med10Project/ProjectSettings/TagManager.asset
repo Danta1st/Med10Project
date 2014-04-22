@@ -5,6 +5,8 @@ TagManager:
   tags:
   - GuiCamera
   - Phase2Object
+  - Target
+  - Center
   - 
   Builtin Layer 0: Default
   Builtin Layer 1: TransparentFX

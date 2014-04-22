@@ -89,7 +89,7 @@ public class SpawnManager : MonoBehaviour
 		//Get specific angle
 		int angle = GetAngle(int1to10);
 		//Get Random distance
-		float distance = Random.Range(2.0f, 8.5f);
+		float distance = Random.Range(GetAbsMinDist(angle), GetAbsMaxDist(angle));
 		//Rotate self by specific angle
 		RotateSelf(angle);
 		//Record spawn rotation & Position
@@ -220,10 +220,10 @@ public class SpawnManager : MonoBehaviour
 		//Calculate distance based on opposite progress
 		float distance = GetAbsMaxDist(int1to10) - LongestHits[index - 1];
 
-		if(distance < 2.0f)
+		if(distance < GetAbsMinDist(int1to10))
 		{
 			//Spawn stage 2 item with minimum distance
-			SpawnSpecific(spawnObjects.sequentialTarget2, int1to10, 2.0f);
+			SpawnSpecific(spawnObjects.sequentialTarget2, int1to10, GetAbsMinDist(int1to10));
 			//Flag this angle for multiple Targets
 			gStateManager.SetAngleState(int1to10, 1); //Goes from Sequential to Multitarget
 			gStateManager.CheckPhase1Ended();
@@ -241,7 +241,7 @@ public class SpawnManager : MonoBehaviour
 		//Increment ObjectCounter
 		objectCounter++;
 
-		float dist = Random.Range(2.0f, GetAbsMaxDist(1));
+		float dist = Random.Range(GetAbsMinDist(int1to10), GetAbsMaxDist(1));
 
 		for(int i = -1; i <= 1; i++)
 		{
@@ -375,6 +375,35 @@ public class SpawnManager : MonoBehaviour
 		}
 		default:
 			return false;
+		}
+	}
+	
+	//Method for getting min distances
+	public float GetAbsMinDist(int int1to10)
+	{
+		switch(int1to10)
+		{
+		case 1:
+		case 5:
+		case 6:
+		case 10:
+		{
+			return spawnThresholds.MinMax_1_5_6_10.x;
+		}
+		case 2:
+		case 4:
+		case 7:
+		case 9:
+		{
+			return spawnThresholds.MinMax_2_4_7_9.x;
+		}
+		case 3:
+		case 8:
+		{
+			return spawnThresholds.MinMax_3_8.x;
+		}
+		default:
+			return 3;
 		}
 	}
 

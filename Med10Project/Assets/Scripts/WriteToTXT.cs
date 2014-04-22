@@ -27,6 +27,8 @@ public class WriteToTXT : MonoBehaviour {
 	private string touchpositionY;
 	private string hitType;
 
+	private bool isFileCreated = false;
+
 	// Use this for initialization
 	void Start () {
 		gManager = GameObject.Find("3DGUICamera").GetComponent<GUIManager>();
@@ -52,6 +54,7 @@ public class WriteToTXT : MonoBehaviour {
 		filename = userPrefix+" - "+System.DateTime.Now.ToString()+".txt";
 		filename = filename.Replace("/","-");
 		filename = filename.Replace(":","-");
+		isFileCreated = true;
 
 //		using (StreamWriter writer = File.AppendText(directorypath + filename))
 //		{
@@ -105,9 +108,12 @@ public class WriteToTXT : MonoBehaviour {
 
 	private void WriteTXT()
 	{
-		using (StreamWriter writer = File.AppendText(directorypath + filename))
+		if(isFileCreated)
 		{
-			writer.WriteLine(currentStringToWrite);
+			using (StreamWriter writer = File.AppendText(directorypath + filename))
+			{
+				writer.WriteLine(currentStringToWrite);
+			}
 		}
 	}
 

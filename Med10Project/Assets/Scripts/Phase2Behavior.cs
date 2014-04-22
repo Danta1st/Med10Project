@@ -13,8 +13,8 @@ public class Phase2Behavior : MonoBehaviour {
 
 	private int currentAmountOfActiveTargets = 0;
 	private int currentAmountOfHits = 0;
-	private int startDistance = 10;
-	private int currentDistance;
+	private float startDistance = 10.0f;
+	private float currentDistance;
 	private bool missRecieved = false;
 
 	private enum Stage {Right, Left, Both};
@@ -85,7 +85,6 @@ public class Phase2Behavior : MonoBehaviour {
 		currentAmountOfActiveTargets = 2; //Random.Range(2,4); //Random range on int is exclusive max
 
 		SetTargetsActive2();
-//		SetTargetsActive(currentAmountOfActiveTargets);
 
 		currentAmountOfHits = 0;
 	}
@@ -176,17 +175,18 @@ public class Phase2Behavior : MonoBehaviour {
 		missRecieved = false;
 	}
 
-	private void ChangeDistance(int distance)
+	private void ChangeDistance(float distance)
 	{
 		currentDistance += distance;
+		float minDistance = spawnManager.GetAbsMinDist(1);
 
-		if(currentDistance < 20)
+		if(currentDistance < (10.0f * minDistance))
 		{
-			currentDistance = 20;
+			currentDistance = (10.0f * minDistance);
 		}
-		if(currentDistance > 100)
+		if(currentDistance > 100.0f)
 		{
-			currentDistance = 20;
+			currentDistance = (10.0f * minDistance);
    			StartCoroutine(ChangeStage());
 		}
 
@@ -196,8 +196,8 @@ public class Phase2Behavior : MonoBehaviour {
 
 			float maxDistanceForShortestAngle = spawnManager.GetAbsMaxDist(1);
 
-			float adjustedDistance = (((currentDistance/100.0f)*maxDistanceForShortestAngle)/2)
-									+(((currentDistance/100.0f)*maxDistanceForThisAngle)/2);
+			float adjustedDistance = (((currentDistance/100.0f)*maxDistanceForShortestAngle)/2.0f)
+									+(((currentDistance/100.0f)*maxDistanceForThisAngle)/2.0f);
 
 			iTween.MoveTo(target, iTween.Hash("position", target.transform.up * adjustedDistance, "time", 0.5f, "easetype", iTween.EaseType.easeInBack));
 
