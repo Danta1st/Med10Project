@@ -71,7 +71,7 @@ public class GameStateManager : MonoBehaviour
 	void Start ()
 	{
 		//Begin at Phase 0 - Calibration
-		phase = Phases.Phase2;
+		phase = Phases.Phase0;
 		//Subscribe to Tap Gesture
 		gManager.OnTapBegan += HandleOnTapBegan;
 		//Begin Punching
@@ -82,7 +82,6 @@ public class GameStateManager : MonoBehaviour
 		NotificationCenter.DefaultCenter().AddObserver(this, "NC_Pause");
 		NotificationCenter.DefaultCenter().AddObserver(this, "NC_Unpause");
 		NotificationCenter.DefaultCenter().AddObserver(this, "NC_Restart");
-
 	}
 
 	void Update()
