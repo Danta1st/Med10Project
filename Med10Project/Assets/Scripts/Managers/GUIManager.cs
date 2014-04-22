@@ -478,9 +478,18 @@ public class GUIManager: MonoBehaviour {
 			return (false);
 	}
 
+	IEnumerator EndGame()
+	{
+		NotificationCenter.DefaultCenter().PostNotification(this, "NC_Pause");
+		gameOver = true;
+		BlockAll(true);
+		yield return new WaitForSeconds(curtainSpeed);
+		EnableEndScreen(true);
+	}
+
 	private void NC_GameOver()
 	{
-		gameOver = true;
+		StartCoroutine_Auto(EndGame());
 	}
 
 	private void NC_Restart()

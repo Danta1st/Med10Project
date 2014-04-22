@@ -71,7 +71,7 @@ public class GameStateManager : MonoBehaviour
 	void Start ()
 	{
 		//Begin at Phase 0 - Calibration
-		phase = Phases.Phase0;
+		phase = Phases.Phase2;
 		//Subscribe to Tap Gesture
 		gManager.OnTapBegan += HandleOnTapBegan;
 		//Begin Punching
@@ -183,6 +183,11 @@ public class GameStateManager : MonoBehaviour
 	public void IncreaseMultiTargetCounter()
 	{
 		multiTargetCounter++;
+	}
+
+	public int GetMultiTargetCount()
+	{
+		return multiTargetCounter;
 	}
 
 	public void SetAngleState(int int1to10, int state)

@@ -223,7 +223,7 @@ public class SpawnManager : MonoBehaviour
 		if(distance < 2.0f)
 		{
 			//Spawn stage 2 item with minimum distance
-			SpawnSpecific(spawnObjects.SingleTarget, int1to10, 2.0f);
+			SpawnSpecific(spawnObjects.sequentialTarget2, int1to10, 2.0f);
 			//Flag this angle for multiple Targets
 			gStateManager.SetAngleState(int1to10, 1); //Goes from Sequential to Multitarget
 			gStateManager.CheckPhase1Ended();
@@ -231,7 +231,7 @@ public class SpawnManager : MonoBehaviour
 		else
 		{
 			//Spawn stage 2 item
-			SpawnSpecific(spawnObjects.SingleTarget, int1to10, distance);
+			SpawnSpecific(spawnObjects.sequentialTarget2, int1to10, distance);
 		}
 	}
 
@@ -421,6 +421,7 @@ public class SpawnManager : MonoBehaviour
 	{
 		public GameObject SingleTarget;
 		public GameObject SequentialTarget;
+		public GameObject sequentialTarget2;
 		public GameObject MultiTarget;
 		public GameObject Phase2Targets;
 	}

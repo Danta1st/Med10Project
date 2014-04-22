@@ -60,7 +60,6 @@ public class GameTimerManager : MonoBehaviour {
 		gameOver = true;
 		gameRunning = false;
 		//guiManager.OutOfTimeReturnToMenu();
-		guiManager.EnableEndScreen(true);
 	}
 
 	private void StartGameTimer()

@@ -14,7 +14,7 @@ GameObject:
   - 114: {fileID: 11400000}
   - 114: {fileID: 11400002}
   m_Layer: 0
-  m_Name: SequentialObject
+  m_Name: SequentialObject2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -70,7 +70,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4ee94f5abde85f46b9cd2d924c41fcf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectType: 1
+  objectType: 3
   Lifetime: 3
   particles:
     CenterChaser: {fileID: 100000, guid: 06b0dd2a855234b4a84e3eb65fd70381, type: 2}
