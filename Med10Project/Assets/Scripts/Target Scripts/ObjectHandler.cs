@@ -45,7 +45,7 @@ public class ObjectHandler : MonoBehaviour
 	private bool playModeActive = true;
 	private bool isPunching = true;
 
-	private enum ObjectTypes {SingleTarget, SequentialTarget, MultiTarget};
+	private enum ObjectTypes {SingleTarget, SequentialTarget, MultiTarget, SequentialTarget2, MultiTarget2, MultiTarget3};
 	private enum HitType {Calibration, Hit, LateHit, Miss};
 	#endregion
 	
@@ -202,6 +202,7 @@ public class ObjectHandler : MonoBehaviour
 				soundManager.PlayTargetSuccessHit();
 
 				HitType hitType = HitType.Calibration;
+				int multiCount = 0;
 				
 				//If we are not still calibrating
 				if(artLifetime < 100.0f)
@@ -218,7 +219,7 @@ public class ObjectHandler : MonoBehaviour
 				}
 
 				//Do stuff depending on object type
-				if(objectType == ObjectTypes.SingleTarget)
+				if(objectType == ObjectTypes.SingleTarget || objectType == ObjectTypes.SequentialTarget2)
 				{
 					gameManager.ChangeCenterState(GameStateManager.State.awaitCenterClick);
 
@@ -247,6 +248,13 @@ public class ObjectHandler : MonoBehaviour
 				}
 				else if(objectType == ObjectTypes.MultiTarget)
 				{
+					multiCount = gameManager.GetMultiTargetCount();
+
+					if(multiCount == 1)
+						objectType = ObjectTypes.MultiTarget2;
+					else if(multiCount == 2)
+						objectType = ObjectTypes.MultiTarget3;
+
 					gameManager.IncreaseMultiTargetCounter();
 					SpawnParticle(particles.SingleExplosion);
 					SpawnParticle(particles.CenterChaser);
@@ -254,9 +262,10 @@ public class ObjectHandler : MonoBehaviour
 				}
 
 				CalculateReactionTime();
+
 				txtWriter.LogData(objectType.ToString(), reactiontime, angle, distance, transform.position, screenPos, hitType.ToString(), objectID, angleID);
 
-				highScoreManager.AddHit(angleID, reactiontime);
+				highScoreManager.AddHit(angleID, reactiontime, distance);
 
 				Unsubscribe();
 				Destroy(gameObject);
@@ -266,7 +275,7 @@ public class ObjectHandler : MonoBehaviour
 	
 	private void Miss()
 	{
-		highScoreManager.AddMiss(angleID);
+		highScoreManager.AddMiss(angleID, distance);
 		isPunching = true;
 		Unsubscribe();
 

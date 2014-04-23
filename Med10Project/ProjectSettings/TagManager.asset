@@ -5,6 +5,8 @@ TagManager:
   tags:
   - GuiCamera
   - Phase2Object
+  - Target
+  - Center
   - Node
   - 
   Builtin Layer 0: Default

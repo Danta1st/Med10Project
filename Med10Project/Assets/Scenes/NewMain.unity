@@ -1252,6 +1252,7 @@ GameObject:
   - 124: {fileID: 98409522}
   - 81: {fileID: 98409521}
   - 114: {fileID: 98409526}
+  - 114: {fileID: 98409527}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1334,6 +1335,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cf3669ac1f43488428443c481efceb9f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &98409527
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400002, guid: 5a4983c68ccf6734dac18224756cc0bf,
+    type: 2}
+  m_PrefabInternal: {fileID: 1544905809}
+  m_GameObject: {fileID: 98409520}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01b99ad78b481a146bdcdadd86f577d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &143072879
@@ -2201,7 +2214,7 @@ GameObject:
   - 135: {fileID: 387336500}
   m_Layer: 0
   m_Name: GameStateManager
-  m_TagString: Untagged
+  m_TagString: Center
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2222,6 +2235,7 @@ MonoBehaviour:
   CenterPunch: {fileID: 100002, guid: e22cfbcc156ce314db628933702dbec0, type: 2}
   calibrationAmount: 15
   state: 0
+  phase: 0
 --- !u!135 &387336500
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -2854,6 +2868,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 757164b30f503524d95a5dd23e23f1b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  calibrationSkipAmount: 3
 --- !u!4 &1223658204
 Transform:
   m_ObjectHideFlags: 0
@@ -3501,6 +3516,7 @@ MonoBehaviour:
   spawnObjects:
     SingleTarget: {fileID: 100000, guid: dbe4638c77ad3a445847995921dcd815, type: 2}
     SequentialTarget: {fileID: 100000, guid: 34f321032382ee14987e77a8fc8f0e34, type: 2}
+    sequentialTarget2: {fileID: 100000, guid: 742866f38835d594fb06fee35edb59e1, type: 2}
     MultiTarget: {fileID: 100000, guid: 80686954ba1339441a207fb06208110a, type: 2}
     Phase2Targets: {fileID: 100000, guid: 64e4f0e03f7cff148a8b837edf21534f, type: 2}
   spawnThresholds:

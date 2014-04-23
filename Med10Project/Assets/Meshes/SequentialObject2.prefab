@@ -12,8 +12,9 @@ GameObject:
   - 135: {fileID: 13500000}
   - 23: {fileID: 2300000}
   - 114: {fileID: 11400000}
+  - 114: {fileID: 11400002}
   m_Layer: 0
-  m_Name: MultiTargetObject
+  m_Name: SequentialObject2
   m_TagString: Target
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -26,7 +27,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 3.29865694, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -69,13 +70,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4ee94f5abde85f46b9cd2d924c41fcf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectType: 2
-  Lifetime: 4
+  objectType: 3
+  Lifetime: 3
   particles:
     CenterChaser: {fileID: 100000, guid: 06b0dd2a855234b4a84e3eb65fd70381, type: 2}
     SingleExplosion: {fileID: 100000, guid: 35dedb80b664d6a46b2e06c768f90da4, type: 2}
     SequentialExplosion: {fileID: 100000, guid: 1f4b78f197d5ab440aa4387b60f655fd,
       type: 2}
+--- !u!114 &11400002
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b13958045cdec6745aed7467a34989b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotateSpeed: .600000024
 --- !u!135 &13500000
 SphereCollider:
   m_ObjectHideFlags: 1

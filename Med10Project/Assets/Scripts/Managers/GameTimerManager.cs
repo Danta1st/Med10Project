@@ -60,7 +60,6 @@ public class GameTimerManager : MonoBehaviour {
 		gameOver = true;
 		gameRunning = false;
 		//guiManager.OutOfTimeReturnToMenu();
-		guiManager.EnableEndScreen(true);
 	}
 
 	private void StartGameTimer()
@@ -114,12 +113,12 @@ public class GameTimerManager : MonoBehaviour {
 		UnpauseGameTimer();
 	}
 
-	void OnGUI()
-	{
-		/*if(gameRunning)
-			GUI.Label(new Rect(50, 50, 200, 200), ""+currentTimePlayed.ToString("0"));*/
-
-		/*if(gameOver)
-			GUI.Label(new Rect(200, 200, 200, 200), "S");*/
-	}
+//	void OnGUI()
+//	{
+//		/*if(gameRunning)
+//			GUI.Label(new Rect(50, 50, 200, 200), ""+currentTimePlayed.ToString("0"));*/
+//
+//		/*if(gameOver)
+//			GUI.Label(new Rect(200, 200, 200, 200), "S");*/
+//	}
 }

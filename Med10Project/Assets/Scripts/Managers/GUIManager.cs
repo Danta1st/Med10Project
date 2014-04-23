@@ -34,7 +34,7 @@ public class GUIManager: MonoBehaviour {
 
 	//Strings
 	private string currentUser;
-	private int CurrentUserID;
+	private int CurrentUserID = -1;
 	private string currentCountdownNumber;
 	private string currentStage;
 
@@ -520,9 +520,18 @@ public class GUIManager: MonoBehaviour {
 			return (false);
 	}
 
+	private IEnumerator EndGame()
+	{
+		NotificationCenter.DefaultCenter().PostNotification(this, "NC_Pause");
+		gameOver = true;
+		BlockAll(true);
+		yield return new WaitForSeconds(curtainSpeed);
+		EnableEndScreen(true);
+	}
+
 	private void NC_GameOver()
 	{
-		gameOver = true;
+		StartCoroutine_Auto(EndGame());
 	}
 
 	private void NC_Restart()

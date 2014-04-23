@@ -37,7 +37,7 @@ public class GameStateManager : MonoBehaviour
 	[HideInInspector] public State state;
 	private Phase1States phase1States = new Phase1States();
 	public enum Phases {Phase0, Phase1, Phase2, Phase3};
-	private Phases phase;
+	[HideInInspector] public Phases phase;
 
 	//Counters
 	private int calibrationCounter = 0;
@@ -82,7 +82,6 @@ public class GameStateManager : MonoBehaviour
 		NotificationCenter.DefaultCenter().AddObserver(this, "NC_Pause");
 		NotificationCenter.DefaultCenter().AddObserver(this, "NC_Unpause");
 		NotificationCenter.DefaultCenter().AddObserver(this, "NC_Restart");
-
 	}
 
 	void Update()
@@ -183,6 +182,11 @@ public class GameStateManager : MonoBehaviour
 	public void IncreaseMultiTargetCounter()
 	{
 		multiTargetCounter++;
+	}
+
+	public int GetMultiTargetCount()
+	{
+		return multiTargetCounter;
 	}
 
 	public void SetAngleState(int int1to10, int state)
