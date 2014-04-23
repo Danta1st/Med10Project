@@ -282,7 +282,7 @@ public class GUIManager: MonoBehaviour {
 		}
 		else if(showingReactionTimes)
 		{
-			GUILayout.Label("Average Reaction Time: "+ avgReactionTime, guiStyles.WindowScoreLabelStyle);
+			GUILayout.Label("Average: "+ avgReactionTime, guiStyles.WindowScoreLabelStyle);
 		}
 
 		GUILayout.FlexibleSpace();
