@@ -8,6 +8,9 @@ TagManager:
   - Target
   - Center
   - Node
+  - ScatterPlot
+  - 
+  - 
   - 
   Builtin Layer 0: Default
   Builtin Layer 1: TransparentFX

@@ -101,7 +101,7 @@ GameObject:
   - 64: {fileID: 6400008}
   - 23: {fileID: 2300008}
   m_Layer: 8
-  m_Name: Grid
+  m_Name: GridWithLabels
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -119,6 +119,24 @@ GameObject:
   - 114: {fileID: 11400002}
   m_Layer: 8
   m_Name: EndGameLines
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &100014
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 400014}
+  - 33: {fileID: 3300010}
+  - 64: {fileID: 6400010}
+  - 23: {fileID: 2300010}
+  m_Layer: 8
+  m_Name: Grid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -190,7 +208,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100010}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: .240252852}
+  m_LocalPosition: {x: 0, y: 0, z: .240252376}
   m_LocalScale: {x: 10, y: 10, z: 1}
   m_Children: []
   m_Father: {fileID: 400012}
@@ -204,9 +222,21 @@ Transform:
   m_LocalPosition: {x: 0, y: .560000002, z: .803844571}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 400010}
+  - {fileID: 400014}
   - {fileID: 400008}
+  - {fileID: 400010}
   m_Father: {fileID: 400000}
+--- !u!4 &400014
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100014}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: .240252852}
+  m_LocalScale: {x: 10, y: 10, z: 1}
+  m_Children: []
+  m_Father: {fileID: 400012}
 --- !u!20 &2000000
 Camera:
   m_ObjectHideFlags: 1
@@ -332,6 +362,27 @@ Renderer:
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
+  - {fileID: 2100000, guid: a3672671000c19b46bb5742e1f00ded8, type: 2}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_UseLightProbes: 0
+  m_LightProbeAnchor: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_SortingLayerID: 0
+--- !u!23 &2300010
+Renderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100014}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_LightmapIndex: 255
+  m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
+  m_Materials:
   - {fileID: 2100000, guid: 93cd40aa08ec89349bcd6f8ad572d812, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
@@ -375,6 +426,13 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100010}
+  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!33 &3300010
+MeshFilter:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100014}
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!64 &6400000
 MeshCollider:
@@ -434,6 +492,19 @@ MeshCollider:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100010}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 0
+  serializedVersion: 2
+  m_SmoothSphereCollisions: 0
+  m_Convex: 0
+  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!64 &6400010
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100014}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 0
@@ -935,14 +1006,14 @@ MonoBehaviour:
     SmallButton:
       m_Name: 
       m_Normal:
-        m_Background: {fileID: 0}
-        m_TextColor: {r: 0, g: 0, b: 0, a: 1}
+        m_Background: {fileID: 2800000, guid: 5b9961426910df74ab37cd3646cfb7ea, type: 3}
+        m_TextColor: {r: 1, g: 1, b: 1, a: 1}
       m_Hover:
         m_Background: {fileID: 0}
         m_TextColor: {r: 0, g: 0, b: 0, a: 1}
       m_Active:
-        m_Background: {fileID: 0}
-        m_TextColor: {r: 0, g: 0, b: 0, a: 1}
+        m_Background: {fileID: 2800000, guid: 6a5cf5bfa019de6418e1eb38ffa64742, type: 3}
+        m_TextColor: {r: 1, g: 1, b: 1, a: 1}
       m_Focused:
         m_Background: {fileID: 0}
         m_TextColor: {r: 0, g: 0, b: 0, a: 1}
@@ -978,10 +1049,10 @@ MonoBehaviour:
         m_Right: 0
         m_Top: 0
         m_Bottom: 0
-      m_Font: {fileID: 0}
-      m_FontSize: 0
+      m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+      m_FontSize: 17
       m_FontStyle: 0
-      m_Alignment: 0
+      m_Alignment: 4
       m_WordWrap: 0
       m_RichText: 1
       m_TextClipping: 0
