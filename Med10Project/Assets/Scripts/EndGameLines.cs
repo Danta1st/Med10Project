@@ -8,6 +8,7 @@ public class EndGameLines : MonoBehaviour {
 	private int lengthOfLineRenderer;
 
 	private GameObject Grid;
+	private GameObject GridWithLabels;
 	private GameObject GridBG;
 
 
@@ -22,11 +23,13 @@ public class EndGameLines : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		Grid = GameObject.Find("Grid");
+		GridWithLabels = GameObject.Find("GridWithLabels");
 		GridBG = GameObject.Find("GridBG");
 		hsManager = GameObject.Find("HighscoreManager").GetComponent<HighscoreManager>();
 		lineRenderer = GetComponentInChildren<LineRenderer>();
 
 		Grid.SetActive(false);
+		GridWithLabels.SetActive(false);
 		GridBG.SetActive(false);
 	}
 	
@@ -35,21 +38,33 @@ public class EndGameLines : MonoBehaviour {
 
 		if(Input.GetKeyDown(KeyCode.S))
 		{
-			EnableEndScreen();
-			//DoHitMissScreen();
 			DoReactionScreen();
+		}
+
+		if(Input.GetKeyDown(KeyCode.F))
+		{
+			DisableEndScreen();
 		}
 	
 	}
 
 	private void EnableEndScreen()
 	{
-		Grid.SetActive(true);
+		GridWithLabels.SetActive(true);
 		GridBG.SetActive(true);
 	}
 
-	private void DoHitMissScreen()
+	public void DisableEndScreen()
 	{
+		GridWithLabels.SetActive(false);
+		GridBG.SetActive(false);
+		lineRenderer.SetVertexCount(0);
+	}
+
+	public void DoHitMissScreen()
+	{
+		EnableEndScreen();
+
 		float hits = 0;
 		float misses = 0;
 		float total = 0;
@@ -66,7 +81,7 @@ public class EndGameLines : MonoBehaviour {
 			}
 			else
 			{
-				SpawnNodes(i, 0.1f);
+				SpawnNodes(i, 5f);
 			}
 		}
 		
@@ -74,15 +89,18 @@ public class EndGameLines : MonoBehaviour {
 		DrawLines();
 	}
 
-	private void DoReactionScreen()
+	public void DoReactionScreen()
 	{
+		EnableEndScreen();
+
 		GetReactions();
 
-		for(int i = 0; i < reactionMeans.Count; i++)
+		for(int i = 1; i <= reactionMeans.Count; i++)
 		{
-			if(reactionMeans[i] > 0.1f)
+			int index = i -1;
+			if(reactionMeans[index] > 0.1f)
 			{
-				SpawnNodes(i, (reactionMeans[i]/2.5f)*5);
+				SpawnNodes(i, (reactionMeans[index]/2.5f)*5);
 			}
 			else{
 				SpawnNodes(i, 0.1f);
@@ -124,5 +142,15 @@ public class EndGameLines : MonoBehaviour {
 
 		Vector3 endPos = new Vector3(Nodes[0].transform.position.x, Nodes[0].transform.position.y, 1);
 		lineRenderer.SetPosition(10, endPos);
+
+		DeleteOldNodes();
+	}
+
+	private void DeleteOldNodes()
+	{
+		foreach (GameObject node in Nodes)
+		{
+			Destroy(node);
+		}
 	}
 }

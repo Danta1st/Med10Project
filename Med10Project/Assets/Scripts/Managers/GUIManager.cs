@@ -17,10 +17,12 @@ public class GUIManager: MonoBehaviour {
 	//Connectivity
 	private HighscoreManager scoreManager;
 	private WriteToTXT txtLogger;
+	private EndGameLines endGameLines;
 
 	//Rects
 	private Rect highscoreRect;
 	private Rect windowRect;
+	private Rect endWindowRect;
 	private Rect countdownRect;
 
 	//Conditioning
@@ -41,18 +43,22 @@ public class GUIManager: MonoBehaviour {
 	private string avgReactionTime;
 
 	private bool gameOver = false;
+	private bool showingReactionTimes = false;
 	#endregion
 
 	void Start()
 	{
 		//Connectivity
 		scoreManager = GameObject.Find("HighscoreManager").GetComponent<HighscoreManager>();
+		endGameLines = GameObject.Find("EndGameLines").GetComponent<EndGameLines>();
 		txtLogger = GameObject.Find("WriteToTXT").GetComponent<WriteToTXT>();
 		//Rect initialization
 		highscoreRect = new Rect(0, 0, 100, 80);
 		highscoreRect.center = new Vector2(GetCenterWidth(), 20);
 		windowRect = new Rect(0,0, Screen.width * windowMetrics.x, Screen.height * windowMetrics.y);
 		windowRect.center = new Vector2(GetCenterWidth(), getCenterHeight());
+		endWindowRect = new Rect(0,0, Screen.width * 0.52f, Screen.height * 0.82f);
+		endWindowRect.center = new Vector2(GetCenterWidth(), getCenterHeight());
 		countdownRect = new Rect(0,0,150,150);
 		countdownRect.center = new Vector2(GetCenterWidth(), getCenterHeight());
 
@@ -99,9 +105,9 @@ public class GUIManager: MonoBehaviour {
 
 		if(guiBools.displayEndScreen)
 		{
-			windowRect = GUILayout.Window(0, windowRect, DoEndScreenWindow, "", guiStyles.WindowFrameStyle);
-			//GUI.Label(countdownRect, "Hits: "+hits, guiStyles.CountdownStyle);
+			endWindowRect = GUILayout.Window(0, endWindowRect, DoEndScreenWindow, "", guiStyles.WindowEndFrameStyle);
 		}
+
 	}
 
 	#region GUI Windows
@@ -248,44 +254,67 @@ public class GUIManager: MonoBehaviour {
 
 	private void DoEndScreenWindow(int windowID)
 	{
-		GUILayout.FlexibleSpace();
-		
-		GUILayout.BeginHorizontal();
-		GUILayout.FlexibleSpace();
-		GUILayout.Label("Times Up!", guiStyles.WindowLabelStyle);
-		GUILayout.FlexibleSpace();
-		GUILayout.EndHorizontal();
-
-		GUILayout.FlexibleSpace();
+		GUILayout.Space(15);
 
 		GUILayout.BeginHorizontal();
 		GUILayout.FlexibleSpace();
-		GUILayout.Label("Hits: "+hits, guiStyles.WindowScoreLabelStyle);
+
+		if(!showingReactionTimes)
+		{
+			GUILayout.Label("Hits And Misses per Angle", guiStyles.WindowLabelStyle);
+		}
+		else if(showingReactionTimes)
+		{
+			GUILayout.Label("Reaction Times per Angle", guiStyles.WindowLabelStyle);
+		}
 		GUILayout.FlexibleSpace();
 		GUILayout.EndHorizontal();
+	
+		GUILayout.Space(10);
+
+		if(!showingReactionTimes)
+		{
+			GUILayout.Label("Hits: "+hits, guiStyles.WindowScoreLabelStyle);
+			
+			GUILayout.Space(5);
+			
+			GUILayout.Label("Misses: "+ misses, guiStyles.WindowScoreLabelStyle);
+		}
+		else if(showingReactionTimes)
+		{
+			GUILayout.Label("Average Reaction Time: "+ avgReactionTime, guiStyles.WindowScoreLabelStyle);
+		}
 
 		GUILayout.FlexibleSpace();
 
 		GUILayout.BeginHorizontal();
-		GUILayout.FlexibleSpace();
-		GUILayout.Label("Misses: "+ misses, guiStyles.WindowScoreLabelStyle);
+		if(PlaceSmallButton("See Reaction Times"))
+		{
+			endGameLines.DisableEndScreen();
+			endGameLines.DoReactionScreen();
+			showingReactionTimes = true;
+		}
 		GUILayout.FlexibleSpace();
 		GUILayout.EndHorizontal();
-		
-		GUILayout.FlexibleSpace();
+
+		GUILayout.Space(5);
 
 		GUILayout.BeginHorizontal();
-		GUILayout.FlexibleSpace();
-		GUILayout.Label("Average Reaction Time: "+ avgReactionTime, guiStyles.WindowScoreLabelStyle);
+		if(PlaceSmallButton("See Hits And Misses"))
+		{
+			endGameLines.DisableEndScreen();
+			endGameLines.DoHitMissScreen();
+			showingReactionTimes = false;
+		}
+
 		GUILayout.FlexibleSpace();
 		GUILayout.EndHorizontal();
-		
-		GUILayout.FlexibleSpace();
+		GUILayout.Space(5);
 
 		GUILayout.BeginHorizontal();
 		if(PlaceButton("Back To Menu"))
 		{
-			guiBools.displayEndScreen = false;
+			EnableEndScreen(false);
 			guiBools.displayUserSelection = true;
 			BlockAll(true);
 			EnableHighscore(false);
@@ -355,9 +384,12 @@ public class GUIManager: MonoBehaviour {
 			hits = scoreManager.GetHitCount();
 			misses = scoreManager.GetMissCount();
 			avgReactionTime = scoreManager.GetReactionMeanFloat()+" seconds";
-			StartCoroutine(EndGameDelayedScreen(true));		}
+			BlockAll(true);
+			StartCoroutine(EndGameDelayedScreen(true));		
+		}
 		else if (state == false)
 		{
+			BlockAll(false);
 			StartCoroutine(EndGameDelayedScreen(false));
 		}
 	}
@@ -368,11 +400,13 @@ public class GUIManager: MonoBehaviour {
 		{
 			yield return new WaitForSeconds(1.0f);
 			guiBools.displayEndScreen = true;
+			endGameLines.DoHitMissScreen();
 		}
 		else if (state == false)
 		{
 			yield return new WaitForSeconds(0.0f);
 			guiBools.displayEndScreen = false;
+			endGameLines.DisableEndScreen();
 		}
 	}
 
@@ -478,6 +512,14 @@ public class GUIManager: MonoBehaviour {
 			return (false);
 	}
 
+	private bool PlaceSmallButton(string text)
+	{
+		if(GUILayout.Button(text, guiStyles.SmallButton, GUILayout.MinHeight(Screen.height*0.06f), GUILayout.MinWidth(Screen.width*0.15f)))
+			return (true);
+		else
+			return (false);
+	}
+
 	private void NC_GameOver()
 	{
 		gameOver = true;
@@ -487,6 +529,7 @@ public class GUIManager: MonoBehaviour {
 	{
 		countdownRect.center = new Vector2(GetCenterWidth(), getCenterHeight());
 		gameOver = false;
+		showingReactionTimes = false;
 	}
 	private void NC_Pause()
 	{
@@ -529,10 +572,12 @@ public class GUIManager: MonoBehaviour {
 	{
 		public GUIStyle WindowStyle;
 		public GUIStyle WindowFrameStyle;
+		public GUIStyle WindowEndFrameStyle;
 		public GUIStyle WindowLabelStyle;
 		public GUIStyle WindowScoreLabelStyle;
 		public GUIStyle HighscoreStyle;
 		public GUIStyle CountdownStyle;
+		public GUIStyle SmallButton;
 	}
 	#endregion
 }
