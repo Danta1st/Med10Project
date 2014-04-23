@@ -178,17 +178,26 @@ public class EndGameLines : MonoBehaviour {
 
 	private void DrawLines()
 	{
-		lineRenderer.SetVertexCount(NodeArray.Length+1);
-		
-		for (int i = 0; i < NodeArray.Length; i++) {
-			Vector3 pos = new Vector3(NodeArray[i].transform.position.x, NodeArray[i].transform.position.y, 1);
-			lineRenderer.SetPosition(i, pos);
+		for (int i = 0; i < NodeArray.Length; i++) 
+		{
+			if(i == NodeArray.Length - 1)
+				NodeArray[i].GetComponent<nodeBehaviour>().DrawLine(NodeArray[0].transform.position);
+			else
+				NodeArray[i].GetComponent<nodeBehaviour>().DrawLine(NodeArray[i+1].transform.position);
 		}
+
 		
-		Vector3 endPos = new Vector3(NodeArray[0].transform.position.x, NodeArray[0].transform.position.y, 1);
-		lineRenderer.SetPosition(10, endPos);
-		
-		DeleteOldNodes();
+//		lineRenderer.SetVertexCount(Nodes.Length+1);
+//
+//		for (int i = 0; i < Nodes.Length; i++) {
+//			Vector3 pos = new Vector3(Nodes[i].transform.position.x, Nodes[i].transform.position.y, 1);
+//			lineRenderer.SetPosition(i, pos);
+//		}
+//
+//		Vector3 endPos = new Vector3(Nodes[0].transform.position.x, Nodes[0].transform.position.y, 1);
+//		lineRenderer.SetPosition(10, endPos);
+//
+//		DeleteOldNodes();
 	}
 
 	private void DeleteOldNodes()

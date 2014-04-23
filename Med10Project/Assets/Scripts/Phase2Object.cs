@@ -47,7 +47,7 @@ public class Phase2Object : MonoBehaviour
 	private bool activeTarget = false;
 
 	//Enums
-	private enum HitType {Calibration, Hit, LateHit, Miss};
+	private enum HitType {Calibration, Hit, LateHit, Expired};
 	#endregion
 	
 	void Awake()
@@ -248,7 +248,7 @@ public class Phase2Object : MonoBehaviour
 	{
 		SetTargetDisabled();
 		highScoreManager.AddMiss(angleID, distance);
-		txtWriter.LogData(objectType.ToString(), 0, angle, distance, transform.position, new Vector2(0,0), HitType.Miss.ToString(), objectID, angleID);
+		txtWriter.LogData(objectType.ToString(), 0, angle, distance, transform.position, new Vector2(0,0), HitType.Expired.ToString(), objectID, angleID);
 		phase2Center.SendMiss();
 	}
 

@@ -162,7 +162,6 @@ public class HighscoreManager : MonoBehaviour {
 		}
 		//Calculate Mean Value
 		float mean = sum/(float) count;
-		
 		return mean;
 	}
 
