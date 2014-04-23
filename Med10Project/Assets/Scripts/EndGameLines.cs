@@ -4,9 +4,6 @@ using System.Collections.Generic;
 
 public class EndGameLines : MonoBehaviour {
 
-	private LineRenderer lineRenderer;
-	private int lengthOfLineRenderer;
-
 	private GameObject Grid;
 	private GameObject GridWithLabels;
 	private GameObject GridBG;
@@ -30,26 +27,10 @@ public class EndGameLines : MonoBehaviour {
 		GridBG = GameObject.Find("GridBG");
 		hsManager = GameObject.Find("HighscoreManager").GetComponent<HighscoreManager>();
 		spManager = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();
-		lineRenderer = GetComponentInChildren<LineRenderer>();
 
 		Grid.SetActive(false);
 		GridWithLabels.SetActive(false);
 		GridBG.SetActive(false);
-	}
-	
-	// Update is called once per frame
-	void Update () {
-
-		if(Input.GetKeyDown(KeyCode.S))
-		{
-			DoReactionScreen();
-		}
-
-		if(Input.GetKeyDown(KeyCode.F))
-		{
-			DisableEndScreen();
-		}
-	
 	}
 
 	private void EnableEndBackground()
@@ -62,41 +43,9 @@ public class EndGameLines : MonoBehaviour {
 		Grid.SetActive(false);
 		GridWithLabels.SetActive(false);
 		GridBG.SetActive(false);
-		lineRenderer.SetVertexCount(0);
 		DeleteOldNodes();
 		DeleteOldScatters();
 	}
-
-	/*public void DoHitMissScreen()
-	{
-		GridWithLabels.SetActive(false);
-		Grid.SetActive(true);
-
-		EnableEndBackground();
-
-		float hits = 0;
-		float misses = 0;
-		float total = 0;
-		
-		for(int i = 1; i <= 10; i++)
-		{
-			if(hsManager.GetHitCount(i) > 0 || hsManager.GetMissCount(i) > 0)
-			{
-				hits = hsManager.GetHitCount(i);;
-				misses = hsManager.GetMissCount(i);;
-				total = hits+misses;
-
-				SpawnNodes(i, ((hits/total)*5));
-			}
-			else
-			{
-				SpawnNodes(i, 5f);
-			}
-		}
-		
-		StoreNodes();
-		DrawLines();
-	}*/
 
 	public void DoHitMissScreen()
 	{
@@ -185,19 +134,6 @@ public class EndGameLines : MonoBehaviour {
 			else
 				NodeArray[i].GetComponent<nodeBehaviour>().DrawLine(NodeArray[i+1].transform.position);
 		}
-
-		
-//		lineRenderer.SetVertexCount(Nodes.Length+1);
-//
-//		for (int i = 0; i < Nodes.Length; i++) {
-//			Vector3 pos = new Vector3(Nodes[i].transform.position.x, Nodes[i].transform.position.y, 1);
-//			lineRenderer.SetPosition(i, pos);
-//		}
-//
-//		Vector3 endPos = new Vector3(Nodes[0].transform.position.x, Nodes[0].transform.position.y, 1);
-//		lineRenderer.SetPosition(10, endPos);
-//
-//		DeleteOldNodes();
 	}
 
 	private void DeleteOldNodes()
