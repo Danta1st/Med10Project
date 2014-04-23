@@ -108,7 +108,14 @@ public class HighscoreManager : MonoBehaviour {
 		
 		for(int i = 1; i <= angleCount; i++)
 		{
-			reactionMeans.Add(GetReactionMean(i));
+			if(GetReactionMean(i) != null)
+			{
+				reactionMeans.Add(GetReactionMean(i));
+			}
+			else
+			{
+				reactionMeans.Add(0);
+			}
 		}
 		
 		return reactionMeans;
@@ -247,9 +254,11 @@ public class HighscoreManager : MonoBehaviour {
 		{
 			//Add amountOfLists to Reaction Time Lists, hitDistances, & missDistances
 			List<float> sublist = new List<float>();
+			List<float> sublist2 = new List<float>();
+			List<float> sublist3 = new List<float>();
 			rtList.Add(sublist);
-			hitDistances.Add(sublist);
-			missDistances.Add(sublist);
+			hitDistances.Add(sublist2);
+			missDistances.Add(sublist3);
 			//Add amountOfLists entries to hits
 			angleHits.Add(0);
 			//Add amountOfLists entries to misses
