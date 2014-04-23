@@ -16,6 +16,7 @@ public class ObjectHandler : MonoBehaviour
 	private SoundManager soundManager;
 	private HighscoreManager highScoreManager;
 	private GameStateManager gameManager;
+	private GameTimerManager timeManager;
 	private WriteToTXT txtWriter;
 
 	//Object Information - Passed from spawner
@@ -45,8 +46,8 @@ public class ObjectHandler : MonoBehaviour
 	private bool playModeActive = true;
 	private bool isPunching = true;
 
-	private enum ObjectTypes {SingleTarget, SequentialTarget, MultiTarget, SequentialTarget2, MultiTarget2, MultiTarget3};
-	private enum HitType {Calibration, Hit, LateHit, Miss};
+	[HideInInspector] public enum ObjectTypes {SingleTarget, SequentialTarget, MultiTarget, SequentialTarget2, MultiTarget2, MultiTarget3};
+	[HideInInspector] public enum HitType {Calibration, Hit, LateHit, Expired};
 	#endregion
 	
 	void Awake()
@@ -69,6 +70,8 @@ public class ObjectHandler : MonoBehaviour
 			Debug.LogError("No HighscoreManager was found in the scene.");
 
 		gameManager = GameObject.Find("GameStateManager").GetComponent<GameStateManager>();
+
+		timeManager = GameObject.Find("GameTimerManager").GetComponent<GameTimerManager>();
 
 		txtWriter = GameObject.Find("WriteToTXT").GetComponent<WriteToTXT>();
 		if(txtWriter == null)
@@ -284,7 +287,7 @@ public class ObjectHandler : MonoBehaviour
 		else
 			gameManager.ChangeCenterState(GameStateManager.State.awaitCenterClick);
 
-		txtWriter.LogData(objectType.ToString(), 0, angle, distance, transform.position, new Vector2(0,0), HitType.Miss.ToString(), objectID, angleID);
+		txtWriter.LogData(objectType.ToString(), 0, angle, distance, transform.position, new Vector2(0,0), HitType.Expired.ToString(), objectID, angleID);
 		sManager.ReportMiss(angleID, distance);
 		FadeOut(fadeOutTime);
 	}

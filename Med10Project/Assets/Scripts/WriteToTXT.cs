@@ -58,7 +58,7 @@ public class WriteToTXT : MonoBehaviour {
 
 //		using (StreamWriter writer = File.AppendText(directorypath + filename))
 //		{
-//			writer.WriteLine("userID;sessionID;targetID;stage;hitTime;reactionTime;angleID;angle;distance;targetPositionX;targetPositionY;touchPositionX;touchPositionY;hitType");
+		//			writer.WriteLine("userID;sessionID;targetID;stage;stageID;hitTime;reactionTime;angleID;angle;distance;targetPositionX;targetPositionY;touchPositionX;touchPositionY;hitType;hitTypeID");
 //		}
 	}
 
@@ -102,8 +102,52 @@ public class WriteToTXT : MonoBehaviour {
 		touchpositionX = _touchposition.x.ToString("#.0");
 		touchpositionY = _touchposition.y.ToString("#.0");
 
-		currentStringToWrite = ""+userID+";"+sessionID+";"+targetID+";"+stage+";"+time+";"+reactiontime+";"+angleID+";"+angle+";"+distance+";"+targetpositionX+";"+targetpositionY+";"+touchpositionX+";"+touchpositionY+";"+hitType;
+		currentStringToWrite = ""+userID+";"+sessionID+";"+targetID+";"+stage+";"+GetStageID(stage)+";"+time+";"+reactiontime+";"+angleID+";"+angle+";"+distance+";"+targetpositionX+";"+targetpositionY+";"+touchpositionX+";"+touchpositionY+";"+hitType+";"+GetHitTypeID(hitType);
 		WriteTXT();
+	}
+
+	private int GetStageID(string stage)
+	{
+		switch(stage)
+		{
+		case "SingleTarget":
+			return 0;
+		case "SequentialTarget":
+			return 1;
+		case "SequentialTarget2":
+			return 2;
+		case "MultiTarget":
+			return 3;
+		case "MultiTarget2":
+			return 4;
+		case "MultiTarget3":
+			return 5;
+		case "P2_Right":
+			return 6;
+		case "P2_Left":
+			return 7;
+		case "P2_Both":
+			return 8;
+		default:
+			return -1;
+		}
+	}
+
+	private int GetHitTypeID(string hitType)
+	{
+		switch(hitType)
+		{
+		case "Calibration":
+			return 0;
+		case "Hit":
+			return 1;
+		case "LateHit":
+			return 2;
+		case "Expired":
+			return 3;
+		default:
+			return -1;
+		}
 	}
 
 	private void WriteTXT()
