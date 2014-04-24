@@ -26,10 +26,6 @@ public class EndGameLines : MonoBehaviour {
 	private float timeBetweenSpawns = 0;
 	[SerializeField] private float timeToSpawnAll = 0.5f;
 
-	[SerializeField] private GameObject SpawnNode;
-	[SerializeField] private GameObject SpawnHit;
-	[SerializeField] private GameObject SpawnMiss;
-
 	// Use this for initialization
 	void Start () {
 		Grid = GameObject.Find("Grid");
