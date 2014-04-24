@@ -23,6 +23,14 @@ public class EndGameLines : MonoBehaviour {
 
 	private List<float> reactionMeans = new List<float>();
 
+	private float timeBetweenSpawns = 0;
+	[SerializeField] private float timeToSpawnAll = 0.5f;
+
+	[SerializeField] private GameObject SpawnNode;
+	[SerializeField] private GameObject SpawnHit;
+	[SerializeField] private GameObject SpawnMiss;
+
+	// Use this for initialization
 	void Start () {
 		Grid = GameObject.Find("Grid");
 		GridWithLabels = GameObject.Find("GridWithLabels");
@@ -105,6 +113,9 @@ public class EndGameLines : MonoBehaviour {
 			SpawnAngleLabels();
 
 		
+		timeBetweenSpawns = timeToSpawnAll/(hsManager.GetHitCount() + hsManager.GetMissCount());
+		Debug.Log(timeBetweenSpawns);
+		
 		for(int i = 1; i <= 10; i++)
 		{
 			List<float> angleHits = hsManager.GetHitDistances(i);
@@ -112,7 +123,7 @@ public class EndGameLines : MonoBehaviour {
 			{
 				SpawnNode(i, (hit/spManager.GetAbsMaxDist(i))*5, spawnObjects.SpawnHit);
 			}
-
+			
 			List<float> angleMisses = hsManager.GetMissDistances(i);
 			foreach (float miss in angleMisses)
 			{
@@ -125,6 +136,9 @@ public class EndGameLines : MonoBehaviour {
 
 	public void DoReactionScreen()
 	{
+		//StopCoroutine("DelayedScatterSpawning");
+		StopAllCoroutines();
+		StoreScatters();
 		DeleteOldNodes();
 		DeleteOldScatters();
 		
