@@ -4,7 +4,7 @@ using System.Collections;
 public class GUIManager: MonoBehaviour {
 	
 	#region Editor Publics
-	[SerializeField] private string[] Users = {"User 1", "User 2", "User 3", "User 4"};
+	[SerializeField] private string[] Users = {"User 1", "User 2", "User 3", "User 4", "User 5", "User 6", "User 7", "User 8", "User 9", "User 10"};
 	[SerializeField] private float curtainSpeed = 1.0f;
 	[SerializeField] private iTween.EaseType curtainEasetype = iTween.EaseType.easeOutCirc;
 	[SerializeField] private GUIStyle guiLook;
@@ -24,6 +24,7 @@ public class GUIManager: MonoBehaviour {
 	private Rect windowRect;
 	private Rect endWindowRect;
 	private Rect countdownRect;
+	private Rect userSelectRect;
 
 	//Conditioning
 	private GUIBools guiBools = new GUIBools();
@@ -44,6 +45,8 @@ public class GUIManager: MonoBehaviour {
 
 	private bool gameOver = false;
 	private bool showingReactionTimes = false;
+
+	private int selectionGrid = 0;
 	#endregion
 
 	void Start()
@@ -57,6 +60,10 @@ public class GUIManager: MonoBehaviour {
 		highscoreRect.center = new Vector2(GetCenterWidth(), 20);
 		windowRect = new Rect(0,0, Screen.width * windowMetrics.x, Screen.height * windowMetrics.y);
 		windowRect.center = new Vector2(GetCenterWidth(), getCenterHeight());
+
+		userSelectRect = new Rect(0,0, Screen.width * windowMetrics.x, Screen.height * (Users.Length*0.095f));
+		userSelectRect.center = new Vector2(GetCenterWidth(), getCenterHeight());
+
 		endWindowRect = new Rect(0,0, Screen.width * 0.52f, Screen.height * 0.88f);
 		endWindowRect.center = new Vector2(GetCenterWidth(), getCenterHeight());
 		countdownRect = new Rect(0,0,150,150);
@@ -75,7 +82,7 @@ public class GUIManager: MonoBehaviour {
 	{
 		if(guiBools.displayUserSelection == true)
 		{
-			windowRect = GUILayout.Window(0, windowRect, DoUserSelectionWindow, "", guiStyles.WindowFrameStyle);
+			userSelectRect = GUILayout.Window(0, userSelectRect, DoUserSelectionWindow, "", guiStyles.WindowFrameStyle);
 		}
 
 		if(guiBools.displayStageSelection == true)
@@ -113,22 +120,61 @@ public class GUIManager: MonoBehaviour {
 	#region GUI Windows
 	private void DoUserSelectionWindow(int windowID)
 	{
-		for(int i = 0; i < Users.Length; i++)
-		{
-			GUILayout.Space(5);
-
-			if(PlaceButton(Users[i], 0.1f, 0.1f))
-			{
-				guiBools.displayUserSelection = false;
-				guiBools.displayPlayPrompt = true;
-				//guiBools.displayStageSelection = true;
-				currentUser = Users[i];
-				CurrentUserID = i;
-			}
-		}
-		
-		GUILayout.Space(10);
 		GUILayout.FlexibleSpace();
+		
+		GUILayout.BeginHorizontal();
+		GUILayout.FlexibleSpace();
+		GUILayout.Label("Select Your Username", guiStyles.WindowLabelStyle);
+		GUILayout.FlexibleSpace();
+		GUILayout.EndHorizontal();
+		
+		GUILayout.FlexibleSpace();
+
+		int counter = 0;
+		int amountOfUsers = Users.Length;
+		int coloumns = 2;
+
+		int rows = Users.Length/2;
+
+		if(Users.Length % 2 == 0)
+		{
+		}
+		else{
+			rows++;
+		}
+
+		for(int i = 0; i < rows; i++)
+		{
+			GUILayout.BeginHorizontal();
+			for(int j = 0; j < coloumns; j++)
+			{
+				if(PlaceButton(Users[counter], 0.1f, 0.1f))
+				{
+					guiBools.displayUserSelection = false;
+					guiBools.displayPlayPrompt = true;
+					//guiBools.displayStageSelection = true;
+					currentUser = Users[counter];
+					CurrentUserID = counter;
+				}
+
+				counter++;
+
+				if(counter == Users.Length)
+				{
+					break;
+				}
+
+
+				if(j == 0)
+				{
+					GUILayout.Space(5);
+				}
+			}
+			GUILayout.EndHorizontal();
+			GUILayout.Space(5);
+		}
+
+		//selectionGrid = GUILayout.SelectionGrid(selectionGrid, Users, 2, guiStyles.WindowStyle);
 
 		if(PlaceButton("Exit Game"))
 		{
@@ -210,7 +256,7 @@ public class GUIManager: MonoBehaviour {
 			Application.Quit();
 		}*/
 
-		GUILayout.Space(10);
+		GUILayout.Space(5);
 
 		if(PlaceButton("Back To Menu"))
 		{
@@ -242,7 +288,7 @@ public class GUIManager: MonoBehaviour {
 			StartCoroutine(StartCountDown());
 		}
 
-		GUILayout.Space(10);
+		GUILayout.Space(5);
 
 		if(PlaceButton("Cancel"))
 		{
@@ -275,7 +321,7 @@ public class GUIManager: MonoBehaviour {
 			}
 		}
 
-		GUILayout.Space(10);
+		GUILayout.Space(5);
 
 		if(!showingReactionTimes)
 		{
@@ -339,7 +385,7 @@ public class GUIManager: MonoBehaviour {
 			EnableHighscore(false);
 			NotificationCenter.DefaultCenter().PostNotification(this, "NC_Restart");
 		}
-		GUILayout.Space(10);
+		GUILayout.Space(5);
 		if(PlaceButton("Exit Game"))
 		{
 			Application.Quit();
