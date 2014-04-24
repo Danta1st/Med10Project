@@ -57,7 +57,7 @@ public class GUIManager: MonoBehaviour {
 		highscoreRect.center = new Vector2(GetCenterWidth(), 20);
 		windowRect = new Rect(0,0, Screen.width * windowMetrics.x, Screen.height * windowMetrics.y);
 		windowRect.center = new Vector2(GetCenterWidth(), getCenterHeight());
-		endWindowRect = new Rect(0,0, Screen.width * 0.52f, Screen.height * 0.82f);
+		endWindowRect = new Rect(0,0, Screen.width * 0.52f, Screen.height * 0.88f);
 		endWindowRect.center = new Vector2(GetCenterWidth(), getCenterHeight());
 		countdownRect = new Rect(0,0,150,150);
 		countdownRect.center = new Vector2(GetCenterWidth(), getCenterHeight());
@@ -254,11 +254,54 @@ public class GUIManager: MonoBehaviour {
 
 	private void DoEndScreenWindow(int windowID)
 	{
+		GUILayout.BeginHorizontal();
+
+		if(!showingReactionTimes)
+		{
+			if(PlaceSmallToggleButton("See Hits And Misses", guiStyles.SmallButtonOn))
+			{
+				endGameLines.DisableEndScreen();
+				endGameLines.DoHitMissScreen();
+				showingReactionTimes = false;
+			}
+		}
+		else if(showingReactionTimes)
+		{
+			if(PlaceSmallToggleButton("See Hits And Misses", guiStyles.SmallButton))
+			{
+				endGameLines.DisableEndScreen();
+				endGameLines.DoHitMissScreen();
+				showingReactionTimes = false;
+			}
+		}
+
+		GUILayout.Space(10);
+
+		if(!showingReactionTimes)
+		{
+			if(PlaceSmallToggleButton("See Reaction Times", guiStyles.SmallButton))
+			{
+				endGameLines.DisableEndScreen();
+				endGameLines.DoReactionScreen();
+				showingReactionTimes = true;
+			}
+		}
+		else if(showingReactionTimes)
+		{
+			if(PlaceSmallToggleButton("See Reaction Times", guiStyles.SmallButtonOn))
+			{
+				endGameLines.DisableEndScreen();
+				endGameLines.DoReactionScreen();
+				showingReactionTimes = true;
+			}
+		}
+		GUILayout.EndHorizontal();
+
 		GUILayout.Space(15);
 
 		GUILayout.BeginHorizontal();
 		GUILayout.FlexibleSpace();
-
+		
 		if(!showingReactionTimes)
 		{
 			GUILayout.Label("Hits And Misses per Angle", guiStyles.WindowLabelStyle);
@@ -269,47 +312,23 @@ public class GUIManager: MonoBehaviour {
 		}
 		GUILayout.FlexibleSpace();
 		GUILayout.EndHorizontal();
-	
-		GUILayout.Space(10);
+
+		GUILayout.Space(15);
 
 		if(!showingReactionTimes)
 		{
-			GUILayout.Label("Hits: "+hits, guiStyles.WindowScoreLabelStyle);
+			GUILayout.Label("   Hits: "+hits, guiStyles.WindowScoreLabelStyle);
 			
 			GUILayout.Space(5);
 			
-			GUILayout.Label("Misses: "+ misses, guiStyles.WindowScoreLabelStyle);
+			GUILayout.Label("   Misses: "+ misses, guiStyles.WindowScoreLabelStyle);
 		}
 		else if(showingReactionTimes)
 		{
-			GUILayout.Label("Average: "+ avgReactionTime, guiStyles.WindowScoreLabelStyle);
+			GUILayout.Label("   Average: "+ avgReactionTime, guiStyles.WindowScoreLabelStyle);
 		}
 
 		GUILayout.FlexibleSpace();
-
-		GUILayout.BeginHorizontal();
-		if(PlaceSmallButton("See Reaction Times"))
-		{
-			endGameLines.DisableEndScreen();
-			endGameLines.DoReactionScreen();
-			showingReactionTimes = true;
-		}
-		GUILayout.FlexibleSpace();
-		GUILayout.EndHorizontal();
-
-		GUILayout.Space(5);
-
-		GUILayout.BeginHorizontal();
-		if(PlaceSmallButton("See Hits And Misses"))
-		{
-			endGameLines.DisableEndScreen();
-			endGameLines.DoHitMissScreen();
-			showingReactionTimes = false;
-		}
-
-		GUILayout.FlexibleSpace();
-		GUILayout.EndHorizontal();
-		GUILayout.Space(5);
 
 		GUILayout.BeginHorizontal();
 		if(PlaceButton("Back To Menu"))
@@ -512,9 +531,9 @@ public class GUIManager: MonoBehaviour {
 			return (false);
 	}
 
-	private bool PlaceSmallButton(string text)
+	private bool PlaceSmallToggleButton(string text, GUIStyle CurrentStyle)
 	{
-		if(GUILayout.Button(text, guiStyles.SmallButton, GUILayout.MinHeight(Screen.height*0.06f), GUILayout.MinWidth(Screen.width*0.15f)))
+		if(GUILayout.Button(text, CurrentStyle, GUILayout.MinHeight(Screen.height*0.08f), GUILayout.MinWidth(Screen.width*0.15f)))
 			return (true);
 		else
 			return (false);
@@ -587,6 +606,7 @@ public class GUIManager: MonoBehaviour {
 		public GUIStyle HighscoreStyle;
 		public GUIStyle CountdownStyle;
 		public GUIStyle SmallButton;
+		public GUIStyle SmallButtonOn;
 	}
 	#endregion
 }
