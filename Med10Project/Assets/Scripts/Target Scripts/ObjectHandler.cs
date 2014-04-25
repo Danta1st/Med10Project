@@ -88,7 +88,8 @@ public class ObjectHandler : MonoBehaviour
 		if(objectType == ObjectTypes.SingleTarget)
 			renderer.material.color = FullGreenColor;
 		else if(objectType == ObjectTypes.SequentialTarget)
-			renderer.material.color = FullBlueColor;
+			renderer.material.color = FullGreenColor;
+			//renderer.material.color = FullBlueColor;
 
 		//Subscribe to gestureManager
 		gManager.OnTapBegan += Hit;
