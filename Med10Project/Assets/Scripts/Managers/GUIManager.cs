@@ -124,7 +124,7 @@ public class GUIManager: MonoBehaviour {
 		
 		GUILayout.BeginHorizontal();
 		GUILayout.FlexibleSpace();
-		GUILayout.Label("Select Your Username", guiStyles.WindowLabelStyle);
+		GUILayout.Label("V\u00E6lg Bruger", guiStyles.WindowLabelStyle);
 		GUILayout.FlexibleSpace();
 		GUILayout.EndHorizontal();
 		
@@ -176,7 +176,7 @@ public class GUIManager: MonoBehaviour {
 
 		//selectionGrid = GUILayout.SelectionGrid(selectionGrid, Users, 2, guiStyles.WindowStyle);
 
-		if(PlaceButton("Exit Game"))
+		if(PlaceButton("Afslut spillet"))
 		{
 			Application.Quit();
 		}
@@ -234,7 +234,7 @@ public class GUIManager: MonoBehaviour {
 
 		GUILayout.BeginHorizontal();
 		GUILayout.FlexibleSpace();
-		GUILayout.Label("Continue or Exit?", guiStyles.WindowLabelStyle);
+		GUILayout.Label("Forts\u00E6t eller afslut?", guiStyles.WindowLabelStyle);
 		GUILayout.FlexibleSpace();
 		GUILayout.EndHorizontal();
 		
@@ -242,7 +242,7 @@ public class GUIManager: MonoBehaviour {
 
 		if(!gameOver)
 		{
-			if(PlaceButton("Continue"))
+			if(PlaceButton("Forts\u00E6t"))
 			{
 				guiBools.displayExitConfirmation = false;
 				NotificationCenter.DefaultCenter().PostNotification(this, "NC_Unpause");
@@ -258,7 +258,7 @@ public class GUIManager: MonoBehaviour {
 
 		GUILayout.Space(5);
 
-		if(PlaceButton("Back To Menu"))
+		if(PlaceButton("Tilbage Til Menuen"))
 		{
 			guiBools.displayExitConfirmation = false;
 			guiBools.displayUserSelection = true;
@@ -274,13 +274,13 @@ public class GUIManager: MonoBehaviour {
 
 		GUILayout.BeginHorizontal();
 		GUILayout.FlexibleSpace();
-		GUILayout.Label(currentUser + " selected.", guiStyles.WindowLabelStyle);
+		GUILayout.Label("Brugeren "+currentUser + " er valgt.", guiStyles.WindowLabelStyle);
 		GUILayout.FlexibleSpace();
 		GUILayout.EndHorizontal();
 
 		GUILayout.FlexibleSpace();
 
-		if(PlaceButton("Play"))
+		if(PlaceButton("Spil"))
 		{
 			guiBools.displayPlayPrompt = false;
 			txtLogger.UpdateSessionID(CurrentUserID);
@@ -290,7 +290,7 @@ public class GUIManager: MonoBehaviour {
 
 		GUILayout.Space(5);
 
-		if(PlaceButton("Cancel"))
+		if(PlaceButton("Fortryd"))
 		{
 			guiBools.displayPlayPrompt = false;
 			guiBools.displayUserSelection = true;
@@ -304,7 +304,7 @@ public class GUIManager: MonoBehaviour {
 
 		if(!showingReactionTimes)
 		{
-			if(PlaceSmallToggleButton("See Hits And Misses", guiStyles.SmallButtonOn))
+			if(PlaceSmallToggleButton("Se Tr\u00E6ffere og Missere", guiStyles.SmallButtonOn))
 			{
 				endGameLines.DisableEndScreen();
 				endGameLines.DoHitMissScreen();
@@ -313,7 +313,7 @@ public class GUIManager: MonoBehaviour {
 		}
 		else if(showingReactionTimes)
 		{
-			if(PlaceSmallToggleButton("See Hits And Misses", guiStyles.SmallButton))
+			if(PlaceSmallToggleButton("Se Tr\u00E6ffere og Missere", guiStyles.SmallButton))
 			{
 				endGameLines.DisableEndScreen();
 				endGameLines.DoHitMissScreen();
@@ -325,7 +325,7 @@ public class GUIManager: MonoBehaviour {
 
 		if(!showingReactionTimes)
 		{
-			if(PlaceSmallToggleButton("See Reaction Times", guiStyles.SmallButton))
+			if(PlaceSmallToggleButton("Se Reaktionstid", guiStyles.SmallButton))
 			{
 				endGameLines.DisableEndScreen();
 				endGameLines.DoReactionScreen();
@@ -334,7 +334,7 @@ public class GUIManager: MonoBehaviour {
 		}
 		else if(showingReactionTimes)
 		{
-			if(PlaceSmallToggleButton("See Reaction Times", guiStyles.SmallButtonOn))
+			if(PlaceSmallToggleButton("Se Reaktionstid", guiStyles.SmallButtonOn))
 			{
 				endGameLines.DisableEndScreen();
 				endGameLines.DoReactionScreen();
@@ -350,11 +350,11 @@ public class GUIManager: MonoBehaviour {
 		
 		if(!showingReactionTimes)
 		{
-			GUILayout.Label("Hits And Misses per Angle", guiStyles.WindowLabelStyle);
+			GUILayout.Label("Tr\u00E6ffere og Missere per Vinkel", guiStyles.WindowLabelStyle);
 		}
 		else if(showingReactionTimes)
 		{
-			GUILayout.Label("Reaction Times per Angle", guiStyles.WindowLabelStyle);
+			GUILayout.Label("Reaktionstid per Vinkel", guiStyles.WindowLabelStyle);
 		}
 		GUILayout.FlexibleSpace();
 		GUILayout.EndHorizontal();
@@ -363,21 +363,21 @@ public class GUIManager: MonoBehaviour {
 
 		if(!showingReactionTimes)
 		{
-			GUILayout.Label("   Hits: "+hits, guiStyles.WindowScoreLabelStyle);
+			GUILayout.Label("   Tr\u00E6ffere: "+hits, guiStyles.WindowScoreLabelStyle);
 			
 			GUILayout.Space(5);
 			
-			GUILayout.Label("   Misses: "+ misses, guiStyles.WindowScoreLabelStyle);
+			GUILayout.Label("   Missere: "+ misses, guiStyles.WindowScoreLabelStyle);
 		}
 		else if(showingReactionTimes)
 		{
-			GUILayout.Label("   Average: "+ avgReactionTime, guiStyles.WindowScoreLabelStyle);
+			GUILayout.Label("   Gennemsnit: "+ avgReactionTime, guiStyles.WindowScoreLabelStyle);
 		}
 
 		GUILayout.FlexibleSpace();
 
 		GUILayout.BeginHorizontal();
-		if(PlaceButton("Back To Menu"))
+		if(PlaceButton("Tilbage Til Menuen"))
 		{
 			EnableEndScreen(false);
 			guiBools.displayUserSelection = true;
@@ -386,7 +386,7 @@ public class GUIManager: MonoBehaviour {
 			NotificationCenter.DefaultCenter().PostNotification(this, "NC_Restart");
 		}
 		GUILayout.Space(5);
-		if(PlaceButton("Exit Game"))
+		if(PlaceButton("Afslut Spillet"))
 		{
 			Application.Quit();
 		}
@@ -448,7 +448,7 @@ public class GUIManager: MonoBehaviour {
 		{
 			hits = scoreManager.GetHitCount();
 			misses = scoreManager.GetMissCount();
-			avgReactionTime = scoreManager.GetReactionMeanFloat()+" seconds";
+			avgReactionTime = scoreManager.GetReactionMeanFloat()+" sekunder";
 			BlockAll(true);
 			StartCoroutine(EndGameDelayedScreen(true));		
 		}
