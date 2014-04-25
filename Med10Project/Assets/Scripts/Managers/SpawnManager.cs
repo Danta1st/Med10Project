@@ -264,7 +264,6 @@ public class SpawnManager : MonoBehaviour
 	{
 		if(GameObject.Find("Phase2Center(Clone)") == null)
 		{
-			Debug.Log("spawning phase2Center");
 			GameObject go = (GameObject) Instantiate(spawnObjects.Phase2Targets, Vector3.zero, Quaternion.identity);
 			go.GetComponent<Phase2Behavior>().SetMeanReactionTime(AverageRT);
 			go.GetComponent<Phase2Behavior>().SetObjectCounter(objectCounter);
