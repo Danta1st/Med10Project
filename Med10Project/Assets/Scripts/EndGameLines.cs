@@ -92,6 +92,8 @@ public class EndGameLines : MonoBehaviour {
 		Grid.SetActive(false);
 		GridWithLabels.SetActive(false);
 		GridBG.SetActive(false);
+		ClearLabelList(LabelListGrid);
+		ClearLabelList(LabelListAngles);
 		DeleteOldNodes();
 		DeleteOldScatters();
 	}
