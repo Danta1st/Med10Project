@@ -77,7 +77,8 @@ public class Phase2Behavior : MonoBehaviour {
 	{
 		yield return new WaitForSeconds(1.0f);
 		ChangeDistance(0);
-		ResetActiveTargets();
+		gameManager.ChangeCenterState(GameStateManager.State.awaitCenterClick);
+//		ResetActiveTargets();
 	}
 
 	public void ResetActiveTargets()
@@ -153,7 +154,9 @@ public class Phase2Behavior : MonoBehaviour {
 		currentAmountOfHits++;
 		if(currentAmountOfActiveTargets == currentAmountOfHits)
 		{
-			gameManager.ChangeCenterState(GameStateManager.State.awaitCenterClick);
+			if(currentDistance + 10.0 <= 100.0f)
+				gameManager.ChangeCenterState(GameStateManager.State.awaitCenterClick);
+
 			ChangeDistance(10);
 		}
 	}
@@ -214,12 +217,14 @@ public class Phase2Behavior : MonoBehaviour {
 			guiManager.BlockRightHalf(true);
 			yield return new WaitForSeconds(1.0f);
 			guiManager.BlockLeftHalf(false);
+			gameManager.ChangeCenterState(GameStateManager.State.awaitCenterClick);
 		}
 		else if(stage == Stage.Left){
 			stage = Stage.Both;
 			ChangeTargetType(Phase2Object.ObjectTypes.P2_Both);
 			yield return new WaitForSeconds(1.0f);
 			guiManager.BlockAll(false);
+			gameManager.ChangeCenterState(GameStateManager.State.awaitCenterClick);
 		}
 		else if(stage == Stage.Both){
 			NotificationCenter.DefaultCenter().PostNotification(this, "NC_GameOver");

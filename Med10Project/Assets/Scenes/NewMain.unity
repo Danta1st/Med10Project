@@ -3044,7 +3044,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EnableTimer: 1
-  maxTimeInMinutes: .400000006
+  maxTimeInMinutes: 10
 --- !u!4 &1286373020
 Transform:
   m_ObjectHideFlags: 0
@@ -3574,9 +3574,9 @@ MonoBehaviour:
     MultiTarget: {fileID: 100000, guid: 80686954ba1339441a207fb06208110a, type: 2}
     Phase2Targets: {fileID: 100000, guid: 64e4f0e03f7cff148a8b837edf21534f, type: 2}
   spawnThresholds:
-    MinMax_1_5_6_10: {x: 2, y: 10}
-    MinMax_2_4_7_9: {x: 2, y: 16}
-    MinMax_3_8: {x: 2, y: 15}
+    MinMax_1_5_6_10: {x: 3, y: 10}
+    MinMax_2_4_7_9: {x: 3, y: 16}
+    MinMax_3_8: {x: 3, y: 15}
   incrementThreshold: 1
   incrementValue: 1
 --- !u!4 &1900231130
