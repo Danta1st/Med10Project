@@ -25,6 +25,7 @@ public class SpawnManager : MonoBehaviour
 	//Distance handling for Phase1State1
 	private List<float> LongestHits = new List<float>();
 	private List<float> ShortestFails = new List<float>();	
+	private List<int> calibrationList = new List<int>();
 	#endregion
 	
 	void Awake()
@@ -142,7 +143,6 @@ public class SpawnManager : MonoBehaviour
 		SpawnSpecific(spawnObject, multiplier, distance);
 	}
 
-	private List<int> calibrationList = new List<int>();
 	public void SpawnCalibration()
 	{
 		if(calibrationList.Count <= 0)
@@ -299,6 +299,7 @@ public class SpawnManager : MonoBehaviour
 			ShortestFails.Add(GetAbsMaxDist(i));
 		}
 
+		calibrationList.Clear();
 	}
 
 	//Method for checking if we are above maximum
@@ -440,6 +441,7 @@ public class SpawnManager : MonoBehaviour
 	private void NC_Restart()
 	{
 		ResetLists();
+		AverageRT = 100.0f;
 	}
 	#endregion
 

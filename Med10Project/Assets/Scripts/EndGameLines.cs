@@ -172,8 +172,12 @@ public class EndGameLines : MonoBehaviour {
 		{
 			incrementValue = 1.0f;
 		}
-		else
+		else if(incrementValue > 1.25)
+		{
 			incrementValue = 0.5f;
+		}
+		else
+			incrementValue = 0.25f;
 
 		//Spawn grid labels
 		SpawnGridLabels(incrementValue);
