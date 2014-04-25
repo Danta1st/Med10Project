@@ -274,10 +274,17 @@ public class GUIManager: MonoBehaviour {
 
 		GUILayout.BeginHorizontal();
 		GUILayout.FlexibleSpace();
-		GUILayout.Label("Brugeren "+currentUser + " er valgt.", guiStyles.WindowLabelStyle);
+		GUILayout.Label("Hej "+currentUser, guiStyles.WindowLabelStyle);
 		GUILayout.FlexibleSpace();
 		GUILayout.EndHorizontal();
 
+		GUILayout.Space(10);
+
+		GUILayout.BeginHorizontal();
+		GUILayout.FlexibleSpace();
+		GUILayout.Label("Er du klar?", guiStyles.WindowLabelStyle);
+		GUILayout.FlexibleSpace();
+		GUILayout.EndHorizontal();
 		GUILayout.FlexibleSpace();
 
 		if(PlaceButton("Spil"))
@@ -363,15 +370,16 @@ public class GUIManager: MonoBehaviour {
 
 		if(!showingReactionTimes)
 		{
-			GUILayout.Label("   Tr\u00E6ffere: "+hits, guiStyles.WindowScoreLabelStyle);
+			GUILayout.Label("      Tr\u00E6ffere: "+hits, guiStyles.WindowScoreLabelStyle);
 			
 			GUILayout.Space(5);
 			
-			GUILayout.Label("   Missere: "+ misses, guiStyles.WindowScoreLabelStyle);
+			GUILayout.Label("      Missere: "+ misses, guiStyles.WindowScoreLabelStyle);
 		}
 		else if(showingReactionTimes)
 		{
-			GUILayout.Label("   Gennemsnit: "+ avgReactionTime, guiStyles.WindowScoreLabelStyle);
+			GUILayout.Label("   Gennemsnit:", guiStyles.WindowScoreLabelStyle);
+			GUILayout.Label("   "+ avgReactionTime, guiStyles.WindowScoreLabelStyle);
 		}
 
 		GUILayout.FlexibleSpace();
@@ -448,7 +456,7 @@ public class GUIManager: MonoBehaviour {
 		{
 			hits = scoreManager.GetHitCount();
 			misses = scoreManager.GetMissCount();
-			avgReactionTime = scoreManager.GetReactionMeanFloat()+" sekunder";
+			avgReactionTime = scoreManager.GetReactionMeanFloat()+"s";
 			BlockAll(true);
 			StartCoroutine(EndGameDelayedScreen(true));		
 		}

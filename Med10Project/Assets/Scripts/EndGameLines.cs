@@ -23,6 +23,9 @@ public class EndGameLines : MonoBehaviour {
 
 	private List<float> reactionMeans = new List<float>();
 
+	private Vector3 hitIconPos = new Vector3(-8f, 55.2f, 1.4f);
+	private Vector3 missIconPos = new Vector3(-8f, 54.5f, 1.4f);
+
 	private float timeBetweenSpawns = 0;
 	[SerializeField] private float timeToSpawnAll = 0.5f;
 
@@ -106,6 +109,9 @@ public class EndGameLines : MonoBehaviour {
 		
 		EnableEndBackground();
 		Grid.SetActive(true);
+
+		Instantiate(spawnObjects.SpawnHit, hitIconPos, Quaternion.identity);
+		Instantiate(spawnObjects.SpawnMiss, missIconPos, Quaternion.identity);
 
 		if(LabelListAngles.Count == 0)
 			SpawnAngleLabels();
