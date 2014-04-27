@@ -111,6 +111,10 @@ public class Phase2Object : MonoBehaviour
 	{
 		angle = degrees;
 	}
+	public int GetAngle()
+	{
+		return angle;
+	}
 
 	public void SetID(int ID)
 	{

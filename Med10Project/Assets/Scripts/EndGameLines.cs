@@ -118,7 +118,6 @@ public class EndGameLines : MonoBehaviour {
 
 		
 		timeBetweenSpawns = timeToSpawnAll/(hsManager.GetHitCount() + hsManager.GetMissCount());
-		Debug.Log(timeBetweenSpawns);
 		
 		for(int i = 1; i <= 10; i++)
 		{

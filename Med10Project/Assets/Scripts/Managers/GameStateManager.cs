@@ -189,6 +189,11 @@ public class GameStateManager : MonoBehaviour
 		return multiTargetCounter;
 	}
 
+	public void SetPhase(Phases _phase)
+	{
+		phase = _phase;
+	}
+
 	public void SetAngleState(int int1to10, int state)
 	{
 		if(state == 0 && phase1States.GetAngleState(int1to10) == Phase1States.States.SingleTarget)

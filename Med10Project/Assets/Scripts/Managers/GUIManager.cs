@@ -45,8 +45,6 @@ public class GUIManager: MonoBehaviour {
 
 	private bool gameOver = false;
 	private bool showingReactionTimes = false;
-
-	private int selectionGrid = 0;
 	#endregion
 
 	void Start()
@@ -131,7 +129,6 @@ public class GUIManager: MonoBehaviour {
 		GUILayout.FlexibleSpace();
 
 		int counter = 0;
-		int amountOfUsers = Users.Length;
 		int coloumns = 2;
 
 		int rows = Users.Length/2;

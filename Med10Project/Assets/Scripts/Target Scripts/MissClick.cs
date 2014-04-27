@@ -52,11 +52,13 @@ public class MissClick : MonoBehaviour
 			soundManager.PlayTouchBegan();
 
 			//Could we skip all this stuff? ;D 
-			if(logMissClicks)
+			if(logMissClicks != false)
 			{
 				//Declare variables
-				float dist = 0;
+				float dist = 0.0f;
 				Vector3 pos = Vector3.zero;
+				int angleID = 0;
+				int angle = 0;
 				List<GameObject> targetList = new List<GameObject>();
 
 				//Search for targets and fill list
@@ -76,6 +78,8 @@ public class MissClick : MonoBehaviour
 						{
 							pos = target.transform.position;
 							dist = distance;
+							angleID = target.GetComponent<ObjectHandler>().GetAngleID();
+							angle = target.GetComponent<ObjectHandler>().GetAngle();
 						}
 					}
 				}
@@ -97,6 +101,8 @@ public class MissClick : MonoBehaviour
 							{
 								pos = target.transform.position;
 								dist = distance;
+								angleID = target.GetComponent<Phase2Object>().GetMultiplier();
+								angle = target.GetComponent<Phase2Object>().GetAngle();
 							}
 						}
 					}
@@ -112,7 +118,7 @@ public class MissClick : MonoBehaviour
 				}
 
 				//Add to file
-				txtWriter.LogData(missClick, 0.0f, 0, dist, pos, screenPosition, missClick, 0, 0);
+				txtWriter.LogData(missClick, 0.0f, angle, dist, pos, screenPosition, missClick, 0, angleID);
 			}
 		}
 	}

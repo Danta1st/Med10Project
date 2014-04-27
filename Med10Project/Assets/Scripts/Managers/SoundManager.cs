@@ -13,8 +13,8 @@ public class SoundManager : MonoBehaviour {
 	#endregion
 	
 	private float hitPitch = 1.0f;
-	private float lastHitTime = 0;
-	private float lastMissTime = 0;
+	private float lastHitTime = 0.0f;
+	private float lastMissTime = 0.0f;
 	private int missCounter = 1;
 
 	#region Public Methods

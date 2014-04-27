@@ -3,15 +3,17 @@ using System.Collections;
 
 public class GameTimerManager : MonoBehaviour {
 
-	private GUIManager guiManager;
-
 	#region Editor Publics
 	[SerializeField] private bool EnableTimer = false;
+	[SerializeField] private bool ForcePhase2 = true;
 	[SerializeField] private float maxTimeInMinutes = 0.15f;
 	#endregion
 
 	#region Privates
+	private GameStateManager gameManager;
+
 	private float maxTime = 0;
+	private float twoThirdsTime = 0;
 	private float StartTime = 0;
 	private float currentTimePlayed = 0;
 
@@ -21,16 +23,20 @@ public class GameTimerManager : MonoBehaviour {
 
 	private bool gameOver = false;
 	private bool gameRunning = false;
+	private bool phaseChanged = false;
 	#endregion
 
 	// Use this for initialization
 	void Start () {
+		gameManager = GameObject.Find("GameStateManager").GetComponent<GameStateManager>();
+
 		NotificationCenter.DefaultCenter().AddObserver(this, "NC_Play");
 		NotificationCenter.DefaultCenter().AddObserver(this, "NC_Pause");
 		NotificationCenter.DefaultCenter().AddObserver(this, "NC_Unpause");
 		NotificationCenter.DefaultCenter().AddObserver(this, "NC_Restart");
+
 		maxTime = 60*maxTimeInMinutes;
-		guiManager = GameObject.Find("3DGUICamera").GetComponent<GUIManager>();
+		twoThirdsTime = (maxTime / 3.0f) * 2.0f;
 	}
 	
 	// Update is called once per frame
@@ -45,6 +51,15 @@ public class GameTimerManager : MonoBehaviour {
 		{
 			if(EnableTimer == true)
 				OutOfTime();
+		}
+
+		if(ForcePhase2 == true)
+		{
+			if(phaseChanged == false && currentTimePlayed > twoThirdsTime && !gameOver)
+			{
+				gameManager.SetPhase(GameStateManager.Phases.Phase2);
+				phaseChanged = true;
+			}
 		}
 	}
 

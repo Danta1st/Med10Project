@@ -6,6 +6,7 @@ public class Phase2Behavior : MonoBehaviour {
 
 	private GameStateManager gameManager;
 	private SpawnManager spawnManager;
+	private SoundManager soundManager;
 	private GUIManager guiManager;
 
 	[SerializeField] private GameObject SpawnObject;
@@ -27,6 +28,7 @@ public class Phase2Behavior : MonoBehaviour {
 	{
 		gameManager = GameObject.Find("GameStateManager").GetComponent<GameStateManager>();
 		spawnManager = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();
+		soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
 		guiManager =  GameObject.Find("3DGUICamera").GetComponent<GUIManager>();
 	}
 
@@ -141,6 +143,8 @@ public class Phase2Behavior : MonoBehaviour {
 			targets.Add(leftAngle);
 			LeftSideTargets.Remove(leftAngle);
 		}
+
+		soundManager.PlayNewTargetSpawned();
 
 		for(int i = 0; i < targets.Count; i++)
 		{

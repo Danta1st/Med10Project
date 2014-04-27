@@ -16,7 +16,6 @@ public class ObjectHandler : MonoBehaviour
 	private SoundManager soundManager;
 	private HighscoreManager highScoreManager;
 	private GameStateManager gameManager;
-	private GameTimerManager timeManager;
 	private WriteToTXT txtWriter;
 
 	//Object Information - Passed from spawner
@@ -70,8 +69,6 @@ public class ObjectHandler : MonoBehaviour
 			Debug.LogError("No HighscoreManager was found in the scene.");
 
 		gameManager = GameObject.Find("GameStateManager").GetComponent<GameStateManager>();
-
-		timeManager = GameObject.Find("GameTimerManager").GetComponent<GameTimerManager>();
 
 		txtWriter = GameObject.Find("WriteToTXT").GetComponent<WriteToTXT>();
 		if(txtWriter == null)
@@ -127,6 +124,10 @@ public class ObjectHandler : MonoBehaviour
 	{
 		angle = degrees;
 	}
+	public int GetAngle()
+	{
+		return angle;
+	}
 	
 	public void SetID(int ID)
 	{
@@ -146,6 +147,10 @@ public class ObjectHandler : MonoBehaviour
 	public void SetMultiplier(int multiplier)
 	{
 		angleID = multiplier;
+	}
+	public int GetAngleID()
+	{
+		return angleID;
 	}
 
 	public void SetMeanReactionTime(float reactionTime)
