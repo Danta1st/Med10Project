@@ -49,6 +49,7 @@ public class GUIManager: MonoBehaviour {
 
 	void Start()
 	{
+//		PlayerPrefs.DeleteAll();
 		//Connectivity
 		scoreManager = GameObject.Find("HighscoreManager").GetComponent<HighscoreManager>();
 		endGameLines = GameObject.Find("EndGameLines").GetComponent<EndGameLines>();
@@ -308,7 +309,7 @@ public class GUIManager: MonoBehaviour {
 
 		if(!showingReactionTimes)
 		{
-			if(PlaceSmallToggleButton("Se Tr\u00E6ffere og Missere", guiStyles.SmallButtonOn))
+			if(PlaceSmallToggleButton("Tr\u00E6ffere og Missere", guiStyles.SmallButtonOn))
 			{
 				endGameLines.DisableEndScreen();
 				endGameLines.DoHitMissScreen();
@@ -317,7 +318,7 @@ public class GUIManager: MonoBehaviour {
 		}
 		else if(showingReactionTimes)
 		{
-			if(PlaceSmallToggleButton("Se Tr\u00E6ffere og Missere", guiStyles.SmallButton))
+			if(PlaceSmallToggleButton("Tr\u00E6ffere og Missere", guiStyles.SmallButton))
 			{
 				endGameLines.DisableEndScreen();
 				endGameLines.DoHitMissScreen();
@@ -329,7 +330,7 @@ public class GUIManager: MonoBehaviour {
 
 		if(!showingReactionTimes)
 		{
-			if(PlaceSmallToggleButton("Se Reaktionstid", guiStyles.SmallButton))
+			if(PlaceSmallToggleButton("Reaktionstid", guiStyles.SmallButton))
 			{
 				endGameLines.DisableEndScreen();
 				endGameLines.DoReactionScreen();
@@ -338,7 +339,7 @@ public class GUIManager: MonoBehaviour {
 		}
 		else if(showingReactionTimes)
 		{
-			if(PlaceSmallToggleButton("Se Reaktionstid", guiStyles.SmallButtonOn))
+			if(PlaceSmallToggleButton("Reaktionstid", guiStyles.SmallButtonOn))
 			{
 				endGameLines.DisableEndScreen();
 				endGameLines.DoReactionScreen();
@@ -567,8 +568,6 @@ public class GUIManager: MonoBehaviour {
 	
 	private bool PlaceButton(string text)
 	{
-		//TODO: Implement proper guistyle through guiStyles.WindowStyle or new style
-		//if(GUILayout.Button(text, GUILayout.MinHeight(40)))
 		if(GUILayout.Button(text, guiStyles.WindowStyle, GUILayout.MinHeight(Screen.height*0.15f), GUILayout.MinWidth(Screen.width*0.15f)))
 			return (true);
 		else

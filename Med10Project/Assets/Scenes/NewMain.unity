@@ -1611,14 +1611,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Users:
-  - Hanne
-  - Dorte
-  - Jan
-  - Bo
-  - Richard
-  - Danny
-  - Robert
-  - Geo
+  - Demo
+  - User1
+  - User2
+  - User3
+  - User4
+  - User5
+  - User6
+  - User7
   curtainSpeed: 1
   curtainEasetype: 19
   guiLook:
@@ -3049,6 +3049,38 @@ Prefab:
     - target: {fileID: 400008, guid: c06f2f247adcad8408fbf93af80262bf, type: 2}
       propertyPath: m_LocalPosition.y
       value: -.230000004
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: c06f2f247adcad8408fbf93af80262bf, type: 2}
+      propertyPath: Users.Array.data[0]
+      value: Demo
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: c06f2f247adcad8408fbf93af80262bf, type: 2}
+      propertyPath: Users.Array.data[1]
+      value: User1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: c06f2f247adcad8408fbf93af80262bf, type: 2}
+      propertyPath: Users.Array.data[2]
+      value: User2
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: c06f2f247adcad8408fbf93af80262bf, type: 2}
+      propertyPath: Users.Array.data[3]
+      value: User3
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: c06f2f247adcad8408fbf93af80262bf, type: 2}
+      propertyPath: Users.Array.data[4]
+      value: User4
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: c06f2f247adcad8408fbf93af80262bf, type: 2}
+      propertyPath: Users.Array.data[5]
+      value: User5
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: c06f2f247adcad8408fbf93af80262bf, type: 2}
+      propertyPath: Users.Array.data[6]
+      value: User6
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: c06f2f247adcad8408fbf93af80262bf, type: 2}
+      propertyPath: Users.Array.data[7]
+      value: User7
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 6400004, guid: c06f2f247adcad8408fbf93af80262bf, type: 2}
