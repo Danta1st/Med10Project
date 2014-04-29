@@ -1612,13 +1612,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Users:
   - Demo
-  - User1
-  - User2
-  - User3
-  - User4
-  - User5
-  - User6
-  - User7
+  - Ann
+  - Arne
+  - Hanne
+  - Leo
+  - Mogens
+  - Ebbe
   curtainSpeed: 1
   curtainEasetype: 19
   guiLook:
@@ -3018,6 +3017,10 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 11400000, guid: c06f2f247adcad8408fbf93af80262bf, type: 2}
+      propertyPath: Users.Array.size
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: c06f2f247adcad8408fbf93af80262bf, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -3056,27 +3059,27 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11400000, guid: c06f2f247adcad8408fbf93af80262bf, type: 2}
       propertyPath: Users.Array.data[1]
-      value: User1
+      value: Ann
       objectReference: {fileID: 0}
     - target: {fileID: 11400000, guid: c06f2f247adcad8408fbf93af80262bf, type: 2}
       propertyPath: Users.Array.data[2]
-      value: User2
+      value: Arne
       objectReference: {fileID: 0}
     - target: {fileID: 11400000, guid: c06f2f247adcad8408fbf93af80262bf, type: 2}
       propertyPath: Users.Array.data[3]
-      value: User3
+      value: Hanne
       objectReference: {fileID: 0}
     - target: {fileID: 11400000, guid: c06f2f247adcad8408fbf93af80262bf, type: 2}
       propertyPath: Users.Array.data[4]
-      value: User4
+      value: Leo
       objectReference: {fileID: 0}
     - target: {fileID: 11400000, guid: c06f2f247adcad8408fbf93af80262bf, type: 2}
       propertyPath: Users.Array.data[5]
-      value: User5
+      value: Mogens
       objectReference: {fileID: 0}
     - target: {fileID: 11400000, guid: c06f2f247adcad8408fbf93af80262bf, type: 2}
       propertyPath: Users.Array.data[6]
-      value: User6
+      value: Ebbe
       objectReference: {fileID: 0}
     - target: {fileID: 11400000, guid: c06f2f247adcad8408fbf93af80262bf, type: 2}
       propertyPath: Users.Array.data[7]
