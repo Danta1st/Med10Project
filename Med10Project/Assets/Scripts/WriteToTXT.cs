@@ -4,6 +4,8 @@ using System.IO;
 
 public class WriteToTXT : MonoBehaviour {
 
+	[SerializeField] private bool EnableLogging = false;
+
 	private GUIManager gManager;
 	private GameTimerManager gtManager;
 
@@ -76,34 +78,37 @@ public class WriteToTXT : MonoBehaviour {
 	public void LogData(string _stage, float _reactiontime, int _angle, float _distance, 
 	                    Vector3 _targetposition, Vector2 _touchposition, string _hitType, int _targetID, int _angleID)
 	{
-		userID = gManager.GetUserID();
-		targetID = _targetID;
-		angleID = _angleID;
-		stage = _stage;
-		hitType = _hitType;
-		time = gtManager.GetCurrentPlayTime().ToString("#.00");
-
-		if(_reactiontime < 1)
+		if(EnableLogging == true)
 		{
-			reactiontime = "0"+_reactiontime.ToString("#.000");
+			userID = gManager.GetUserID();
+			targetID = _targetID;
+			angleID = _angleID;
+			stage = _stage;
+			hitType = _hitType;
+			time = gtManager.GetCurrentPlayTime().ToString("#.00");
+
+			if(_reactiontime < 1)
+			{
+				reactiontime = "0"+_reactiontime.ToString("#.000");
+			}
+			else
+			{
+				reactiontime = _reactiontime.ToString("#.000");
+			}
+
+			angle = _angle.ToString("#.00");
+			distance = _distance.ToString("#.00");
+
+			Vector3 tempVector = Camera.main.WorldToScreenPoint(_targetposition);
+			targetpositionX = tempVector.x.ToString("#.0");
+			targetpositionY = tempVector.y.ToString("#.0");
+
+			touchpositionX = _touchposition.x.ToString("#.0");
+			touchpositionY = _touchposition.y.ToString("#.0");
+
+			currentStringToWrite = ""+userID+";"+sessionID+";"+targetID+";"+stage+";"+GetStageID(stage)+";"+time+";"+reactiontime+";"+angleID+";"+angle+";"+distance+";"+targetpositionX+";"+targetpositionY+";"+touchpositionX+";"+touchpositionY+";"+hitType+";"+GetHitTypeID(hitType);
+			WriteTXT();
 		}
-		else
-		{
-			reactiontime = _reactiontime.ToString("#.000");
-		}
-
-		angle = _angle.ToString("#.00");
-		distance = _distance.ToString("#.00");
-
-		Vector3 tempVector = Camera.main.WorldToScreenPoint(_targetposition);
-		targetpositionX = tempVector.x.ToString("#.0");
-		targetpositionY = tempVector.y.ToString("#.0");
-
-		touchpositionX = _touchposition.x.ToString("#.0");
-		touchpositionY = _touchposition.y.ToString("#.0");
-
-		currentStringToWrite = ""+userID+";"+sessionID+";"+targetID+";"+stage+";"+GetStageID(stage)+";"+time+";"+reactiontime+";"+angleID+";"+angle+";"+distance+";"+targetpositionX+";"+targetpositionY+";"+touchpositionX+";"+touchpositionY+";"+hitType+";"+GetHitTypeID(hitType);
-		WriteTXT();
 	}
 
 	private int GetStageID(string stage)
@@ -196,7 +201,10 @@ public class WriteToTXT : MonoBehaviour {
 
 	private void NC_Play()
 	{
-		CreateDataFolder();
-		CreateNewTXTFile();
+		if(EnableLogging == true)
+		{
+			CreateDataFolder();
+			CreateNewTXTFile();
+		}
 	}
 }

@@ -1611,13 +1611,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Users:
-  - Demo
-  - Ann
-  - Arne
-  - Hanne
-  - Leo
-  - Mogens
-  - Ebbe
+  - Test Bruger
   curtainSpeed: 1
   curtainEasetype: 19
   guiLook:
@@ -3019,7 +3013,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 11400000, guid: c06f2f247adcad8408fbf93af80262bf, type: 2}
       propertyPath: Users.Array.size
-      value: 7
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: c06f2f247adcad8408fbf93af80262bf, type: 2}
       propertyPath: m_LocalPosition.x
@@ -3055,7 +3049,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11400000, guid: c06f2f247adcad8408fbf93af80262bf, type: 2}
       propertyPath: Users.Array.data[0]
-      value: Demo
+      value: Test Bruger
       objectReference: {fileID: 0}
     - target: {fileID: 11400000, guid: c06f2f247adcad8408fbf93af80262bf, type: 2}
       propertyPath: Users.Array.data[1]
@@ -3422,6 +3416,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b82eafa8bf366044bb4e9a2cdaeb8947, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  EnableLogging: 0
 --- !u!4 &1782008724
 Transform:
   m_ObjectHideFlags: 0
